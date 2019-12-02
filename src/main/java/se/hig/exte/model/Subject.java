@@ -6,47 +6,59 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Academy {
-
+public class Subject {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String code;
 	private String name;
-	private String abbreviation;
+	private int academyId;
 	
-	public Academy() {}
+	public Subject() {
+	}
 
-	public Academy(String name, String abbreviation) {
+	public Subject(String code, String name, int academyId) {
+		this.code = code;
 		this.name = name;
-		this.abbreviation = abbreviation;
+		this.academyId = academyId;
 	}
 
 	public int getId() {
 		return id;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
 	public String getName() {
 		return name;
 	}
 
-	public String getAbbreviation() {
-		return abbreviation;
+	public int getAcademyId() {
+		return academyId;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setAbbreviation(String abbreviation) {
-		this.abbreviation = abbreviation;
+	public void setAcademyId(int academyId) {
+		this.academyId = academyId;
 	}
 
 	@Override
 	public String toString() {
-		return "name: " + name + "\nid: " + id + "\nabbreviation: " + abbreviation;
+		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: " + academyId;
 	}
+	
 }
