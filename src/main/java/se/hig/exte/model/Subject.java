@@ -15,7 +15,8 @@ public class Subject {
 	private String name;
 	private int academyId;
 	
-	public Subject() {
+	// Only used for JPA/Spring, which is why it is declared with protected.
+	protected Subject() {
 	}
 
 	public Subject(String code, String name, int academyId) {

@@ -14,7 +14,8 @@ public class User {
 	private String name;
 	private boolean isSuperUser;
 	
-	public User() {
+	// Only used for JPA/Spring, which is why it is declared with protected.
+	protected User() {
 	}
 
 	public User(int id, String name, boolean isSuperUser) {
