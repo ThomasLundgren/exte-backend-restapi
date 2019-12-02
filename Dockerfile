@@ -1,21 +1,16 @@
-FROM openjdk:8-jdk-alpine as build
-WORKDIR /workspace/app
+FROM openjdk:8 AS TEMP_BUILD_IMAGE
+ENV APP_HOME=/usr/app/
+WORKDIR $APP_HOME
+COPY build.gradle settings.gradle gradlew $APP_HOME
+COPY gradle $APP_HOME/gradle
+RUN ./gradlew build || return 0 
+COPY . .
+RUN ./gradlew build
 
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-RUN chmod +x gradlew
-RUN ./gradlew dependencies
- 
-COPY src src
- 
-# RUN ./gradlew build unpack -x test
-RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
- 
-FROM openjdk:8-jre-alpine
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/build/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","ExteBackendApplication.java"]
+FROM openjdk:8
+ENV ARTIFACT_NAME=gradle-wrapper.jar
+ENV APP_HOME=/usr/app/
+WORKDIR $APP_HOME
+COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
+EXPOSE 8080
+CMD ["java","-jar",$ARTIFACT_NAME]
