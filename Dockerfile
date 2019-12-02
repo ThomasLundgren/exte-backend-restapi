@@ -5,11 +5,10 @@ WORKDIR /workspace/app
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle .
+RUN chmod +x ./gradlew
 RUN ./gradlew dependencies
  
 COPY src src
-
-RUN chmod +x ./gradlew
  
 RUN ./gradlew build unpack -x test
 RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
