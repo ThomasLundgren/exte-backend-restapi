@@ -1,7 +1,7 @@
 FROM openjdk:8-jdk-alpine as build
 WORKDIR /workspace/app
 
-RUN chmod +x /src/build.sh
+RUN chmod +x gradlew
  
 COPY gradlew .
 COPY gradle gradle
