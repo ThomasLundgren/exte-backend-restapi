@@ -41,10 +41,6 @@ asciidoctor {
 	dependsOn test
 }
 
-docker {
-    name "${project.group}/${jar.baseName}"
-    tags "latest"
-    files jar.archivePath
-    dockerfile file('Dockerfile')
-    buildArgs(['JAR_FILE': "${jar.archiveName}"])
+task wrapper(type: Wrapper) {
+    gradleVersion = '6.1'
 }
