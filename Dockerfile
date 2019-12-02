@@ -9,7 +9,7 @@ RUN ./gradlew dependencies
  
 COPY src src
  
-RUN ./gradlew build unpack -x test
+# RUN ./gradlew build unpack -x test
 RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
  
 FROM openjdk:8-jre-alpine
