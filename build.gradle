@@ -20,10 +20,6 @@ bootJar {
     version = '0.1.0'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '6.0.1'
-}
-
 group = 'se.hig'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
