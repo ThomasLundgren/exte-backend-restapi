@@ -14,7 +14,7 @@ ENV ARTIFACT_NAME=ExteBackendApplication.jar
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 
-RUN cd /$APP_HOME/build/libs/$ARTIFACT_NAME
+RUN cd /$APP_HOME/build/libs/
 
 RUN ls -a
 
