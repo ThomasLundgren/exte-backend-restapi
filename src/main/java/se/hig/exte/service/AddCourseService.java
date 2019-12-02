@@ -16,6 +16,7 @@ public class AddCourseService {
 
 	private final CourseRepository courseRepository;
 	private Course course;
+	
 	/**
 	 * Creates an instance of this service.
 	 * @param courseRepository The {@link CourseRepository} object used to store to persistent storage.
