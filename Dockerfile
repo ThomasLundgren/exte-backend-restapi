@@ -10,7 +10,7 @@ RUN chmod +x gradlew
 RUN ./gradlew build
 
 FROM openjdk:8
-ENV ARTIFACT_NAME=gradle-wrapper.jar
+ENV ARTIFACT_NAME=ExteBackendApplication.jar
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
