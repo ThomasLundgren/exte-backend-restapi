@@ -7,6 +7,10 @@ COPY build.gradle .
 RUN chmod +x gradlew
 RUN ./gradlew dependencies
  
+COPY src src
+RUN ./gradlew build unpack -x test
+RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
+ 
 FROM openjdk:8-jre-alpine
 VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/build/dependency
