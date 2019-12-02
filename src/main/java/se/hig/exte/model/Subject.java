@@ -10,6 +10,7 @@ public class Subject {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String code;
 	private String name;
 	private int academyId;
@@ -21,6 +22,10 @@ public class Subject {
 		this.code = code;
 		this.name = name;
 		this.academyId = academyId;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getCode() {
@@ -35,6 +40,10 @@ public class Subject {
 		return academyId;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public void setCode(String code) {
 		this.code = code;
 	}
@@ -49,7 +58,7 @@ public class Subject {
 
 	@Override
 	public String toString() {
-		return "code: " + code + "\nname: " + name + "\nadademyId: " + academyId;
+		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: " + academyId;
 	}
 	
 }

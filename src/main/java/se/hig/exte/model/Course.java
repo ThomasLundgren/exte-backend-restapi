@@ -10,7 +10,7 @@ public class Course {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;	
+	private int id;
 	private String courseCode;
 	private String subjectCode;
 
