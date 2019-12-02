@@ -4,7 +4,7 @@ WORKDIR /workspace/app
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle .
-chmod +x ./gradlew
+RUN chmod +x gradlew
 RUN ./gradlew dependencies
  
 COPY src src
