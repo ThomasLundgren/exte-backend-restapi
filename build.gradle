@@ -20,14 +20,6 @@ bootJar {
     version = '0.1.0'
 }
 
-// tag::task[]
-docker {
-    name "${project.group}/${jar.baseName}"
-    files jar.archivePath
-    buildArgs(['JAR_FILE': "${jar.archiveName}"])
-}
-// end::task[]
-
 task wrapper(type: Wrapper) {
     gradleVersion = '6.0.1'
 }
