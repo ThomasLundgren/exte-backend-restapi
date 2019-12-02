@@ -1,15 +1,8 @@
 FROM openjdk:8-jdk-alpine as build
 WORKDIR /workspace/app
  
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-RUN chmod +x gradlew
-RUN ./gradlew dependencies
- 
-COPY src src
-RUN chmod +x gradlew
-RUN ./gradlew build unpack -x test --scan
+COPY . /workspace/app
+RUN --mount=type=cache,target=/root/.gradle ./gradlew clean build
 RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
  
 FROM openjdk:8-jre-alpine
