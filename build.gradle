@@ -3,7 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
-	id 'com.google.cloud.tools.jib' version '1.8.0'
+	id "org.springframework.boot" version "2.1.0.RELEASE"
 }
 
 jar {
@@ -12,6 +12,25 @@ jar {
                 'Main-Class': 'se.hig.exte.ExteBackendApplication'
         )
     }
+}
+
+
+bootJar {
+    mainClassName = 'se.hig.exte.ExteBackendApplication'
+    baseName = 'spring-boot-integration-test'
+    version = '0.1.0'
+}
+
+// tag::task[]
+docker {
+    name "${project.group}/${jar.baseName}"
+    files jar.archivePath
+    buildArgs(['JAR_FILE': "${jar.archiveName}"])
+}
+// end::task[]
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '6.0.1'
 }
 
 group = 'se.hig'
