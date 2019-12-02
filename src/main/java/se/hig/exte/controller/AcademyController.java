@@ -24,7 +24,7 @@ public class AcademyController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Academy> create(@RequestBody Academy academy) {
+	public ResponseEntity<Academy> add(@RequestBody Academy academy) {
 		Academy savedAcademy = academyRepository.save(academy);
 		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
 	}
