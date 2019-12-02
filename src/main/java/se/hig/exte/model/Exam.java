@@ -75,7 +75,27 @@ public class Exam {
 	public URL getPdfUrl() {
 		return pdfUrl;
 	}
-	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public void setUnpublishDate(LocalDate unpublishDate) {
+		this.unpublishDate = unpublishDate;
+	}
+
+	public void setPdfUrl(URL pdfUrl) {
+		this.pdfUrl = pdfUrl;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+
 	@Override
 	public String toString() {
 		return "name: " + name + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nURL: " + pdfUrl;

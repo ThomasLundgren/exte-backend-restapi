@@ -33,10 +33,6 @@ public class Course {
 	public String getCourseCode() {
 		return courseCode;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;

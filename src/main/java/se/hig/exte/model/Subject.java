@@ -41,10 +41,6 @@ public class Subject {
 		return academyId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public void setCode(String code) {
 		this.code = code;
 	}
