@@ -27,8 +27,8 @@ public class CourseController {
 	
 	@GetMapping("/{id}")
 	public Course getCourse(@PathVariable String id) {
-		int examId = Integer.parseInt(id);
-		return courseRepository.findById(examId);
+		int courseId = Integer.parseInt(id);
+		return courseRepository.findById(courseId);
 	}
 
 }
