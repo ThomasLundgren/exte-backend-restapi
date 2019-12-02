@@ -6,6 +6,9 @@ plugins {
 }
 
 jar {
+	baseName='ExteBackendApplication'
+	version =  '0.1.0'
+	
     manifest {
         attributes(
                 'Main-Class': 'se.hig.exte.ExteBackendApplication'
