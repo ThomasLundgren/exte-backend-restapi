@@ -42,5 +42,5 @@ asciidoctor {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '6.1'
 }
