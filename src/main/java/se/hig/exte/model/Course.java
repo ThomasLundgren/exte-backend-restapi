@@ -33,6 +33,18 @@ public class Course {
 		return courseCode;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCourseCode(String courseCode) {
+		this.courseCode = courseCode;
+	}
+
+	public void setSubjectCode(String subjectCode) {
+		this.subjectCode = subjectCode;
+	}
+
 	@Override
 	public String toString() {
 		return "courseCode: " + courseCode + "\nid: " + id + "\nsubjectCode: " + subjectCode;
