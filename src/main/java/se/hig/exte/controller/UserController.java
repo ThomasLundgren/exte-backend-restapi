@@ -17,23 +17,23 @@ import se.hig.exte.repository.UserRepository;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-	private final UserRepository userRepository;
-
-	@Autowired
-	public UserController(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-	
-	@PostMapping("/add")
-	public ResponseEntity<User> create(@RequestBody User user) {
-		User savedUser = userRepository.save(user);
-		return new ResponseEntity<User>(savedUser, HttpStatus.OK);
-	}
-	
-	@GetMapping("/{id}")
-	public User getUser(@PathVariable String id) {
-		int userId = Integer.parseInt(id);
-		return userRepository.findById(userId);
-	}
-	
+//	private final UserRepository userRepository;
+//
+//	@Autowired
+//	public UserController(UserRepository userRepository) {
+//		this.userRepository = userRepository;
+//	}
+//	
+//	@PostMapping("/add")
+//	public ResponseEntity<User> create(@RequestBody User user) {
+//		User savedUser = userRepository.save(user);
+//		return new ResponseEntity<User>(savedUser, HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/{id}")
+//	public User getUser(@PathVariable String id) {
+//		int userId = Integer.parseInt(id);
+//		return userRepository.findById(userId);
+//	}
+//	
 }

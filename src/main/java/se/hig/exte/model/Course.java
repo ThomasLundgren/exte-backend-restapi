@@ -13,15 +13,15 @@ public class Course {
 	private int id;
 	private String name;
 	private String courseCode;
-	private String subjectCode;
+	private int subjectId;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Course() {}
 	
-	public Course(String name, String courseCode, String subjectCode) {
+	public Course(String name, String courseCode, int subjectId) {
 		this.name = name;
 		this.courseCode = courseCode;
-		this.subjectCode = subjectCode;
+		this.subjectId = subjectId;
 	}
 
 	public int getId() {
@@ -33,8 +33,8 @@ public class Course {
 		return name;
 	}
 	
-	public String getSubjectCode() {
-		return subjectCode;
+	public int getSubjectId() {
+		return subjectId;
 	}
 
 	public String getCourseCode() {
@@ -48,13 +48,13 @@ public class Course {
 		this.courseCode = courseCode;
 	}
 
-	public void setSubjectCode(String subjectCode) {
-		this.subjectCode = subjectCode;
+	public void setSubjectId(int subjectId) {
+		this.subjectId = subjectId;
 	}
 
 	@Override
 	public String toString() {
-		return "name: " + name + "\ncourseCode: " + courseCode + "\nid: " + id + "\nsubjectCode: " + subjectCode;
+		return "name: " + name + "\ncourseCode: " + courseCode + "\nid: " + id + "\nsubjectCode: " + subjectId;
 	}
 
 
