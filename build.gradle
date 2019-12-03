@@ -19,7 +19,7 @@ jar {
 
 bootJar {
     mainClassName = 'se.hig.exte.ExteBackendApplication'
-    baseName = 'spring-boot-integration-test'
+    baseName = 'ExteBackendApplication'
     version = '0.1.0'
 }
 
