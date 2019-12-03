@@ -12,6 +12,7 @@ import se.hig.exte.repository.ExamRepository;
 @Service
 public class AddExamService {
 
+	@Autowired
 	private final ExamRepository examRepo;
 	private Exam exam;
 	
@@ -20,7 +21,7 @@ public class AddExamService {
 	 * @param examRepository The {@link ExamRepository} object used to store to persistent storage.
 	 * @param exam The {@link Exam} object to be stored.
 	 */
-	@Autowired
+	
 	public AddExamService(ExamRepository examRepo, Exam exam) {
 		this.examRepo = examRepo;
 		this.exam = exam;
