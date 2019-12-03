@@ -14,7 +14,8 @@ public class Academy {
 	private String name;
 	private String abbreviation;
 	
-	public Academy() {}
+	// Only used for JPA/Spring, which is why it is declared with protected.
+	protected Academy() {}
 
 	public Academy(String name, String abbreviation) {
 		this.name = name;
@@ -31,10 +32,6 @@ public class Academy {
 
 	public String getAbbreviation() {
 		return abbreviation;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setName(String name) {

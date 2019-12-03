@@ -13,8 +13,9 @@ public class Course {
 	private int id;
 	private String courseCode;
 	private String subjectCode;
-
-	public Course() {}
+	
+	// Only used for JPA/Spring, which is why it is declared with protected.
+	protected Course() {}
 	
 	public Course(String courseCode, String subjectCode) {
 		this.courseCode = courseCode;
@@ -31,10 +32,6 @@ public class Course {
 
 	public String getCourseCode() {
 		return courseCode;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setCourseCode(String courseCode) {
