@@ -1,5 +1,7 @@
 package se.hig.exte.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import se.hig.exte.model.Exam;
@@ -8,7 +10,6 @@ import se.hig.exte.repository.ExamRepository;
 public class ExamService implements IService<Exam> {
 
 	private final ExamRepository examRepo;
-	
 	
 	
 	/**
@@ -32,5 +33,9 @@ public class ExamService implements IService<Exam> {
 	@Override
 	public void deleteById(int id) {
 		examRepo.deleteById(id);
+	}
+	
+	public List<Exam> findByCourseId(int courseId) {
+		return examRepo.findByCourseId(courseId);
 	}
 }
