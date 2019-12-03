@@ -15,9 +15,6 @@ public class Course {
 	private int id;
 	private String name;
 	private String courseCode;
-//	@ManyToOne
-//	@JoinColumn
-//	private Subject subject;
 	private int subjectId;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
