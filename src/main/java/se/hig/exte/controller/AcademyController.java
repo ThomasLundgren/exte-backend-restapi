@@ -16,22 +16,22 @@ import se.hig.exte.repository.AcademyRepository;
 @RequestMapping("/api/academy")
 public class AcademyController {
 
-	private final AcademyRepository academyRepository;
-	
-	public AcademyController(AcademyRepository academyRepository) {
-		this.academyRepository = academyRepository;
-	}
-	
-	@PostMapping("/add")
-	public ResponseEntity<Academy> add(@RequestBody Academy academy) {
-		Academy savedAcademy = academyRepository.save(academy);
-		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
-	}
-
-	@GetMapping("/{id}")
-	public Academy getSubject(@PathVariable String id) {
-		int academyId = Integer.parseInt(id);
-		return academyRepository.findById(academyId);
-	}
+//	private final AcademyRepository academyRepository;
+//	
+//	public AcademyController(AcademyRepository academyRepository) {
+//		this.academyRepository = academyRepository;
+//	}
+//	
+//	@PostMapping("/add")
+//	public ResponseEntity<Academy> add(@RequestBody Academy academy) {
+//		Academy savedAcademy = academyRepository.save(academy);
+//		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
+//	}
+//
+//	@GetMapping("/{id}")
+//	public Academy getSubject(@PathVariable String id) {
+//		int academyId = Integer.parseInt(id);
+//		return academyRepository.findById(academyId);
+//	}
 
 }
