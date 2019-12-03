@@ -76,6 +76,10 @@ public class Exam {
 		return pdfUrl;
 	}
 
+	public int getCourseId() {
+		return courseId;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
