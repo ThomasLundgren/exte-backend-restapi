@@ -11,7 +11,7 @@ import se.hig.exte.repository.AcademyRepository;
  * @author Thomas Lundgren, Sanna Lundqvist, Mattias Melchior, Hanna Meden, Niklas Nordgren
  */
 @Service
-public class GetAcademyByIdService implements IService<Academy> {
+public class GetAcademyByIdService {
 
 	@Autowired
 	private AcademyRepository academyRepository;

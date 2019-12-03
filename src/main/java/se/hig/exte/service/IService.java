@@ -1,7 +1,11 @@
 package se.hig.exte.service;
 
-public interface IService<T> {
+public interface IService<E> {
 	
-	public T execute();
-
+	public E add(E entity);
+		
+	public E getById(int id);
+	
+	public void deleteById(int id);
+	
 }
