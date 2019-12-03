@@ -1,19 +1,16 @@
 FROM openjdk:8 AS TEMP_BUILD_IMAGE
-ENV APP_HOME=/usr/app/
-WORKDIR $APP_HOME
-COPY build.gradle settings.gradle gradlew $APP_HOME
-COPY gradle $APP_HOME/gradle
-RUN chmod +x gradlew
+RUN mkdir -p /workspace
+WORKDIR /workspace
+COPY build.gradle settings.gradle gradlew /workspace
+COPY gradle workspace/gradle
+RUN chmod +x ./gradlew
 RUN ./gradlew build || return 0 
-COPY . .
-RUN chmod +x gradlew
+RUN chmod +x ./gradlew
 RUN ./gradlew build
 
 FROM openjdk:8
-ENV ARTIFACT_NAME=exte-backend-restapi.jar
-ENV APP_HOME=/usr/app/
-WORKDIR $APP_HOME
 
-COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
-EXPOSE 8080
-CMD ["java","-jar",$ARTIFACT_NAME]
+RUN mkdir -p /app
+COPY --from=TEMP_BUILD_IMAGE /workspace/build/libs/exte-backend-restapi.jar /app/exte-backend-restapi.jar
+
+ENTRYPOINT["java", "-jar", "/app/exte-backend-restapi.jar"]
