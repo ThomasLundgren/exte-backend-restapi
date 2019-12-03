@@ -22,7 +22,7 @@ public class AcademyService implements IService<Academy> {
 	}
 
 	@Override
-	public Academy getById(int id) {
+	public Academy findById(int id) {
 		return academyRepo.findById(id);
 	}
 
