@@ -13,4 +13,4 @@ FROM openjdk:8
 RUN mkdir -p /app
 COPY --from=TEMP_BUILD_IMAGE /workspace/build/libs/exte-backend-restapi.jar /app/exte-backend-restapi.jar
 
-ENTRYPOINT["java", "-jar", "/app/exte-backend-restapi.jar"]
+CMD ["java", "-jar", "/app/exte-backend-restapi.jar"]
