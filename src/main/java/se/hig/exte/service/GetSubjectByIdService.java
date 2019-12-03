@@ -3,6 +3,7 @@ package se.hig.exte.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.hig.exte.model.Exam;
 import se.hig.exte.model.Subject;
 import se.hig.exte.repository.SubjectRepository;
 
@@ -18,7 +19,7 @@ public class GetSubjectByIdService {
 	/**
 	 * Creates an instance of this service.
 	 * @param subjectRepository The {@link SubjectRepository} object used to retrieve from persistent storage.
-	 * @param id The {@link Subject} object to be stored.
+	 * @param id The ID of the {@link Subject} to retrieve.
 	 */
 	@Autowired
 	public GetSubjectByIdService(SubjectRepository subjectRepository, int id) {
@@ -28,7 +29,7 @@ public class GetSubjectByIdService {
 	
 	/**
 	 * Executes this service.
-	 * @param id The {@link Subject} object to retrieve from persistent storage.
+	 *  @return The {@link Subject} object to fetch from persistent storage.
 	 */
 	public Subject execute() {
 		return subjectRepository.findById(id);
