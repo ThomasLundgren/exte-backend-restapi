@@ -7,7 +7,7 @@ import se.hig.exte.model.Subject;
 import se.hig.exte.repository.SubjectRepository;
 
 /**
- * A service that stores an {@link Subject} object to persistent storage.
+ * A service that stores a {@link Subject} object to persistent storage.
  */
 @Service
 public class AddSubjectService {

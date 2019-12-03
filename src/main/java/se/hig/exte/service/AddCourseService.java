@@ -7,7 +7,7 @@ import se.hig.exte.model.Course;
 import se.hig.exte.repository.CourseRepository;
 
 /**
- * A service that stores an {@link Course} object to persistent storage.
+ * A service that stores a {@link Course} object to persistent storage.
  */
 @Service
 public class AddCourseService {
