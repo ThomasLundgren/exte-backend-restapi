@@ -10,7 +10,7 @@ RUN chmod +x gradlew
 RUN ./gradlew build
 
 FROM openjdk:8
-ENV ARTIFACT_NAME=ExteBackendApplication.jar
+ENV ARTIFACT_NAME=exte-backend-restapi.jar
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 
