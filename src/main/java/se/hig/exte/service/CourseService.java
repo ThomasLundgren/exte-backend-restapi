@@ -3,14 +3,13 @@ package se.hig.exte.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Course;
 import se.hig.exte.repository.CourseRepository;
 
 @Service
-public class CourseService implements IFilterableService<Course> {
+public class CourseService implements IService<Course> {
 
 	private final CourseRepository courseRepo;
 
@@ -33,12 +32,9 @@ public class CourseService implements IFilterableService<Course> {
 	public void deleteById(int id) {
 		courseRepo.deleteById(id);
 	}
-
-	@Override
-	public List<Course> findAllByParentId(int id) {
-		Course course = new Course(null, null, id);
-		Example<Course> example = Example.of(course);
-		return courseRepo.findAll(example);
+	
+	public List<Course> findBySubjectId(int subjectId) {
+		return courseRepo.findBySubjectId(subjectId);
 	}
 	
 	

@@ -48,9 +48,7 @@ public class CourseController {
 	
 	@GetMapping("/subject/{id}")
 	public ResponseEntity<List<Course>> getCoursesBySubjectId(@PathVariable String id) {
-		List<Course> courses = courseService.findAllByParentId(Integer.parseInt(id));
-		System.out.println("courses size: " + courses.size());
-		courses.forEach(c -> System.out.println(c));
+		List<Course> courses = courseService.findBySubjectId(Integer.parseInt(id));
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 
