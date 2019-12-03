@@ -7,31 +7,31 @@ import se.hig.exte.model.Exam;
 import se.hig.exte.repository.ExamRepository;
 
 /**
- * A service that stores an {@link Exam} object to persistent storage.
+ * A service that deletes an {@link Exam} object from persistent storage.
  */
 @Service
-public class AddExamService implements IService<Exam> {
+public class RemoveExamService {
 
 	private final ExamRepository examRepo;
 	private Exam exam;
-	
+
 	/**
 	 * Creates an instance of this service.
-	 * @param examRepository The {@link ExamRepository} object used to store to persistent storage.
-	 * @param exam The {@link Exam} object to be stored.
+	 * @param examRepository The {@link ExamRepository} object used to delete from persistent storage.
+	 * @param exam The {@link Exam} object to be removed.
 	 */
 	@Autowired
-	public AddExamService(ExamRepository examRepo, Exam exam) {
+	public RemoveExamService(ExamRepository examRepo, Exam exam) {
 		this.examRepo = examRepo;
 		this.exam = exam;
 	}
-	
+
 	/**
 	 * Executes this service.
-	 * @param exam The {@link Exam} object to store in persistent storage.
+	 * @param exam The {@link Exam} object to remove from persistent storage.
 	 */
 	public void execute() {
-		examRepo.save(exam);
+		examRepo.delete(exam);
 	}
 
 }

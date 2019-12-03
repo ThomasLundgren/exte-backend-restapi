@@ -15,7 +15,8 @@ public class Subject {
 	private String name;
 	private int academyId;
 	
-	public Subject() {
+	// Only used for JPA/Spring, which is why it is declared with protected.
+	protected Subject() {
 	}
 
 	public Subject(String code, String name, int academyId) {
@@ -40,10 +41,6 @@ public class Subject {
 		return academyId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public void setCode(String code) {
 		this.code = code;
 	}

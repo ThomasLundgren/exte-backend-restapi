@@ -1,14 +1,14 @@
 FROM openjdk:8-jdk-alpine as build
 WORKDIR /workspace/app
 
-RUN chmod +x gradlew
- 
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle .
+RUN chmod +x gradlew
 RUN ./gradlew dependencies
  
 COPY src src
+ 
 RUN ./gradlew build unpack -x test
 RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
  
