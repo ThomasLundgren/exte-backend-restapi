@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Subject {
@@ -11,18 +16,25 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Size(min = 2, max = 2)
+	@NotBlank(message = "Code cannot be blank, empty or null")
 	private String code;
+	@Size(min = 3)
+	@NotBlank(message = "Name cannot be blank, empty or null")
 	private String name;
-	private int academyId;
+	@ManyToOne
+	@JoinColumn(name = "AcademyId")
+	@NotNull(message = "Academy cannot be null")
+	private Academy academy;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Subject() {
 	}
 
-	public Subject(String code, String name, int academyId) {
+	public Subject(String code, String name, Academy academy) {
 		this.code = code;
 		this.name = name;
-		this.academyId = academyId;
+		this.academy = academy;
 	}
 
 	public int getId() {
@@ -37,10 +49,6 @@ public class Subject {
 		return name;
 	}
 
-	public int getAcademyId() {
-		return academyId;
-	}
-
 	public void setCode(String code) {
 		this.code = code;
 	}
@@ -49,13 +57,9 @@ public class Subject {
 		this.name = name;
 	}
 
-	public void setAcademyId(int academyId) {
-		this.academyId = academyId;
-	}
-
 	@Override
 	public String toString() {
-		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: " + academyId;
+		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: ";
 	}
 	
 }
