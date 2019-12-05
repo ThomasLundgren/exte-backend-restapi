@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * A model/entity class that represents a Course. The fields of this class maps to columns in the
@@ -17,9 +18,11 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@NotBlank(message = "Name cannot be blank, empty or null")
+	@NotBlank(message = "Name cannot be empty or null")
+	@Size(min = 2, message = "Name must be at least two characters long")
 	private String name;
-	@NotBlank(message = "Course Code cannot be blank, empty or null")
+	@NotBlank(message = "Course code cannot be empty or null")
+	@Size(min = 6, max = 7, message = "Course code must be between six and seven characters long")
 	private String courseCode;
 	@NotNull(message = "Subject cannot be null")
 	private Subject subject;
@@ -29,8 +32,8 @@ public class Course {
 	
 	/**
 	 * Creates a {@code Course} object.
-	 * @param name The name of this {@code Course}.
-	 * @param courseCode The course code of this {@code Course}.
+	 * @param name The name of this {@code Course}. Must be at least two characters long and cannot be null.
+	 * @param courseCode The course code of this {@code Course}. Must be between six and seven characters long.
 	 * @param subject The {@link Subject} to which this {@code Course} belongs.
 	 */
 	public Course(String name, String courseCode, Subject subject) {
@@ -72,7 +75,7 @@ public class Course {
 	}
 
 	/**
-	 * Set the name of this {@code Course}.
+	 * Set the name of this {@code Course}. Must be at least two characters long.
 	 * @param name The new name of this {@code Course}.
 	 */
 	public void setName(String name) {
@@ -80,7 +83,7 @@ public class Course {
 	}
 	
 	/**
-	 * Set the course code of this {@code Course}.
+	 * Set the course code of this {@code Course}. Must be between six and seven characters long.
 	 * @param name The new course code of this {@code Course}.
 	 */
 	public void setCourseCode(String courseCode) {
@@ -88,7 +91,7 @@ public class Course {
 	}
 
 	/**
-	 * Set the {@link Subject} to which this {@code Course} should belong.
+	 * Set the {@link Subject} to which this {@code Course} should belong. Cannot be null.
 	 * @param name The new {@link Subject} to which this {@code Course} should belong.
 	 */
 	public void setSubject(Subject subject) {

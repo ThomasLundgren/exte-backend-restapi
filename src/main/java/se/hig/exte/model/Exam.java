@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * A model/entity class that represents an Exam. The fields of this class maps to columns in the
@@ -23,6 +24,7 @@ public class Exam {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotBlank(message = "Name cannot be blank, empty or null")
+	@Size(min = 2, message = "Name must be at least two characters long")
 	private String name;
 	@NotNull(message = "Date cannot be null")
 	private LocalDate date;
@@ -45,11 +47,11 @@ public class Exam {
 	
 	/**
 	 * Creates an {@code Exam} object.
-	 * @param name The name of the {@code Exam}.
-	 * @param date The date of the {@code Exam}.
-	 * @param unpublishDate The date at which the {@code Exam} should be unpublished from the website.
-	 * @param pdfUrl The URL to the PDF file that corresponds to an {@code Exam}.
-	 * @param course The {@link Course} to which an {@code Exam} belongs.
+	 * @param name The name of the {@code Exam}. Must be at least two characters long and cannot be null.
+	 * @param date The date of the {@code Exam}. Cannot be null.
+	 * @param unpublishDate The date at which the {@code Exam} should be unpublished from the website. Cannot be null.
+	 * @param pdfUrl The URL to the PDF file that corresponds to an {@code Exam}. Cannot be null.
+	 * @param course The {@link Course} to which an {@code Exam} belongs. Cannot be null.
 	 */
 	public Exam(String name, LocalDate date, LocalDate unpublishDate, URL pdfUrl, Course course) {
 		this.name = name;
@@ -99,30 +101,57 @@ public class Exam {
 		return pdfUrl;
 	}
 
+	/**
+	 * Get the {@link Course} to which this {@code Exam} belongs.
+	 * @return The {@link Course} to which this {@code Exam} belongs.
+	 */
 	public Course getCourse() {
 		return course;
 	}
 	
+	/**
+	 * Set the name of this {@code Exam}. Must be at least two characters long and not null.
+	 * @param name The new name of this {@code Exam}.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Set the date of this {@code Exam}. Cannot be null.
+	 * @param name The new date of this {@code Exam}.
+	 */
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
+	/**
+	 * Set the unpublish date of this {@code Exam}. Cannot be null.
+	 * @param name The new unpublish date of this {@code Exam}.
+	 */
 	public void setUnpublishDate(LocalDate unpublishDate) {
 		this.unpublishDate = unpublishDate;
 	}
 
+	/**
+	 * Set the PDF file URL that corresponds to this {@code Exam}. Cannot be null.
+	 * @param name The new PDF file URL that corresponds to this {@code Exam}.
+	 */
 	public void setPdfUrl(URL pdfUrl) {
 		this.pdfUrl = pdfUrl;
 	}
 
+	/**
+	 * Set the {@link Course} to which this {@code Exam} belongs. Cannot be null.
+	 * @param course The new {@link Course} to which this {@code Exam} belongs.
+	 */
 	public void setCourse(Course course) {
 		this.course = course;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "name: " + name + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nURL: " + pdfUrl;
