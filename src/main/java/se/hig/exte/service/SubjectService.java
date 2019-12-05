@@ -13,7 +13,7 @@ import se.hig.exte.repository.SubjectRepository;
  * A Service used for performing CRUD operations on {@link Subject} objects.
  */
 @Service
-public class SubjectService implements IService<Subject> {
+public class SubjectService implements CrudService<Subject> {
 
 	private final SubjectRepository subjectRepo;
 	

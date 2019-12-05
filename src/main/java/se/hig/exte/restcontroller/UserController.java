@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.User;
-import se.hig.exte.service.IService;
+import se.hig.exte.service.CrudService;
 import se.hig.exte.service.UserService;
 
 /**
@@ -29,7 +29,7 @@ public class UserController {
 
 	/**
 	 * Create a {@code UserController} object.
-	 * @param userService The {@link IService} class used to perform all services exposed in this RestController. 
+	 * @param userService The {@link CrudService} class used to perform all services exposed in this RestController. 
 	 */
 	@Autowired
 	public UserController(UserService userService) {

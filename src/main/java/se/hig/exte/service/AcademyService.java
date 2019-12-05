@@ -12,7 +12,7 @@ import se.hig.exte.repository.AcademyRepository;
  * A Service used for performing CRUD operations on {@link Academy} objects.
  */
 @Service
-public class AcademyService implements IService<Academy> {
+public class AcademyService implements CrudService<Academy> {
 
 	private final AcademyRepository academyRepo;
 	

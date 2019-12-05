@@ -13,7 +13,7 @@ import se.hig.exte.repository.ExamRepository;
  * A Service used for performing CRUD operations on {@link Exam} objects.
  */
 @Service
-public class ExamService implements IService<Exam> {
+public class ExamService implements CrudService<Exam> {
 
 	private final ExamRepository examRepo;
 	

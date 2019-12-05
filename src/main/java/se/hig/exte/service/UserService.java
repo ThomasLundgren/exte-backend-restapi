@@ -9,7 +9,7 @@ import se.hig.exte.model.User;
 import se.hig.exte.repository.UserRepository;
 
 @Service
-public class UserService implements IService<User> {
+public class UserService implements CrudService<User> {
 
 	private final UserRepository userRepo;
 	

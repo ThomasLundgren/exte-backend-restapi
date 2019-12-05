@@ -13,7 +13,7 @@ import se.hig.exte.repository.CourseRepository;
  * A Service used for performing CRUD operations on {@link Course} objects.
  */
 @Service
-public class CourseService implements IService<Course> {
+public class CourseService implements CrudService<Course> {
 
 	private final CourseRepository courseRepo;
 
