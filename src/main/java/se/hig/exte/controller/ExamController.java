@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,7 @@ public class ExamController {
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<Exam> create(@RequestBody Exam exam) {
+	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam) {
 		Exam savedExam = examService.save(exam);
 		return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
 	}
@@ -47,6 +48,12 @@ public class ExamController {
 	@DeleteMapping("/{id}")
 	public void deleteExamById(@PathVariable int id) {
 		examService.deleteById(id);		
+	}
+	
+	@PatchMapping("/")
+	public ResponseEntity<Exam> patchExam(@RequestBody Exam exam) {
+		Exam patchedExam = examService.save(exam);
+		return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);	
 	}
 	
 }

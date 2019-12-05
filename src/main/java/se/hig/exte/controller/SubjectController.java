@@ -26,9 +26,8 @@ public class SubjectController {
 		this.subjectService = subjectService;
 	}
 
-
 	@PostMapping("/")
-	public ResponseEntity<Subject> create(@RequestBody Subject subject) {
+	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) {
 		Subject savedSubject = subjectService.save(subject);
 		return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
 	}
@@ -47,5 +46,11 @@ public class SubjectController {
 	@DeleteMapping("/{id}")
 	public void deleteSubjectById(@PathVariable int id) {
 		subjectService.deleteById(id);		
+	}
+	
+	@PostMapping("/")
+	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject) {
+		Subject patchedSubject = subjectService.save(subject);
+		return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
 	}
 }
