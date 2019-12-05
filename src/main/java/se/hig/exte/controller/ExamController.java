@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import se.hig.exte.model.Exam;
 import se.hig.exte.service.ExamService;
 
 @RestController
-@RequestMapping("/api/exam")
+@RequestMapping("/exams")
 public class ExamController {
 	
 	private final ExamService examService;
@@ -26,9 +27,9 @@ public class ExamController {
 		this.examService = addExamService;
 	}
 	
-	@PostMapping("/add")
+	@PostMapping("/")
 	public ResponseEntity<Exam> create(@RequestBody Exam exam) {
-		Exam savedExam = examService.add(exam);
+		Exam savedExam = examService.save(exam);
 		return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
 	}
 	
@@ -42,6 +43,20 @@ public class ExamController {
 	public ResponseEntity<List<Exam>> getExamByCourseId(@PathVariable String id) {
 		List<Exam> exams = examService.findByCourseId(Integer.parseInt(id));
 		return new ResponseEntity<List<Exam>>(exams, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Exam> deleteExamById(@PathVariable String id) {
+		int parsed = Integer.parseInt(id);
+		examService.deleteById(parsed);
+		Exam exam = examService.findById(parsed);
+		ResponseEntity<Exam> responseEntity;
+		if (exam == null) {
+			responseEntity = new ResponseEntity<Exam>(HttpStatus.NO_CONTENT);
+		} else {
+			responseEntity = new ResponseEntity<Exam>(exam, HttpStatus.OK);
+		}
+		return responseEntity;
 	}
 	
 }

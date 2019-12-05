@@ -17,7 +17,7 @@ import se.hig.exte.model.Course;
 import se.hig.exte.service.CourseService;
 
 @RestController
-@RequestMapping("/api/course")
+@RequestMapping("/courses")
 public class CourseController {
 
 	private final CourseService courseService;
@@ -35,7 +35,7 @@ public class CourseController {
 	
 	@PostMapping("/")
 	public ResponseEntity<Course> save(@RequestBody Course course) {
-		Course savedCourse = courseService.add(course);
+		Course savedCourse = courseService.save(course);
 		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
 	}
 	

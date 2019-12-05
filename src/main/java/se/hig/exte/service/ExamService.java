@@ -13,7 +13,6 @@ public class ExamService implements IService<Exam> {
 
 	private final ExamRepository examRepo;
 	
-	
 	/**
 	 * @param examRepo
 	 */
@@ -23,7 +22,7 @@ public class ExamService implements IService<Exam> {
 	}
 
 	@Override
-	public Exam add(Exam exam) {
+	public Exam save(Exam exam) {
 		return examRepo.save(exam);
 	}
 
@@ -40,4 +39,5 @@ public class ExamService implements IService<Exam> {
 	public List<Exam> findByCourseId(int courseId) {
 		return examRepo.findByCourseId(courseId);
 	}
+
 }

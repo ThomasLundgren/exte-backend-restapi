@@ -20,7 +20,7 @@ public class UserService implements IService<User> {
 	}
 
 	@Override
-	public User add(User user) {
+	public User save(User user) {
 		return userRepo.save(user);
 	}
 

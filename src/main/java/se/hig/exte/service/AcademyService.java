@@ -17,7 +17,7 @@ public class AcademyService implements IService<Academy> {
 	}
 
 	@Override
-	public Academy add(Academy academy) {
+	public Academy save(Academy academy) {
 		return academyRepo.save(academy);
 	}
 

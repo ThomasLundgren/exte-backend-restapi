@@ -28,7 +28,7 @@ public class SubjectController {
 
 	@PostMapping("/add")
 	public ResponseEntity<Subject> create(@RequestBody Subject subject) {
-		Subject savedSubject = subjectService.add(subject);
+		Subject savedSubject = subjectService.save(subject);
 		return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
 	}
 
