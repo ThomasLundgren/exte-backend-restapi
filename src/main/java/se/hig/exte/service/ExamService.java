@@ -13,7 +13,6 @@ public class ExamService implements IService<Exam> {
 
 	private final ExamRepository examRepo;
 	
-	
 	/**
 	 * @param examRepo
 	 */
@@ -40,4 +39,5 @@ public class ExamService implements IService<Exam> {
 	public List<Exam> findByCourseId(int courseId) {
 		return examRepo.findByCourseId(courseId);
 	}
+
 }
