@@ -1,10 +1,12 @@
 package se.hig.exte.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.User;
 import se.hig.exte.repository.UserRepository;
 
+@Service
 public class UserService implements IService<User> {
 
 	private final UserRepository userRepo;

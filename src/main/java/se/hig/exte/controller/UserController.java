@@ -12,19 +12,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.User;
+import se.hig.exte.service.IService;
 import se.hig.exte.service.UserService;
 
+/**
+ * This class is a RestController class responsible for mapping HTTP requests for the /users end-point.
+ */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/users")
 public class UserController {
 	
 	private final UserService userService;
 
+	/**
+	 * Create a {@code UserController} object.
+	 * @param userService The {@link IService} class used to perform all services exposed in this RestController. 
+	 */
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 	
+	/**
+	 * Creates a user and stores it in the database.
+	 * @param user The {@link User} to add.
+	 * @return A {@code ResponseEntity} object containing the saved {@link User} and an HTTP status code.
+	 */
 	@PostMapping("/")
 	public ResponseEntity<User> create(@RequestBody User user) {
 		User savedUser = userService.add(user);
