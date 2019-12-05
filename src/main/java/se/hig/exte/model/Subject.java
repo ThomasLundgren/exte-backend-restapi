@@ -1,16 +1,10 @@
 package se.hig.exte.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -29,12 +23,7 @@ public class Subject {
 	@Size(min = 3)
 	@NotBlank(message = "Name cannot be blank, empty or null")
 	private String name;
-	@ManyToOne
-	@JoinColumn(name = "AcademyId")
-	@NotNull(message = "Academy cannot be null")
-	private Academy academy;
-	@OneToMany(mappedBy = "subject")
-	private List<Course> courses;
+	private int academyId;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Subject() {
@@ -44,12 +33,11 @@ public class Subject {
 	 * Creates a {@code Subject} object.
 	 * @param code The code of the {@code Subject}. Must be two characters long and cannot be null or whitespace.
 	 * @param name The name of the {@code Subject}. Must be at least three characters long and cannot be null or whitespace.
-	 * @param academy The {@link Academy} to which this {@code Subject} belongs. Cannot be null.
+	 * @param academyId The ID of the {@link Academy} to which this {@code Subject} belongs.
 	 */
-	public Subject(String code, String name, Academy academy) {
+	public Subject(String code, String name, int academyId) {
 		this.code = code;
 		this.name = name;
-		this.academy = academy;
 	}
 
 	/**
@@ -77,19 +65,11 @@ public class Subject {
 	}
 	
 	/**
-	 * Get the {@link Academy} to which this {@code Subject} belongs.
-	 * @return The @{@link Academy} to which this {@code Subject} belongs.
+	 * Get the ID of the {@link Academy} to which this {@code Subject} belongs.
+	 * @return The ID of the {@link Academy} to which this {@code Subject} belongs.
 	 */
-	public Academy getAcademy() {
-		return academy;
-	}
-	
-	/**
-	 * Set the {@link Academy} to which this {@code Subject}. Cannot be null.
-	 * @param academy The {@link Academy} to which this {@code Sunject} belongs.
-	 */
-	public void setAcademy(Academy academy) {
-		this.academy = academy;
+	public int getAcademyId() {
+		return academyId;
 	}
 
 	/**

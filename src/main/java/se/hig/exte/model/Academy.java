@@ -1,12 +1,9 @@
 package se.hig.exte.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -26,8 +23,6 @@ public class Academy {
 	@NotBlank(message = "Abbreviation cannot be empty or null")
 	@Size(min = 2, max = 5, message = "Abbreviation must be between two and five characters long")
 	private String abbreviation;
-	@OneToMany(mappedBy = "academy")
-	private List<Subject> subjects;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Academy() {}
@@ -66,14 +61,6 @@ public class Academy {
 		return abbreviation;
 	}
 	
-	/**
-	 * Get the {@link Subject}s which belong to this {@code Academy}.
-	 * @return The {@link Subject}s which belong to this {@code Academy}.
-	 */
-	public List<Subject> getSubjects() {
-		return subjects;
-	}
-
 	/**
 	 * Set the name of this {@code Academy}. The name must be at least two characters long and cannot be null.
 	 * @param name The name of this {@code Academy}.

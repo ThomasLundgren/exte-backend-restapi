@@ -8,4 +8,6 @@ public interface IService<E> {
 	
 	public void deleteById(int id);
 	
+	public void update(E entity);
+	
 }

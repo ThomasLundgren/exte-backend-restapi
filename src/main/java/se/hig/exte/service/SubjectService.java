@@ -3,10 +3,12 @@ package se.hig.exte.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Subject;
 import se.hig.exte.repository.SubjectRepository;
 
+@Service
 public class SubjectService implements IService<Subject> {
 
 	private final SubjectRepository subjectRepo;
