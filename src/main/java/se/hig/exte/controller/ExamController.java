@@ -34,29 +34,19 @@ public class ExamController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Exam> getExam(@PathVariable String id) {
-		int examId = Integer.parseInt(id);
-		return new ResponseEntity<Exam>(examService.findById(examId), HttpStatus.OK);
+	public ResponseEntity<Exam> getExam(@PathVariable int id) {
+		return new ResponseEntity<Exam>(examService.findById(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/course/{id}")
-	public ResponseEntity<List<Exam>> getExamByCourseId(@PathVariable String id) {
-		List<Exam> exams = examService.findByCourseId(Integer.parseInt(id));
+	public ResponseEntity<List<Exam>> getExamByCourseId(@PathVariable int id) {
+		List<Exam> exams = examService.findByCourseId(id);
 		return new ResponseEntity<List<Exam>>(exams, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Exam> deleteExamById(@PathVariable String id) {
-		int parsed = Integer.parseInt(id);
-		examService.deleteById(parsed);
-		Exam exam = examService.findById(parsed);
-		ResponseEntity<Exam> responseEntity;
-		if (exam == null) {
-			responseEntity = new ResponseEntity<Exam>(HttpStatus.NO_CONTENT);
-		} else {
-			responseEntity = new ResponseEntity<Exam>(exam, HttpStatus.OK);
-		}
-		return responseEntity;
+	public void deleteExamById(@PathVariable int id) {
+		examService.deleteById(id);		
 	}
 	
 }
