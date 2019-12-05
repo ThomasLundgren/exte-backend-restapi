@@ -37,10 +37,8 @@ public class Exam {
 							* Example: 
 							* ftp://theuser:thepassword@someauthority:21
 							*/
-	@ManyToOne
-	@JoinColumn(name = "CourseId")
-	@NotNull(message = "Course cannot be null")
-	private Course course;
+	
+	private int courseId;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Exam() {}
@@ -51,14 +49,14 @@ public class Exam {
 	 * @param date The date of the {@code Exam}. Cannot be null.
 	 * @param unpublishDate The date at which the {@code Exam} should be unpublished from the website. Cannot be null.
 	 * @param pdfUrl The URL to the PDF file that corresponds to an {@code Exam}. Cannot be null.
-	 * @param course The {@link Course} to which an {@code Exam} belongs. Cannot be null.
+	 * @param courseId The ID of the {@link Course} to which an {@code Exam} belongs. Cannot be null.
 	 */
-	public Exam(String name, LocalDate date, LocalDate unpublishDate, URL pdfUrl, Course course) {
+	public Exam(String name, LocalDate date, LocalDate unpublishDate, URL pdfUrl, int courseId) {
 		this.name = name;
 		this.date = date;
 		this.unpublishDate = unpublishDate;
 		this.pdfUrl = pdfUrl;
-		this.course = course;
+		this.courseId = courseId;
 	}
 
 	/**
@@ -103,10 +101,10 @@ public class Exam {
 
 	/**
 	 * Get the {@link Course} to which this {@code Exam} belongs.
-	 * @return The {@link Course} to which this {@code Exam} belongs.
+	 * @return The ID of the {@link Course} to which this {@code Exam} belongs.
 	 */
-	public Course getCourse() {
-		return course;
+	public int getCourse() {
+		return courseId;
 	}
 	
 	/**
@@ -139,14 +137,6 @@ public class Exam {
 	 */
 	public void setPdfUrl(URL pdfUrl) {
 		this.pdfUrl = pdfUrl;
-	}
-
-	/**
-	 * Set the {@link Course} to which this {@code Exam} belongs. Cannot be null.
-	 * @param course The new {@link Course} to which this {@code Exam} belongs.
-	 */
-	public void setCourse(Course course) {
-		this.course = course;
 	}
 
 	/**

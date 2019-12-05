@@ -26,10 +26,8 @@ public class Course {
 	@NotBlank(message = "Course code cannot be empty or null")
 	@Size(min = 6, max = 7, message = "Course code must be between six and seven characters long")
 	private String courseCode;
-	@ManyToOne
-	@JoinColumn(name = "SubjectID")
-	@NotNull(message = "Subject cannot be null")
-	private Subject subject;
+	
+	private int subjectId;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Course() {}
@@ -38,12 +36,12 @@ public class Course {
 	 * Creates a {@code Course} object.
 	 * @param name The name of this {@code Course}. Must be at least two characters long and cannot be null.
 	 * @param courseCode The course code of this {@code Course}. Must be between six and seven characters long.
-	 * @param subject The {@link Subject} to which this {@code Course} belongs.
+	 * @param subjectId The ID of the {@link Subject} to which this {@code Course} belongs.
 	 */
-	public Course(String name, String courseCode, Subject subject) {
+	public Course(String name, String courseCode, int subjectId) {
 		this.name = name;
 		this.courseCode = courseCode;
-		this.subject = subject;
+		this.subjectId = subjectId;
 	}
 
 	/**
@@ -64,10 +62,10 @@ public class Course {
 	
 	/**
 	 * Get the {@link Subject} to which this {@code Course} belongs.
-	 * @return The {@link Subject} to which this {@code Course} belongs.
+	 * @return The ID of the {@link Subject} to which this {@code Course} belongs.
 	 */
-	public Subject getSubject() {
-		return subject;
+	public int getSubject() {
+		return subjectId;
 	}
 
 	/**
@@ -92,14 +90,6 @@ public class Course {
 	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
-	}
-
-	/**
-	 * Set the {@link Subject} to which this {@code Course} should belong. Cannot be null.
-	 * @param name The new {@link Subject} to which this {@code Course} should belong.
-	 */
-	public void setSubject(Subject subject) {
-		this.subject = subject;
 	}
 
 	/**
