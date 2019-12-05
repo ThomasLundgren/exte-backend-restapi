@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.repository.SubjectRepository;
 
@@ -38,6 +39,11 @@ public class SubjectService implements IService<Subject> {
 
 	public List<Subject> findByAcadmemyId(int academyId) {
 		return subjectRepo.findByAcademyId(academyId);
+	}
+	
+	@Override
+	public List<Subject> findAll() {
+		return subjectRepo.findAll();
 	}
 	
 }
