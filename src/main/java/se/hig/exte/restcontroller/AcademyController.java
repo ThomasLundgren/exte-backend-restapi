@@ -33,12 +33,12 @@ public class AcademyController {
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<Academy>> getAcademy(@PathVariable int id) {
+	public ResponseEntity<List<Academy>> getAllAcademies() {
 		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Academy> getAllAcademies(@PathVariable int id) {
+	public ResponseEntity<Academy> getAcademy(@PathVariable int id) {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);
 	}
 
