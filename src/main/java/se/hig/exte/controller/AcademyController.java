@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
-import se.hig.exte.repository.AcademyRepository;
 import se.hig.exte.service.AcademyService;
 
 @RestController

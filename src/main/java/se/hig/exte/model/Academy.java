@@ -41,6 +41,10 @@ public class Academy {
 	public String getAbbreviation() {
 		return abbreviation;
 	}
+	
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
 
 	public void setName(String name) {
 		this.name = name;

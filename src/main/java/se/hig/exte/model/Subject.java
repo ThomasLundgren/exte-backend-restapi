@@ -48,6 +48,14 @@ public class Subject {
 	public String getName() {
 		return name;
 	}
+	
+	public Academy getAcademy() {
+		return academy;
+	}
+	
+	public void setAcademy(Academy academy) {
+		this.academy = academy;
+	}
 
 	public void setCode(String code) {
 		this.code = code;
