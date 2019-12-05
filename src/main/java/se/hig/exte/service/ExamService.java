@@ -18,7 +18,7 @@ public class ExamService implements IService<Exam> {
 	private final ExamRepository examRepo;
 	
 	/**
-	 * Create a {@code ExamService} object.
+	 * Creates a {@code ExamService} object.
 	 * @param examRepo The {@link ExamRepository} to use for CRUD operations.
 	 */
 	@Autowired
@@ -28,7 +28,7 @@ public class ExamService implements IService<Exam> {
 
 	/**
 	 * Saves a {@link Exam} object to the database.
-	 * @param course The {@link Exam} object to save.
+	 * @param exam The {@link Exam} object to save.
 	 */
 	@Override
 	public Exam save(Exam exam) {
@@ -54,7 +54,7 @@ public class ExamService implements IService<Exam> {
 	
 	/**
 	 * Fetches all {@link Exam} objects which belong to the {@link Course} with the specified ID.
-//	 * @param subjectId The ID of the {@link Course} which {@link Exam}s to fetch.
+	 * @param courseId The ID of the {@link Course} which {@link Exam}s to fetch.
 	 * @return A {@link List} containing all {@link Exam}s found.
 	 */
 	public List<Exam> findAllByCourseId(int courseId) {

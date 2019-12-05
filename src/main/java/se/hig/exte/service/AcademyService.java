@@ -17,7 +17,7 @@ public class AcademyService implements IService<Academy> {
 	private final AcademyRepository academyRepo;
 	
 	/**
-	 * Create an {@code AcademyService} object.
+	 * Creates an {@code AcademyService} object.
 	 * @param academyRepo The {@link AcademyRepository} to use for CRUD operations.
 	 */
 	@Autowired

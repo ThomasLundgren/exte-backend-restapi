@@ -18,7 +18,7 @@ public class CourseService implements IService<Course> {
 	private final CourseRepository courseRepo;
 
 	/**
-	 * Create a {@code CourseService} object.
+	 * Creates a {@code CourseService} object.
 	 * @param courseRepo The {@link CourseRepository} to use for CRUD operations.
 	 */
 	@Autowired
