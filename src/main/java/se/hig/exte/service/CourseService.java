@@ -19,7 +19,7 @@ public class CourseService implements IService<Course> {
 	}
 
 	@Override
-	public Course add(Course course) {
+	public Course save(Course course) {
 		System.out.println(course);
 		return courseRepo.save(course);
 	}

@@ -17,7 +17,7 @@ import se.hig.exte.model.Course;
 import se.hig.exte.service.CourseService;
 
 @RestController
-@RequestMapping("/api/course")
+@RequestMapping("/courses")
 public class CourseController {
 
 	private final CourseService courseService;
@@ -28,21 +28,15 @@ public class CourseController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Course> getCourse(@PathVariable String id) {
+	public ResponseEntity<Course> findCourseById(@PathVariable String id) {
 		int courseId = Integer.parseInt(id);
 		return new ResponseEntity<Course>(courseService.findById(courseId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/")
 	public ResponseEntity<Course> save(@RequestBody Course course) {
-		Course savedCourse = courseService.add(course);
+		Course savedCourse = courseService.save(course);
 		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
-	}
-	
-	@GetMapping("/subject/{id}")
-	public ResponseEntity<List<Course>> getCoursesBySubjectId(@PathVariable String id) {
-		List<Course> courses = courseService.findBySubjectId(Integer.parseInt(id));
-		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -52,7 +46,7 @@ public class CourseController {
 		Course course = courseService.findById(parsed);
 		ResponseEntity<Course> responseEntity;
 		if (course == null) {
-			responseEntity = new ResponseEntity<Course>(HttpStatus.NO_CONTENT);
+			responseEntity = new ResponseEntity<Course>(HttpStatus.OK);
 		} else {
 			responseEntity = new ResponseEntity<Course>(course, HttpStatus.OK);
 		}

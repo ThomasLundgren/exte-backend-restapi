@@ -28,7 +28,7 @@ public class ExamController {
 	
 	@PostMapping("/add")
 	public ResponseEntity<Exam> create(@RequestBody Exam exam) {
-		Exam savedExam = examService.add(exam);
+		Exam savedExam = examService.save(exam);
 		return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
 	}
 	

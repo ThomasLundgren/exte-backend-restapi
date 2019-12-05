@@ -22,7 +22,7 @@ public class AcademyController {
 	
 	@PostMapping("/add")
 	public ResponseEntity<Academy> add(@RequestBody Academy academy) {
-		Academy savedAcademy = academyService.add(academy);
+		Academy savedAcademy = academyService.save(academy);
 		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
 	}
 //
@@ -31,5 +31,7 @@ public class AcademyController {
 //		int academyId = Integer.parseInt(id);
 //		return academyRepository.findById(academyId);
 //	}
+	
+	
 
 }

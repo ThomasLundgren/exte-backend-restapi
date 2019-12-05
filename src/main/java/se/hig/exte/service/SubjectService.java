@@ -22,7 +22,7 @@ public class SubjectService implements IService<Subject> {
 	}
 
 	@Override
-	public Subject add(Subject subject) {
+	public Subject save(Subject subject) {
 		return subjectRepo.save(subject);
 	}
 

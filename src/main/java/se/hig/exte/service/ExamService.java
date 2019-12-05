@@ -23,7 +23,7 @@ public class ExamService implements IService<Exam> {
 	}
 
 	@Override
-	public Exam add(Exam exam) {
+	public Exam save(Exam exam) {
 		return examRepo.save(exam);
 	}
 

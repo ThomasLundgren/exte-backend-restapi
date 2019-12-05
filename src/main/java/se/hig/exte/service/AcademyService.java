@@ -17,7 +17,7 @@ public class AcademyService implements IService<Academy> {
 	}
 
 	@Override
-	public Academy add(Academy academy) {
+	public Academy save(Academy academy) {
 		return academyRepo.save(academy);
 	}
 
@@ -27,8 +27,12 @@ public class AcademyService implements IService<Academy> {
 	}
 
 	@Override
-	public void deleteById(int id) {
+	public boolean deleteById(int id) {
 		academyRepo.deleteById(id);
+		if (academyRepo.findById(id) == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
 }
