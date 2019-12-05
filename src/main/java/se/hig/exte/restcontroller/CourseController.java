@@ -1,4 +1,6 @@
-package se.hig.exte.controller;
+package se.hig.exte.restcontroller;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +29,14 @@ public class CourseController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Course> findCourseById(@PathVariable int id) {
+	public ResponseEntity<Course> getCourseById(@PathVariable int id) {
 		return new ResponseEntity<Course>(courseService.findById(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/subject/{id}")
+	public ResponseEntity<List<Course>> getCourseBySubjectId(@PathVariable int id) {
+		List<Course> courses = courseService.findBySubjectId(id);
+		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
 	@PostMapping("/")

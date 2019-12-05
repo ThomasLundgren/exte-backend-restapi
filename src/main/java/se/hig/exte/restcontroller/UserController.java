@@ -1,4 +1,4 @@
-package se.hig.exte.controller;
+package se.hig.exte.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

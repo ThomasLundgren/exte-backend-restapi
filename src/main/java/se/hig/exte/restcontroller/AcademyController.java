@@ -1,4 +1,6 @@
-package se.hig.exte.controller;
+package se.hig.exte.restcontroller;
+
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,11 @@ public class AcademyController {
 		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
 	}
 
+	@GetMapping("/all")
+	public ResponseEntity<List<Academy>> getAllAcademies() {
+		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<Academy> getAcademy(@PathVariable int id) {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);

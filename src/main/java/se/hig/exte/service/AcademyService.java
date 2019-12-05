@@ -1,5 +1,7 @@
 package se.hig.exte.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,10 @@ public class AcademyService implements IService<Academy> {
 	@Override
 	public Academy findById(int id) {
 		return academyRepo.findById(id);
+	}
+	
+	public List<Academy> findAll() {
+		return academyRepo.findAll();
 	}
 
 	@Override
