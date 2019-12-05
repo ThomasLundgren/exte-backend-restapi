@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
-import se.hig.exte.model.Subject;
 import se.hig.exte.service.CourseService;
 
 @RestController

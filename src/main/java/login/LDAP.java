@@ -24,7 +24,7 @@ class LDAP {
             env.put(Context.SECURITY_PROTOCOL, "tls");
 
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, "uid=" + userName + ",ou=people,ou=student,dc=hig,dc=se");
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + userName + ",ou=people,dc=hig,dc=se");
             env.put(Context.SECURITY_CREDENTIALS, password);
 
             DirContext context = new InitialDirContext(env);
