@@ -14,4 +14,6 @@ public interface AcademyRepository extends JpaRepository<Academy, Integer> {
 
 	Academy findById(int id);
 
+	List<Academy> findAll();
+
 }

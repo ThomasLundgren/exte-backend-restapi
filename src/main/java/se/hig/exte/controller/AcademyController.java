@@ -1,5 +1,7 @@
 package se.hig.exte.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,11 @@ public class AcademyController {
 	public Academy getAcademy(@PathVariable String id) {
 		int academyId = Integer.parseInt(id);
 		return academyRepository.findById(academyId);
+	}
+
+	@GetMapping("/all")
+	public List<Academy> getAcademies() {
+		return academyRepository.findAll();
 	}
 
 }
