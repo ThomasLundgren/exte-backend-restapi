@@ -17,7 +17,7 @@ import se.hig.exte.model.Course;
 import se.hig.exte.service.CourseService;
 
 @RestController
-@RequestMapping("/api/course")
+@RequestMapping("/courses")
 public class CourseController {
 
 	private final CourseService courseService;

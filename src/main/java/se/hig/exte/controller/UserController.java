@@ -19,7 +19,7 @@ import se.hig.exte.service.UserService;
  * This class is a RestController class responsible for mapping HTTP requests for the /users end-point.
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 	
 	private final UserService userService;

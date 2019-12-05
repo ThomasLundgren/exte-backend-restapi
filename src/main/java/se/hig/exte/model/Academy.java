@@ -37,10 +37,9 @@ public class Academy {
 	 * @param name The name of the {@code Academy}. Must be at least two characters long and cannot be null.
 	 * @param abbreviation The abbreviation of the {@code Academy}. The abbreviation should be between two and five characters long.
 	 */
-	public Academy(String name, String abbreviation, List<Subject> subjects) {
+	public Academy(String name, String abbreviation) {
 		this.name = name;
 		this.abbreviation = abbreviation;
-		this.subjects = subjects;
 	}
 
 	/**
