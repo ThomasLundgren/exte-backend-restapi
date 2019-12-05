@@ -1,12 +1,11 @@
 package se.hig.exte.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,29 +27,25 @@ public class CourseController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Course> findCourseById(@PathVariable String id) {
-		int courseId = Integer.parseInt(id);
-		return new ResponseEntity<Course>(courseService.findById(courseId), HttpStatus.OK);
+	public ResponseEntity<Course> findCourseById(@PathVariable int id) {
+		return new ResponseEntity<Course>(courseService.findById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<Course> save(@RequestBody Course course) {
+	public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
 		Course savedCourse = courseService.save(course);
 		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Course> deleteCourseById(@PathVariable String id) {
-		int parsed = Integer.parseInt(id);
-		courseService.deleteById(parsed);
-		Course course = courseService.findById(parsed);
-		ResponseEntity<Course> responseEntity;
-		if (course == null) {
-			responseEntity = new ResponseEntity<Course>(HttpStatus.OK);
-		} else {
-			responseEntity = new ResponseEntity<Course>(course, HttpStatus.OK);
-		}
-		return responseEntity;
+	public void deleteCourseById(@PathVariable int id) {
+		courseService.deleteById(id);
+	}
+	
+	@PatchMapping("/")
+	public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
+		Course savedCourse = courseService.save(course);
+		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
 	}
 
 }

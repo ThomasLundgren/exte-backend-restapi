@@ -27,12 +27,7 @@ public class AcademyService implements IService<Academy> {
 	}
 
 	@Override
-	public boolean deleteById(int id) {
+	public void deleteById(int id) {
 		academyRepo.deleteById(id);
-		if (academyRepo.findById(id) == null) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }

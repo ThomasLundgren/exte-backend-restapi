@@ -6,6 +6,6 @@ public interface IService<E> {
 		
 	public E findById(int id);
 	
-	public boolean deleteById(int id);
+	public void deleteById(int id);
 	
 }
