@@ -1,5 +1,7 @@
 package se.hig.exte.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import se.hig.exte.model.Subject;
@@ -32,4 +34,8 @@ public class SubjectService implements IService<Subject> {
 		subjectRepo.deleteById(id);
 	}
 
+	public List<Subject> findByAcadmemyId(int academyId) {
+		return subjectRepo.findByAcademyId(academyId);
+	}
+	
 }
