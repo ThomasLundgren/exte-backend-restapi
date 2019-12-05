@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
-import se.hig.exte.model.Subject;
 import se.hig.exte.repository.AcademyRepository;
 
 @RestController
@@ -18,11 +17,11 @@ import se.hig.exte.repository.AcademyRepository;
 public class AcademyController {
 
 	private final AcademyRepository academyRepository;
-	
+
 	public AcademyController(AcademyRepository academyRepository) {
 		this.academyRepository = academyRepository;
 	}
-	
+
 	@PostMapping("/add")
 	public ResponseEntity<Academy> create(@RequestBody Academy academy) {
 		Academy savedAcademy = academyRepository.save(academy);
@@ -30,7 +29,7 @@ public class AcademyController {
 	}
 
 	@GetMapping("/{id}")
-	public Academy getSubject(@PathVariable String id) {
+	public Academy getAcademy(@PathVariable String id) {
 		int academyId = Integer.parseInt(id);
 		return academyRepository.findById(academyId);
 	}
