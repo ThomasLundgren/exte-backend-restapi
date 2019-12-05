@@ -1,11 +1,13 @@
-package login;
+package se.hig.exte.security;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class LDAPTest {
+import se.hig.exte.authentication.LDAPAuthentication;
+
+class LDAPAuthenticationTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -13,7 +15,8 @@ class LDAPTest {
 
 	@Test
 	void test() {
-		boolean isLoggedIn = LDAP.authenticateHigLdap("17hame01", "Skolan0");
+		boolean isLoggedIn = LDAPAuthentication.authenticateHigLdap("17hame01", "Skolan0");
 		assertTrue(isLoggedIn);
 	}
+
 }

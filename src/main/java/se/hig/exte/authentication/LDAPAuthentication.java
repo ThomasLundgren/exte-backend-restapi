@@ -1,4 +1,4 @@
-package login;
+package se.hig.exte.authentication;
 
 import javax.naming.Context;
 import javax.naming.directory.DirContext;
@@ -9,10 +9,10 @@ import java.util.Hashtable;
  * Autentiserar Användare, Hig LDAP
  * Tagen från VFU_Socionom_tipsfiler 2019-12-02
  */
-class LDAP {
+public class LDAPAuthentication {
 
 
-    static boolean authenticateHigLdap(String userName, String password) {
+    public static boolean authenticateHigLdap(String userName, String password) {
         try {
             Hashtable<String, String> env = new Hashtable<>();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
