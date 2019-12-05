@@ -36,7 +36,7 @@ public class CourseController {
 	
 	@GetMapping("/subject/{id}")
 	public ResponseEntity<List<Course>> getCourseBySubjectId(@PathVariable int id) {
-		List<Course> courses = courseService.findBySubjectId(id);
+		List<Course> courses = courseService.findAllBySubjectId(id);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	

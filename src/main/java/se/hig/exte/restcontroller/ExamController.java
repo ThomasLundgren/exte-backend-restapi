@@ -47,7 +47,7 @@ public class ExamController {
 
 	@GetMapping("/course/{id}")
 	public ResponseEntity<List<Exam>> getExamByCourseId(@PathVariable int id) {
-		List<Exam> exams = examService.findByCourseId(id);
+		List<Exam> exams = examService.findAllByCourseId(id);
 		return new ResponseEntity<List<Exam>>(exams, HttpStatus.OK);
 	}
 	

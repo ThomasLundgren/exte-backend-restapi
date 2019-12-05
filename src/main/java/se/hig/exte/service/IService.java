@@ -7,9 +7,9 @@ public interface IService<E> {
 	public E save(E entity);
 		
 	public E findById(int id);
+
+	public List<E> findAll();
 	
 	public void deleteById(int id);
-	
-	public List<E> findAll();
 	
 }
