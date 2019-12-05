@@ -1,4 +1,4 @@
-package se.hig.exte.controller;
+package se.hig.exte.restcontroller;
 
 import java.util.List;
 

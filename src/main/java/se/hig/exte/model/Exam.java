@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,7 +35,7 @@ public class Exam {
 							* Example: 
 							* ftp://theuser:thepassword@someauthority:21
 							*/
-	
+	private boolean unpublished;
 	private int courseId;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
@@ -51,11 +49,12 @@ public class Exam {
 	 * @param pdfUrl The URL to the PDF file that corresponds to an {@code Exam}. Cannot be null.
 	 * @param courseId The ID of the {@link Course} to which an {@code Exam} belongs. Cannot be null.
 	 */
-	public Exam(String name, LocalDate date, LocalDate unpublishDate, URL pdfUrl, int courseId) {
+	public Exam(String name, LocalDate date, LocalDate unpublishDate, URL pdfUrl, boolean unpublished, int courseId) {
 		this.name = name;
 		this.date = date;
 		this.unpublishDate = unpublishDate;
 		this.pdfUrl = pdfUrl;
+		this.setUnpublished(unpublished);
 		this.courseId = courseId;
 	}
 
@@ -144,7 +143,16 @@ public class Exam {
 	 */
 	@Override
 	public String toString() {
-		return "name: " + name + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nURL: " + pdfUrl;
+		return "name: " + name + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nURL: " + pdfUrl
+				+ "\nUnpublished: " + unpublished;
+	}
+
+	public boolean isUnpublished() {
+		return unpublished;
+	}
+
+	public void setUnpublished(boolean unpublished) {
+		this.unpublished = unpublished;
 	}
 
 	
