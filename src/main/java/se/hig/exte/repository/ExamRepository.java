@@ -18,5 +18,6 @@ public interface ExamRepository extends JpaRepository<Exam, Integer>{
 	
 	Exam findById(int id);
 	
+	List<Exam> findByCourseId(int courseId);
 
 }
