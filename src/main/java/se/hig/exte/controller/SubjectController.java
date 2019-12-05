@@ -27,19 +27,30 @@ public class SubjectController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<Subject> save(@RequestBody Subject subject) {
+	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) {
 		Subject savedSubject = subjectService.save(subject);
 		return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Subject> findSubjectById(@PathVariable String id) {
-		int subjectId = Integer.parseInt(id);
-		return new ResponseEntity<Subject>(subjectService.findById(subjectId), HttpStatus.OK);
+	public ResponseEntity<Subject> getSubject(@PathVariable int id) {
+		return new ResponseEntity<Subject>(subjectService.findById(id), HttpStatus.OK);
+	}
+
+	@GetMapping("/academy/{id}")
+	public ResponseEntity<List<Subject>> getSubjectByAcademyId(@PathVariable int id) {
+		List<Subject> subjects = subjectService.findByAcadmemyId(id);
+		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Subject> deleteSubjectById(@PathVariable int id) {
-		return new ResponseEntity<Subject>(HttpStatus.OK);
+	public void deleteSubjectById(@PathVariable int id) {
+		subjectService.deleteById(id);
+	}
+
+	@PostMapping("/")
+	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject) {
+		Subject patchedSubject = subjectService.save(subject);
+		return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
 	}
 }
