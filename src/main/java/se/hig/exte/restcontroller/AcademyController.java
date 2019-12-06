@@ -58,16 +58,30 @@ public class AcademyController {
 		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
 	}
 	
+	/**
+	 * Fetches the {@link Academy} object with the given ID from the database.
+	 * @param id The ID of the {@link Academy} to fetch.
+	 * @return The {@link Academy} with the given ID.
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Academy> getAcademy(@PathVariable int id) {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);
 	}
 
+	/**
+	 * Deletes the {@link Academy} object with the given ID from the database.
+	 * @param id The ID of the {@link Academy} to delete.
+	 */
 	@DeleteMapping("/{id}")
 	public void deleteAcademyById(@PathVariable int id) {
 		academyService.deleteById(id);
 	}
 	
+	/**
+	 * Updates the {@link Academy} object with the given ID in the database.
+	 * @param academy The {@link Academy} to update in the form of a JSON-object in the POST request.
+	 * @return A {@code ResponseEntity} object containing the updated {@link Academy} and an HTTP status code.
+	 */
 	@PatchMapping("/")
 	public ResponseEntity<Academy> updateAcademy(@RequestBody Academy academy) {
 		Academy savedAcademy = academyService.save(academy);
