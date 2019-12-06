@@ -19,7 +19,9 @@ import se.hig.exte.service.CrudService;
 import se.hig.exte.service.UserService;
 
 /**
- * This class is a RestController class responsible for mapping HTTP requests for the /users end-point.
+ * This class is a RestController class responsible for mapping HTTP requests under the /users path.
+ * It contains contains mappings of end-points to {@link CrudService}s that operate on {@link User} records
+ * in the database.
  */
 @RestController
 @RequestMapping("/api/users")
@@ -37,8 +39,8 @@ public class UserController {
 	}
 	
 	/**
-	 * Creates a user and stores it in the database.
-	 * @param user The {@link User} to add.
+	 * Creates a {@link User} and stores it in the database.
+	 * @param user The {@link User} to add in the form of a JSON-object in the POST request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link User} and an HTTP status code.
 	 */
 	@PostMapping("/")

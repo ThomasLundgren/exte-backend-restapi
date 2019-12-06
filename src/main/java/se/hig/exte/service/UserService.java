@@ -13,9 +13,6 @@ public class UserService implements CrudService<User> {
 
 	private final UserRepository userRepo;
 	
-	/**
-	 * @param userRepo
-	 */
 	@Autowired
 	public UserService(UserRepository userRepo) {
 		this.userRepo = userRepo;

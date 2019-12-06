@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import se.hig.exte.model.Course;
+import se.hig.exte.model.Subject;
 
 /**
  * An interface used for database operations on {@link Course} objects.
@@ -25,7 +26,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	/**
 	 * Fetches all {@link Course} objects which belong to the specified {@link Subject} from the database.
 	 * @param subjectId The ID of the {@link Subject}.
-	 * @return A {@link List} containing all {@link Course}s belonging to the {@link Subject} with the specified ID.
+	 * @return A {@code List} containing all {@link Course}s belonging to the {@link Subject} with the specified ID.
 	 */
 	List<Course> findBySubjectId(int subjectId);
 }

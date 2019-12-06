@@ -82,7 +82,7 @@ public class Subject {
 
 	/**
 	 * Set the code of this {@code Subject}. Must be at least three characters long and cannot be null or whitespace.
-	 * @param code The name this {@code Subject}.
+	 * @param name The name this {@code Subject}.
 	 */
 	public void setName(String name) {
 		this.name = name;

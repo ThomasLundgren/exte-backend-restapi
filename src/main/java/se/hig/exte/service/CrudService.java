@@ -12,7 +12,7 @@ public interface CrudService<E> {
 	/**
 	 * Saves the entity to the database. Used for adding and updating.
 	 * @param entity The entity to save.
-	 * @return
+	 * @return The saved entity.
 	 */
 	public E save(E entity);
 		

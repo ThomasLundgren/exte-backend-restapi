@@ -83,7 +83,7 @@ public class Course {
 	
 	/**
 	 * Set the course code of this {@code Course}. Must be between six and seven characters long.
-	 * @param name The new course code of this {@code Course}.
+	 * @param courseCode The new course code of this {@code Course}.
 	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
