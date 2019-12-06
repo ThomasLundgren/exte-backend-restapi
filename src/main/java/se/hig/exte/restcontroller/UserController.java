@@ -20,7 +20,7 @@ import se.hig.exte.service.UserService;
 
 /**
  * This class is a RestController class responsible for mapping HTTP requests under the /users path.
- * It contains contains mappings of end-points to {@link CrudService}s that operate on {@link User} records
+ * It contains mappings of end-points to {@link CrudService}s that operate on {@link User} records
  * in the database.
  */
 @RestController
@@ -30,7 +30,7 @@ public class UserController {
 	private final UserService userService;
 
 	/**
-	 * Create a {@code UserController} object.
+	 * Creates an {@code UserController} object.
 	 * @param userService The {@link CrudService} class used to perform all services exposed in this RestController. 
 	 */
 	@Autowired

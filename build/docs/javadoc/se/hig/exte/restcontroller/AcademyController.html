@@ -153,11 +153,15 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/AcademyController.html#deleteAcademyById-int-">deleteAcademyById</a></span>(int&nbsp;id)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/AcademyController.html#deleteAcademyById-int-">deleteAcademyById</a></span>(int&nbsp;id)</code>
+<div class="block">Deletes the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID from the database.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/AcademyController.html#getAcademy-int-">getAcademy</a></span>(int&nbsp;id)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/AcademyController.html#getAcademy-int-">getAcademy</a></span>(int&nbsp;id)</code>
+<div class="block">Fetches the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID from the database.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&gt;</code></td>
@@ -174,7 +178,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/AcademyController.html#updateAcademy-se.hig.exte.model.Academy-">updateAcademy</a></span>(<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&nbsp;academy)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/AcademyController.html#updateAcademy-se.hig.exte.model.Academy-">updateAcademy</a></span>(<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&nbsp;academy)</code>
+<div class="block">Updates the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID in the database.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -264,6 +270,13 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href
 <pre>@GetMapping(value="/{id}")
 public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&nbsp;getAcademy(@PathVariable
                                                                                                int&nbsp;id)</pre>
+<div class="block">Fetches the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID from the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> to fetch.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> with the given ID.</dd>
+</dl>
 </li>
 </ul>
 <a name="deleteAcademyById-int-">
@@ -275,6 +288,11 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/h
 <pre>@DeleteMapping(value="/{id}")
 public&nbsp;void&nbsp;deleteAcademyById(@PathVariable
                                                              int&nbsp;id)</pre>
+<div class="block">Deletes the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID from the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> to delete.</dd>
+</dl>
 </li>
 </ul>
 <a name="updateAcademy-se.hig.exte.model.Academy-">
@@ -286,6 +304,13 @@ public&nbsp;void&nbsp;deleteAcademyById(@PathVariable
 <pre>@PatchMapping(value="/")
 public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&nbsp;updateAcademy(@RequestBody
                                                                                                 <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&nbsp;academy)</pre>
+<div class="block">Updates the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID in the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>academy</code> - The <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> to update in the form of a JSON-object in the POST request.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing the updated <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> and an HTTP status code.</dd>
+</dl>
 </li>
 </ul>
 </li>
