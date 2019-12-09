@@ -2,7 +2,9 @@ package se.hig.exte.repository;
 
 import java.util.List;
 
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import se.hig.exte.model.Course;
@@ -29,4 +31,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 * @return A {@code List} containing all {@link Course}s belonging to the {@link Subject} with the specified ID.
 	 */
 	List<Course> findBySubjectId(int subjectId);
+	
+	@Query("FROM Course g where g.name = :name")
+	List<Course> findAllByName(@Param("name") String text);
 }

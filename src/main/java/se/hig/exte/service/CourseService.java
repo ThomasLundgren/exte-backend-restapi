@@ -70,4 +70,7 @@ public class CourseService implements CrudService<Course> {
 		courseRepo.deleteById(id);
 	}
 	
+	public List<Course> search(String searchText) {	
+		return courseRepo.findAllByCourseName(searchText);		
+	}
 }

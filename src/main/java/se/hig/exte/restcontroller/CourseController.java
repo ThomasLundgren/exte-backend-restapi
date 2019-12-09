@@ -119,5 +119,12 @@ public class CourseController {
 	public void deleteCourseById(@PathVariable int id) {
 		courseService.deleteById(id);
 	}
+	
+	@GetMapping("/search/{text}")
+	public ResponseEntity<List<Course>> search(@PathVariable String searchText) {
+		List<Course> courses = courseService.search(searchText);
+				
+		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+	}
 
 }
