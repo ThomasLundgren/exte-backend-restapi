@@ -71,6 +71,6 @@ public class CourseService implements CrudService<Course> {
 	}
 	
 	public List<Course> search(String searchText) {	
-		return courseRepo.findAllByCourseName(searchText);		
+		return courseRepo.findAllByName(searchText);		
 	}
 }
