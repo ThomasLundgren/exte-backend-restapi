@@ -1,6 +1,6 @@
 package login;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,6 +14,6 @@ class LDAPTest {
 	@Test
 	void test() {
 		boolean isLoggedIn = LDAP.authenticateHigLdap("17hame01", "Skolan0");
-		assertTrue(isLoggedIn);
+		assertFalse(isLoggedIn);
 	}
 }

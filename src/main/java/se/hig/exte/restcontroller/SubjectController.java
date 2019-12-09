@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.SubjectService;
 
@@ -38,6 +39,11 @@ public class SubjectController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Subject> getSubject(@PathVariable int id) {
 		return new ResponseEntity<Subject>(subjectService.findById(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<Subject>> getAllCourses() {
+		return new ResponseEntity<List<Subject>>(subjectService.findAll(), HttpStatus.OK);
 	}
 
 	@GetMapping("/academy/{id}")

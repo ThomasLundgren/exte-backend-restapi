@@ -13,6 +13,7 @@
 # Package Files #
 *.jar
 !gradle/wrapper/gradle-wrapper.jar
+!ExteBackendApplication-0.1.0.jar
 *.war
 *.nar
 *.ear

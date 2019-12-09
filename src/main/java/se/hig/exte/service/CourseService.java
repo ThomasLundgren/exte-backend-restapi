@@ -37,6 +37,11 @@ public class CourseService implements IService<Course> {
 	public List<Course> findBySubjectId(int subjectId) {
 		return courseRepo.findBySubjectId(subjectId);
 	}
+
+	@Override
+	public List<Course> findAll() {
+		return courseRepo.findAll();
+	}
 	
 	
 }

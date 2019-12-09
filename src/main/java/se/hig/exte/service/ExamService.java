@@ -39,5 +39,10 @@ public class ExamService implements IService<Exam> {
 	public List<Exam> findByCourseId(int courseId) {
 		return examRepo.findByCourseId(courseId);
 	}
+	
+	@Override
+	public List<Exam> findAll() {
+		return examRepo.findAll();
+	}
 
 }
