@@ -42,7 +42,7 @@ public class ExamController {
 	}
 
 	/**
-	 * Creates a {@link Exam} and stores it in the database.
+	 * Creates an {@link Exam} and stores it in the database.
 	 * 
 	 * @param exam The {@link Exam} to add in the form of a JSON-object in the POST
 	 *             request.
