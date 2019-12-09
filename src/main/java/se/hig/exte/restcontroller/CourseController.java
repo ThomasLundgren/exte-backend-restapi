@@ -31,7 +31,7 @@ public class CourseController {
 	private final CourseService courseService;
 
 	/**
-	 * Creates an {@code CourseController} object.
+	 * Creates a {@code CourseController} object.
 	 * 
 	 * @param courseService The {@link CrudService} class used to perform all
 	 *                      services exposed in this RestController.
@@ -55,6 +55,12 @@ public class CourseController {
 		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
 	}
 
+	/**
+	 * Fetches the {@link Course} object with the given ID from the database.
+	 * 
+	 * @param id The ID of the {@link Course} to fetch.
+	 * @return The {@link Course} with the given ID.
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Course> getCourseById(@PathVariable int id) {
 		return new ResponseEntity<Course>(courseService.findById(id), HttpStatus.OK);
