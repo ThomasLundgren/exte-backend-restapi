@@ -1,5 +1,7 @@
 package se.hig.exte.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,9 @@ public class UserService implements IService<User> {
 	@Override
 	public void deleteById(int id) {
 		userRepo.deleteById(id);
+	}
+	
+	public List<User> findByName(String name) {
+		return userRepo.findByName(name);
 	}
 }
