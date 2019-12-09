@@ -38,6 +38,7 @@ public class Subject {
 	public Subject(String code, String name, int academyId) {
 		this.code = code;
 		this.name = name;
+		this.academyId = academyId;
 	}
 
 	/**

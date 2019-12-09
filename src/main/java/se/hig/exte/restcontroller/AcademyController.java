@@ -18,9 +18,9 @@ import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CrudService;
 
 /**
- * This class is a RestController class responsible for mapping HTTP requests for the /academies path.
- * It contains mappings of end-points to {@link CrudService}s that operate on {@link Academy} records
- * in the database.
+ * This class is a RestController class responsible for mapping HTTP requests
+ * for the /academies path. It contains mappings of end-points to
+ * {@link CrudService}s that operate on {@link Academy} records in the database.
  */
 @RestController
 @RequestMapping("/academies")
@@ -30,7 +30,9 @@ public class AcademyController {
 
 	/**
 	 * Creates an {@code AcademyController} object.
-	 * @param academyService The {@link CrudService} class used to perform all services exposed in this RestController. 
+	 * 
+	 * @param academyService The {@link CrudService} class used to perform all
+	 *                       services exposed in this RestController.
 	 */
 	public AcademyController(AcademyService academyService) {
 		this.academyService = academyService;
@@ -38,17 +40,21 @@ public class AcademyController {
 
 	/**
 	 * Creates an {@link Academy} and stores it in the database.
-	 * @param academy The {@link Academy} to add in the form of a JSON-object in the POST request.
-	 * @return A {@code ResponseEntity} object containing the saved {@link Academy} and an HTTP status code.
+	 * 
+	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
+	 *                POST request.
+	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
+	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy) {
 		Academy savedAcademy = academyService.save(academy);
 		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Fetches the {@link Academy} object with the given ID from the database.
+	 * 
 	 * @param id The ID of the {@link Academy} to fetch.
 	 * @return The {@link Academy} with the given ID.
 	 */
@@ -58,34 +64,41 @@ public class AcademyController {
 	}
 
 	/**
-	 * Fetches all {@link Academy} records from the database and returns them as a {@code ResponseEntity}
-	 * object. List of {@link Academy} objects is automatically converted to JSON using Spring Boot's 
+	 * Fetches all {@link Academy} records from the database and returns them as a
+	 * {@code ResponseEntity} object. List of {@link Academy} objects is
+	 * automatically converted to JSON using Spring Boot's
 	 * {@code HttpMessageConverter} and put in the {@code ResponseEntity}'s body.
-	 * @return A {@code ResponseEntity} object containing the fetched {@link Academy} objects.
+	 * 
+	 * @return A {@code ResponseEntity} object containing the fetched
+	 *         {@link Academy} objects.
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Academy>> getAllAcademies() {
 		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Updates the {@link Academy} object with the given ID in the database.
-	 * @param academy The {@link Academy} to update in the form of a JSON-object in the POST request.
-	 * @return A {@code ResponseEntity} object containing the updated {@link Academy} and an HTTP status code.
+	 * 
+	 * @param academy The {@link Academy} to update in the form of a JSON-object in
+	 *                the POST request.
+	 * @return A {@code ResponseEntity} object containing the updated
+	 *         {@link Academy} and an HTTP status code.
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<Academy> updateAcademy(@RequestBody Academy academy) {
 		Academy savedAcademy = academyService.save(academy);
 		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Deletes the {@link Academy} object with the given ID from the database.
+	 * 
 	 * @param id The ID of the {@link Academy} to delete.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteAcademyById(@PathVariable int id) {
 		academyService.deleteById(id);
 	}
-	
+
 }

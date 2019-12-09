@@ -55,7 +55,7 @@ public class Exam {
 		this.date = date;
 		this.unpublishDate = unpublishDate;
 		this.pdfUrl = pdfUrl;
-		this.setUnpublished(unpublished);
+		this.unpublished = unpublished;
 		this.courseId = courseId;
 	}
 
@@ -103,7 +103,7 @@ public class Exam {
 	 * Get the {@link Course} to which this {@code Exam} belongs.
 	 * @return The ID of the {@link Course} to which this {@code Exam} belongs.
 	 */
-	public int getCourse() {
+	public int getCourseId() {
 		return courseId;
 	}
 	
