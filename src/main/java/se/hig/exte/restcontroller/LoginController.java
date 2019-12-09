@@ -28,6 +28,6 @@ public class LoginController {
 	*/
 	@GetMapping("/")
 	public boolean loginAdmin() {
-		return (loginService.login("hej", "då"));
+		return (loginService.login("17user01", "password"));
 	}
 }
