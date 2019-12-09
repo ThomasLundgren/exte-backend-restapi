@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.User;
-import se.hig.exte.service.IService;
+import se.hig.exte.service.CrudService;
 import se.hig.exte.service.UserService;
 
 /**
- * This class is a RestController class responsible for mapping HTTP requests
- * for the /users end-point.
+ * This class is a RestController class responsible for mapping HTTP requests under the /users path.
+ * It contains mappings of end-points to {@link CrudService}s that operate on {@link User} records
+ * in the database.
  */
 @RestController
 @RequestMapping("/users")
@@ -29,10 +30,8 @@ public class UserController {
 	private final UserService userService;
 
 	/**
-	 * Create a {@code UserController} object.
-	 * 
-	 * @param userService The {@link IService} class used to perform all services
-	 *                    exposed in this RestController.
+	 * Creates an {@code UserController} object.
+	 * @param userService The {@link CrudService} class used to perform all services exposed in this RestController.
 	 */
 	@Autowired
 	public UserController(UserService userService) {
@@ -40,11 +39,9 @@ public class UserController {
 	}
 
 	/**
-	 * Creates a user and stores it in the database.
-	 * 
-	 * @param user The {@link User} to add.
-	 * @return A {@code ResponseEntity} object containing the saved {@link User} and
-	 *         an HTTP status code.
+	 * Creates a {@link User} and stores it in the database.
+	 * @param user The {@link User} to add in the form of a JSON-object in the POST request.
+	 * @return A {@code ResponseEntity} object containing the saved {@link User} and an HTTP status code.
 	 */
 	@PostMapping("/")
 	public ResponseEntity<User> saveUser(@RequestBody User user) {

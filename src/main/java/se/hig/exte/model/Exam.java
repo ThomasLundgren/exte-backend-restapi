@@ -47,6 +47,7 @@ public class Exam {
 	 * @param date The date of the {@code Exam}. Cannot be null.
 	 * @param unpublishDate The date at which the {@code Exam} should be unpublished from the website. Cannot be null.
 	 * @param pdfUrl The URL to the PDF file that corresponds to an {@code Exam}. Cannot be null.
+	 * @param unpublished Set to true if this {@code Exam} should NOT be published on the website, otherwise false.
 	 * @param courseId The ID of the {@link Course} to which an {@code Exam} belongs. Cannot be null.
 	 */
 	public Exam(String name, LocalDate date, LocalDate unpublishDate, URL pdfUrl, boolean unpublished, int courseId) {
@@ -54,7 +55,7 @@ public class Exam {
 		this.date = date;
 		this.unpublishDate = unpublishDate;
 		this.pdfUrl = pdfUrl;
-		this.setUnpublished(unpublished);
+		this.unpublished = unpublished;
 		this.courseId = courseId;
 	}
 
@@ -102,7 +103,7 @@ public class Exam {
 	 * Get the {@link Course} to which this {@code Exam} belongs.
 	 * @return The ID of the {@link Course} to which this {@code Exam} belongs.
 	 */
-	public int getCourse() {
+	public int getCourseId() {
 		return courseId;
 	}
 	
@@ -116,7 +117,7 @@ public class Exam {
 
 	/**
 	 * Set the date of this {@code Exam}. Cannot be null.
-	 * @param name The new date of this {@code Exam}.
+	 * @param date The new date of this {@code Exam}.
 	 */
 	public void setDate(LocalDate date) {
 		this.date = date;
@@ -124,7 +125,7 @@ public class Exam {
 
 	/**
 	 * Set the unpublish date of this {@code Exam}. Cannot be null.
-	 * @param name The new unpublish date of this {@code Exam}.
+	 * @param unpublishDate The new unpublish date of this {@code Exam}.
 	 */
 	public void setUnpublishDate(LocalDate unpublishDate) {
 		this.unpublishDate = unpublishDate;
@@ -132,7 +133,7 @@ public class Exam {
 
 	/**
 	 * Set the PDF file URL that corresponds to this {@code Exam}. Cannot be null.
-	 * @param name The new PDF file URL that corresponds to this {@code Exam}.
+	 * @param pdfUrl The new PDF file URL that corresponds to this {@code Exam}.
 	 */
 	public void setPdfUrl(URL pdfUrl) {
 		this.pdfUrl = pdfUrl;

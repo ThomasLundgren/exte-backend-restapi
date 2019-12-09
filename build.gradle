@@ -17,6 +17,10 @@ ext {
 	set('snippetsDir', file("build/generated-snippets"))
 }
 
+javadoc {
+	source += sourceSets.main.allJava
+}
+
 dependencies {
 	/*
 	Might need these for REST documentation:

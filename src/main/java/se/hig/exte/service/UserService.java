@@ -5,18 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import se.hig.exte.model.Course;
 import se.hig.exte.model.User;
 import se.hig.exte.repository.UserRepository;
 
 @Service
-public class UserService implements IService<User> {
+public class UserService implements CrudService<User> {
 
 	private final UserRepository userRepo;
 	
-	/**
-	 * @param userRepo
-	 */
 	@Autowired
 	public UserService(UserRepository userRepo) {
 		this.userRepo = userRepo;
