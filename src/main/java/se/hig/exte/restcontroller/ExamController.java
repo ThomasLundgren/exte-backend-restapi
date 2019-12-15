@@ -20,27 +20,27 @@ import se.hig.exte.service.ExamService;
 @RestController
 @RequestMapping("/exams")
 public class ExamController {
-	
+
 	private final ExamService examService;
 
 	@Autowired
 	public ExamController(ExamService addExamService) {
 		this.examService = addExamService;
 	}
-	
+
 	@PostMapping("/")
 	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam) {
 		Exam savedExam = examService.save(exam);
 		return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Exam> getExam(@PathVariable int id) {
 		return new ResponseEntity<Exam>(examService.findById(id), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<List<Exam>> getAllCourses() {
+	public ResponseEntity<List<Exam>> getAllExams() {
 		return new ResponseEntity<List<Exam>>(examService.findAll(), HttpStatus.OK);
 	}
 
@@ -49,16 +49,16 @@ public class ExamController {
 		List<Exam> exams = examService.findAllByCourseId(id);
 		return new ResponseEntity<List<Exam>>(exams, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void deleteExamById(@PathVariable int id) {
-		examService.deleteById(id);		
+		examService.deleteById(id);
 	}
-	
+
 	@PatchMapping("/")
 	public ResponseEntity<Exam> patchExam(@RequestBody Exam exam) {
 		Exam patchedExam = examService.save(exam);
-		return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);	
+		return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);
 	}
-	
+
 }
