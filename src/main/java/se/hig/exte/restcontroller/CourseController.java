@@ -119,5 +119,16 @@ public class CourseController {
 	public void deleteCourseById(@PathVariable int id) {
 		courseService.deleteById(id);
 	}
+<<<<<<< Updated upstream
 
+=======
+	
+	@GetMapping("/search/{searchText}")
+	public ResponseEntity<List<Course>> search(@PathVariable String searchText) {
+		System.out.println(searchText);
+		List<Course> courses = courseService.findByNameOrCourseCodeContaining(searchText);
+		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+	}
+	
+>>>>>>> Stashed changes
 }

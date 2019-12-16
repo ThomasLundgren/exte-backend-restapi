@@ -1,4 +1,4 @@
-package se.hig.exte.repository;
+package se.hig.exte.config;
 
 import java.util.stream.Collectors;
 
