@@ -121,9 +121,8 @@ public class CourseController {
 	}
 	
 	@GetMapping("/search/{text}")
-	public ResponseEntity<List<Course>> search(@PathVariable String searchText) {
-		List<Course> courses = courseService.search(searchText);
-				
+	public ResponseEntity<List<Course>> search(@PathVariable String text) {
+		List<Course> courses = courseService.search(text);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 

@@ -30,4 +30,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer>{
 	 * @return A {@link List} containing all {@link Subject}s belonging to the {@link Academy} with the specified ID.
 	 */
 	List<Subject> findByAcademyId(int academyId);
+	
+	List<Subject> findByNameContainingOrCodeContaining(String name, String code);
 }

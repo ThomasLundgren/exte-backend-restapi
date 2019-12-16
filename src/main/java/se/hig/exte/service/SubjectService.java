@@ -70,5 +70,9 @@ public class SubjectService implements CrudService<Subject> {
 	public void deleteById(int id) {
 		subjectRepo.deleteById(id);
 	}
+	
+	public List<Subject> search(String text) {
+		return subjectRepo.findByNameContainingOrCodeContaining(text, text);
+	}
 
 }

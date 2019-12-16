@@ -119,5 +119,11 @@ public class SubjectController {
 	public void deleteSubjectById(@PathVariable int id) {
 		subjectService.deleteById(id);
 	}
+	
+	@GetMapping("/search/{text}")
+	public ResponseEntity<List<Subject>> search(@PathVariable String text) {
+		List<Subject> subjects = subjectService.search(text);
+		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
+	}
 
 }
