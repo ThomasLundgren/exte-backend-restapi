@@ -119,9 +119,6 @@ public class CourseController {
 	public void deleteCourseById(@PathVariable int id) {
 		courseService.deleteById(id);
 	}
-<<<<<<< Updated upstream
-
-=======
 	
 	@GetMapping("/search/{searchText}")
 	public ResponseEntity<List<Course>> search(@PathVariable String searchText) {
@@ -130,5 +127,4 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
->>>>>>> Stashed changes
 }

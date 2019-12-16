@@ -78,9 +78,6 @@ public class CourseService implements CrudService<Course> {
 	public void deleteById(int id) {
 		courseRepo.deleteById(id);
 	}
-<<<<<<< Updated upstream
-	
-=======
 
 	/**
 	 * /** Fetches all {@link Course} objects from the database where:
@@ -100,5 +97,4 @@ public class CourseService implements CrudService<Course> {
 		return courseRepo.findByNameContainingOrCourseCodeContaining(searchText, searchText);
 	}
 
->>>>>>> Stashed changes
 }

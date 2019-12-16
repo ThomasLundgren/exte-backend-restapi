@@ -34,8 +34,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 *         {@link Subject} with the specified ID.
 	 */
 	List<Course> findBySubjectId(int subjectId);
-<<<<<<< Updated upstream
-=======
 
 	/**
 	 * Fetches all {@link Course} objects from the database where:
@@ -56,5 +54,4 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 *         passed in courseCode parameter.
 	 */
 	List<Course> findByNameContainingOrCourseCodeContaining(String name, String courseCode);
->>>>>>> Stashed changes
 }
