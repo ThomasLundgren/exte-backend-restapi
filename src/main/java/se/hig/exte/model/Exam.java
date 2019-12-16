@@ -20,8 +20,8 @@ public class Exam {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@NotBlank(message = "Name cannot be blank, empty or null")
-	@Size(min = 2, message = "Name must be at least two characters long")
+	@NotBlank(message = "Filename cannot be blank, empty or null")
+	@Size(min = 2, message = "Filename must be at least two characters long")
 	private String fileName;
 	@NotNull(message = "Date cannot be null")
 	private LocalDate date;
@@ -37,7 +37,7 @@ public class Exam {
 	/**
 	 * Creates an {@code Exam} object.
 	 * 
-	 * @param name          The name of the {@code Exam}. Must be at least two
+	 * @param fileName      The filename of the {@code Exam}. Must be at least two
 	 *                      characters long and cannot be null.
 	 * @param date          The date of the {@code Exam}. Cannot be null.
 	 * @param unpublishDate The date at which the {@code Exam} should be unpublished
@@ -67,9 +67,9 @@ public class Exam {
 	}
 
 	/**
-	 * Get the name of this {@code Exam}.
+	 * Get the filename of this {@code Exam}.
 	 * 
-	 * @return The name of this {@code Exam}.
+	 * @return The filename of this {@code Exam}.
 	 */
 	public String getFileName() {
 		return fileName;
@@ -103,10 +103,10 @@ public class Exam {
 	}
 
 	/**
-	 * Set the name of this {@code Exam}. Must be at least two characters long and
-	 * not null.
+	 * Set the filename of this {@code Exam}. Must be at least two characters long
+	 * and not null.
 	 * 
-	 * @param name The new name of this {@code Exam}.
+	 * @param name The new filename of this {@code Exam}.
 	 */
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
