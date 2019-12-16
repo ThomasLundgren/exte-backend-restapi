@@ -23,18 +23,12 @@ public class Exam {
 	private int id;
 	@NotBlank(message = "Name cannot be blank, empty or null")
 	@Size(min = 2, message = "Name must be at least two characters long")
-	private String name;
+	private String filename;
 	@NotNull(message = "Date cannot be null")
 	private LocalDate date;
 	@NotNull(message = "UnpublishDate cannot be null")
 	private LocalDate unpublishDate;
-	@NotNull(message = "PdfUrl cannot be null")
-	private URL pdfUrl; /* 
-							* address to FTP-resource on the form:
-							* scheme:[//authority][/path][?query][#fragment]
-							* Example: 
-							* ftp://theuser:thepassword@someauthority:21
-							*/
+	
 	private boolean unpublished;
 	private int courseId;
 	
@@ -43,18 +37,17 @@ public class Exam {
 	
 	/**
 	 * Creates an {@code Exam} object.
-	 * @param name The name of the {@code Exam}. Must be at least two characters long and cannot be null.
+	 * @param filename The name of the {@code Exam}. Must be at least two characters long and cannot be null.
 	 * @param date The date of the {@code Exam}. Cannot be null.
 	 * @param unpublishDate The date at which the {@code Exam} should be unpublished from the website. Cannot be null.
 	 * @param pdfUrl The URL to the PDF file that corresponds to an {@code Exam}. Cannot be null.
 	 * @param unpublished Set to true if this {@code Exam} should NOT be published on the website, otherwise false.
 	 * @param courseId The ID of the {@link Course} to which an {@code Exam} belongs. Cannot be null.
 	 */
-	public Exam(String name, LocalDate date, LocalDate unpublishDate, URL pdfUrl, boolean unpublished, int courseId) {
-		this.name = name;
+	public Exam(String filename, LocalDate date, LocalDate unpublishDate, boolean unpublished, int courseId) {
+		this.filename = filename;
 		this.date = date;
 		this.unpublishDate = unpublishDate;
-		this.pdfUrl = pdfUrl;
 		this.unpublished = unpublished;
 		this.courseId = courseId;
 	}
@@ -71,8 +64,8 @@ public class Exam {
 	 * Get the name of this {@code Exam}.
 	 * @return The name of this {@code Exam}.
 	 */
-	public String getName() {
-		return name;
+	public String getFilename() {
+		return filename;
 	}
 
 	/**
@@ -90,14 +83,6 @@ public class Exam {
 	public LocalDate getUnpublishDate() {
 		return unpublishDate;
 	}
-	
-	/**
-	 * Get the URL of the PDF file to which this {@code Exam} corresponds.
-	 * @return The URL of the PDF file to which this {@code Exam} corresponds.
-	 */
-	public URL getPdfUrl() {
-		return pdfUrl;
-	}
 
 	/**
 	 * Get the {@link Course} to which this {@code Exam} belongs.
@@ -111,8 +96,8 @@ public class Exam {
 	 * Set the name of this {@code Exam}. Must be at least two characters long and not null.
 	 * @param name The new name of this {@code Exam}.
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setFilename(String name) {
+		this.filename = name;
 	}
 
 	/**
@@ -132,20 +117,11 @@ public class Exam {
 	}
 
 	/**
-	 * Set the PDF file URL that corresponds to this {@code Exam}. Cannot be null.
-	 * @param pdfUrl The new PDF file URL that corresponds to this {@code Exam}.
-	 */
-	public void setPdfUrl(URL pdfUrl) {
-		this.pdfUrl = pdfUrl;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public String toString() {
-		return "name: " + name + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nURL: " + pdfUrl
-				+ "\nUnpublished: " + unpublished;
+		return "name: " + filename + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nUnpublished: " + unpublished;
 	}
 
 	public boolean isUnpublished() {

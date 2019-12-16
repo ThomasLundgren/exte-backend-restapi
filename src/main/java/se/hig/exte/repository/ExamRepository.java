@@ -1,5 +1,6 @@
 package se.hig.exte.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,5 +30,18 @@ public interface ExamRepository extends JpaRepository<Exam, Integer>{
 	 * @return A {@link List} containing all {@link Exam}s belonging to the {@link Course} with the specified ID.
 	 */
 	List<Exam> findByCourseId(int courseId);
+	
+	/**
+	 * Fetches all {@link Exam} objects with the unpublished value set to true.
+	 * @return A {@link List} containing all {@link Exam}s with the unpublished value set to true.
+	 */
+	List<Exam> findByUnpublishedTrue();
+	
+	/**
+	 * Fetches all {@link Exam} objects that have an expired unpublish date and haven't already been flagged as unpublished.
+	 * @param currentDate The current date
+	 * @return A {@link List} containing all {@link Exam}s that satisfy the query.
+	 */
+	List<Exam> findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate currentDate);
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -120,4 +121,17 @@ public class ExamController {
 		examService.deleteById(id);
 	}
 
+	@GetMapping("/unpub")
+	public ResponseEntity<List<Exam>> getUnpublishedExams() {
+		return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
+	}
+	
+	/**
+	 * This method is run automatically by Spring Boot at 03:00 every day.
+	 */
+	@Scheduled(cron = "0 0 3 * * *")
+	public void autoUnpublish() {
+		examService.unpublish();
+	}
+	
 }
