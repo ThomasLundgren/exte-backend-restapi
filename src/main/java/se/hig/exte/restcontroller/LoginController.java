@@ -1,20 +1,20 @@
 package se.hig.exte.restcontroller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.minidev.json.JSONObject;
-import se.hig.exte.model.Exam;
-import se.hig.exte.model.User;
 import se.hig.exte.service.LoginService;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -24,14 +24,25 @@ public class LoginController {
 	public LoginController(LoginService loginService) {
 		this.loginService = loginService;
 	}
-	/*
-	@GetMapping("/{username}/{password}")
-	public boolean loginAdmin(@PathVariable String username, @PathVariable String password) {
-		return (loginService.login(username, password));
-	}
-	*/
+
+	@RequestMapping("/")
 	@PostMapping("/")
-	public boolean loginAdmin(@RequestBody JSONObject json) {
-		return (loginService.login(json.getAsString("email"), json.getAsString("password")));
+	public boolean loginAdmin(HttpServletResponse response, HttpServletRequest request, @RequestBody JSONObject json) {
+		printAllCookies(request);
+		Cookie cookie = loginService.login(json.getAsString("email"), json.getAsString("password"));
+		if(cookie != null) {
+			response.addCookie(cookie);
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	private void printAllCookies(HttpServletRequest request) {
+		Cookie[] cookiesFromUser = request.getCookies();
+		if (cookiesFromUser != null) {
+			System.out.println(Arrays.stream(cookiesFromUser)
+					.map(c -> c.getName() + "=" + c.getValue()).collect(Collectors.joining(", ")));
+		}
 	}
 }
