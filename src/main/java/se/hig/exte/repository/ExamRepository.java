@@ -31,8 +31,17 @@ public interface ExamRepository extends JpaRepository<Exam, Integer>{
 	 */
 	List<Exam> findByCourseId(int courseId);
 	
+	/**
+	 * Fetches all {@link Exam} objects with the unpublished value set to true.
+	 * @return A {@link List} containing all {@link Exam}s with the unpublished value set to true.
+	 */
 	List<Exam> findByUnpublishedTrue();
 	
-	List<Exam> findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate date);
+	/**
+	 * Fetches all {@link Exam} objects that have an expired unpublish date and haven't already been flagged as unpublished.
+	 * @param currentDate The current date
+	 * @return A {@link List} containing all {@link Exam}s that satisfy the query.
+	 */
+	List<Exam> findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate currentDate);
 
 }

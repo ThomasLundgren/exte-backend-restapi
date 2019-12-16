@@ -75,7 +75,7 @@ public class ExamService implements CrudService<Exam> {
 		return examRepo.findByUnpublishedTrue();
 	}
 	/**
-	 * Sets the published value of {@link Exam} to true 
+	 * Sets the unpublished value of {@link Exam} to true on all exams in the list.
 	 */
 	public void unpublish() {
 		List<Exam> exams = examRepo.findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate.now());
