@@ -18,16 +18,14 @@ public class LoginService {
 	
 	public LoginService(UserService userService) {
 		this.userService = userService;
-		this.loginHandler = new LoginHandler();
+		loginHandler = new LoginHandler();
 	}
 	public boolean login(String username, String password) {
-		System.out.println("Trying to log in...");
-		boolean isLoggedIn = false;
 		if(checkIfUserExists(username)) {
-			System.out.println("user exists in db...");
-			isLoggedIn = loginHandler.login(username, password);
+			return loginHandler.login(username, password);
+		}else {
+			return false;
 		}
-		return isLoggedIn;
 	}
 	
 	private boolean checkIfUserExists(String username) {

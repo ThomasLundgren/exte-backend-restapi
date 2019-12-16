@@ -32,9 +32,6 @@ public class LoginController {
 	*/
 	@PostMapping("/")
 	public boolean loginAdmin(@RequestBody JSONObject json) {
-		System.out.println("Email and password:");
-		System.out.println(json.getAsString("email"));
-		System.out.println(json.getAsString("password"));
 		return (loginService.login(json.getAsString("email"), json.getAsString("password")));
 	}
 }
