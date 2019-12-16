@@ -8,15 +8,13 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.Cookie;
 import login.ILoginHandler;
 import login.LoginHandler;
-import login.SessionHandler;
+import se.hig.exte.restcontroller.SessionHandler;
 
 @Service
 public class LoginService {
 	private final ILoginHandler loginHandler;
-	private final SessionHandler sessionHandler;
 	@Autowired
 	private final UserService userService;
-	private static final String COOKIE_NAME = "identifier";
 
 	/**
 	 * @param loginHandler
@@ -25,8 +23,8 @@ public class LoginService {
 	public LoginService(UserService userService) {
 		this.userService = userService;
 		loginHandler = new LoginHandler();
-		sessionHandler = new SessionHandler();
 	}
+	
 	public Cookie login(String username, String password) {
 		Cookie cookie = null;
 		if(checkIfUserExists(username)) {
@@ -45,7 +43,7 @@ public class LoginService {
 	private Cookie createCookie(boolean isSuperUser){
 		Cookie cookie = null;
 		try {
-			cookie = new Cookie(COOKIE_NAME, sessionHandler.addSession(isSuperUser));
+			cookie = new Cookie(SessionHandler.COOKIE_NAME, SessionHandler.addSession(isSuperUser));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}

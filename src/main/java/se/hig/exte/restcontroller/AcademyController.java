@@ -2,6 +2,9 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,8 +46,14 @@ public class AcademyController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteAcademyById(@PathVariable int id) {
-		academyService.deleteById(id);
+	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
+		String cookieValue = SessionHandler.extractCookies(request.getCookies());
+		try {
+			academyService.deleteById(id, cookieValue);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 	}
 	
 	@PatchMapping("/")
