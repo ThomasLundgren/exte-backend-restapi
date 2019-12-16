@@ -1,6 +1,5 @@
 package se.hig.exte.model;
 
-import java.net.URL;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
