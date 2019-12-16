@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import se.hig.exte.service.ExamService;
 import se.hig.exte.service.FileService;
 
 @RestController
@@ -24,10 +25,12 @@ import se.hig.exte.service.FileService;
 public class FileController implements HandlerExceptionResolver {
 
 	private final FileService fileService;
+	private final ExamService examService;
 
 	@Autowired
-	public FileController(FileService fileService) {
+	public FileController(FileService fileService, ExamService examService) {
 		this.fileService = fileService;
+		this.examService = examService;
 	}
 
 	@PostMapping(value = "/upload")
@@ -37,9 +40,14 @@ public class FileController implements HandlerExceptionResolver {
 
 		if (isPDF(file)) {
 			try {
-				fileService.storeFile(file);
-				message = "Successfully uploaded: " + file.getOriginalFilename();
-				return ResponseEntity.status(HttpStatus.OK).body(message);
+				if (!examExists(file.getOriginalFilename().split("\\.")[0])) {
+					fileService.storeFile(file);
+					message = "Successfully uploaded: " + file.getOriginalFilename();
+					return ResponseEntity.status(HttpStatus.OK).body(message);
+				} else {
+					message = "Duplicate exam filename, exam with the filename already exists.";
+					return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+				}
 			} catch (Exception e) {
 				message = "Failed to upload: " + file.getOriginalFilename();
 				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
@@ -75,5 +83,9 @@ public class FileController implements HandlerExceptionResolver {
 	public boolean isPDF(MultipartFile file) {
 		return file.getContentType().equals("application/pdf")
 				&& file.getOriginalFilename().split("\\.")[1].equals("pdf");
+	}
+
+	public boolean examExists(String fileName) {
+		return examService.findAll().stream().anyMatch(e -> e.getFileName().equalsIgnoreCase(fileName));
 	}
 }
