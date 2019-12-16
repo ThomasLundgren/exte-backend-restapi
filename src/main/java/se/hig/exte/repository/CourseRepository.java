@@ -31,8 +31,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 * @return A {@code List} containing all {@link Course}s belonging to the {@link Subject} with the specified ID.
 	 */
 	List<Course> findBySubjectId(int subjectId);
-	//@Query("SELECT c FROM Course c WHERE c.name = :name")
-
-	
+		
 	List<Course> findByNameContainingOrCourseCodeContaining(String courseCode, String name);
 }

@@ -1,5 +1,6 @@
 package se.hig.exte.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,5 +30,9 @@ public interface ExamRepository extends JpaRepository<Exam, Integer>{
 	 * @return A {@link List} containing all {@link Exam}s belonging to the {@link Course} with the specified ID.
 	 */
 	List<Exam> findByCourseId(int courseId);
+	
+	List<Exam> findByUnpublishedTrue();
+	
+	List<Exam> findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate date);
 
 }
