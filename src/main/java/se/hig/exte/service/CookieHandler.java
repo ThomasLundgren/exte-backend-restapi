@@ -5,15 +5,10 @@ import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.Cookie;
-import javax.sound.midi.Soundbank;
-
-import org.springframework.scheduling.annotation.Scheduled;
 
 public class CookieHandler {
 	private static HashMap<String, Session> sessions = new HashMap<String, Session>();

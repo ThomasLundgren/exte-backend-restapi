@@ -1,9 +1,5 @@
 package se.hig.exte.restcontroller;
 
-import java.util.List;
-
-import javax.security.sasl.AuthenticationException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
