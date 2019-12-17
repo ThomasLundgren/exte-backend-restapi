@@ -67,15 +67,6 @@ public class AcademyController {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
-	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
-		try {
-			academyService.deleteById(id, request.getCookies());
-			return true;
-		}catch (Exception e) {
-			return false;
-		}
-	}
 
 	/**
 	 * Updates the {@link Academy} object with the given ID in the database.
@@ -97,13 +88,14 @@ public class AcademyController {
 	 * @param id The ID of the {@link Academy} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public boolean deleteAcademyById(@PathVariable int id, Cookie[] klientCookies) {
+	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
 		try {
-			academyService.deleteById(id, klientCookies);
+			academyService.deleteById(id, request.getCookies());
 			return true;
-		} catch (AuthenticationException e) {
+		}catch (Exception e) {
 			return false;
 		}
 	}
+
 
 }

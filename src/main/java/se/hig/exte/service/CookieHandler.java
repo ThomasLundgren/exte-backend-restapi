@@ -3,9 +3,17 @@ package se.hig.exte.service;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.Cookie;
+import javax.sound.midi.Soundbank;
+
+import org.springframework.scheduling.annotation.Scheduled;
 
 public class CookieHandler {
 	private static HashMap<String, Session> sessions = new HashMap<String, Session>();
@@ -57,6 +65,20 @@ public class CookieHandler {
 				sessionCookie = cookie;
 		}
 		return sessionCookie;
+	}
+
+	public static void removeOldSessions() {
+		List<String> sessionsToRemove = new ArrayList<String>();
+		for (Map.Entry<String, Session> entry : sessions.entrySet()) {
+		    String key = entry.getKey();
+		    Session session = entry.getValue();
+		    if(session.hasExpired()) {
+		    	sessionsToRemove.add(key);
+		    }
+		}
+		for (String key : sessionsToRemove) {
+			sessions.remove(key);
+		}
 	}
 	
 	static class Session{
