@@ -9,10 +9,10 @@ import javax.naming.directory.InitialDirContext;
 /**
  * Autentiserar Användare, Hig LDAP Tagen från VFU_Socionom_tipsfiler 2019-12-02
  */
-public class LDAP {
+class LDAP {
 
 
-  public  static boolean authenticateHigLdap(String studentId, String password) {
+    static boolean authenticateHigLdap(String studentId, String password) {
         try {
             Hashtable<String, String> env = new Hashtable<>();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
