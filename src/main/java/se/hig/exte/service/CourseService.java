@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Course;
+import se.hig.exte.model.Subject;
 import se.hig.exte.repository.CourseRepository;
 
 /**
@@ -94,6 +95,22 @@ public class CourseService implements CrudService<Course> {
 	 */
 	public List<Course> findByNameOrCourseCodeContaining(String searchText) {
 		return courseRepo.findByNameContainingOrCourseCodeContaining(searchText, searchText);
+	}
+	
+	/**
+	 * Fetches a list of {@link Course} objects that are unpublished.
+	 * @return A {@link List} containing all {@link Course}s found.
+	 */
+	public List<Course> findAllUnpublished() {
+		return courseRepo.findByUnpublishedTrue();
+	}
+	
+	/**
+	 * Fetches a list of {@link Course} objects that are published.
+	 * @return A {@link List} containing all {@link Course}s found.
+	 */
+	public List<Course> findAllPublished() {
+		return courseRepo.findByUnpublishedFalse();
 	}
 
 }

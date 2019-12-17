@@ -129,7 +129,7 @@ public class CourseController {
 	 */
 	@GetMapping("/search/{text}")
 	public ResponseEntity<List<Course>> search(@PathVariable String text) {
-		List<Course> courses = courseService.search(text);
+		List<Course> courses = courseService.findByNameOrCourseCodeContaining(text);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
