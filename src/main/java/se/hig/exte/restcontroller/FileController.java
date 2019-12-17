@@ -1,11 +1,18 @@
 package se.hig.exte.restcontroller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +38,19 @@ public class FileController implements HandlerExceptionResolver {
 	public FileController(FileService fileService, ExamService examService) {
 		this.fileService = fileService;
 		this.examService = examService;
+	}
+
+	@GetMapping(value = "/download/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String fileName) {
+		ResponseEntity<byte[]> response;
+		try {
+			File pdf = fileService.fetchFile(fileName);
+			byte[] contents = Files.readAllBytes(pdf.toPath());
+			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
+		} catch (IOException ioe) {
+			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
+		}
+		return response;
 	}
 
 	@PostMapping(value = "/upload")

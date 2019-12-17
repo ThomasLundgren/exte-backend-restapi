@@ -28,6 +28,7 @@ public class Exam {
 	@NotNull(message = "UnpublishDate cannot be null")
 	private LocalDate unpublishDate;
 	private boolean unpublished;
+	@NotNull(message = "Course ID cannot be null")
 	private int courseId;
 
 	// Only used for JPA/Spring, which is why it is declared with protected.
@@ -42,8 +43,6 @@ public class Exam {
 	 * @param date          The date of the {@code Exam}. Cannot be null.
 	 * @param unpublishDate The date at which the {@code Exam} should be unpublished
 	 *                      from the website. Cannot be null.
-	 * @param pdfUrl        The URL to the PDF file that corresponds to an
-	 *                      {@code Exam}. Cannot be null.
 	 * @param unpublished   Set to true if this {@code Exam} should NOT be published
 	 *                      on the website, otherwise false.
 	 * @param courseId      The ID of the {@link Course} to which an {@code Exam}
@@ -106,7 +105,7 @@ public class Exam {
 	 * Set the filename of this {@code Exam}. Must be at least two characters long
 	 * and not null.
 	 * 
-	 * @param name The new filename of this {@code Exam}.
+	 * @param fileName The new filename of this {@code Exam}.
 	 */
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
