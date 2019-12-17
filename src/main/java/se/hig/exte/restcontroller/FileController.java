@@ -51,10 +51,10 @@ public class FileController implements HandlerExceptionResolver {
 	}
 
 	/**
-	 * Gets a file stored on the server. This method is run when a HTTP GET request
-	 * is made to the end-point /download/{fileName}. The specified file name must
-	 * contain the file extension (e.g. ".pdf"). Returns an empty response and a
-	 * status code of "404 - not found" if the file is not found.
+	 * Fetches a file stored on the server. This method is run when a HTTP GET
+	 * request is made to the end-point /download/{fileName}. The specified file
+	 * name must contain the file extension (e.g. ".pdf"). Returns an empty response
+	 * and a status code of "404 - not found" if the file is not found.
 	 * 
 	 * @param fileName The name of the file on the server to fetch.
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
@@ -78,7 +78,7 @@ public class FileController implements HandlerExceptionResolver {
 	 * Returns a status code of "417 - expectation failed" if a file with the
 	 * specified name already exists or if the file is not a PDF file.
 	 * 
-	 * @param fileName The name of the file to upload to the server.
+	 * @param file The {@code MultiPartFile} to upload to the server.
 	 * @return A {@code ResponseEntity} containing a message and status code 200 if
 	 *         successful, else 417.
 	 */

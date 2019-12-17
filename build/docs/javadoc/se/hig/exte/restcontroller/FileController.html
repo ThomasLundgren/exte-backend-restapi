@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var methods = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -116,6 +116,8 @@ var activeTableTab = "activeTableTab";
 public class <span class="typeNameLabel">FileController</span>
 extends java.lang.Object
 implements org.springframework.web.servlet.HandlerExceptionResolver</pre>
+<div class="block">A <code>RestController</code> class responsible for mapping HTTP requests to the
+ /files path. This class calls services that store and fetches file resources.</div>
 </li>
 </ul>
 </div>
@@ -135,7 +137,9 @@ implements org.springframework.web.servlet.HandlerExceptionResolver</pre>
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/FileController.html#FileController-se.hig.exte.service.FileService-se.hig.exte.service.ExamService-">FileController</a></span>(<a href="../../../../se/hig/exte/service/FileService.html" title="class in se.hig.exte.service">FileService</a>&nbsp;fileService,
-              <a href="../../../../se/hig/exte/service/ExamService.html" title="class in se.hig.exte.service">ExamService</a>&nbsp;examService)</code>&nbsp;</td>
+              <a href="../../../../se/hig/exte/service/ExamService.html" title="class in se.hig.exte.service">ExamService</a>&nbsp;examService)</code>
+<div class="block">Creates a <code>FileController</code>.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -153,22 +157,18 @@ implements org.springframework.web.servlet.HandlerExceptionResolver</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/FileController.html#examExists-java.lang.String-">examExists</a></span>(java.lang.String&nbsp;fileName)</code>&nbsp;</td>
+<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;byte[]&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/FileController.html#handleFileDownload-java.lang.String-">handleFileDownload</a></span>(java.lang.String&nbsp;fileName)</code>
+<div class="block">Gets a file stored on the server.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;byte[]&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/FileController.html#handleFileDownload-java.lang.String-">handleFileDownload</a></span>(java.lang.String&nbsp;fileName)</code>&nbsp;</td>
+<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/FileController.html#handleFileUpload-org.springframework.web.multipart.MultipartFile-">handleFileUpload</a></span>(org.springframework.web.multipart.MultipartFile&nbsp;file)</code>
+<div class="block">Uploads a file to the server.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.lang.String&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/FileController.html#handleFileUpload-org.springframework.web.multipart.MultipartFile-">handleFileUpload</a></span>(org.springframework.web.multipart.MultipartFile&nbsp;file)</code>&nbsp;</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/FileController.html#isPDF-org.springframework.web.multipart.MultipartFile-">isPDF</a></span>(org.springframework.web.multipart.MultipartFile&nbsp;file)</code>&nbsp;</td>
-</tr>
-<tr id="i4" class="altColor">
 <td class="colFirst"><code>org.springframework.web.servlet.ModelAndView</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/FileController.html#resolveException-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-java.lang.Object-java.lang.Exception-">resolveException</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request,
                 javax.servlet.http.HttpServletResponse&nbsp;response,
@@ -206,6 +206,12 @@ implements org.springframework.web.servlet.HandlerExceptionResolver</pre>
 <pre>@Autowired
 public&nbsp;FileController(<a href="../../../../se/hig/exte/service/FileService.html" title="class in se.hig.exte.service">FileService</a>&nbsp;fileService,
                                   <a href="../../../../se/hig/exte/service/ExamService.html" title="class in se.hig.exte.service">ExamService</a>&nbsp;examService)</pre>
+<div class="block">Creates a <code>FileController</code>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileService</code> - The <a href="../../../../se/hig/exte/service/FileService.html" title="class in se.hig.exte.service"><code>FileService</code></a> to use.</dd>
+<dd><code>examService</code> - The <a href="../../../../se/hig/exte/service/ExamService.html" title="class in se.hig.exte.service"><code>ExamService</code></a> to use.</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -226,6 +232,16 @@ public&nbsp;FileController(<a href="../../../../se/hig/exte/service/FileService.
             produces="application/pdf")
 public&nbsp;org.springframework.http.ResponseEntity&lt;byte[]&gt;&nbsp;handleFileDownload(@PathVariable
                                                                                                                                                               java.lang.String&nbsp;fileName)</pre>
+<div class="block">Gets a file stored on the server. This method is run when a HTTP GET request
+ is made to the end-point /download/{fileName}. The specified file name must
+ contain the file extension (e.g. ".pdf"). Returns an empty response and a
+ status code of "404 - not found" if the file is not found.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileName</code> - The name of the file on the server to fetch.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> containing a byte array containing the file.</dd>
+</dl>
 </li>
 </ul>
 <a name="handleFileUpload-org.springframework.web.multipart.MultipartFile-">
@@ -237,12 +253,23 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;byte[]&gt;&nbsp;handleFil
 <pre>@PostMapping(value="/upload")
 public&nbsp;org.springframework.http.ResponseEntity&lt;java.lang.String&gt;&nbsp;handleFileUpload(@RequestParam(value="file")
                                                                                                                  org.springframework.web.multipart.MultipartFile&nbsp;file)</pre>
+<div class="block">Uploads a file to the server. This method is run when a HTTP POST request is
+ made to the end-point files/upload/ and expects a <code>MultipartFile</code>.
+ Returns a status code of "417 - expectation failed" if a file with the
+ specified name already exists or if the file is not a PDF file.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>file</code> - The <code>MultiPartFile</code> to upload to the server.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> containing a message and status code 200 if
+         successful, else 417.</dd>
+</dl>
 </li>
 </ul>
 <a name="resolveException-javax.servlet.http.HttpServletRequest-javax.servlet.http.HttpServletResponse-java.lang.Object-java.lang.Exception-">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>resolveException</h4>
 <pre>@ResponseBody
@@ -254,24 +281,6 @@ public&nbsp;org.springframework.web.servlet.ModelAndView&nbsp;resolveException(j
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>resolveException</code>&nbsp;in interface&nbsp;<code>org.springframework.web.servlet.HandlerExceptionResolver</code></dd>
 </dl>
-</li>
-</ul>
-<a name="isPDF-org.springframework.web.multipart.MultipartFile-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isPDF</h4>
-<pre>public&nbsp;boolean&nbsp;isPDF(org.springframework.web.multipart.MultipartFile&nbsp;file)</pre>
-</li>
-</ul>
-<a name="examExists-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>examExists</h4>
-<pre>public&nbsp;boolean&nbsp;examExists(java.lang.String&nbsp;fileName)</pre>
 </li>
 </ul>
 </li>

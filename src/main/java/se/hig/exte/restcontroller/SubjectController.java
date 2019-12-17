@@ -100,7 +100,7 @@ public class SubjectController {
 	 * Updates the {@link Subject} object with the given ID in the database.
 	 * 
 	 * @param subject The {@link Subject} to update in the form of a JSON-object in
-	 *               the POST request.
+	 *                the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated
 	 *         {@link Subject} and an HTTP status code.
 	 */
@@ -119,7 +119,15 @@ public class SubjectController {
 	public void deleteSubjectById(@PathVariable int id) {
 		subjectService.deleteById(id);
 	}
-	
+
+	/**
+	 * Fetches all {@link Subject} objects from the database whose {@code name} OR
+	 * {@code code} attribute contains the string passed in as the parameter.
+	 * 
+	 * @param text The {@code String} which the name or code should contain.
+	 * @return All {@link Subject} objects whose name or code attributes contain the
+	 *         specified search text.
+	 */
 	@GetMapping("/search/{text}")
 	public ResponseEntity<List<Subject>> search(@PathVariable String text) {
 		List<Subject> subjects = subjectService.search(text);

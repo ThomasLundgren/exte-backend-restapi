@@ -15,12 +15,25 @@ public class FileService {
 
 	private static final String FILE_DIRECTORY = "uploads";
 
+	/**
+	 * Uploads a file to the server.
+	 * 
+	 * @param file The {@code MultiPartFile} to upload to the server.
+	 * @throws IOException  if an I/O error occurs when writing.
+	 */
 	public void storeFile(MultipartFile file) throws IOException {
 		Path filePath = Paths.get(FILE_DIRECTORY + "/" + file.getOriginalFilename());
 		System.out.println("File saved: " + file.getOriginalFilename());
 		Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 	}
-	
+
+	/**
+	 * Fetches a file stored on the server. The specified file name must contain the
+	 * file extension (e.g. ".pdf").
+	 * 
+	 * @param fileName The name of the file on the server to fetch.
+	 * @return A {@code File} with the specified name.
+	 */
 	public File fetchFile(String fileName) {
 		return new File(FILE_DIRECTORY + "/" + fileName);
 	}

@@ -76,15 +76,16 @@ public class ExamService implements CrudService<Exam> {
 	public void deleteById(int id) {
 		examRepo.deleteById(id);
 	}
-	
+
 	/**
 	 * Fetches all unpublished {@link Exam}s from the database.
+	 * 
 	 * @return A {@link List} containing all unpublished {@link Exam}s.
 	 */
 	public List<Exam> findAllUnpublished() {
 		return examRepo.findByUnpublishedTrue();
 	}
-	
+
 	/**
 	 * Sets the unpublished value of {@link Exam} to true on all exams in the list.
 	 */
