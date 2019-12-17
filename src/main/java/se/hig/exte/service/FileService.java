@@ -1,5 +1,6 @@
 package se.hig.exte.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,5 +19,9 @@ public class FileService {
 		Path filePath = Paths.get(FILE_DIRECTORY + "/" + file.getOriginalFilename());
 		System.out.println("File saved: " + file.getOriginalFilename());
 		Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+	}
+	
+	public File fetchFile(String fileName) {
+		return new File(FILE_DIRECTORY + "/" + fileName);
 	}
 }
