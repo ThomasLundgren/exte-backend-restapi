@@ -1,5 +1,7 @@
 package se.hig.exte.restcontroller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -36,6 +38,11 @@ public class AcademyController {
 	 */
 	public AcademyController(AcademyService academyService) {
 		this.academyService = academyService;
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<Academy>> getAllAcademies() {
+		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
 	}
 
 	/**
