@@ -21,7 +21,7 @@ public class UnpublishService {
 	/**
 	 * This method is run automatically by Spring Boot at 04:00 every day.
 	 */
-	@Scheduled(cron = "0 0 4 * * *")
+	@Scheduled(cron = "0 0 3 * * *")
 	public void unpublish() {
 		examRepository.findAll().forEach(exam -> {
 			System.out.println("Unpublisher looking at exam: " + exam.toString());
@@ -33,5 +33,7 @@ public class UnpublishService {
 			examRepository.flush();
 		});
 	}
+	
+	
 
 }

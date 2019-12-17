@@ -11,11 +11,18 @@ import org.springframework.stereotype.Service;
 import se.hig.exte.model.Academy;
 import se.hig.exte.repository.AcademyRepository;
 
+/**
+ * A Service used for performing CRUD operations on {@link Academy} objects.
+ */
 @Service
 public class AcademyService {
 
 	private final AcademyRepository academyRepo;
-	
+
+	/**
+	 * Creates an {@code AcademyService} object.
+	 * @param academyRepo The {@link AcademyRepository} to use for CRUD operations.
+	 */
 	@Autowired
 	public AcademyService(AcademyRepository academyRepo) {
 		this.academyRepo = academyRepo;
@@ -30,7 +37,10 @@ public class AcademyService {
 	public Academy findById(int id) {
 		return academyRepo.findById(id);
 	}
-	
+
+	/**
+	 * Fetches all {@link Academy} objects from the database.
+	 */
 	public List<Academy> findAll() {
 		return academyRepo.findAll();
 	}
@@ -38,7 +48,7 @@ public class AcademyService {
 	public void deleteById(int id, Cookie[] cookies) throws AuthenticationException {
 		if(CookieHandler.isValidSuperSession(cookies))
 			academyRepo.deleteById(id);
-		else 
+		else
 			throw new AuthenticationException();
 	}
 

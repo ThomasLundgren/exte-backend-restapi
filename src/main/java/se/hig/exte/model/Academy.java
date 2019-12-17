@@ -71,7 +71,7 @@ public class Academy {
 
 	/**
 	 * Set the abbreviation of this {@code Academy}. The abbreviation must be at between two and five characters long and cannot be null.
-	 * @param name The abbreviation of this {@code Academy}.
+	 * @param abbreviation The abbreviation of this {@code Academy}.
 	 */
 	public void setAbbreviation(String abbreviation) {
 		this.abbreviation = abbreviation;

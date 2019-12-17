@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.User;
-import se.hig.exte.service.IService;
+import se.hig.exte.service.CrudService;
 import se.hig.exte.service.UserService;
 
 /**
  * This class is a RestController class responsible for mapping HTTP requests
- * for the /users end-point.
+ * under the /users path. It contains mappings of end-points to
+ * {@link CrudService}s that operate on {@link User} records in the database.
  */
 @RestController
 @RequestMapping("/users")
@@ -29,9 +30,9 @@ public class UserController {
 	private final UserService userService;
 
 	/**
-	 * Create a {@code UserController} object.
+	 * Creates an {@code UserController} object.
 	 * 
-	 * @param userService The {@link IService} class used to perform all services
+	 * @param userService The {@link CrudService} class used to perform all services
 	 *                    exposed in this RestController.
 	 */
 	@Autowired
@@ -40,9 +41,10 @@ public class UserController {
 	}
 
 	/**
-	 * Creates a user and stores it in the database.
+	 * Creates a {@link User} and stores it in the database.
 	 * 
-	 * @param user The {@link User} to add.
+	 * @param user The {@link User} to add in the form of a JSON-object in the POST
+	 *             request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link User} and
 	 *         an HTTP status code.
 	 */
@@ -52,25 +54,53 @@ public class UserController {
 		return new ResponseEntity<User>(savedUser, HttpStatus.OK);
 	}
 
+	/**
+	 * Fetches the {@link User} object with the given ID from the database.
+	 * 
+	 * @param id The ID of the {@link User} to fetch.
+	 * @return The {@link User} with the given ID.
+	 */
 	@GetMapping("/{id}")
 	public User getUser(@PathVariable String id) {
 		int userId = Integer.parseInt(id);
 		return userService.findById(userId);
 	}
 
+	/**
+	 * Fetches all {@link User} records from the database and returns them as a
+	 * {@code ResponseEntity} object. List of {@link User} objects is automatically
+	 * converted to JSON using Spring Boot's {@code HttpMessageConverter} and put in
+	 * the {@code ResponseEntity}'s body.
+	 * 
+	 * @return A {@code ResponseEntity} object containing the fetched {@link User}
+	 *         objects.
+	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> getAllCourses() {
 		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
-	public void deleteUserById(@PathVariable int id) {
-		userService.deleteById(id);
-	}
-
+	/**
+	 * Updates the {@link User} object with the given ID in the database.
+	 * 
+	 * @param user The {@link User} to update in the form of a JSON-object in the
+	 *               POST request.
+	 * @return A {@code ResponseEntity} object containing the updated {@link User}
+	 *         and an HTTP status code.
+	 */
 	@PatchMapping("/")
 	public ResponseEntity<User> updateUser(@RequestBody User user) {
 		User savedUser = userService.save(user);
 		return new ResponseEntity<User>(savedUser, HttpStatus.OK);
+	}
+
+	/**
+	 * Deletes the {@link User} object with the given ID from the database.
+	 * 
+	 * @param id The ID of the {@link User} to delete.
+	 */
+	@DeleteMapping("/{id}")
+	public void deleteUserById(@PathVariable int id) {
+		userService.deleteById(id);
 	}
 }
