@@ -1,10 +1,6 @@
 package se.hig.exte.security;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
+import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.*;
 import se.hig.exte.authentication.LDAPAuthentication;
 
 class LDAPAuthenticationTest {
