@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6};
+var methods = {"i0":6,"i1":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -107,8 +107,8 @@ var activeTableTab = "activeTableTab";
 public interface <span class="typeNameLabel">AcademyRepository</span>
 extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>,java.lang.Integer&gt;</pre>
 <div class="block">An interface used for database operations on <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> objects.
- References to this interface are automatically given an implementation by Spring Boot when using
- the <code>Autowired</code> annotation.</div>
+ References to this interface are automatically given an implementation by
+ Spring Boot when using the <code>Autowired</code> annotation.</div>
 </li>
 </ul>
 </div>
@@ -128,6 +128,10 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/repository/AcademyRepository.html#findAll--">findAll</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/repository/AcademyRepository.html#findById-int-">findById</a></span>(int&nbsp;id)</code>
 <div class="block">Fetches the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID from the database.</div>
@@ -139,7 +143,7 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;org.springframework.data.jpa.repository.JpaRepository</h3>
-<code>deleteAllInBatch, deleteInBatch, findAll, findAll, findAll, findAll, findAllById, flush, getOne, saveAll, saveAndFlush</code></li>
+<code>deleteAllInBatch, deleteInBatch, findAll, findAll, findAll, findAllById, flush, getOne, saveAll, saveAndFlush</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.springframework.data.repository.PagingAndSortingRepository">
@@ -179,7 +183,7 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 <a name="findById-int-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>findById</h4>
 <pre><a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&nbsp;findById(int&nbsp;id)</pre>
@@ -188,7 +192,23 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object to fetch.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object representing the database record with the specified ID.</dd>
+<dd>The <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object representing the database record with the
+         specified ID.</dd>
+</dl>
+</li>
+</ul>
+<a name="findAll--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>findAll</h4>
+<pre>java.util.List&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&nbsp;findAll()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code>findAll</code>&nbsp;in interface&nbsp;<code>org.springframework.data.repository.CrudRepository&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>,java.lang.Integer&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code>findAll</code>&nbsp;in interface&nbsp;<code>org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>,java.lang.Integer&gt;</code></dd>
 </dl>
 </li>
 </ul>
