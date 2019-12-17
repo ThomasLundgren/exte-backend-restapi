@@ -2,7 +2,6 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -47,9 +46,8 @@ public class AcademyController {
 
 	@DeleteMapping("/{id}")
 	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
-		String cookieValue = SessionHandler.extractCookies(request.getCookies());
 		try {
-			academyService.deleteById(id, cookieValue);
+			academyService.deleteById(id, request.getCookies());
 			return true;
 		}catch (Exception e) {
 			return false;

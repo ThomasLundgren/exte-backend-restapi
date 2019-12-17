@@ -8,7 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.Cookie;
 import login.ILoginHandler;
 import login.LoginHandler;
-import se.hig.exte.restcontroller.SessionHandler;
 
 @Service
 public class LoginService {
@@ -43,7 +42,7 @@ public class LoginService {
 	private Cookie createCookie(boolean isSuperUser){
 		Cookie cookie = null;
 		try {
-			cookie = new Cookie(SessionHandler.COOKIE_NAME, SessionHandler.addSession(isSuperUser));
+			cookie = CookieHandler.createCookie(isSuperUser);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
