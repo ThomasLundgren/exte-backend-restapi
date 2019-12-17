@@ -1,0 +1,3 @@
+operation::index[snippets='curl-request,http-request,http-response']
+
+include::build/generated-snippets/index/response-body.adoc[]
