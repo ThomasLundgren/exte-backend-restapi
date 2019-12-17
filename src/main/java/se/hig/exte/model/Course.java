@@ -23,6 +23,7 @@ public class Course {
 	@NotBlank(message = "Course code cannot be empty or null")
 	@Size(min = 6, max = 7, message = "Course code must be between six and seven characters long")
 	private String courseCode;
+	private boolean unpublished;
 	private int subjectId;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
@@ -34,9 +35,10 @@ public class Course {
 	 * @param courseCode The course code of this {@code Course}. Must be between six and seven characters long.
 	 * @param subjectId The ID of the {@link Subject} to which this {@code Course} belongs.
 	 */
-	public Course(String name, String courseCode, int subjectId) {
+	public Course(String name, String courseCode, boolean unpublished, int subjectId) {
 		this.name = name;
 		this.courseCode = courseCode;
+		this.unpublished = unpublished;
 		this.subjectId = subjectId;
 	}
 
@@ -72,6 +74,10 @@ public class Course {
 		return courseCode;
 	}
 
+	public boolean isUnpublished() {
+		return unpublished;
+	}
+
 	/**
 	 * Set the name of this {@code Course}. Must be at least two characters long.
 	 * @param name The new name of this {@code Course}.
@@ -88,6 +94,9 @@ public class Course {
 		this.courseCode = courseCode;
 	}
 
+	public void setUnpublished(boolean unpublished) {
+		this.unpublished = unpublished;
+	}
 	/**
 	 * {@inheritDoc}
 	 */
