@@ -37,9 +37,9 @@ public class SubjectController {
 	public ResponseEntity<Subject> getSubject(@PathVariable int id) {
 		return new ResponseEntity<Subject>(subjectService.findById(id), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<List<Subject>> getAllCourses() {
+	public ResponseEntity<List<Subject>> getAllSubjects() {
 		return new ResponseEntity<List<Subject>>(subjectService.findAll(), HttpStatus.OK);
 	}
 
