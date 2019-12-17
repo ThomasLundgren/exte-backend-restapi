@@ -5,6 +5,7 @@
 -quiet 
 -windowtitle 'exte-backend-restapi 0.0.1-SNAPSHOT API'
 'C:\\Users\\thoma\\Documents\\Dev\\Projects\\exte-backend-restapi\\src\\main\\java\\se\\hig\\exte\\authentication\\LDAPAuthentication.java'
+'C:\\Users\\thoma\\Documents\\Dev\\Projects\\exte-backend-restapi\\src\\main\\java\\se\\hig\\exte\\config\\RepositoryConfig.java'
 'C:\\Users\\thoma\\Documents\\Dev\\Projects\\exte-backend-restapi\\src\\main\\java\\se\\hig\\exte\\ExteBackendRestapiApplication.java'
 'C:\\Users\\thoma\\Documents\\Dev\\Projects\\exte-backend-restapi\\src\\main\\java\\se\\hig\\exte\\model\\Academy.java'
 'C:\\Users\\thoma\\Documents\\Dev\\Projects\\exte-backend-restapi\\src\\main\\java\\se\\hig\\exte\\model\\Course.java'

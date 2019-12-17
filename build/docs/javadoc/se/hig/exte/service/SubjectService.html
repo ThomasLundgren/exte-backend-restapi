@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -183,6 +183,10 @@ implements <a href="../../../../se/hig/exte/service/CrudService.html" title="int
 <div class="block">Saves a <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> object to the database.</div>
 </td>
 </tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model">Subject</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/service/SubjectService.html#search-java.lang.String-">search</a></span>(java.lang.String&nbsp;text)</code>&nbsp;</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -299,7 +303,7 @@ public&nbsp;SubjectService(<a href="../../../../se/hig/exte/repository/SubjectRe
 <a name="deleteById-int-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>deleteById</h4>
 <pre>public&nbsp;void&nbsp;deleteById(int&nbsp;id)</pre>
@@ -310,6 +314,15 @@ public&nbsp;SubjectService(<a href="../../../../se/hig/exte/repository/SubjectRe
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> object to delete.</dd>
 </dl>
+</li>
+</ul>
+<a name="search-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>search</h4>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model">Subject</a>&gt;&nbsp;search(java.lang.String&nbsp;text)</pre>
 </li>
 </ul>
 </li>

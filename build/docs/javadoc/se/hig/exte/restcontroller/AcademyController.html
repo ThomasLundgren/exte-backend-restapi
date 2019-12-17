@@ -111,9 +111,9 @@ var activeTableTab = "activeTableTab";
  @RequestMapping(value="/academies")
 public class <span class="typeNameLabel">AcademyController</span>
 extends java.lang.Object</pre>
-<div class="block">This class is a RestController class responsible for mapping HTTP requests for the /academies path.
- It contains contains mappings of end-points to <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a>s that operate on <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> records
- in the database.</div>
+<div class="block">This class is a RestController class responsible for mapping HTTP requests
+ for the /academies path. It contains mappings of end-points to
+ <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a>s that operate on <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> records in the database.</div>
 </li>
 </ul>
 </div>
@@ -133,7 +133,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/AcademyController.html#AcademyController-se.hig.exte.service.AcademyService-">AcademyController</a></span>(<a href="../../../../se/hig/exte/service/AcademyService.html" title="class in se.hig.exte.service">AcademyService</a>&nbsp;academyService)</code>
-<div class="block">Create a <code>AcademyController</code> object.</div>
+<div class="block">Creates an <code>AcademyController</code> object.</div>
 </td>
 </tr>
 </table>
@@ -166,8 +166,8 @@ extends java.lang.Object</pre>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/AcademyController.html#getAllAcademies--">getAllAcademies</a></span>()</code>
-<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> record from the database and returns them as a <code>ResponseEntity</code>
- object.</div>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> records from the database and returns them as a
+ <code>ResponseEntity</code> object.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -211,10 +211,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>AcademyController</h4>
 <pre>public&nbsp;AcademyController(<a href="../../../../se/hig/exte/service/AcademyService.html" title="class in se.hig.exte.service">AcademyService</a>&nbsp;academyService)</pre>
-<div class="block">Create a <code>AcademyController</code> object.</div>
+<div class="block">Creates an <code>AcademyController</code> object.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>academyService</code> - The <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a> class used to perform all services exposed in this RestController.</dd>
+<dd><code>academyService</code> - The <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a> class used to perform all
+                       services exposed in this RestController.</dd>
 </dl>
 </li>
 </ul>
@@ -238,26 +239,11 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/h
 <div class="block">Creates an <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> and stores it in the database.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>academy</code> - The <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> to add in the form of a JSON-object in the POST request.</dd>
+<dd><code>academy</code> - The <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> to add in the form of a JSON-object in the
+                POST request.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>A <code>ResponseEntity</code> object containing the saved <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> and an HTTP status code.</dd>
-</dl>
-</li>
-</ul>
-<a name="getAllAcademies--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getAllAcademies</h4>
-<pre>@GetMapping(value="/all")
-public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&gt;&nbsp;getAllAcademies()</pre>
-<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> record from the database and returns them as a <code>ResponseEntity</code>
- object. List of <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> objects is automatically converted to JSON using Spring Boot's 
- <code>HttpMessageConverter</code> and put in the <code>ResponseEntity</code>'s body.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>A <code>ResponseEntity</code> object containing the fetched <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> objects.</dd>
+<dd>A <code>ResponseEntity</code> object containing the saved <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a>
+         and an HTTP status code.</dd>
 </dl>
 </li>
 </ul>
@@ -279,10 +265,49 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/h
 </dl>
 </li>
 </ul>
-<a name="deleteAcademyById-int-">
+<a name="getAllAcademies--">
 <!--   -->
 </a>
 <ul class="blockList">
+<li class="blockList">
+<h4>getAllAcademies</h4>
+<pre>@GetMapping(value="/all")
+public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&gt;&nbsp;getAllAcademies()</pre>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> records from the database and returns them as a
+ <code>ResponseEntity</code> object. List of <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> objects is
+ automatically converted to JSON using Spring Boot's
+ <code>HttpMessageConverter</code> and put in the <code>ResponseEntity</code>'s body.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing the fetched
+         <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> objects.</dd>
+</dl>
+</li>
+</ul>
+<a name="updateAcademy-se.hig.exte.model.Academy-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>updateAcademy</h4>
+<pre>@PatchMapping(value="/")
+public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&nbsp;updateAcademy(@RequestBody
+                                                                                                <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&nbsp;academy)</pre>
+<div class="block">Updates the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID in the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>academy</code> - The <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> to update in the form of a JSON-object in
+                the POST request.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing the updated
+         <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> and an HTTP status code.</dd>
+</dl>
+</li>
+</ul>
+<a name="deleteAcademyById-int-">
+<!--   -->
+</a>
+<ul class="blockListLast">
 <li class="blockList">
 <h4>deleteAcademyById</h4>
 <pre>@DeleteMapping(value="/{id}")
@@ -292,24 +317,6 @@ public&nbsp;void&nbsp;deleteAcademyById(@PathVariable
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> to delete.</dd>
-</dl>
-</li>
-</ul>
-<a name="updateAcademy-se.hig.exte.model.Academy-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>updateAcademy</h4>
-<pre>@PatchMapping(value="/")
-public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&gt;&nbsp;updateAcademy(@RequestBody
-                                                                                                <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model">Academy</a>&nbsp;academy)</pre>
-<div class="block">Updates the <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> object with the given ID in the database.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>academy</code> - The <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> to update in the form of a JSON-object in the POST request.</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>A <code>ResponseEntity</code> object containing the updated <a href="../../../../se/hig/exte/model/Academy.html" title="class in se.hig.exte.model"><code>Academy</code></a> and an HTTP status code.</dd>
 </dl>
 </li>
 </ul>

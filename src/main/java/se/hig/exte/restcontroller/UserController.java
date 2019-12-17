@@ -83,7 +83,7 @@ public class UserController {
 	/**
 	 * Updates the {@link User} object with the given ID in the database.
 	 * 
-	 * @param course The {@link User} to update in the form of a JSON-object in the
+	 * @param user The {@link User} to update in the form of a JSON-object in the
 	 *               POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link User}
 	 *         and an HTTP status code.

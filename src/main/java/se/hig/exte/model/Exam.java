@@ -27,7 +27,6 @@ public class Exam {
 	private LocalDate date;
 	@NotNull(message = "UnpublishDate cannot be null")
 	private LocalDate unpublishDate;
-	
 	private boolean unpublished;
 	private int courseId;
 	
@@ -39,7 +38,6 @@ public class Exam {
 	 * @param filename The name of the {@code Exam}. Must be at least two characters long and cannot be null.
 	 * @param date The date of the {@code Exam}. Cannot be null.
 	 * @param unpublishDate The date at which the {@code Exam} should be unpublished from the website. Cannot be null.
-	 * @param pdfUrl The URL to the PDF file that corresponds to an {@code Exam}. Cannot be null.
 	 * @param unpublished Set to true if this {@code Exam} should NOT be published on the website, otherwise false.
 	 * @param courseId The ID of the {@link Course} to which an {@code Exam} belongs. Cannot be null.
 	 */
@@ -123,10 +121,18 @@ public class Exam {
 		return "name: " + filename + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nUnpublished: " + unpublished;
 	}
 
+	/**
+	 * Check if this {@code Exam} is unpublished or not.
+	 * @return True if this {@code Exam} is unpublished, otherwise false.
+	 */
 	public boolean isUnpublished() {
 		return unpublished;
 	}
 
+	/**
+	 * Sets whether this {@code Exam} should be unpublished or not.
+	 * @param unpublished True if this {@code Exam} should be unpublished, otherwise false.
+	 */
 	public void setUnpublished(boolean unpublished) {
 		this.unpublished = unpublished;
 	}
