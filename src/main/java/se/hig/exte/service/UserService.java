@@ -37,8 +37,4 @@ public class UserService implements CrudService<User> {
 	public void deleteById(int id) {
 		userRepo.deleteById(id);
 	}
-	
-	public List<User> findByName(String name) {
-		return userRepo.findByName(name);
-	}
 }
