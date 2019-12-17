@@ -8,7 +8,6 @@ import java.util.HashMap;
 import javax.servlet.http.Cookie;
 
 public class CookieHandler {
-	//private static JSONObject cookiesJson = new JSONObject();
 	private static HashMap<String, Session> sessions = new HashMap<String, Session>();
 	private static final String COOKIE_NAME = "identifier";
 	private static final int COOKIE_EXPIRE_SECONDS = 60;
@@ -22,9 +21,19 @@ public class CookieHandler {
 	}
 	
 	public static boolean isValidSession(Cookie[] cookiesFromUser) {
-		Cookie klientCookie = getSessionCookie(cookiesFromUser);
-		Session serverSession = sessions.get(klientCookie.getValue());
-		return serverSession != null && !serverSession.hasExpired();
+		Cookie klientCookie = getSessionCookie(cookiesFromUser);		
+		return checkIfServerSessionIsValid(klientCookie.getValue());
+	}
+	
+	private static boolean checkIfServerSessionIsValid(String cookieValue) {
+		Session serverSession = sessions.get(cookieValue);
+		if(serverSession == null)
+			return false;
+		else if(serverSession.hasExpired()) {
+			sessions.remove(cookieValue);
+			return false;
+		}else
+			return true;
 	}
 
 	public static boolean isValidSuperSession(Cookie[] cookiesFromUser) {
@@ -57,9 +66,6 @@ public class CookieHandler {
 		public Session(boolean isSuperUser, int expirationInSeconds) {
 			this.isSuperUser = isSuperUser;
 			this.expiration = LocalDateTime.now().plusSeconds(expirationInSeconds);
-		}
-		private boolean getIsSuperUser() {
-			return isSuperUser;
 		}
 		
 		private boolean hasExpired() {
