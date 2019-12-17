@@ -24,7 +24,7 @@ import se.hig.exte.service.UserService;
  * {@link CrudService}s that operate on {@link User} records in the database.
  */
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
 	private final UserService userService;

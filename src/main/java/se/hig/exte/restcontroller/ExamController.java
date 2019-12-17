@@ -77,7 +77,7 @@ public class ExamController {
 	 *         objects.
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Exam>> getAllCourses() {
+	public ResponseEntity<List<Exam>> getAllExams() {
 		return new ResponseEntity<List<Exam>>(examService.findAll(), HttpStatus.OK);
 	}
 

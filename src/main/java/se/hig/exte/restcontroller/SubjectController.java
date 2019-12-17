@@ -75,7 +75,7 @@ public class SubjectController {
 	 *         {@link Subject} objects.
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Subject>> getAllCourses() {
+	public ResponseEntity<List<Subject>> getAllSubjects() {
 		return new ResponseEntity<List<Subject>>(subjectService.findAll(), HttpStatus.OK);
 	}
 

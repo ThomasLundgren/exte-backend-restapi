@@ -17,9 +17,10 @@ import se.hig.exte.repository.ExamRepository;
 public class ExamService implements CrudService<Exam> {
 
 	private final ExamRepository examRepo;
-	
+
 	/**
 	 * Creates a {@code ExamService} object.
+	 * 
 	 * @param examRepo The {@link ExamRepository} to use for CRUD operations.
 	 */
 	@Autowired
@@ -29,6 +30,7 @@ public class ExamService implements CrudService<Exam> {
 
 	/**
 	 * Saves a {@link Exam} object to the database.
+	 * 
 	 * @param exam The {@link Exam} object to save.
 	 */
 	@Override
@@ -38,13 +40,14 @@ public class ExamService implements CrudService<Exam> {
 
 	/**
 	 * Fetches the {@link Exam} object with the corresponding ID from the database.
+	 * 
 	 * @param id The ID of the {@link Exam} object to fetch.
 	 */
 	@Override
 	public Exam findById(int id) {
 		return examRepo.findById(id);
 	}
-	
+
 	/**
 	 * Fetches all {@link Exam} objects from the database.
 	 */
@@ -52,9 +55,11 @@ public class ExamService implements CrudService<Exam> {
 	public List<Exam> findAll() {
 		return examRepo.findAll();
 	}
-	
+
 	/**
-	 * Fetches all {@link Exam} objects which belong to the {@link Course} with the specified ID.
+	 * Fetches all {@link Exam} objects which belong to the {@link Course} with the
+	 * specified ID.
+	 * 
 	 * @param courseId The ID of the {@link Course} which {@link Exam}s to fetch.
 	 * @return A {@link List} containing all {@link Exam}s found.
 	 */
@@ -64,6 +69,7 @@ public class ExamService implements CrudService<Exam> {
 
 	/**
 	 * Deletes the {@link Exam} object with the corresponding ID from the database.
+	 * 
 	 * @param id The ID of the {@link Exam} object to delete.
 	 */
 	@Override
