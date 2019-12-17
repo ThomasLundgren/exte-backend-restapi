@@ -2,9 +2,7 @@ package se.hig.exte.repository;
 
 import java.util.List;
 
-import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import se.hig.exte.model.Course;
@@ -31,6 +29,28 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 * @return A {@code List} containing all {@link Course}s belonging to the {@link Subject} with the specified ID.
 	 */
 	List<Course> findBySubjectId(int subjectId);
+	
+	/**
+	 * Fetches all {@link Course} objects with the unpublished value set to true.
+	 * @return A {@link List} containing all {@link Course}s with the unpublished value set to true.
+	 */
+	List<Course> findByUnpublishedTrue();
+	
+	/**
+	 * Fetches all {@link Course} objects with the unpublished value set to false.
+	 * @return A {@link List} containing all {@link Course}s with the unpublished value set to false.
+	 */
+	List<Course> findByUnpublishedFalse();
 		
-	List<Course> findByNameContainingOrCourseCodeContaining(String courseCode, String name);
+	/**
+	 * Fetches all {@link Course} objects that contains the name or courseCode from the database.
+	 * @param name The searched {@link Course} name 
+	 * @param courseCode The searched {@link Course} courseCode
+	 * @return A {@link List} containing all {@link Course} that satisfy the query.
+	 */
+	List<Course> findByNameContainingOrCourseCodeContaining(String name, String courseCode);
+
+	
+	
+	
 }

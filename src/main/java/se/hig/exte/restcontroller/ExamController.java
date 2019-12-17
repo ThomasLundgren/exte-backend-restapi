@@ -19,6 +19,7 @@ import se.hig.exte.model.Course;
 import se.hig.exte.model.Exam;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.ExamService;
+import se.hig.exte.service.UnpublishService;
 
 /**
  * This class is a RestController class responsible for mapping HTTP requests
@@ -30,7 +31,8 @@ import se.hig.exte.service.ExamService;
 public class ExamController {
 
 	private final ExamService examService;
-
+	private final UnpublishService unpublishService;
+	
 	/**
 	 * Creates an {@code ExamController} object.
 	 * 
@@ -38,8 +40,9 @@ public class ExamController {
 	 *                    exposed in this RestController.
 	 */
 	@Autowired
-	public ExamController(ExamService addExamService) {
+	public ExamController(ExamService addExamService, UnpublishService unpublishService) {
 		this.examService = addExamService;
+		this.unpublishService = unpublishService;
 	}
 
 	/**
@@ -121,17 +124,42 @@ public class ExamController {
 		examService.deleteById(id);
 	}
 
-	@GetMapping("/unpub")
+	/**
+	 * Fetches all unpublished exams.
+	 * @return A list of all unpublished exams and the http status OK.
+	 */
+	@GetMapping("/unpublished")
 	public ResponseEntity<List<Exam>> getUnpublishedExams() {
 		return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
+	}
+	
+	/**
+	 * Fetches all published exams.
+	 * @return A list of all published exams and the http status OK.
+	 */
+	@GetMapping("/published")
+	public ResponseEntity<List<Exam>> getPublishedExams() {
+		return new ResponseEntity<List<Exam>>(examService.findAllPublished(), HttpStatus.OK);
+	}	
+
+	/**
+	 * Changes the boolean unpublished value on the {@link Exam} 
+	 * @param exam The {@link Exam} to update 
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublish/{unpublished}")
+	public ResponseEntity<String> isExamUnpublished(@RequestBody Exam exam, @PathVariable boolean unpublished) {
+		return unpublishService.isExamUnpublished(exam, unpublished);
 	}
 	
 	/**
 	 * This method is run automatically by Spring Boot at 03:00 every day.
 	 */
 	@Scheduled(cron = "0 0 3 * * *")
+	@GetMapping("/testAuto")
 	public void autoUnpublish() {
-		examService.unpublish();
+		unpublishService.unpublishExpiredExams();
 	}
 	
 }

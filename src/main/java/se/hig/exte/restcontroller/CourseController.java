@@ -18,6 +18,7 @@ import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.CourseService;
 import se.hig.exte.service.CrudService;
+import se.hig.exte.service.UnpublishService;
 
 /**
  * This class is a RestController class responsible for mapping HTTP requests
@@ -29,7 +30,7 @@ import se.hig.exte.service.CrudService;
 public class CourseController {
 
 	private final CourseService courseService;
-
+	private final UnpublishService unpublishService;
 	/**
 	 * Creates a {@code CourseController} object.
 	 * 
@@ -37,8 +38,9 @@ public class CourseController {
 	 *                      services exposed in this RestController.
 	 */
 	@Autowired
-	public CourseController(CourseService courseService) {
+	public CourseController(CourseService courseService, UnpublishService unpublishService) {
 		this.courseService = courseService;
+		this.unpublishService = unpublishService;
 	}
 
 	/**
@@ -120,10 +122,44 @@ public class CourseController {
 		courseService.deleteById(id);
 	}
 	
+	/**
+	 * Searches the database after courses with the text variable
+	 * @param text The text searched
+	 * @return A list of all courses that are a match and the http status OK.
+	 */
 	@GetMapping("/search/{text}")
 	public ResponseEntity<List<Course>> search(@PathVariable String text) {
 		List<Course> courses = courseService.search(text);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+	}
+	
+	/**
+	 * Fetches all unpublished courses.
+	 * @return A list of all unpublished courses and the http status OK.
+	 */
+	@GetMapping("/unpublished")
+	public ResponseEntity<List<Course>> getUnpublishedCourses() {
+		return new ResponseEntity<List<Course>>(courseService.findAllUnpublished(), HttpStatus.OK);
+	}
+	
+	/**
+	 * Fetches all published courses.
+	 * @return A list of all published courses and the http status OK.
+	 */
+	@GetMapping("/published")
+	public ResponseEntity<List<Course>> getPublishedCourses() {
+		return new ResponseEntity<List<Course>>(courseService.findAllPublished(), HttpStatus.OK);
+	}
+	
+	/**
+	 * Changes the boolean unpublished value on the {@link Course} 
+	 * @param course The {@link Course} to update 
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublish/{unpublished}")
+	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, @PathVariable boolean unpublished) {
+		return unpublishService.unpublishCourse(course, unpublished);
 	}
 
 }

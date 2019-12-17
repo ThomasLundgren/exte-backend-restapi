@@ -1,6 +1,5 @@
 package se.hig.exte.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,20 +70,19 @@ public class ExamService implements CrudService<Exam> {
 		examRepo.deleteById(id);
 	}
 	
+	/**
+	 * Fetches a list of {@link Exam} objects that are unpublished.
+	 * @return A {@link List} containing all {@link Exam}s found.
+	 */
 	public List<Exam> findAllUnpublished() {
 		return examRepo.findByUnpublishedTrue();
-	}
+	}	
+	
 	/**
-	 * Sets the unpublished value of {@link Exam} to true on all exams in the list.
+	 * Fetches a list of {@link Exam} objects that are published.
+	 * @return A {@link List} containing all {@link Exam}s found.
 	 */
-	public void unpublish() {
-		List<Exam> exams = examRepo.findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate.now());
-		for (Exam exam : exams) {
-			exam.setUnpublished(true);
-			examRepo.save(exam);
-			System.out.println("Unpublisher unpublished " + exam.toString());
-		}
-		examRepo.flush();
-		System.out.println("Unpublisher finished.");
+	public List<Exam> findAllPublished() {
+		return examRepo.findByUnpublishedFalse();
 	}
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Course;
-import se.hig.exte.model.Subject;
+import se.hig.exte.model.Exam;
 import se.hig.exte.repository.CourseRepository;
 
 /**
@@ -70,7 +70,28 @@ public class CourseService implements CrudService<Course> {
 		courseRepo.deleteById(id);
 	}
 	
+	/**
+	 * Fetches all {@link Course} that are close-by to the text-
+	 * @param text The text searched
+	 * @return A {@link List} containing all {@link Course}s found.
+	 */
 	public List<Course> search(String text) {	
 		return courseRepo.findByNameContainingOrCourseCodeContaining(text, text);		
+	}
+	
+	/**
+	 * Fetches a list of {@link Course} objects that are unpublished.
+	 * @return A {@link List} containing all {@link Course}s found.
+	 */
+	public List<Course> findAllUnpublished() {
+		return courseRepo.findByUnpublishedTrue();
+	}
+	
+	/**
+	 * Fetches a list of {@link Course} objects that are published.
+	 * @return A {@link List} containing all {@link Course}s found.
+	 */
+	public List<Course> findAllPublished() {
+		return courseRepo.findByUnpublishedFalse();
 	}
 }
