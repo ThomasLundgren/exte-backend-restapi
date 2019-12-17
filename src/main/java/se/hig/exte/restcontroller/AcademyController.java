@@ -2,6 +2,8 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,17 +32,22 @@ public class AcademyController {
 
 	/**
 	 * Creates an {@code AcademyController} object.
-	 * 
+	 *
 	 * @param academyService The {@link CrudService} class used to perform all
 	 *                       services exposed in this RestController.
 	 */
 	public AcademyController(AcademyService academyService) {
 		this.academyService = academyService;
 	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<Academy>> getAllAcademies() {
+		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
+	}
 
 	/**
 	 * Creates an {@link Academy} and stores it in the database.
-	 * 
+	 *
 	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
 	 *                POST request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
@@ -54,7 +61,7 @@ public class AcademyController {
 
 	/**
 	 * Fetches the {@link Academy} object with the given ID from the database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Academy} to fetch.
 	 * @return The {@link Academy} with the given ID.
 	 */
@@ -63,23 +70,10 @@ public class AcademyController {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);
 	}
 
-	/**
-	 * Fetches all {@link Academy} records from the database and returns them as a
-	 * {@code ResponseEntity} object. List of {@link Academy} objects is
-	 * automatically converted to JSON using Spring Boot's
-	 * {@code HttpMessageConverter} and put in the {@code ResponseEntity}'s body.
-	 * 
-	 * @return A {@code ResponseEntity} object containing the fetched
-	 *         {@link Academy} objects.
-	 */
-	@GetMapping("/all")
-	public ResponseEntity<List<Academy>> getAllAcademies() {
-		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
-	}
 
 	/**
 	 * Updates the {@link Academy} object with the given ID in the database.
-	 * 
+	 *
 	 * @param academy The {@link Academy} to update in the form of a JSON-object in
 	 *                the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated
@@ -93,12 +87,18 @@ public class AcademyController {
 
 	/**
 	 * Deletes the {@link Academy} object with the given ID from the database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Academy} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public void deleteAcademyById(@PathVariable int id) {
-		academyService.deleteById(id);
+	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
+		try {
+			academyService.deleteById(id, request.getCookies());
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 	}
+
 
 }
