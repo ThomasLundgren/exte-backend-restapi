@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Course;
-import se.hig.exte.model.Exam;
 import se.hig.exte.repository.CourseRepository;
 
 /**
