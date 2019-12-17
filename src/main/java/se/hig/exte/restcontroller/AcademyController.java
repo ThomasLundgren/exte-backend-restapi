@@ -2,6 +2,8 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import javax.security.sasl.AuthenticationException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -95,8 +97,13 @@ public class AcademyController {
 	 * @param id The ID of the {@link Academy} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public void deleteAcademyById(@PathVariable int id) {
-		academyService.deleteById(id);
+	public boolean deleteAcademyById(@PathVariable int id, Cookie[] klientCookies) {
+		try {
+			academyService.deleteById(id, klientCookies);
+			return true;
+		} catch (AuthenticationException e) {
+			return false;
+		}
 	}
 
 }

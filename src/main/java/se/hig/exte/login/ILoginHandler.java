@@ -1,4 +1,4 @@
-package login;
+package se.hig.exte.login;
 
 public interface ILoginHandler {
 

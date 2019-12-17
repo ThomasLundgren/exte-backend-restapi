@@ -1,4 +1,4 @@
-package se.hig.exte.authentication;
+package se.hig.exte.login;
 
 import java.util.Hashtable;
 
@@ -9,7 +9,7 @@ import javax.naming.directory.InitialDirContext;
 /**
  * Autentiserar Anv�ndare, Hig LDAP Tagen fr�n VFU_Socionom_tipsfiler 2019-12-02
  */
-public class LDAPAuthentication {
+public class LDAP {
 
 
     static boolean authenticateHigLdap(String studentId, String password) {
