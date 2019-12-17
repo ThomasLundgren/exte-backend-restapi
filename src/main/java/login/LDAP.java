@@ -7,7 +7,7 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 
 /**
- * Autentiserar Anv√§ndare, Hig LDAP Tagen fr√•n VFU_Socionom_tipsfiler 2019-12-02
+ * Autentiserar Anv‰ndare, Hig LDAP Tagen frÂn VFU_Socionom_tipsfiler 2019-12-02
  */
 class LDAP {
 

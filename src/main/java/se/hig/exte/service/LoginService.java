@@ -27,7 +27,7 @@ public class LoginService {
 	public Cookie login(String username, String password) {
 		Cookie cookie = null;
 		if(checkIfUserExists(username)) {
-			boolean isLoggedIn = loginHandler.login(username, password);
+			boolean isLoggedIn = loginHandler.login(username.toString(), password.toString());
 			if(isLoggedIn) {
 				cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
 			}
