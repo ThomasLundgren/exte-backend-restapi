@@ -32,7 +32,8 @@ public class UnpublishService {
 	/**
 	 * Sets the boolean value of unpublished on {@link Exam}
 	 * @param exam The {@link Exam} object to be modified
-	 * @return
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
 	 */
 	public ResponseEntity<String> isExamUnpublished(Exam exam, boolean unpublished) {
 		exam.setUnpublished(unpublished);
@@ -41,7 +42,13 @@ public class UnpublishService {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
-	public ResponseEntity<String> unpublishCourse(Course course, boolean unpublished) {
+	/**
+	 * Sets the boolean value of unpublished on {@link Course}
+	 * @param course The {@link Course} object to be modified
+	 * @param unpublish The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	public ResponseEntity<String> isCourseUnpublished(Course course, boolean unpublished) {
 		List<Exam> exams = examRepo.findByCourseId(course.getId());
 		for (Exam exam : exams) {
 			isExamUnpublished(exam, unpublished);
@@ -52,10 +59,16 @@ public class UnpublishService {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 		
-	public ResponseEntity<String> unpublishSubject(Subject subject, boolean unpublished) {
+	/**
+	 * Sets the boolean value of unpublished on {@link Subject}
+	 * @param subject The {@link Subject} object to be modified
+	 * @param unpublish The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	public ResponseEntity<String> isSubjectUnpublished(Subject subject, boolean unpublished) {
 		List<Course> courses = courseRepo.findBySubjectId(subject.getId());
 		for (Course course : courses) {
-			unpublishCourse(course, unpublished);
+			isCourseUnpublished(course, unpublished);
 		}
 		subject.setUnpublished(unpublished);
 		subjectRepo.save(subject);

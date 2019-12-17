@@ -159,7 +159,7 @@ public class CourseController {
 	 */
 	@PostMapping("/unpublish/{unpublished}")
 	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, @PathVariable boolean unpublished) {
-		return unpublishService.unpublishCourse(course, unpublished);
+		return unpublishService.isCourseUnpublished(course, unpublished);
 	}
 
 }

@@ -160,7 +160,7 @@ public class SubjectController {
 	 */
 	@PostMapping("/unpublish/{unpublished}")
 	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, @PathVariable boolean unpublished) {
-		return unpublishService.unpublishSubject(subject, unpublished);	
+		return unpublishService.isSubjectUnpublished(subject, unpublished);	
 	}
 	
 	
