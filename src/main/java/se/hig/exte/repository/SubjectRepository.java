@@ -35,14 +35,24 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 	 *         {@link Academy} with the specified ID.
 	 */
 	List<Subject> findByAcademyId(int academyId);
-
+	
 	/**
-	 * Fetches all {@link Subject} objects from the database whose {@code name} OR
-	 * {@code code} attribute contains the string passed in as the parameter.
-	 * 
-	 * @param text The {@code String} which the name or code should contain.
-	 * @return All {@link Subject} objects whose name or code attributes contain the
-	 *         specified search text.
+	 * Fetches all {@link Subject} objects with the unpublished value set to true.
+	 * @return A {@link List} containing all {@link Subject}s with the unpublished value set to true.
+	 */
+	List<Subject> findByUnpublishedTrue();
+	
+	/**
+	 * Fetches all {@link Subject} objects with the unpublished value set to false.
+	 * @return A {@link List} containing all {@link Subject}s with the unpublished value set to false.
+	 */
+	List<Subject> findByUnpublishedFalse();
+	
+	/**
+	 * Fetches all {@link Subject} objects that contains the name or code from the database.
+	 * @param name The searched {@link Subject} name 
+	 * @param code The searched {@link Subject} code
+	 * @return A {@link List} containing all {@link Subject} that satisfy the query.
 	 */
 	List<Subject> findByNameContainingOrCodeContaining(String name, String code);
 }

@@ -67,7 +67,7 @@ public class SubjectService implements CrudService<Subject> {
 	public List<Subject> findByAcadmemyId(int academyId) {
 		return subjectRepo.findByAcademyId(academyId);
 	}
-
+	
 	/**
 	 * Deletes the {@link Subject} object with the corresponding ID from the
 	 * database.
@@ -78,17 +78,29 @@ public class SubjectService implements CrudService<Subject> {
 	public void deleteById(int id) {
 		subjectRepo.deleteById(id);
 	}
-
+	
 	/**
-	 * Fetches all {@link Subject} objects from the database whose {@code name} OR
-	 * {@code code} attribute contains the string passed in as the parameter.
-	 * 
-	 * @param text The {@code String} which the name or code should contain.
-	 * @return All {@link Subject} objects whose name or code attributes contain the
-	 *         specified search text.
+	 * Fetches all {@link Subject} that are close-by to the text-
+	 * @param text The text searched
+	 * @return A {@link List} containing all {@link Subject}s found.
 	 */
 	public List<Subject> search(String text) {
 		return subjectRepo.findByNameContainingOrCodeContaining(text, text);
 	}
 
+	/**
+	 * Fetches a list of {@link Subject} objects that are unpublished.
+	 * @return A {@link List} containing all {@link Subject}s found.
+	 */
+	public List<Subject> findAllUnpublished() {
+		return subjectRepo.findByUnpublishedTrue();
+	}
+	
+	/**
+	 * Fetches a list of {@link Subject} objects that are published.
+	 * @return A {@link List} containing all {@link Subject}s found.
+	 */
+	public List<Subject> findAllPublished() {
+		return subjectRepo.findByUnpublishedFalse();
+	}
 }

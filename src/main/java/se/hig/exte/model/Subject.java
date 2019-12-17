@@ -23,6 +23,7 @@ public class Subject {
 	@Size(min = 3)
 	@NotBlank(message = "Name cannot be blank, empty or null")
 	private String name;
+	private boolean unpublished;
 	private int academyId;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
@@ -35,9 +36,10 @@ public class Subject {
 	 * @param name The name of the {@code Subject}. Must be at least three characters long and cannot be null or whitespace.
 	 * @param academyId The ID of the {@link Academy} to which this {@code Subject} belongs.
 	 */
-	public Subject(String code, String name, int academyId) {
+	public Subject(String code, String name, boolean published, int academyId) {
 		this.code = code;
 		this.name = name;
+		this.unpublished = published;
 		this.academyId = academyId;
 	}
 
@@ -65,6 +67,10 @@ public class Subject {
 		return name;
 	}
 	
+	public boolean isUnpublished() {
+		return unpublished;
+	}
+
 	/**
 	 * Get the ID of the {@link Academy} to which this {@code Subject} belongs.
 	 * @return The ID of the {@link Academy} to which this {@code Subject} belongs.
@@ -89,6 +95,10 @@ public class Subject {
 		this.name = name;
 	}
 
+	public void setUnpublished(boolean unpublished) {
+		this.unpublished = unpublished;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -96,5 +106,5 @@ public class Subject {
 	public String toString() {
 		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: ";
 	}
-	
+
 }
