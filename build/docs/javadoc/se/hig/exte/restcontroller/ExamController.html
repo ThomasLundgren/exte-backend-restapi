@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -111,6 +111,9 @@ var activeTableTab = "activeTableTab";
  @RequestMapping(value="/exams")
 public class <span class="typeNameLabel">ExamController</span>
 extends java.lang.Object</pre>
+<div class="block">This class is a RestController class responsible for mapping HTTP requests
+ for the /exams path. It contains mappings of end-points to
+ <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a>s that operate on <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> records in the database.</div>
 </li>
 </ul>
 </div>
@@ -129,7 +132,9 @@ extends java.lang.Object</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#ExamController-se.hig.exte.service.ExamService-">ExamController</a></span>(<a href="../../../../se/hig/exte/service/ExamService.html" title="class in se.hig.exte.service">ExamService</a>&nbsp;addExamService)</code>&nbsp;</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#ExamController-se.hig.exte.service.ExamService-">ExamController</a></span>(<a href="../../../../se/hig/exte/service/ExamService.html" title="class in se.hig.exte.service">ExamService</a>&nbsp;examService)</code>
+<div class="block">Creates an <code>ExamController</code> object.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -148,27 +153,53 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#deleteExamById-int-">deleteExamById</a></span>(int&nbsp;id)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#autoUnpublish--">autoUnpublish</a></span>()</code>
+<div class="block">Unpublishes all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects whose unpublished date has passed.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#getAllCourses--">getAllCourses</a></span>()</code>&nbsp;</td>
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#deleteExamById-int-">deleteExamById</a></span>(int&nbsp;id)</code>
+<div class="block">Deletes the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> object with the given ID from the database.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#getExam-int-">getExam</a></span>(int&nbsp;id)</code>&nbsp;</td>
+<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#getAllCourses--">getAllCourses</a></span>()</code>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> records from the database and returns them as a
+ <code>ResponseEntity</code> object.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#getExamByCourseId-int-">getExamByCourseId</a></span>(int&nbsp;id)</code>&nbsp;</td>
+<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#getExam-int-">getExam</a></span>(int&nbsp;id)</code>
+<div class="block">Fetches the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> object with the given ID from the database.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#patchExam-se.hig.exte.model.Exam-">patchExam</a></span>(<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&nbsp;exam)</code>&nbsp;</td>
+<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#getExamByCourseId-int-">getExamByCourseId</a></span>(int&nbsp;id)</code>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects belonging to the specified <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>
+ ID.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#getUnpublishedExams--">getUnpublishedExams</a></span>()</code>
+<div class="block">Fetches all unpublished <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>s from the database.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#saveExam-se.hig.exte.model.Exam-">saveExam</a></span>(<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&nbsp;exam)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#patchExam-se.hig.exte.model.Exam-">patchExam</a></span>(<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&nbsp;exam)</code>
+<div class="block">Updates the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> object with the given ID in the database.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/ExamController.html#saveExam-se.hig.exte.model.Exam-">saveExam</a></span>(<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&nbsp;exam)</code>
+<div class="block">Creates an <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> and stores it in the database.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -199,7 +230,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>ExamController</h4>
 <pre>@Autowired
-public&nbsp;ExamController(<a href="../../../../se/hig/exte/service/ExamService.html" title="class in se.hig.exte.service">ExamService</a>&nbsp;addExamService)</pre>
+public&nbsp;ExamController(<a href="../../../../se/hig/exte/service/ExamService.html" title="class in se.hig.exte.service">ExamService</a>&nbsp;examService)</pre>
+<div class="block">Creates an <code>ExamController</code> object.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>examService</code> - The <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a> class used to perform all services
+                    exposed in this RestController.</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -219,6 +256,15 @@ public&nbsp;ExamController(<a href="../../../../se/hig/exte/service/ExamService.
 <pre>@PostMapping(value="/")
 public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&nbsp;saveExam(@RequestBody
                                                                                        <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&nbsp;exam)</pre>
+<div class="block">Creates an <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> and stores it in the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>exam</code> - The <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> to add in the form of a JSON-object in the POST
+             request.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing the saved <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> and
+         an HTTP status code.</dd>
+</dl>
 </li>
 </ul>
 <a name="getExam-int-">
@@ -230,6 +276,13 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/h
 <pre>@GetMapping(value="/{id}")
 public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&nbsp;getExam(@PathVariable
                                                                                          int&nbsp;id)</pre>
+<div class="block">Fetches the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> object with the given ID from the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> to fetch.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> with the given ID.</dd>
+</dl>
 </li>
 </ul>
 <a name="getAllCourses--">
@@ -240,6 +293,15 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/h
 <h4>getAllCourses</h4>
 <pre>@GetMapping(value="/all")
 public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&gt;&nbsp;getAllCourses()</pre>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> records from the database and returns them as a
+ <code>ResponseEntity</code> object. List of <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects is automatically
+ converted to JSON using Spring Boot's <code>HttpMessageConverter</code> and put in
+ the <code>ResponseEntity</code>'s body.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing the fetched <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>
+         objects.</dd>
+</dl>
 </li>
 </ul>
 <a name="getExamByCourseId-int-">
@@ -251,6 +313,37 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href
 <pre>@GetMapping(value="/course/{id}")
 public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&gt;&nbsp;getExamByCourseId(@PathVariable
                                                                                                                           int&nbsp;id)</pre>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects belonging to the specified <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>
+ ID. List of <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects is automatically converted to JSON using
+ Spring Boot's <code>HttpMessageConverter</code> and put in the
+ <code>ResponseEntity</code>'s body.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> to which the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>s belongs.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing a <code>List</code> of
+         <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects.</dd>
+</dl>
+</li>
+</ul>
+<a name="patchExam-se.hig.exte.model.Exam-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>patchExam</h4>
+<pre>@PatchMapping(value="/")
+public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&nbsp;patchExam(@RequestBody
+                                                                                         <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&nbsp;exam)</pre>
+<div class="block">Updates the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> object with the given ID in the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>exam</code> - The <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> to update in the form of a JSON-object in the
+               POST request.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing the updated <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>
+         and an HTTP status code.</dd>
+</dl>
 </li>
 </ul>
 <a name="deleteExamById-int-">
@@ -262,17 +355,41 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href
 <pre>@DeleteMapping(value="/{id}")
 public&nbsp;void&nbsp;deleteExamById(@PathVariable
                                                           int&nbsp;id)</pre>
+<div class="block">Deletes the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> object with the given ID from the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> to delete.</dd>
+</dl>
 </li>
 </ul>
-<a name="patchExam-se.hig.exte.model.Exam-">
+<a name="getUnpublishedExams--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUnpublishedExams</h4>
+<pre>@GetMapping(value="/unpub")
+public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&gt;&nbsp;getUnpublishedExams()</pre>
+<div class="block">Fetches all unpublished <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>s from the database.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> containing a <code>List</code> of all
+         <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>s found. The body of the <code>ResponseEntity</code> is
+         <code>JSON</code>-formatted.</dd>
+</dl>
+</li>
+</ul>
+<a name="autoUnpublish--">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>patchExam</h4>
-<pre>@PatchMapping(value="/")
-public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&nbsp;patchExam(@RequestBody
-                                                                                         <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&nbsp;exam)</pre>
+<h4>autoUnpublish</h4>
+<pre>@Scheduled(cron="0 0 3 * * *")
+public&nbsp;void&nbsp;autoUnpublish()</pre>
+<div class="block">Unpublishes all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects whose unpublished date has passed. This
+ method is scheduled to run automatically using Spring Boot's
+ @Scheduled annotation at 03:00 every day.</div>
 </li>
 </ul>
 </li>

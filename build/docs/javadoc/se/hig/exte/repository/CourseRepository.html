@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6};
+var methods = {"i0":6,"i1":6,"i2":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -107,8 +107,8 @@ var activeTableTab = "activeTableTab";
 public interface <span class="typeNameLabel">CourseRepository</span>
 extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>,java.lang.Integer&gt;</pre>
 <div class="block">An interface used for database operations on <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects.
- References to this interface are automatically given an implementation by Spring Boot when using
- the <code>Autowired</code> annotation.</div>
+ References to this interface are automatically given an implementation by
+ Spring Boot when using the <code>Autowired</code> annotation.</div>
 </li>
 </ul>
 </div>
@@ -135,8 +135,22 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/repository/CourseRepository.html#findByNameContainingOrCourseCodeContaining-java.lang.String-java.lang.String-">findByNameContainingOrCourseCodeContaining</a></span>(java.lang.String&nbsp;name,
+                                          java.lang.String&nbsp;courseCode)</code>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects from the database where:
+ 
+ its name attribute contains the string passed in as the name parameter,
+ or
+ its courseCode attribute contains the string passed in as the courseCode
+ parameter
+ </div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/repository/CourseRepository.html#findBySubjectId-int-">findBySubjectId</a></span>(int&nbsp;subjectId)</code>
-<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects which belong to the specified <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> from the database.</div>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects which belong to the specified
+ <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> from the database.</div>
 </td>
 </tr>
 </table>
@@ -194,23 +208,55 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object to fetch.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object representing the database record with the specified ID.</dd>
+<dd>The <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object representing the database record with the
+         specified ID.</dd>
 </dl>
 </li>
 </ul>
 <a name="findBySubjectId-int-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>findBySubjectId</h4>
 <pre>java.util.List&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;&nbsp;findBySubjectId(int&nbsp;subjectId)</pre>
-<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects which belong to the specified <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> from the database.</div>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects which belong to the specified
+ <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> from the database.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>subjectId</code> - The ID of the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a>.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>A <code>List</code> containing all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>s belonging to the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> with the specified ID.</dd>
+<dd>A <code>List</code> containing all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>s belonging to the
+         <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> with the specified ID.</dd>
+</dl>
+</li>
+</ul>
+<a name="findByNameContainingOrCourseCodeContaining-java.lang.String-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>findByNameContainingOrCourseCodeContaining</h4>
+<pre>java.util.List&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;&nbsp;findByNameContainingOrCourseCodeContaining(java.lang.String&nbsp;name,
+                                                                  java.lang.String&nbsp;courseCode)</pre>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects from the database where:
+ <ul>
+ <li>its name attribute contains the string passed in as the name parameter,
+ or</li>
+ <li>its courseCode attribute contains the string passed in as the courseCode
+ parameter</li>
+ </ul></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - The name <code>String</code> that the fetched <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>
+                   objects should contain.</dd>
+<dd><code>courseCode</code> - The course code <code>String</code> that the fetched
+                   <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects should contain.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>List</code> containing all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects whose name
+         attribute contains the passed in name parameter and all
+         <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects whose course code attribute contains the
+         passed in courseCode parameter.</dd>
 </dl>
 </li>
 </ul>

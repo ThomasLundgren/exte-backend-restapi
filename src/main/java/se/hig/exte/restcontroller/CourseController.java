@@ -119,12 +119,22 @@ public class CourseController {
 	public void deleteCourseById(@PathVariable int id) {
 		courseService.deleteById(id);
 	}
-	
+
+	/**
+	 * /** Fetches all {@link Course} objects from the database whose {@code name}
+	 * OR {@code courseCode} attribute contains the string passed in as the
+	 * parameter.
+	 * 
+	 * @param searchText The {@code String} which the name or course code should
+	 *                   contain.
+	 * @return All {@link Course} objects whose name or courseCode attributes
+	 *         contain the specified search text.
+	 */
 	@GetMapping("/search/{searchText}")
 	public ResponseEntity<List<Course>> search(@PathVariable String searchText) {
 		System.out.println(searchText);
 		List<Course> courses = courseService.findByNameOrCourseCodeContaining(searchText);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
-	
+
 }

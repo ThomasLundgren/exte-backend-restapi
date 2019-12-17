@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -136,10 +136,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>&nbsp;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#Exam-java.lang.String-java.time.LocalDate-java.time.LocalDate-java.net.URL-boolean-int-">Exam</a></span>(java.lang.String&nbsp;name,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#Exam-java.lang.String-java.time.LocalDate-java.time.LocalDate-boolean-int-">Exam</a></span>(java.lang.String&nbsp;filename,
     java.time.LocalDate&nbsp;date,
     java.time.LocalDate&nbsp;unpublishDate,
-    java.net.URL&nbsp;pdfUrl,
     boolean&nbsp;unpublished,
     int&nbsp;courseId)</code>
 <div class="block">Creates an <code>Exam</code> object.</div>
@@ -162,7 +161,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getCourse--">getCourse</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getCourseId--">getCourseId</a></span>()</code>
 <div class="block">Get the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> to which this <code>Exam</code> belongs.</div>
 </td>
 </tr>
@@ -173,62 +172,54 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getFilename--">getFilename</a></span>()</code>
+<div class="block">Get the name of this <code>Exam</code>.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getId--">getId</a></span>()</code>
 <div class="block">Get the ID of this <code>Exam</code>.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getName--">getName</a></span>()</code>
-<div class="block">Get the name of this <code>Exam</code>.</div>
-</td>
-</tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>java.net.URL</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getPdfUrl--">getPdfUrl</a></span>()</code>
-<div class="block">Get the URL of the PDF file to which this <code>Exam</code> corresponds.</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.time.LocalDate</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getUnpublishDate--">getUnpublishDate</a></span>()</code>
 <div class="block">Get the date at which this <code>Exam</code> will be unpublished from the website.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#isUnpublished--">isUnpublished</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#isUnpublished--">isUnpublished</a></span>()</code>
+<div class="block">Check if this <code>Exam</code> is unpublished or not.</div>
+</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setDate-java.time.LocalDate-">setDate</a></span>(java.time.LocalDate&nbsp;date)</code>
 <div class="block">Set the date of this <code>Exam</code>.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setName-java.lang.String-">setName</a></span>(java.lang.String&nbsp;name)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setFilename-java.lang.String-">setFilename</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Set the name of this <code>Exam</code>.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setPdfUrl-java.net.URL-">setPdfUrl</a></span>(java.net.URL&nbsp;pdfUrl)</code>
-<div class="block">Set the PDF file URL that corresponds to this <code>Exam</code>.</div>
-</td>
-</tr>
-<tr id="i10" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setUnpublishDate-java.time.LocalDate-">setUnpublishDate</a></span>(java.time.LocalDate&nbsp;unpublishDate)</code>
 <div class="block">Set the unpublish date of this <code>Exam</code>.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setUnpublished-boolean-">setUnpublished</a></span>(boolean&nbsp;unpublished)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setUnpublished-boolean-">setUnpublished</a></span>(boolean&nbsp;unpublished)</code>
+<div class="block">Sets whether this <code>Exam</code> should be unpublished or not.</div>
+</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#toString--">toString</a></span>()</code></td>
 </tr>
@@ -263,25 +254,23 @@ extends java.lang.Object</pre>
 <pre>protected&nbsp;Exam()</pre>
 </li>
 </ul>
-<a name="Exam-java.lang.String-java.time.LocalDate-java.time.LocalDate-java.net.URL-boolean-int-">
+<a name="Exam-java.lang.String-java.time.LocalDate-java.time.LocalDate-boolean-int-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Exam</h4>
-<pre>public&nbsp;Exam(java.lang.String&nbsp;name,
+<pre>public&nbsp;Exam(java.lang.String&nbsp;filename,
             java.time.LocalDate&nbsp;date,
             java.time.LocalDate&nbsp;unpublishDate,
-            java.net.URL&nbsp;pdfUrl,
             boolean&nbsp;unpublished,
             int&nbsp;courseId)</pre>
 <div class="block">Creates an <code>Exam</code> object.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>name</code> - The name of the <code>Exam</code>. Must be at least two characters long and cannot be null.</dd>
+<dd><code>filename</code> - The name of the <code>Exam</code>. Must be at least two characters long and cannot be null.</dd>
 <dd><code>date</code> - The date of the <code>Exam</code>. Cannot be null.</dd>
 <dd><code>unpublishDate</code> - The date at which the <code>Exam</code> should be unpublished from the website. Cannot be null.</dd>
-<dd><code>pdfUrl</code> - The URL to the PDF file that corresponds to an <code>Exam</code>. Cannot be null.</dd>
 <dd><code>unpublished</code> - Set to true if this <code>Exam</code> should NOT be published on the website, otherwise false.</dd>
 <dd><code>courseId</code> - The ID of the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> to which an <code>Exam</code> belongs. Cannot be null.</dd>
 </dl>
@@ -309,13 +298,13 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="getName--">
+<a name="getFilename--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getName</h4>
-<pre>public&nbsp;java.lang.String&nbsp;getName()</pre>
+<h4>getFilename</h4>
+<pre>public&nbsp;java.lang.String&nbsp;getFilename()</pre>
 <div class="block">Get the name of this <code>Exam</code>.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -351,27 +340,13 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="getPdfUrl--">
+<a name="getCourseId--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getPdfUrl</h4>
-<pre>public&nbsp;java.net.URL&nbsp;getPdfUrl()</pre>
-<div class="block">Get the URL of the PDF file to which this <code>Exam</code> corresponds.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The URL of the PDF file to which this <code>Exam</code> corresponds.</dd>
-</dl>
-</li>
-</ul>
-<a name="getCourse--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getCourse</h4>
-<pre>public&nbsp;int&nbsp;getCourse()</pre>
+<h4>getCourseId</h4>
+<pre>public&nbsp;int&nbsp;getCourseId()</pre>
 <div class="block">Get the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> to which this <code>Exam</code> belongs.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -379,13 +354,13 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="setName-java.lang.String-">
+<a name="setFilename-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setName</h4>
-<pre>public&nbsp;void&nbsp;setName(java.lang.String&nbsp;name)</pre>
+<h4>setFilename</h4>
+<pre>public&nbsp;void&nbsp;setFilename(java.lang.String&nbsp;name)</pre>
 <div class="block">Set the name of this <code>Exam</code>. Must be at least two characters long and not null.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -421,20 +396,6 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="setPdfUrl-java.net.URL-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setPdfUrl</h4>
-<pre>public&nbsp;void&nbsp;setPdfUrl(java.net.URL&nbsp;pdfUrl)</pre>
-<div class="block">Set the PDF file URL that corresponds to this <code>Exam</code>. Cannot be null.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>pdfUrl</code> - The new PDF file URL that corresponds to this <code>Exam</code>.</dd>
-</dl>
-</li>
-</ul>
 <a name="toString--">
 <!--   -->
 </a>
@@ -455,6 +416,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>isUnpublished</h4>
 <pre>public&nbsp;boolean&nbsp;isUnpublished()</pre>
+<div class="block">Check if this <code>Exam</code> is unpublished or not.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>True if this <code>Exam</code> is unpublished, otherwise false.</dd>
+</dl>
 </li>
 </ul>
 <a name="setUnpublished-boolean-">
@@ -464,6 +430,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setUnpublished</h4>
 <pre>public&nbsp;void&nbsp;setUnpublished(boolean&nbsp;unpublished)</pre>
+<div class="block">Sets whether this <code>Exam</code> should be unpublished or not.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>unpublished</code> - True if this <code>Exam</code> should be unpublished, otherwise false.</dd>
+</dl>
 </li>
 </ul>
 </li>

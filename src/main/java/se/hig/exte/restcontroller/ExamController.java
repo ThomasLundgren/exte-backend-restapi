@@ -38,8 +38,8 @@ public class ExamController {
 	 *                    exposed in this RestController.
 	 */
 	@Autowired
-	public ExamController(ExamService addExamService) {
-		this.examService = addExamService;
+	public ExamController(ExamService examService) {
+		this.examService = examService;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class ExamController {
 	 *         objects.
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Exam>> getAllCourses() {
+	public ResponseEntity<List<Exam>> getAllExams() {
 		return new ResponseEntity<List<Exam>>(examService.findAll(), HttpStatus.OK);
 	}
 
@@ -100,7 +100,7 @@ public class ExamController {
 	/**
 	 * Updates the {@link Exam} object with the given ID in the database.
 	 * 
-	 * @param course The {@link Exam} to update in the form of a JSON-object in the
+	 * @param exam The {@link Exam} to update in the form of a JSON-object in the
 	 *               POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Exam}
 	 *         and an HTTP status code.
@@ -121,17 +121,26 @@ public class ExamController {
 		examService.deleteById(id);
 	}
 
+	/**
+	 * Fetches all unpublished {@link Exam}s from the database.
+	 * 
+	 * @return A {@code ResponseEntity} containing a {@code List} of all
+	 *         {@link Exam}s found. The body of the {@code ResponseEntity} is
+	 *         {@code JSON}-formatted.
+	 */
 	@GetMapping("/unpub")
 	public ResponseEntity<List<Exam>> getUnpublishedExams() {
 		return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
 	}
-	
+
 	/**
-	 * This method is run automatically by Spring Boot at 03:00 every day.
+	 * Unpublishes all {@link Exam} objects whose unpublished date has passed. This
+	 * method is scheduled to run automatically using Spring Boot's
+	 * {@literal @Scheduled} annotation at 03:00 every day.
 	 */
 	@Scheduled(cron = "0 0 3 * * *")
 	public void autoUnpublish() {
 		examService.unpublish();
 	}
-	
+
 }
