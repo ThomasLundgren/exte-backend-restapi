@@ -20,6 +20,7 @@ import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.SubjectService;
+import se.hig.exte.service.UnpublishService;
 
 /**
  * This class is a RestController class responsible for mapping HTTP requests
@@ -30,6 +31,7 @@ import se.hig.exte.service.SubjectService;
 @RequestMapping("/subjects")
 public class SubjectController {
 	private final SubjectService subjectService;
+	private final UnpublishService unpublishService;
 
 	/**
 	 * Creates a {@code SubjectController} object.
@@ -38,8 +40,9 @@ public class SubjectController {
 	 *                       services exposed in this RestController.
 	 */
 	@Autowired
-	public SubjectController(SubjectService subjectService) {
+	public SubjectController(SubjectService subjectService, UnpublishService unpublishService) {
 		this.subjectService = subjectService;
+		this.unpublishService = unpublishService;
 	}
 
 	/**
@@ -102,7 +105,7 @@ public class SubjectController {
 	 * Updates the {@link Subject} object with the given ID in the database.
 	 * 
 	 * @param subject The {@link Subject} to update in the form of a JSON-object in
-	 *               the POST request.
+	 *                the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated
 	 *         {@link Subject} and an HTTP status code.
 	 */
@@ -122,10 +125,45 @@ public class SubjectController {
 		subjectService.deleteById(id);
 	}
 	
+	/**
+	 * Searches the database after subjects with the text variable
+	 * @param text The text searched
+	 * @return A list of all subjects that are a match and the http status OK.
+	 */
 	@GetMapping("/search/{text}")
 	public ResponseEntity<List<Subject>> search(@PathVariable String text) {
 		List<Subject> subjects = subjectService.search(text);
 		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
-
+	
+	/**
+	 * Fetches all unpublished subjects.
+	 * @return A list of all unpublished courses and the http status OK.
+	 */
+	@GetMapping("/unpublished")
+	public ResponseEntity<List<Subject>> getUnpublishedSubjects() {
+		return new ResponseEntity<List<Subject>>(subjectService.findAllUnpublished(), HttpStatus.OK);
+	}
+	
+	/**
+	 * Fetches all published courses.
+	 * @return A list of all published subjects and the http status OK.
+	 */
+	@GetMapping("/published")
+	public ResponseEntity<List<Subject>> getPublishedSubjects() {
+		return new ResponseEntity<List<Subject>>(subjectService.findAllPublished(), HttpStatus.OK);
+	}
+		
+	/**
+	 * Changes the boolean unpublished value on the {@link Subject} 
+	 * @param subject The {@link Subject} to update 
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublish/{unpublished}")
+	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, @PathVariable boolean unpublished) {
+		return unpublishService.isSubjectUnpublished(subject, unpublished);	
+	}
+	
+	
 }

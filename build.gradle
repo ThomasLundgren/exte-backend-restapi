@@ -19,6 +19,7 @@ ext {
 
 javadoc {
 	source = sourceSets.main.allJava
+	options.addStringOption("Xdoclint:all", "-quiet")
 }
 
 dependencies {

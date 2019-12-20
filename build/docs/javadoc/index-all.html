@@ -227,8 +227,6 @@
 <dd>
 <div class="block">Creates an <code>ExamController</code> object.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="se/hig/exte/restcontroller/FileController.html#examExists-java.lang.String-">examExists(String)</a></span> - Method in class se.hig.exte.restcontroller.<a href="se/hig/exte/restcontroller/FileController.html" title="class in se.hig.exte.restcontroller">FileController</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="se/hig/exte/repository/ExamRepository.html" title="interface in se.hig.exte.repository"><span class="typeNameLink">ExamRepository</span></a> - Interface in <a href="se/hig/exte/repository/package-summary.html">se.hig.exte.repository</a></dt>
 <dd>
 <div class="block">An interface used for database operations on <a href="se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects.</div>
@@ -254,9 +252,14 @@
 <dt><span class="memberNameLink"><a href="se/hig/exte/service/FileService.html#fetchFile-java.lang.String-">fetchFile(String)</a></span> - Method in class se.hig.exte.service.<a href="se/hig/exte/service/FileService.html" title="class in se.hig.exte.service">FileService</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="se/hig/exte/restcontroller/FileController.html" title="class in se.hig.exte.restcontroller"><span class="typeNameLink">FileController</span></a> - Class in <a href="se/hig/exte/restcontroller/package-summary.html">se.hig.exte.restcontroller</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A <code>RestController</code> class responsible for mapping HTTP requests to the
+ /files path.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="se/hig/exte/restcontroller/FileController.html#FileController-se.hig.exte.service.FileService-se.hig.exte.service.ExamService-">FileController(FileService, ExamService)</a></span> - Constructor for class se.hig.exte.restcontroller.<a href="se/hig/exte/restcontroller/FileController.html" title="class in se.hig.exte.restcontroller">FileController</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Creates a <code>FileController</code>.</div>
+</dd>
 <dt><a href="se/hig/exte/service/FileService.html" title="class in se.hig.exte.service"><span class="typeNameLink">FileService</span></a> - Class in <a href="se/hig/exte/service/package-summary.html">se.hig.exte.service</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="se/hig/exte/service/FileService.html#FileService--">FileService()</a></span> - Constructor for class se.hig.exte.service.<a href="se/hig/exte/service/FileService.html" title="class in se.hig.exte.service">FileService</a></dt>
@@ -538,17 +541,19 @@
 <h2 class="title">H</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="se/hig/exte/restcontroller/FileController.html#handleFileDownload-java.lang.String-">handleFileDownload(String)</a></span> - Method in class se.hig.exte.restcontroller.<a href="se/hig/exte/restcontroller/FileController.html" title="class in se.hig.exte.restcontroller">FileController</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Gets a file stored on the server.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="se/hig/exte/restcontroller/FileController.html#handleFileUpload-org.springframework.web.multipart.MultipartFile-">handleFileUpload(MultipartFile)</a></span> - Method in class se.hig.exte.restcontroller.<a href="se/hig/exte/restcontroller/FileController.html" title="class in se.hig.exte.restcontroller">FileController</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Uploads a file to the server.</div>
+</dd>
 </dl>
 <a name="I:I">
 <!--   -->
 </a>
 <h2 class="title">I</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="se/hig/exte/restcontroller/FileController.html#isPDF-org.springframework.web.multipart.MultipartFile-">isPDF(MultipartFile)</a></span> - Method in class se.hig.exte.restcontroller.<a href="se/hig/exte/restcontroller/FileController.html" title="class in se.hig.exte.restcontroller">FileController</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="se/hig/exte/model/User.html#isSuperUser--">isSuperUser()</a></span> - Method in class se.hig.exte.model.<a href="se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a></dt>
 <dd>
 <div class="block">Returns true if this <code>User</code> is a super user.</div>

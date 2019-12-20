@@ -27,6 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 import se.hig.exte.service.ExamService;
 import se.hig.exte.service.FileService;
 
+/**
+ * A {@code RestController} class responsible for mapping HTTP requests to the
+ * /files path. This class calls services that store and fetches file resources.
+ */
 @RestController
 @RequestMapping("/files")
 public class FileController implements HandlerExceptionResolver {
@@ -34,12 +38,27 @@ public class FileController implements HandlerExceptionResolver {
 	private final FileService fileService;
 	private final ExamService examService;
 
+	/**
+	 * Creates a {@code FileController}.
+	 * 
+	 * @param fileService The {@link FileService} to use.
+	 * @param examService The {@link ExamService} to use.
+	 */
 	@Autowired
 	public FileController(FileService fileService, ExamService examService) {
 		this.fileService = fileService;
 		this.examService = examService;
 	}
 
+	/**
+	 * Fetches a file stored on the server. This method is run when a HTTP GET
+	 * request is made to the end-point /download/{fileName}. The specified file
+	 * name must contain the file extension (e.g. ".pdf"). Returns an empty response
+	 * and a status code of "404 - not found" if the file is not found.
+	 * 
+	 * @param fileName The name of the file on the server to fetch.
+	 * @return A {@code ResponseEntity} containing a byte array containing the file.
+	 */
 	@GetMapping(value = "/download/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String fileName) {
 		ResponseEntity<byte[]> response;
@@ -53,6 +72,16 @@ public class FileController implements HandlerExceptionResolver {
 		return response;
 	}
 
+	/**
+	 * Uploads a file to the server. This method is run when a HTTP POST request is
+	 * made to the end-point files/upload/ and expects a {@code MultipartFile}.
+	 * Returns a status code of "417 - expectation failed" if a file with the
+	 * specified name already exists or if the file is not a PDF file.
+	 * 
+	 * @param file The {@code MultiPartFile} to upload to the server.
+	 * @return A {@code ResponseEntity} containing a message and status code 200 if
+	 *         successful, else 417.
+	 */
 	@PostMapping(value = "/upload")
 	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
@@ -100,12 +129,12 @@ public class FileController implements HandlerExceptionResolver {
 		return new ModelAndView("500");
 	}
 
-	public boolean isPDF(MultipartFile file) {
+	private boolean isPDF(MultipartFile file) {
 		return file.getContentType().equals("application/pdf")
 				&& file.getOriginalFilename().split("\\.")[1].equals("pdf");
 	}
 
-	public boolean examExists(String fileName) {
+	private boolean examExists(String fileName) {
 		return examService.findAll().stream().anyMatch(e -> e.getFileName().equalsIgnoreCase(fileName));
 	}
 }
