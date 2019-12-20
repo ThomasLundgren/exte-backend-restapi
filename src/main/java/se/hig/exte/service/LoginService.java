@@ -27,6 +27,7 @@ public class LoginService {
 	
 	public Cookie login(String username, String password) {
 		Cookie cookie = null;
+		System.out.println(username);
 		if(checkIfUserExists(username)) {
 			boolean isLoggedIn = loginHandler.login(username.toString(), password.toString());
 			if(isLoggedIn) {
@@ -34,6 +35,10 @@ public class LoginService {
 			}
 		}
 		return cookie;
+	}
+	
+	public void logout(Cookie[] cookies) {
+		CookieHandler.logout(cookies);
 	}
 
 	private boolean checkIfUserExists(String username) {

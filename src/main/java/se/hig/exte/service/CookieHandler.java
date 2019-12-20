@@ -15,6 +15,12 @@ public class CookieHandler {
 	private static final String COOKIE_NAME = "identifier";
 	private static final int COOKIE_EXPIRE_SECONDS = 60;
 
+	/**
+	 * Generates a new cookie for the user
+	 * @param isSuperUser is true if the user should have super-admin privileges
+	 * @return a Cookie with the valid session settings
+	 * @throws NoSuchAlgorithmException if a cookie has failed to be initialized.
+	 */
 	public static Cookie createCookie(boolean isSuperUser) throws NoSuchAlgorithmException {
 		String generatedId = autoGenerateId();
 		Cookie cookie = new Cookie(COOKIE_NAME, generatedId);
@@ -23,9 +29,24 @@ public class CookieHandler {
 		return cookie;
 	}
 	
-	public static boolean isValidSession(Cookie[] cookiesFromUser) {
+	/**
+	 * Checks if the user has a valid cookie with admin-privileges
+	 * @param cookiesFromUser all the cookies fetched from the user
+	 * @return true if the session is valid
+	 */
+	public static boolean isValidAdminSession(Cookie[] cookiesFromUser) {
 		Cookie klientCookie = getSessionCookie(cookiesFromUser);		
 		return checkIfServerSessionIsValid(klientCookie.getValue());
+	}
+	
+	/**
+	 * Logs out the user
+	 * @param cookiesFromUser all the cookies stored in the users browser.
+	 */
+	public static void logout(Cookie[] cookiesFromUser) {
+		Cookie cookie = getSessionCookie(cookiesFromUser);
+		if(cookie != null)
+			sessions.remove(cookie.getValue());
 	}
 	
 	private static boolean checkIfServerSessionIsValid(String cookieValue) {
@@ -39,8 +60,13 @@ public class CookieHandler {
 			return true;
 	}
 
+	/**
+	 * Checks if the user has a valid cookie with SuperAdmin-privileges
+	 * @param cookiesFromUser all the cookies fetched from the user
+	 * @return true if the session is valid
+	 */
 	public static boolean isValidSuperSession(Cookie[] cookiesFromUser) {
-		if(isValidSession(cookiesFromUser))
+		if(isValidAdminSession(cookiesFromUser))
 			return sessions.get(getSessionCookie(cookiesFromUser).getValue()).isSuperUser;
 		return false;
 	}
@@ -62,6 +88,9 @@ public class CookieHandler {
 		return sessionCookie;
 	}
 
+	/**
+	 * Removes all the sessions in the server that has been out-dated
+	 */
 	public static void removeOldSessions() {
 		List<String> sessionsToRemove = new ArrayList<String>();
 		for (Map.Entry<String, Session> entry : sessions.entrySet()) {
@@ -76,6 +105,11 @@ public class CookieHandler {
 		}
 	}
 	
+	/**
+	 * Class representing a session.
+	 * @author Sanna Lundqvist
+	 *
+	 */
 	static class Session{
 		private boolean isSuperUser;
 		private LocalDateTime expiration;
