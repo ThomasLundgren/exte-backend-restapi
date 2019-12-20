@@ -2,7 +2,7 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.SubjectService;
 import se.hig.exte.service.UnpublishService;
@@ -54,9 +55,13 @@ public class SubjectController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) {
-		Subject savedSubject = subjectService.save(subject);
-		return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
+	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			Subject savedSubject = subjectService.save(subject);
+			return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Subject>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -110,9 +115,13 @@ public class SubjectController {
 	 *         {@link Subject} and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject) {
-		Subject patchedSubject = subjectService.save(subject);
-		return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
+	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			Subject patchedSubject = subjectService.save(subject);
+			return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Subject>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -121,8 +130,9 @@ public class SubjectController {
 	 * @param id The ID of the {@link Subject} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public void deleteSubjectById(@PathVariable int id) {
-		subjectService.deleteById(id);
+	public void deleteSubjectById(@PathVariable int id, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			subjectService.deleteById(id);
 	}
 	
 	/**
@@ -131,9 +141,13 @@ public class SubjectController {
 	 * @return A list of all subjects that are a match and the http status OK.
 	 */
 	@GetMapping("/search/{text}")
-	public ResponseEntity<List<Subject>> search(@PathVariable String text) {
-		List<Subject> subjects = subjectService.search(text);
-		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
+	public ResponseEntity<List<Subject>> search(@PathVariable String text, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			List<Subject> subjects = subjectService.search(text);
+			return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 	/**
@@ -141,8 +155,12 @@ public class SubjectController {
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
-	public ResponseEntity<List<Subject>> getUnpublishedSubjects() {
-		return new ResponseEntity<List<Subject>>(subjectService.findAllUnpublished(), HttpStatus.OK);
+	public ResponseEntity<List<Subject>> getUnpublishedSubjects(HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			return new ResponseEntity<List<Subject>>(subjectService.findAllUnpublished(), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 	/**
@@ -161,8 +179,11 @@ public class SubjectController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, @PathVariable boolean unpublished) {
-		return unpublishService.isSubjectUnpublished(subject, unpublished);	
+	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, @PathVariable boolean unpublished, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			return unpublishService.isSubjectUnpublished(subject, unpublished);	
+		else
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
 	
 	
