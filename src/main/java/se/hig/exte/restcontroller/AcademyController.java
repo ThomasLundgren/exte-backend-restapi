@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
 import se.hig.exte.service.AcademyService;
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 
 /**
@@ -47,16 +48,20 @@ public class AcademyController {
 
 	/**
 	 * Creates an {@link Academy} and stores it in the database.
-	 *
+	 *Only accesable by super-admin
 	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
 	 *                POST request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy) {
-		Academy savedAcademy = academyService.save(academy);
-		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
+	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			Academy savedAcademy = academyService.save(academy);
+			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -73,32 +78,33 @@ public class AcademyController {
 
 	/**
 	 * Updates the {@link Academy} object with the given ID in the database.
-	 *
+	 * Only accessible by Super-admin
 	 * @param academy The {@link Academy} to update in the form of a JSON-object in
 	 *                the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated
 	 *         {@link Academy} and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Academy> updateAcademy(@RequestBody Academy academy) {
-		Academy savedAcademy = academyService.save(academy);
-		return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
+	public ResponseEntity<Academy> updateAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			Academy savedAcademy = academyService.save(academy);
+			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
 	 * Deletes the {@link Academy} object with the given ID from the database.
-	 *
+	 * Only accesable by super-admin
 	 * @param id The ID of the {@link Academy} to delete.
 	 */
 	@DeleteMapping("/{id}")
 	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
-		try {
-			academyService.deleteById(id, request.getCookies());
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			academyService.deleteById(id);
 			return true;
-		}catch (Exception e) {
-			return false;
 		}
+		return false;
 	}
-
-
 }

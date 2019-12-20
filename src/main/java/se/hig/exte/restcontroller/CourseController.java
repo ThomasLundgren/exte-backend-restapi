@@ -2,6 +2,8 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CourseService;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.UnpublishService;
@@ -52,9 +55,13 @@ public class CourseController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
-		Course savedCourse = courseService.save(course);
-		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
+	public ResponseEntity<Course> saveCourse(@RequestBody Course course, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			Course savedCourse = courseService.save(course);
+			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -107,9 +114,13 @@ public class CourseController {
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
-		Course savedCourse = courseService.save(course);
-		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
+	public ResponseEntity<Course> updateCourse(@RequestBody Course course, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			Course savedCourse = courseService.save(course);
+			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -118,8 +129,9 @@ public class CourseController {
 	 * @param id The ID of the {@link Course} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public void deleteCourseById(@PathVariable int id) {
-		courseService.deleteById(id);
+	public void deleteCourseById(@PathVariable int id, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			courseService.deleteById(id);
 	}
 	
 	/**
@@ -158,8 +170,11 @@ public class CourseController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, @PathVariable boolean unpublished) {
-		return unpublishService.isCourseUnpublished(course, unpublished);
+	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, HttpServletRequest request, @PathVariable boolean unpublished) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			return unpublishService.isCourseUnpublished(course, unpublished);
+		else
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
 
 }
