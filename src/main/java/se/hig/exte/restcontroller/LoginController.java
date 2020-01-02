@@ -25,17 +25,31 @@ public class LoginController {
 		this.loginService = loginService;
 	}
 
+	/**
+	 * Tries to login a user
+	 * @param response used to get all the stored cookies at the client
+	 * @param request 
+	 * @param json A JSON-Object containing the users email as 'email' (String) and password as 'password' (String)
+	 * @return
+	 */
 	@RequestMapping("/")
 	@PostMapping("/")
 	public boolean loginAdmin(HttpServletResponse response, HttpServletRequest request, @RequestBody JSONObject json) {
-		printAllCookies(request);
-		Cookie cookie = loginService.login(json.getAsString("email"), json.getAsString("password"));
+		String email = json.getAsString("email").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
+		String password = json.getAsString("password").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
+		Cookie cookie = loginService.login(email, password);
 		if(cookie != null) {
 			response.addCookie(cookie);
 			return true;
 		}else {
 			return false;
 		}
+	}
+	
+	@RequestMapping("/logout")
+	@PostMapping("/logout")
+	public void logout(HttpServletRequest request) {
+		loginService.logout(request.getCookies());
 	}
 
 	private void printAllCookies(HttpServletRequest request) {

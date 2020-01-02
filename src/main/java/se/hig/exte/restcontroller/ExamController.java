@@ -2,6 +2,8 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
 import se.hig.exte.model.Exam;
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.ExamService;
 import se.hig.exte.service.UnpublishService;
@@ -54,9 +57,13 @@ public class ExamController {
 	 *         an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam) {
-		Exam savedExam = examService.save(exam);
-		return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
+	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam, HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies())) {
+			Exam savedExam = examService.save(exam);
+			return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -109,9 +116,13 @@ public class ExamController {
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Exam> patchExam(@RequestBody Exam exam) {
-		Exam patchedExam = examService.save(exam);
-		return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);
+	public ResponseEntity<Exam> patchExam(@RequestBody Exam exam, HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies())) {
+			Exam patchedExam = examService.save(exam);
+			return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -120,8 +131,9 @@ public class ExamController {
 	 * @param id The ID of the {@link Exam} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public void deleteExamById(@PathVariable int id) {
-		examService.deleteById(id);
+	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			examService.deleteById(id);
 	}
 
 	/**
@@ -129,8 +141,11 @@ public class ExamController {
 	 * @return A list of all unpublished exams and the http status OK.
 	 */
 	@GetMapping("/unpublished")
-	public ResponseEntity<List<Exam>> getUnpublishedExams() {
-		return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
+	public ResponseEntity<List<Exam>> getUnpublishedExams(HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies()))
+			return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
+		else
+			return new ResponseEntity<List<Exam>>(HttpStatus.UNAUTHORIZED);
 	}
 
 	/**
@@ -149,8 +164,11 @@ public class ExamController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> isExamUnpublished(@RequestBody Exam exam, @PathVariable boolean unpublished) {
-		return unpublishService.isExamUnpublished(exam, unpublished);
+	public ResponseEntity<String> isExamUnpublished(@RequestBody Exam exam, @PathVariable boolean unpublished, HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies()))
+			return unpublishService.isExamUnpublished(exam, unpublished);
+		else
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
 	
 	/**

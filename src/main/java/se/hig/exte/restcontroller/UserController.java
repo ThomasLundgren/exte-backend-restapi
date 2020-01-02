@@ -2,6 +2,8 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import se.hig.exte.model.Subject;
 import se.hig.exte.model.User;
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.UserService;
 
@@ -49,9 +53,13 @@ public class UserController {
 	 *         an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<User> saveUser(@RequestBody User user) {
-		User savedUser = userService.save(user);
-		return new ResponseEntity<User>(savedUser, HttpStatus.OK);
+	public ResponseEntity<User> saveUser(@RequestBody User user, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			User savedUser = userService.save(user);
+			return new ResponseEntity<User>(savedUser, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -61,9 +69,12 @@ public class UserController {
 	 * @return The {@link User} with the given ID.
 	 */
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable String id) {
-		int userId = Integer.parseInt(id);
-		return userService.findById(userId);
+	public User getUser(@PathVariable String id, HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies())) {
+			int userId = Integer.parseInt(id);
+			return userService.findById(userId);
+		}
+		return null;
 	}
 
 	/**
@@ -76,8 +87,12 @@ public class UserController {
 	 *         objects.
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<User>> getAllCourses() {
-		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<User>> getAllUsers(HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<List<User>>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -89,9 +104,13 @@ public class UserController {
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<User> updateUser(@RequestBody User user) {
-		User savedUser = userService.save(user);
-		return new ResponseEntity<User>(savedUser, HttpStatus.OK);
+	public ResponseEntity<User> updateUser(@RequestBody User user, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			User savedUser = userService.save(user);
+			return new ResponseEntity<User>(savedUser, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -100,7 +119,9 @@ public class UserController {
 	 * @param id The ID of the {@link User} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public void deleteUserById(@PathVariable int id) {
-		userService.deleteById(id);
+	public void deleteUserById(@PathVariable int id, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			userService.deleteById(id);
+		}
 	}
 }

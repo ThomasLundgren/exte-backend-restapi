@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Course;
 import se.hig.exte.repository.AcademyRepository;
 
 /**
  * A Service used for performing CRUD operations on {@link Academy} objects.
  */
 @Service
-public class AcademyService {
+public class AcademyService implements CrudService<Academy> {
 
 	private final AcademyRepository academyRepo;
 
@@ -28,12 +29,12 @@ public class AcademyService {
 		this.academyRepo = academyRepo;
 	}
 
-	//@Override
+	@Override
 	public Academy save(Academy academy) {
 		return academyRepo.save(academy);
 	}
 
-	//@Override
+	@Override
 	public Academy findById(int id) {
 		return academyRepo.findById(id);
 	}
@@ -45,11 +46,8 @@ public class AcademyService {
 		return academyRepo.findAll();
 	}
 
-	public void deleteById(int id, Cookie[] cookies) throws AuthenticationException {
-		if(CookieHandler.isValidSuperSession(cookies))
-			academyRepo.deleteById(id);
-		else
-			throw new AuthenticationException();
+	public void deleteById(int id){
+		academyRepo.deleteById(id);
 	}
 
 }
