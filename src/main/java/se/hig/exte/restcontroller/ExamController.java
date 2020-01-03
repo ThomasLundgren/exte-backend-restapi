@@ -148,9 +148,9 @@ public class ExamController {
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> isExamUnpublished(@RequestBody Exam exam, @PathVariable boolean unpublished) {
-		return unpublishService.isExamUnpublished(exam, unpublished);
+	@PostMapping("/unpublish")
+	public ResponseEntity<String> toggleExamUnpublished(@RequestBody Exam exam) {
+		return unpublishService.toggleExamUnpublished(exam);
 	}
 	
 	/**

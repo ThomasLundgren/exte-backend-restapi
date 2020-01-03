@@ -22,7 +22,7 @@ public class Exam {
 	private int id;
 	@NotBlank(message = "Name cannot be blank, empty or null")
 	@Size(min = 2, message = "Name must be at least two characters long")
-	private String filename;
+	private String fileName;
 	@NotNull(message = "Date cannot be null")
 	private LocalDate date;
 	@NotNull(message = "UnpublishDate cannot be null")
@@ -44,7 +44,7 @@ public class Exam {
 	 * @param courseId The ID of the {@link Course} to which an {@code Exam} belongs. Cannot be null.
 	 */
 	public Exam(String filename, LocalDate date, LocalDate unpublishDate, boolean unpublished, int courseId) {
-		this.filename = filename;
+		this.fileName = filename;
 		this.date = date;
 		this.unpublishDate = unpublishDate;
 		this.unpublished = unpublished;
@@ -64,7 +64,7 @@ public class Exam {
 	 * @return The name of this {@code Exam}.
 	 */
 	public String getFilename() {
-		return filename;
+		return fileName;
 	}
 
 	/**
@@ -91,12 +91,16 @@ public class Exam {
 		return courseId;
 	}
 	
+	public boolean getUnpublished() {
+		return unpublished;
+	}
+	
 	/**
 	 * Set the name of this {@code Exam}. Must be at least two characters long and not null.
 	 * @param name The new name of this {@code Exam}.
 	 */
 	public void setFilename(String name) {
-		this.filename = name;
+		this.fileName = name;
 	}
 
 	/**
@@ -120,7 +124,7 @@ public class Exam {
 	 */
 	@Override
 	public String toString() {
-		return "name: " + filename + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nUnpublished: " + unpublished;
+		return "name: " + fileName + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate + "\nUnpublished: " + unpublished;
 	}
 
 	public boolean isUnpublished() {
