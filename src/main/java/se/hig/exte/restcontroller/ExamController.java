@@ -80,7 +80,7 @@ public class ExamController {
 	 *         objects.
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Exam>> getAllCourses() {
+	public ResponseEntity<List<Exam>> getAllExams() {
 		return new ResponseEntity<List<Exam>>(examService.findAll(), HttpStatus.OK);
 	}
 
@@ -103,7 +103,7 @@ public class ExamController {
 	/**
 	 * Updates the {@link Exam} object with the given ID in the database.
 	 * 
-	 * @param course The {@link Exam} to update in the form of a JSON-object in the
+	 * @param exam The {@link Exam} to update in the form of a JSON-object in the
 	 *               POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Exam}
 	 *         and an HTTP status code.
@@ -132,7 +132,7 @@ public class ExamController {
 	public ResponseEntity<List<Exam>> getUnpublishedExams() {
 		return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Fetches all published exams.
 	 * @return A list of all published exams and the http status OK.
@@ -161,5 +161,5 @@ public class ExamController {
 	public void autoUnpublish() {
 		unpublishService.unpublishExpiredExams();
 	}
-	
+
 }

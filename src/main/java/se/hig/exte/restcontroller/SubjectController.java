@@ -2,6 +2,8 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,7 +80,7 @@ public class SubjectController {
 	 *         {@link Subject} objects.
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Subject>> getAllCourses() {
+	public ResponseEntity<List<Subject>> getAllSubjects() {
 		return new ResponseEntity<List<Subject>>(subjectService.findAll(), HttpStatus.OK);
 	}
 
@@ -102,8 +104,8 @@ public class SubjectController {
 	/**
 	 * Updates the {@link Subject} object with the given ID in the database.
 	 * 
-	 * @param course The {@link Subject} to update in the form of a JSON-object in
-	 *               the POST request.
+	 * @param subject The {@link Subject} to update in the form of a JSON-object in
+	 *                the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated
 	 *         {@link Subject} and an HTTP status code.
 	 */

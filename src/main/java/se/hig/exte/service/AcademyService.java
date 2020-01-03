@@ -2,6 +2,9 @@ package se.hig.exte.service;
 
 import java.util.List;
 
+import javax.security.sasl.AuthenticationException;
+import javax.servlet.http.Cookie;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +15,10 @@ import se.hig.exte.repository.AcademyRepository;
  * A Service used for performing CRUD operations on {@link Academy} objects.
  */
 @Service
-public class AcademyService implements CrudService<Academy> {
+public class AcademyService {
 
 	private final AcademyRepository academyRepo;
-	
+
 	/**
 	 * Creates an {@code AcademyService} object.
 	 * @param academyRepo The {@link AcademyRepository} to use for CRUD operations.
@@ -25,24 +28,16 @@ public class AcademyService implements CrudService<Academy> {
 		this.academyRepo = academyRepo;
 	}
 
-	/**
-	 * Saves an {@link Academy} object to the database.
-	 * @param academy The {@link Academy} object to save.
-	 */
-	@Override
+	//@Override
 	public Academy save(Academy academy) {
 		return academyRepo.save(academy);
 	}
 
-	/**
-	 * Fetches the {@link Academy} object with the corresponding ID from the database.
-	 * @param id The ID of the {@link Academy} object to fetch.
-	 */
-	@Override
+	//@Override
 	public Academy findById(int id) {
 		return academyRepo.findById(id);
 	}
-	
+
 	/**
 	 * Fetches all {@link Academy} objects from the database.
 	 */
@@ -50,12 +45,11 @@ public class AcademyService implements CrudService<Academy> {
 		return academyRepo.findAll();
 	}
 
-	/**
-	 * Deletes the {@link Academy} object with the corresponding ID from the database.
-	 * @param id The ID of the {@link Academy} object to delete.
-	 */
-	@Override
-	public void deleteById(int id) {
-		academyRepo.deleteById(id);
+	public void deleteById(int id, Cookie[] cookies) throws AuthenticationException {
+		if(CookieHandler.isValidSuperSession(cookies))
+			academyRepo.deleteById(id);
+		else
+			throw new AuthenticationException();
 	}
+
 }

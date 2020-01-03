@@ -1,5 +1,7 @@
 package se.hig.exte.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import se.hig.exte.model.User;
@@ -17,4 +19,5 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	 * @return The {@link User} object representing the database record with the specified ID.
 	 */
 	User findById(int id);
+	List<User> findByName(String name);
 }

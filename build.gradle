@@ -5,7 +5,7 @@ plugins {
 	id 'java'
 }
 
-group = 'se.hig.exte'
+group = 'se.hig.exte.ExteBackendApplication'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -18,7 +18,8 @@ ext {
 }
 
 javadoc {
-	source += sourceSets.main.allJava
+	source = sourceSets.main.allJava
+	options.addStringOption("Xdoclint:all", "-quiet")
 }
 
 dependencies {
@@ -38,7 +39,6 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-
 }
 
 test {

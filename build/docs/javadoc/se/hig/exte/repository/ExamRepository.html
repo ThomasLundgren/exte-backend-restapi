@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -139,6 +139,18 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 <div class="block">Fetches the <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> object with the given ID from the database.</div>
 </td>
 </tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/repository/ExamRepository.html#findByUnpublishDateLessThanAndUnpublishedFalse-java.time.LocalDate-">findByUnpublishDateLessThanAndUnpublishedFalse</a></span>(java.time.LocalDate&nbsp;currentDate)</code>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects that have an expired unpublish date and haven't already been flagged as unpublished.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/repository/ExamRepository.html#findByUnpublishedTrue--">findByUnpublishedTrue</a></span>()</code>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects with the unpublished value set to true.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.springframework.data.jpa.repository.JpaRepository">
@@ -201,7 +213,7 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 <a name="findByCourseId-int-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>findByCourseId</h4>
 <pre>java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&nbsp;findByCourseId(int&nbsp;courseId)</pre>
@@ -211,6 +223,36 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../../
 <dd><code>courseId</code> - The ID of the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A <code>List</code> containing all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>s belonging to the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> with the specified ID.</dd>
+</dl>
+</li>
+</ul>
+<a name="findByUnpublishedTrue--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>findByUnpublishedTrue</h4>
+<pre>java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&nbsp;findByUnpublishedTrue()</pre>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects with the unpublished value set to true.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>List</code> containing all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>s with the unpublished value set to true.</dd>
+</dl>
+</li>
+</ul>
+<a name="findByUnpublishDateLessThanAndUnpublishedFalse-java.time.LocalDate-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>findByUnpublishDateLessThanAndUnpublishedFalse</h4>
+<pre>java.util.List&lt;<a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model">Exam</a>&gt;&nbsp;findByUnpublishDateLessThanAndUnpublishedFalse(java.time.LocalDate&nbsp;currentDate)</pre>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a> objects that have an expired unpublish date and haven't already been flagged as unpublished.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>currentDate</code> - The current date.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>List</code> containing all <a href="../../../../se/hig/exte/model/Exam.html" title="class in se.hig.exte.model"><code>Exam</code></a>s that satisfy the query.</dd>
 </dl>
 </li>
 </ul>

@@ -108,12 +108,12 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>@RestController
- @RequestMapping(value="/api/users")
+ @RequestMapping(value="/users")
 public class <span class="typeNameLabel">UserController</span>
 extends java.lang.Object</pre>
-<div class="block">This class is a RestController class responsible for mapping HTTP requests under the /users path.
- It contains contains mappings of end-points to <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a>s that operate on <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> records
- in the database.</div>
+<div class="block">This class is a RestController class responsible for mapping HTTP requests
+ under the /users path. It contains mappings of end-points to
+ <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a>s that operate on <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> records in the database.</div>
 </li>
 </ul>
 </div>
@@ -133,7 +133,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#UserController-se.hig.exte.service.UserService-">UserController</a></span>(<a href="../../../../se/hig/exte/service/UserService.html" title="class in se.hig.exte.service">UserService</a>&nbsp;userService)</code>
-<div class="block">Create a <code>UserController</code> object.</div>
+<div class="block">Creates an <code>UserController</code> object.</div>
 </td>
 </tr>
 </table>
@@ -153,15 +153,22 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#deleteUserById-int-">deleteUserById</a></span>(int&nbsp;id)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#deleteUserById-int-">deleteUserById</a></span>(int&nbsp;id)</code>
+<div class="block">Deletes the <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> object with the given ID from the database.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#getAllCourses--">getAllCourses</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#getAllCourses--">getAllCourses</a></span>()</code>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> records from the database and returns them as a
+ <code>ResponseEntity</code> object.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#getUser-java.lang.String-">getUser</a></span>(java.lang.String&nbsp;id)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#getUser-java.lang.String-">getUser</a></span>(java.lang.String&nbsp;id)</code>
+<div class="block">Fetches the <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> object with the given ID from the database.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&gt;</code></td>
@@ -171,7 +178,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#updateUser-se.hig.exte.model.User-">updateUser</a></span>(<a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&nbsp;user)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/restcontroller/UserController.html#updateUser-se.hig.exte.model.User-">updateUser</a></span>(<a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&nbsp;user)</code>
+<div class="block">Updates the <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> object with the given ID in the database.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -203,10 +212,11 @@ extends java.lang.Object</pre>
 <h4>UserController</h4>
 <pre>@Autowired
 public&nbsp;UserController(<a href="../../../../se/hig/exte/service/UserService.html" title="class in se.hig.exte.service">UserService</a>&nbsp;userService)</pre>
-<div class="block">Create a <code>UserController</code> object.</div>
+<div class="block">Creates an <code>UserController</code> object.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>userService</code> - The <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a> class used to perform all services exposed in this RestController.</dd>
+<dd><code>userService</code> - The <a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service"><code>CrudService</code></a> class used to perform all services
+                    exposed in this RestController.</dd>
 </dl>
 </li>
 </ul>
@@ -230,9 +240,11 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/h
 <div class="block">Creates a <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> and stores it in the database.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>user</code> - The <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> to add in the form of a JSON-object in the POST request.</dd>
+<dd><code>user</code> - The <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> to add in the form of a JSON-object in the POST
+             request.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>A <code>ResponseEntity</code> object containing the saved <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> and an HTTP status code.</dd>
+<dd>A <code>ResponseEntity</code> object containing the saved <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> and
+         an HTTP status code.</dd>
 </dl>
 </li>
 </ul>
@@ -245,6 +257,13 @@ public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/h
 <pre>@GetMapping(value="/{id}")
 public&nbsp;<a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&nbsp;getUser(@PathVariable
                                                 java.lang.String&nbsp;id)</pre>
+<div class="block">Fetches the <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> object with the given ID from the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> to fetch.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> with the given ID.</dd>
+</dl>
 </li>
 </ul>
 <a name="getAllCourses--">
@@ -255,28 +274,51 @@ public&nbsp;<a href="../../../../se/hig/exte/model/User.html" title="class in se
 <h4>getAllCourses</h4>
 <pre>@GetMapping(value="/all")
 public&nbsp;org.springframework.http.ResponseEntity&lt;java.util.List&lt;<a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&gt;&gt;&nbsp;getAllCourses()</pre>
-</li>
-</ul>
-<a name="deleteUserById-int-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>deleteUserById</h4>
-<pre>@DeleteMapping(value="/{id}")
-public&nbsp;void&nbsp;deleteUserById(@PathVariable
-                                                          int&nbsp;id)</pre>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> records from the database and returns them as a
+ <code>ResponseEntity</code> object. List of <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> objects is automatically
+ converted to JSON using Spring Boot's <code>HttpMessageConverter</code> and put in
+ the <code>ResponseEntity</code>'s body.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing the fetched <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a>
+         objects.</dd>
+</dl>
 </li>
 </ul>
 <a name="updateUser-se.hig.exte.model.User-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>updateUser</h4>
 <pre>@PatchMapping(value="/")
 public&nbsp;org.springframework.http.ResponseEntity&lt;<a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&gt;&nbsp;updateUser(@RequestBody
                                                                                           <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model">User</a>&nbsp;user)</pre>
+<div class="block">Updates the <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> object with the given ID in the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>user</code> - The <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> to update in the form of a JSON-object in the
+               POST request.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A <code>ResponseEntity</code> object containing the updated <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a>
+         and an HTTP status code.</dd>
+</dl>
+</li>
+</ul>
+<a name="deleteUserById-int-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>deleteUserById</h4>
+<pre>@DeleteMapping(value="/{id}")
+public&nbsp;void&nbsp;deleteUserById(@PathVariable
+                                                          int&nbsp;id)</pre>
+<div class="block">Deletes the <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> object with the given ID from the database.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/User.html" title="class in se.hig.exte.model"><code>User</code></a> to delete.</dd>
+</dl>
 </li>
 </ul>
 </li>

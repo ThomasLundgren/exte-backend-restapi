@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -156,7 +156,8 @@ implements <a href="../../../../se/hig/exte/service/CrudService.html" title="int
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/service/CourseService.html#deleteById-int-">deleteById</a></span>(int&nbsp;id)</code>
-<div class="block">Deletes the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object with the corresponding ID from the database.</div>
+<div class="block">Deletes the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object with the corresponding ID from the
+ database.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -168,16 +169,30 @@ implements <a href="../../../../se/hig/exte/service/CrudService.html" title="int
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/service/CourseService.html#findAllBySubjectId-int-">findAllBySubjectId</a></span>(int&nbsp;subjectId)</code>
-<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects which belong to the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> with the specified ID.</div>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects which belong to the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> with
+ the specified ID.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/service/CourseService.html#findById-int-">findById</a></span>(int&nbsp;id)</code>
-<div class="block">Fetches the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object with the corresponding ID from the database.</div>
+<div class="block">Fetches the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object with the corresponding ID from the
+ database.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/service/CourseService.html#findByNameOrCourseCodeContaining-java.lang.String-">findByNameOrCourseCodeContaining</a></span>(java.lang.String&nbsp;searchText)</code>
+<div class="block">/** Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects from the database where:
+ 
+ its name attribute contains the string passed in as the name parameter,
+ or
+ its courseCode attribute contains the string passed in as the courseCode
+ parameter
+ </div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/service/CourseService.html#save-se.hig.exte.model.Course-">save</a></span>(<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&nbsp;course)</code>
 <div class="block">Saves a <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object to the database.</div>
@@ -253,7 +268,8 @@ public&nbsp;CourseService(<a href="../../../../se/hig/exte/repository/CourseRepo
 <li class="blockList">
 <h4>findById</h4>
 <pre>public&nbsp;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&nbsp;findById(int&nbsp;id)</pre>
-<div class="block">Fetches the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object with the corresponding ID from the database.</div>
+<div class="block">Fetches the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object with the corresponding ID from the
+ database.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../se/hig/exte/service/CrudService.html#findById-int-">findById</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service">CrudService</a>&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;</code></dd>
@@ -287,10 +303,12 @@ public&nbsp;CourseService(<a href="../../../../se/hig/exte/repository/CourseRepo
 <li class="blockList">
 <h4>findAllBySubjectId</h4>
 <pre>public&nbsp;java.util.List&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;&nbsp;findAllBySubjectId(int&nbsp;subjectId)</pre>
-<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects which belong to the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> with the specified ID.</div>
+<div class="block">Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects which belong to the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> with
+ the specified ID.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>subjectId</code> - The ID of the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> which <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>s to fetch.</dd>
+<dd><code>subjectId</code> - The ID of the <a href="../../../../se/hig/exte/model/Subject.html" title="class in se.hig.exte.model"><code>Subject</code></a> which <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>s to
+                  fetch.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A <code>List</code> containing all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a>s found.</dd>
 </dl>
@@ -299,16 +317,41 @@ public&nbsp;CourseService(<a href="../../../../se/hig/exte/repository/CourseRepo
 <a name="deleteById-int-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>deleteById</h4>
 <pre>public&nbsp;void&nbsp;deleteById(int&nbsp;id)</pre>
-<div class="block">Deletes the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object with the corresponding ID from the database.</div>
+<div class="block">Deletes the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object with the corresponding ID from the
+ database.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../se/hig/exte/service/CrudService.html#deleteById-int-">deleteById</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../se/hig/exte/service/CrudService.html" title="interface in se.hig.exte.service">CrudService</a>&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - The ID of the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> object to delete.</dd>
+</dl>
+</li>
+</ul>
+<a name="findByNameOrCourseCodeContaining-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>findByNameOrCourseCodeContaining</h4>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model">Course</a>&gt;&nbsp;findByNameOrCourseCodeContaining(java.lang.String&nbsp;searchText)</pre>
+<div class="block">/** Fetches all <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects from the database where:
+ <ul>
+ <li>its name attribute contains the string passed in as the name parameter,
+ or</li>
+ <li>its courseCode attribute contains the string passed in as the courseCode
+ parameter</li>
+ </ul></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>searchText</code> - The <code>String</code> which the name or course code should
+                   contain.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>All <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> objects whose name or courseCode attributes
+         contain the specified search text.</dd>
 </dl>
 </li>
 </ul>
