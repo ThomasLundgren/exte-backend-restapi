@@ -135,6 +135,6 @@ public class FileController implements HandlerExceptionResolver {
 	}
 
 	private boolean examExists(String fileName) {
-		return examService.findAll().stream().anyMatch(e -> e.getFileName().equalsIgnoreCase(fileName));
+		return examService.findAll().stream().anyMatch(e -> e.getFilename().equalsIgnoreCase(fileName));
 	}
 }

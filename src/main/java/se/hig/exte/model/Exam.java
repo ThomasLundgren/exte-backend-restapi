@@ -22,7 +22,7 @@ public class Exam {
 	private int id;
 	@NotBlank(message = "Filename cannot be blank, empty or null")
 	@Size(min = 2, message = "Filename must be at least two characters long")
-	private String fileName;
+	private String filename;
 	@NotNull(message = "Date cannot be null")
 	private LocalDate date;
 	@NotNull(message = "UnpublishDate cannot be null")
@@ -38,7 +38,7 @@ public class Exam {
 	/**
 	 * Creates an {@code Exam} object.
 	 *
-	 * @param fileName      The filename of the {@code Exam}. Must be at least two
+	 * @param filename      The filename of the {@code Exam}. Must be at least two
 	 *                      characters long and cannot be null.
 	 * @param date          The date of the {@code Exam}. Cannot be null.
 	 * @param unpublishDate The date at which the {@code Exam} should be unpublished
@@ -48,8 +48,8 @@ public class Exam {
 	 * @param courseId      The ID of the {@link Course} to which an {@code Exam}
 	 *                      belongs. Cannot be null.
 	 */
-	public Exam(String fileName, LocalDate date, LocalDate unpublishDate, boolean unpublished, int courseId) {
-		this.fileName = fileName;
+	public Exam(String filename, LocalDate date, LocalDate unpublishDate, boolean unpublished, int courseId) {
+		this.filename = filename;
 		this.date = date;
 		this.unpublishDate = unpublishDate;
 		this.unpublished = unpublished;
@@ -70,8 +70,8 @@ public class Exam {
 	 *
 	 * @return The filename of this {@code Exam}.
 	 */
-	public String getFileName() {
-		return fileName;
+	public String getFilename() {
+		return filename;
 	}
 
 	/**
@@ -109,10 +109,10 @@ public class Exam {
 	 * Set the filename of this {@code Exam}. Must be at least two characters long
 	 * and not null.
 	 *
-	 * @param fileName The new filename of this {@code Exam}.
+	 * @param filename The new filename of this {@code Exam}.
 	 */
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class Exam {
 	 */
 	@Override
 	public String toString() {
-		return "fileName" + fileName + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate
+		return "filename" + filename + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate
 				+ "\nUnpublished: " + unpublished;
 	}
 
