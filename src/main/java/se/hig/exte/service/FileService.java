@@ -19,7 +19,7 @@ public class FileService {
 	 * Uploads a file to the server.
 	 * 
 	 * @param file The {@code MultiPartFile} to upload to the server.
-	 * @throws IOException  if an I/O error occurs when writing.
+	 * @throws IOException if an I/O error occurs when writing.
 	 */
 	public void storeFile(MultipartFile file) throws IOException {
 		Path filePath = Paths.get(FILE_DIRECTORY + "/" + file.getOriginalFilename());
@@ -31,10 +31,10 @@ public class FileService {
 	 * Fetches a file stored on the server. The specified file name must contain the
 	 * file extension (e.g. ".pdf").
 	 * 
-	 * @param fileName The name of the file on the server to fetch.
+	 * @param filename The name of the file on the server to fetch.
 	 * @return A {@code File} with the specified name.
 	 */
-	public File fetchFile(String fileName) {
-		return new File(FILE_DIRECTORY + "/" + fileName);
+	public File fetchFile(String filename) {
+		return new File(FILE_DIRECTORY + "/" + filename);
 	}
 }
