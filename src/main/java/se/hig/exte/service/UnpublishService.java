@@ -35,13 +35,25 @@ public class UnpublishService {
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	public ResponseEntity<String> isExamUnpublished(Exam exam, boolean unpublished) {
+	public ResponseEntity<String> editExamUnpublished(Exam exam, boolean unpublished) {
 		exam.setUnpublished(unpublished);
 		examRepo.save(exam);
 		
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
+	/**
+	 * Sets the boolean value of unpublished on {@link Exam}
+	 * @param exam The {@link Exam} object to be modified
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	public ResponseEntity<String> toggleExamUnpublished(Exam exam) {
+		exam.setUnpublished(!exam.getUnpublished());
+		examRepo.save(exam);
+		
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 	/**
 	 * Sets the boolean value of unpublished on {@link Course}
 	 * @param course The {@link Course} object to be modified
@@ -51,7 +63,7 @@ public class UnpublishService {
 	public ResponseEntity<String> isCourseUnpublished(Course course, boolean unpublished) {
 		List<Exam> exams = examRepo.findByCourseId(course.getId());
 		for (Exam exam : exams) {
-			isExamUnpublished(exam, unpublished);
+			editExamUnpublished(exam, unpublished);
 		}
 		course.setUnpublished(unpublished);
 		courseRepo.save(course);
@@ -82,7 +94,7 @@ public class UnpublishService {
 	public void unpublishExpiredExams() {
 		List<Exam> exams = examRepo.findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate.now());
 		for (Exam exam : exams) {
-			isExamUnpublished(exam, true);
+			editExamUnpublished(exam, true);
 			System.out.println("Unpublisher unpublished " + exam.toString());
 		}
 		examRepo.flush();

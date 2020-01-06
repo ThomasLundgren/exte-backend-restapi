@@ -35,10 +35,10 @@ public class ExamController {
 
 	private final ExamService examService;
 	private final UnpublishService unpublishService;
-	
+
 	/**
 	 * Creates an {@code ExamController} object.
-	 * 
+	 *
 	 * @param examService The {@link CrudService} class used to perform all services
 	 *                    exposed in this RestController.
 	 */
@@ -50,7 +50,7 @@ public class ExamController {
 
 	/**
 	 * Creates an {@link Exam} and stores it in the database.
-	 * 
+	 *
 	 * @param exam The {@link Exam} to add in the form of a JSON-object in the POST
 	 *             request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Exam} and
@@ -68,7 +68,7 @@ public class ExamController {
 
 	/**
 	 * Fetches the {@link Exam} object with the given ID from the database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Exam} to fetch.
 	 * @return The {@link Exam} with the given ID.
 	 */
@@ -82,7 +82,7 @@ public class ExamController {
 	 * {@code ResponseEntity} object. List of {@link Exam} objects is automatically
 	 * converted to JSON using Spring Boot's {@code HttpMessageConverter} and put in
 	 * the {@code ResponseEntity}'s body.
-	 * 
+	 *
 	 * @return A {@code ResponseEntity} object containing the fetched {@link Exam}
 	 *         objects.
 	 */
@@ -96,7 +96,7 @@ public class ExamController {
 	 * ID. List of {@link Exam} objects is automatically converted to JSON using
 	 * Spring Boot's {@code HttpMessageConverter} and put in the
 	 * {@code ResponseEntity}'s body.
-	 * 
+	 *
 	 * @param id The ID of the {@link Course} to which the {@link Exam}s belongs.
 	 * @return A {@code ResponseEntity} object containing a {@code List} of
 	 *         {@link Exam} objects.
@@ -109,7 +109,7 @@ public class ExamController {
 
 	/**
 	 * Updates the {@link Exam} object with the given ID in the database.
-	 * 
+	 *
 	 * @param exam The {@link Exam} to update in the form of a JSON-object in the
 	 *               POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Exam}
@@ -127,7 +127,7 @@ public class ExamController {
 
 	/**
 	 * Deletes the {@link Exam} object with the given ID from the database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Exam} to delete.
 	 */
 	@DeleteMapping("/{id}")
@@ -155,22 +155,24 @@ public class ExamController {
 	@GetMapping("/published")
 	public ResponseEntity<List<Exam>> getPublishedExams() {
 		return new ResponseEntity<List<Exam>>(examService.findAllPublished(), HttpStatus.OK);
-	}	
+	}
 
 	/**
-	 * Changes the boolean unpublished value on the {@link Exam} 
-	 * @param exam The {@link Exam} to update 
+	 * Changes the boolean unpublished value on the {@link Exam}
+	 * @param exam The {@link Exam} to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> isExamUnpublished(@RequestBody Exam exam, @PathVariable boolean unpublished, HttpServletRequest request) {
+	 
+	@PostMapping("/unpublish")
+	public ResponseEntity<String> toggleExamUnpublished(@RequestBody Exam exam, HttpServletRequest request) {
 		if(CookieHandler.isValidAdminSession(request.getCookies()))
 			return unpublishService.isExamUnpublished(exam, unpublished);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		return unpublishService.toggleExamUnpublished(exam);
 	}
-	
+
 	/**
 	 * This method is run automatically by Spring Boot at 03:00 every day.
 	 */
