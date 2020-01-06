@@ -1,14 +1,15 @@
 package se.hig.exte.service;
 
+import java.security.NoSuchAlgorithmException;
+
+import javax.servlet.http.Cookie;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.login.ILoginHandler;
 import se.hig.exte.login.LoginHandler;
-
-import java.security.NoSuchAlgorithmException;
-
-import javax.servlet.http.Cookie;
 
 @Service
 public class LoginService {
@@ -24,19 +25,19 @@ public class LoginService {
 		this.userService = userService;
 		loginHandler = new LoginHandler();
 	}
-	
-	public Cookie login(String username, String password) {
-		Cookie cookie = null;
+
+	public ResponseCookie login(String username, String password) {
+		ResponseCookie cookie = null;
 		System.out.println(username);
-		if(checkIfUserExists(username)) {
+		if (checkIfUserExists(username)) {
 			boolean isLoggedIn = loginHandler.login(username.toString(), password.toString());
-			if(isLoggedIn) {
+			if (isLoggedIn) {
 				cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
 			}
 		}
 		return cookie;
 	}
-	
+
 	public void logout(Cookie[] cookies) {
 		CookieHandler.logout(cookies);
 	}
@@ -44,9 +45,9 @@ public class LoginService {
 	private boolean checkIfUserExists(String username) {
 		return !userService.findByName(username).isEmpty();
 	}
-	
-	private Cookie createCookie(boolean isSuperUser){
-		Cookie cookie = null;
+
+	private ResponseCookie createCookie(boolean isSuperUser) {
+		ResponseCookie cookie = null;
 		try {
 			cookie = CookieHandler.createCookie(isSuperUser);
 		} catch (NoSuchAlgorithmException e) {

@@ -1,7 +1,10 @@
 package se.hig.exte.restcontroller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -40,15 +43,25 @@ public class AcademyController {
 	public AcademyController(AcademyService academyService) {
 		this.academyService = academyService;
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<List<Academy>> getAllAcademies() {
+	public ResponseEntity<List<Academy>> getAllAcademies(HttpServletRequest request) {
+		printAllCookies(request);
 		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
 	}
 
+	private void printAllCookies(HttpServletRequest request) {
+		Cookie[] cookiesFromUser = request.getCookies();
+		if (cookiesFromUser != null) {
+			System.out.println(Arrays.stream(cookiesFromUser).map(c -> c.getName() + "=" + c.getValue())
+					.collect(Collectors.joining(", ")));
+		}
+	}
+
 	/**
-	 * Creates an {@link Academy} and stores it in the database.
-	 *Only accesable by super-admin
+	 * Creates an {@link Academy} and stores it in the database. Only accesable by
+	 * super-admin
+	 * 
 	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
 	 *                POST request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
@@ -56,10 +69,10 @@ public class AcademyController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			Academy savedAcademy = academyService.save(academy);
 			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -75,10 +88,10 @@ public class AcademyController {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);
 	}
 
-
 	/**
-	 * Updates the {@link Academy} object with the given ID in the database.
-	 * Only accessible by Super-admin
+	 * Updates the {@link Academy} object with the given ID in the database. Only
+	 * accessible by Super-admin
+	 * 
 	 * @param academy The {@link Academy} to update in the form of a JSON-object in
 	 *                the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated
@@ -86,22 +99,23 @@ public class AcademyController {
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<Academy> updateAcademy(@RequestBody Academy academy, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			Academy savedAcademy = academyService.save(academy);
 			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 		}
 	}
 
 	/**
-	 * Deletes the {@link Academy} object with the given ID from the database.
-	 * Only accesable by super-admin
+	 * Deletes the {@link Academy} object with the given ID from the database. Only
+	 * accesable by super-admin
+	 * 
 	 * @param id The ID of the {@link Academy} to delete.
 	 */
 	@DeleteMapping("/{id}")
 	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			academyService.deleteById(id);
 			return true;
 		}
