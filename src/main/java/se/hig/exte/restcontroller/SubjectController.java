@@ -55,10 +55,10 @@ public class SubjectController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject savedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Subject>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -115,10 +115,10 @@ public class SubjectController {
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject patchedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Subject>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -130,60 +130,60 @@ public class SubjectController {
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteSubjectById(@PathVariable int id, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if (CookieHandler.isValidSuperSession(request.getCookies()))
 			subjectService.deleteById(id);
 	}
-	
+
 	/**
 	 * Searches the database after subjects with the text variable
+	 * 
 	 * @param text The text searched
 	 * @return A list of all subjects that are a match and the http status OK.
 	 */
 	@GetMapping("/search/{text}")
 	public ResponseEntity<List<Subject>> search(@PathVariable String text, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
-			List<Subject> subjects = subjectService.search(text);
-			return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
-		}
+		List<Subject> subjects = subjectService.search(text);
+		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Fetches all unpublished subjects.
+	 * 
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
 	public ResponseEntity<List<Subject>> getUnpublishedSubjects(HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			return new ResponseEntity<List<Subject>>(subjectService.findAllUnpublished(), HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 	/**
 	 * Fetches all published courses.
+	 * 
 	 * @return A list of all published subjects and the http status OK.
 	 */
 	@GetMapping("/published")
 	public ResponseEntity<List<Subject>> getPublishedSubjects() {
 		return new ResponseEntity<List<Subject>>(subjectService.findAllPublished(), HttpStatus.OK);
 	}
-		
+
 	/**
-	 * Changes the boolean unpublished value on the {@link Subject} 
-	 * @param subject The {@link Subject} to update 
+	 * Changes the boolean unpublished value on the {@link Subject}
+	 * 
+	 * @param subject     The {@link Subject} to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, @PathVariable boolean unpublished, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isSubjectUnpublished(subject, unpublished);	
+	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, @PathVariable boolean unpublished,
+			HttpServletRequest request) {
+		if (CookieHandler.isValidSuperSession(request.getCookies()))
+			return unpublishService.isSubjectUnpublished(subject, unpublished);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
-	
-	
+
 }
