@@ -52,18 +52,18 @@ public class FileController implements HandlerExceptionResolver {
 
 	/**
 	 * Fetches a file stored on the server. This method is run when a HTTP GET
-	 * request is made to the end-point /download/{fileName}. The specified file
+	 * request is made to the end-point /download/{filename}. The specified file
 	 * name must contain the file extension (e.g. ".pdf"). Returns an empty response
 	 * and a status code of "404 - not found" if the file is not found.
 	 * 
-	 * @param fileName The name of the file on the server to fetch.
+	 * @param filename The name of the file on the server to fetch.
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
 	 */
-	@GetMapping(value = "/download/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String fileName) {
+	@GetMapping(value = "/download/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String filename) {
 		ResponseEntity<byte[]> response;
 		try {
-			File pdf = fileService.fetchFile(fileName);
+			File pdf = fileService.fetchFile(filename);
 			byte[] contents = Files.readAllBytes(pdf.toPath());
 			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
 		} catch (IOException ioe) {
@@ -134,7 +134,7 @@ public class FileController implements HandlerExceptionResolver {
 				&& file.getOriginalFilename().split("\\.")[1].equals("pdf");
 	}
 
-	private boolean examExists(String fileName) {
-		return examService.findAll().stream().anyMatch(e -> e.getFileName().equalsIgnoreCase(fileName));
+	private boolean examExists(String filename) {
+		return examService.findAll().stream().anyMatch(e -> e.getFilename().equalsIgnoreCase(filename));
 	}
 }

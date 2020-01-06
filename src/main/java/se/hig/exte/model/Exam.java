@@ -22,7 +22,7 @@ public class Exam {
 	private int id;
 	@NotBlank(message = "Filename cannot be blank, empty or null")
 	@Size(min = 2, message = "Filename must be at least two characters long")
-	private String fileName;
+	private String filename;
 	@NotNull(message = "Date cannot be null")
 	private LocalDate date;
 	@NotNull(message = "UnpublishDate cannot be null")
@@ -37,8 +37,8 @@ public class Exam {
 
 	/**
 	 * Creates an {@code Exam} object.
-	 * 
-	 * @param fileName      The filename of the {@code Exam}. Must be at least two
+	 *
+	 * @param filename      The filename of the {@code Exam}. Must be at least two
 	 *                      characters long and cannot be null.
 	 * @param date          The date of the {@code Exam}. Cannot be null.
 	 * @param unpublishDate The date at which the {@code Exam} should be unpublished
@@ -48,8 +48,8 @@ public class Exam {
 	 * @param courseId      The ID of the {@link Course} to which an {@code Exam}
 	 *                      belongs. Cannot be null.
 	 */
-	public Exam(String fileName, LocalDate date, LocalDate unpublishDate, boolean unpublished, int courseId) {
-		this.fileName = fileName;
+	public Exam(String filename, LocalDate date, LocalDate unpublishDate, boolean unpublished, int courseId) {
+		this.filename = filename;
 		this.date = date;
 		this.unpublishDate = unpublishDate;
 		this.unpublished = unpublished;
@@ -58,7 +58,7 @@ public class Exam {
 
 	/**
 	 * Get the ID of this {@code Exam}.
-	 * 
+	 *
 	 * @return The ID of this {@code Exam}.
 	 */
 	public int getId() {
@@ -67,16 +67,16 @@ public class Exam {
 
 	/**
 	 * Get the filename of this {@code Exam}.
-	 * 
+	 *
 	 * @return The filename of this {@code Exam}.
 	 */
-	public String getFileName() {
-		return fileName;
+	public String getFilename() {
+		return filename;
 	}
 
 	/**
 	 * Get the date of this {@code Exam}.
-	 * 
+	 *
 	 * @return The date of this {@code Exam}.
 	 */
 	public LocalDate getDate() {
@@ -85,7 +85,7 @@ public class Exam {
 
 	/**
 	 * Get the date at which this {@code Exam} will be unpublished from the website.
-	 * 
+	 *
 	 * @return The unpublish date of this {@code Exam}.
 	 */
 	public LocalDate getUnpublishDate() {
@@ -94,26 +94,30 @@ public class Exam {
 
 	/**
 	 * Get the {@link Course} to which this {@code Exam} belongs.
-	 * 
+	 *
 	 * @return The ID of the {@link Course} to which this {@code Exam} belongs.
 	 */
 	public int getCourseId() {
 		return courseId;
 	}
 
+	public boolean getUnpublished() {
+		return unpublished;
+	}
+
 	/**
 	 * Set the filename of this {@code Exam}. Must be at least two characters long
 	 * and not null.
-	 * 
-	 * @param fileName The new filename of this {@code Exam}.
+	 *
+	 * @param filename The new filename of this {@code Exam}.
 	 */
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	/**
 	 * Set the date of this {@code Exam}. Cannot be null.
-	 * 
+	 *
 	 * @param date The new date of this {@code Exam}.
 	 */
 	public void setDate(LocalDate date) {
@@ -122,7 +126,7 @@ public class Exam {
 
 	/**
 	 * Set the unpublish date of this {@code Exam}. Cannot be null.
-	 * 
+	 *
 	 * @param unpublishDate The new unpublish date of this {@code Exam}.
 	 */
 	public void setUnpublishDate(LocalDate unpublishDate) {
@@ -134,7 +138,7 @@ public class Exam {
 	 */
 	@Override
 	public String toString() {
-		return "fileName" + fileName + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate
+		return "filename" + filename + "\nid: " + id + "\nDate: " + date + "\nunpublishDate: " + unpublishDate
 				+ "\nUnpublished: " + unpublished;
 	}
 
