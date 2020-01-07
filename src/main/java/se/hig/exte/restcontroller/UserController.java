@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import se.hig.exte.model.Subject;
 import se.hig.exte.model.User;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
