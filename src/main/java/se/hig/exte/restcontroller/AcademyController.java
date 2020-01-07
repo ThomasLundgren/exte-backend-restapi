@@ -44,6 +44,7 @@ public class AcademyController {
 		this.academyService = academyService;
 	}
 
+	@RequestMapping("/all")
 	@GetMapping("/all")
 	public ResponseEntity<List<Academy>> getAllAcademies(HttpServletRequest request) {
 		printAllCookies(request);
@@ -67,6 +68,7 @@ public class AcademyController {
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
 	 *         and an HTTP status code.
 	 */
+	@RequestMapping("/")
 	@PostMapping("/")
 	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies())) {
