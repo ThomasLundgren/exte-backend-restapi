@@ -28,7 +28,6 @@ public class LoginService {
 
 	public ResponseCookie login(String username, String password) {
 		ResponseCookie cookie = null;
-		System.out.println(username);
 		if (checkIfUserExists(username)) {
 			boolean isLoggedIn = loginHandler.login(username.toString(), password.toString());
 			if (isLoggedIn) {
