@@ -78,12 +78,9 @@ public class CookieHandler {
 	 * @return true if the session is valid
 	 */
 	public static boolean isValidSuperSession(Cookie[] cookiesFromUser) {
-		/*
-		 * if (isValidAdminSession(cookiesFromUser)) return
-		 * sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).
-		 * isSuperUser; return false;
-		 */
-		return true;
+		if (isValidAdminSession(cookiesFromUser))
+			return sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).isSuperUser;
+		return false;
 	}
 
 	private static String autoGenerateId() throws NoSuchAlgorithmException {
