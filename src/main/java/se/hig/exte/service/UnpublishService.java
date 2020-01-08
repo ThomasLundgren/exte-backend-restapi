@@ -91,6 +91,12 @@ public class UnpublishService {
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	public ResponseEntity<String> isSubjectsUnpublished(List<Subject> subjects, boolean unpublished) {
+		for (Subject subject : subjects) {
+			isSubjectUnpublished(subject, unpublished);
+		}
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 
 	/**
 	 * Sets the unpublished value of {@link Exam} to true on all exams in the list.

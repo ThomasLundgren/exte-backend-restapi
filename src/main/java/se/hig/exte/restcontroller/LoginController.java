@@ -29,7 +29,7 @@ public class LoginController {
 
 	/**
 	 * Tries to login a user
-	 * 
+	 *
 	 * @param response used to get all the stored cookies at the client
 	 * @param request
 	 * @param json     A JSON-Object containing the users email as 'email' (String)
