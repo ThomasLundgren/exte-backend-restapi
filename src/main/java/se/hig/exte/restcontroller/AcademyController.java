@@ -48,11 +48,13 @@ public class AcademyController {
 		this.unpublishService = unpublishService;
 	}
 
-	@RequestMapping("/all")
+	/**
+	 * Gets All published academies
+	 * @return
+	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Academy>> getAllAcademies(HttpServletRequest request) {
-		printAllCookies(request);
-		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<Academy>> getAllAcademies() {
+		return new ResponseEntity<List<Academy>>(academyService.findAllPublished(), HttpStatus.OK);
 	}
 
 	private void printAllCookies(HttpServletRequest request) {

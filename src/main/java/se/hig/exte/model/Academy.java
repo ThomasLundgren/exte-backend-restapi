@@ -62,6 +62,10 @@ public class Academy {
 		return abbreviation;
 	}
 	
+	public boolean getUnpublished() {
+		return unpublished;
+	}
+	
 	/**
 	 * Set the name of this {@code Academy}. The name must be at least two characters long and cannot be null.
 	 * @param name The name of this {@code Academy}.
