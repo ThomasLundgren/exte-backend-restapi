@@ -14,7 +14,7 @@ import se.hig.exte.repository.UserRepository;
 public class UserService implements CrudService<User> {
 
 	private final UserRepository userRepo;
-	
+
 	@Autowired
 	public UserService(UserRepository userRepo) {
 		this.userRepo = userRepo;
@@ -29,7 +29,7 @@ public class UserService implements CrudService<User> {
 	public User findById(int id) {
 		return userRepo.findById(id);
 	}
-	
+
 	@Override
 	public List<User> findAll() {
 		return userRepo.findAll();
@@ -39,11 +39,11 @@ public class UserService implements CrudService<User> {
 	public void deleteById(int id) {
 		userRepo.deleteById(id);
 	}
-	
+
 	public List<User> findByName(String name) {
 		return userRepo.findByName(name);
 	}
-	
+
 	@Scheduled(cron = "0 * * * * *")
 	public void removeOldSessions() {
 		try {
@@ -53,4 +53,5 @@ public class UserService implements CrudService<User> {
 		}
 		CookieHandler.removeOldSessions();
 	}
+
 }

@@ -88,7 +88,7 @@ public class ExamController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Exam>> getAllExams() {
-		return new ResponseEntity<List<Exam>>(examService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<List<Exam>>(examService.findAllPublished(), HttpStatus.OK);
 	}
 
 	/**
@@ -146,15 +146,6 @@ public class ExamController {
 			return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Exam>>(HttpStatus.UNAUTHORIZED);
-	}
-
-	/**
-	 * Fetches all published exams.
-	 * @return A list of all published exams and the http status OK.
-	 */
-	@GetMapping("/published")
-	public ResponseEntity<List<Exam>> getPublishedExams() {
-		return new ResponseEntity<List<Exam>>(examService.findAllPublished(), HttpStatus.OK);
 	}
 
 	/**

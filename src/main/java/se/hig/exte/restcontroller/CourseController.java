@@ -76,7 +76,7 @@ public class CourseController {
 	}
 
 	/**
-	 * Fetches all {@link Course} records from the database and returns them as a
+	 * Fetches all the published {@link Course} records from the database and returns them as a
 	 * {@code ResponseEntity} object. List of {@link Course} objects is
 	 * automatically converted to JSON using Spring Boot's
 	 * {@code HttpMessageConverter} and put in the {@code ResponseEntity}'s body.
@@ -86,8 +86,9 @@ public class CourseController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Course>> getAllCourses() {
-		return new ResponseEntity<List<Course>>(courseService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<List<Course>>(courseService.findAllPublished(), HttpStatus.OK);
 	}
+	
 
 	/**
 	 * Fetches all {@link Course} objects belonging to the specified {@link Subject}
@@ -154,14 +155,6 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(courseService.findAllUnpublished(), HttpStatus.OK);
 	}
 	
-	/**
-	 * Fetches all published courses.
-	 * @return A list of all published courses and the http status OK.
-	 */
-	@GetMapping("/published")
-	public ResponseEntity<List<Course>> getPublishedCourses() {
-		return new ResponseEntity<List<Course>>(courseService.findAllPublished(), HttpStatus.OK);
-	}
 	
 	/**
 	 * Changes the boolean unpublished value on the {@link Course} 

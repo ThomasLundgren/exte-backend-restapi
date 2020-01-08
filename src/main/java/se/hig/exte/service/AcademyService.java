@@ -1,15 +1,12 @@
 package se.hig.exte.service;
 
 import java.util.List;
-
-import javax.security.sasl.AuthenticationException;
-import javax.servlet.http.Cookie;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Academy;
-import se.hig.exte.model.Course;
 import se.hig.exte.repository.AcademyRepository;
 
 /**
@@ -44,6 +41,10 @@ public class AcademyService implements CrudService<Academy> {
 	 */
 	public List<Academy> findAll() {
 		return academyRepo.findAll();
+	}
+	
+	public List<Academy> findAllPublished() {
+		return academyRepo.findByUnpublishedFalse();
 	}
 
 	public void deleteById(int id){
