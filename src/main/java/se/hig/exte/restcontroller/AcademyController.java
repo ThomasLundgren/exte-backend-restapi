@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CookieHandler;
@@ -143,4 +144,14 @@ public class AcademyController {
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
+	
+	/**
+	 * Fetches all unpublished courses.
+	 * @return A list of all unpublished courses and the http status OK.
+	 */
+	@GetMapping("/unpublished")
+	public ResponseEntity<List<Academy>> getUnpublishedCourses() {
+		return new ResponseEntity<List<Academy>>(academyService.findAllUnpublished(), HttpStatus.OK);
+	}
+	
 }
