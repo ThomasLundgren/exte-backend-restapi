@@ -39,7 +39,7 @@ public class LoginController {
 	@RequestMapping("/")
 	@PostMapping("/")
 	public boolean loginAdmin(HttpServletResponse response, HttpServletRequest request, @RequestBody JSONObject json) {
-		String email = json.getAsString("email").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
+		String email = json.getAsString("username").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		String password = json.getAsString("password").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		ResponseCookie cookie = loginService.login(email, password);
 
