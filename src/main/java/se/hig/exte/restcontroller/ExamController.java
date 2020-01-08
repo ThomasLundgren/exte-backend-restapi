@@ -2,6 +2,8 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
 import se.hig.exte.model.Exam;
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.ExamService;
+import se.hig.exte.service.UnpublishService;
 
 /**
  * This class is a RestController class responsible for mapping HTTP requests
@@ -30,35 +34,41 @@ import se.hig.exte.service.ExamService;
 public class ExamController {
 
 	private final ExamService examService;
+	private final UnpublishService unpublishService;
 
 	/**
 	 * Creates an {@code ExamController} object.
-	 * 
+	 *
 	 * @param examService The {@link CrudService} class used to perform all services
 	 *                    exposed in this RestController.
 	 */
 	@Autowired
-	public ExamController(ExamService examService) {
-		this.examService = examService;
+	public ExamController(ExamService addExamService, UnpublishService unpublishService) {
+		this.examService = addExamService;
+		this.unpublishService = unpublishService;
 	}
 
 	/**
 	 * Creates an {@link Exam} and stores it in the database.
-	 * 
+	 *
 	 * @param exam The {@link Exam} to add in the form of a JSON-object in the POST
 	 *             request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Exam} and
 	 *         an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam) {
-		Exam savedExam = examService.save(exam);
-		return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
+	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam, HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies())) {
+			Exam savedExam = examService.save(exam);
+			return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
 	 * Fetches the {@link Exam} object with the given ID from the database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Exam} to fetch.
 	 * @return The {@link Exam} with the given ID.
 	 */
@@ -72,13 +82,13 @@ public class ExamController {
 	 * {@code ResponseEntity} object. List of {@link Exam} objects is automatically
 	 * converted to JSON using Spring Boot's {@code HttpMessageConverter} and put in
 	 * the {@code ResponseEntity}'s body.
-	 * 
+	 *
 	 * @return A {@code ResponseEntity} object containing the fetched {@link Exam}
 	 *         objects.
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Exam>> getAllExams() {
-		return new ResponseEntity<List<Exam>>(examService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<List<Exam>>(examService.findAllPublished(), HttpStatus.OK);
 	}
 
 	/**
@@ -86,7 +96,7 @@ public class ExamController {
 	 * ID. List of {@link Exam} objects is automatically converted to JSON using
 	 * Spring Boot's {@code HttpMessageConverter} and put in the
 	 * {@code ResponseEntity}'s body.
-	 * 
+	 *
 	 * @param id The ID of the {@link Course} to which the {@link Exam}s belongs.
 	 * @return A {@code ResponseEntity} object containing a {@code List} of
 	 *         {@link Exam} objects.
@@ -99,48 +109,67 @@ public class ExamController {
 
 	/**
 	 * Updates the {@link Exam} object with the given ID in the database.
-	 * 
+	 *
 	 * @param exam The {@link Exam} to update in the form of a JSON-object in the
 	 *               POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Exam}
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Exam> patchExam(@RequestBody Exam exam) {
-		Exam patchedExam = examService.save(exam);
-		return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);
+	public ResponseEntity<Exam> patchExam(@RequestBody Exam exam, HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies())) {
+			Exam patchedExam = examService.save(exam);
+			return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
 	 * Deletes the {@link Exam} object with the given ID from the database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Exam} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public void deleteExamById(@PathVariable int id) {
-		examService.deleteById(id);
+	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			examService.deleteById(id);
 	}
 
 	/**
-	 * Fetches all unpublished {@link Exam}s from the database.
-	 * 
-	 * @return A {@code ResponseEntity} containing a {@code List} of all
-	 *         {@link Exam}s found. The body of the {@code ResponseEntity} is
-	 *         {@code JSON}-formatted.
+	 * Fetches all unpublished exams.
+	 * @return A list of all unpublished exams and the http status OK.
 	 */
-	@GetMapping("/unpub")
-	public ResponseEntity<List<Exam>> getUnpublishedExams() {
-		return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
+	@GetMapping("/unpublished")
+	public ResponseEntity<List<Exam>> getUnpublishedExams(HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies()))
+			return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
+		else
+			return new ResponseEntity<List<Exam>>(HttpStatus.UNAUTHORIZED);
 	}
 
 	/**
-	 * Unpublishes all {@link Exam} objects whose unpublished date has passed. This
-	 * method is scheduled to run automatically using Spring Boot's
-	 * {@literal @Scheduled} annotation at 03:00 every day.
+	 * Changes the boolean unpublished value on the {@link Exam}
+	 * @param exam The {@link Exam} to update
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	 
+	@PostMapping("/unpublish")
+	public ResponseEntity<String> toggleExamUnpublished(@RequestBody Exam exam, HttpServletRequest request) {
+		if(CookieHandler.isValidAdminSession(request.getCookies()))
+			return unpublishService.toggleExamUnpublished(exam);
+		else
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+	}
+
+	/**
+	 * This method is run automatically by Spring Boot at 03:00 every day.
 	 */
 	@Scheduled(cron = "0 0 3 * * *")
+	@GetMapping("/testAuto")
 	public void autoUnpublish() {
-		examService.unpublish();
+		unpublishService.unpublishExpiredExams();
 	}
 
 }

@@ -16,9 +16,10 @@ import se.hig.exte.repository.SubjectRepository;
 public class SubjectService implements CrudService<Subject> {
 
 	private final SubjectRepository subjectRepo;
-	
+
 	/**
 	 * Creates a {@code SibjectService} object.
+	 * 
 	 * @param subjectRepo The {@link SubjectRepository} to use for CRUD operations.
 	 */
 	@Autowired
@@ -28,6 +29,7 @@ public class SubjectService implements CrudService<Subject> {
 
 	/**
 	 * Saves a {@link Subject} object to the database.
+	 * 
 	 * @param subject The {@link Subject} object to save.
 	 */
 	@Override
@@ -36,7 +38,9 @@ public class SubjectService implements CrudService<Subject> {
 	}
 
 	/**
-	 * Fetches the {@link Subject} object with the corresponding ID from the database.
+	 * Fetches the {@link Subject} object with the corresponding ID from the
+	 * database.
+	 * 
 	 * @param id The ID of the {@link Subject} object to fetch.
 	 */
 	@Override
@@ -53,17 +57,21 @@ public class SubjectService implements CrudService<Subject> {
 	}
 
 	/**
-	 * Fetches all {@link Subject} objects which belong to the {@link Academy} with the specified ID.
-	 * @param academyId The ID of the {@link Academy} which {@link Subject}s to fetch.
+	 * Fetches all {@link Subject} objects which belong to the {@link Academy} with
+	 * the specified ID.
+	 * 
+	 * @param academyId The ID of the {@link Academy} which {@link Subject}s to
+	 *                  fetch.
 	 * @return A {@link List} containing all {@link Subject}s found.
 	 */
 	public List<Subject> findByAcadmemyId(int academyId) {
 		return subjectRepo.findByAcademyId(academyId);
 	}
 	
-
 	/**
-	 * Deletes the {@link Subject} object with the corresponding ID from the database.
+	 * Deletes the {@link Subject} object with the corresponding ID from the
+	 * database.
+	 * 
 	 * @param id The ID of the {@link Subject} object to delete.
 	 */
 	@Override
@@ -71,8 +79,28 @@ public class SubjectService implements CrudService<Subject> {
 		subjectRepo.deleteById(id);
 	}
 	
+	/**
+	 * Fetches all {@link Subject} that are close-by to the text-
+	 * @param text The text searched
+	 * @return A {@link List} containing all {@link Subject}s found.
+	 */
 	public List<Subject> search(String text) {
 		return subjectRepo.findByNameContainingOrCodeContaining(text, text);
 	}
 
+	/**
+	 * Fetches a list of {@link Subject} objects that are unpublished.
+	 * @return A {@link List} containing all {@link Subject}s found.
+	 */
+	public List<Subject> findAllUnpublished() {
+		return subjectRepo.findByUnpublishedTrue();
+	}
+	
+	/**
+	 * Fetches a list of {@link Subject} objects that are published.
+	 * @return A {@link List} containing all {@link Subject}s found.
+	 */
+	public List<Subject> findAllPublished() {
+		return subjectRepo.findByUnpublishedFalse();
+	}
 }

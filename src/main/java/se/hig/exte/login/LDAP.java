@@ -1,4 +1,4 @@
-package se.hig.exte.authentication;
+package se.hig.exte.login;
 
 import java.util.Hashtable;
 
@@ -7,12 +7,12 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 
 /**
- * Autentiserar Användare, Hig LDAP Tagen från VFU_Socionom_tipsfiler 2019-12-02
+ * Autentiserar Anv�ndare, Hig LDAP Tagen fr�n VFU_Socionom_tipsfiler 2019-12-02
  */
-public class LDAPAuthentication {
+public class LDAP {
 
 
-    public static boolean authenticateHigLdap(String userName, String password) {
+    static boolean authenticateHigLdap(String studentId, String password) {
         try {
             Hashtable<String, String> env = new Hashtable<>();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -24,11 +24,11 @@ public class LDAPAuthentication {
             env.put(Context.SECURITY_PROTOCOL, "tls");
 
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, "uid=" + userName + ",ou=people,dc=hig,dc=se");
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + studentId + ",ou=people,ou=student,dc=hig,dc=se");
             env.put(Context.SECURITY_CREDENTIALS, password);
 
-            DirContext context = new InitialDirContext(env);
-            context.close();
+            DirContext ctx = new InitialDirContext(env);
+            ctx.close();
             return true;
         } catch (Exception e) {
             return false;

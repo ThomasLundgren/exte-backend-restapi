@@ -1,8 +1,10 @@
 package se.hig.exte.service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.User;
@@ -36,5 +38,19 @@ public class UserService implements CrudService<User> {
 	@Override
 	public void deleteById(int id) {
 		userRepo.deleteById(id);
+	}
+	
+	public List<User> findByName(String name) {
+		return userRepo.findByName(name);
+	}
+	
+	@Scheduled(cron = "0 * * * * *")
+	public void removeOldSessions() {
+		try {
+			CookieHandler.createCookie(false);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		CookieHandler.removeOldSessions();
 	}
 }

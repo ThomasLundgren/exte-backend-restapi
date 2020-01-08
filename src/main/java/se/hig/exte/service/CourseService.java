@@ -96,5 +96,21 @@ public class CourseService implements CrudService<Course> {
 	public List<Course> findByNameOrCourseCodeContaining(String searchText) {
 		return courseRepo.findByNameContainingOrCourseCodeContaining(searchText, searchText);
 	}
+	
+	/**
+	 * Fetches a list of {@link Course} objects that are unpublished.
+	 * @return A {@link List} containing all {@link Course}s found.
+	 */
+	public List<Course> findAllUnpublished() {
+		return courseRepo.findByUnpublishedTrue();
+	}
+	
+	/**
+	 * Fetches a list of {@link Course} objects that are published.
+	 * @return A {@link List} containing all {@link Course}s found.
+	 */
+	public List<Course> findAllPublished() {
+		return courseRepo.findByUnpublishedFalse();
+	}
 
 }

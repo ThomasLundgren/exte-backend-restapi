@@ -110,8 +110,8 @@ var activeTableTab = "activeTableTab";
 <pre>@Entity
 public class <span class="typeNameLabel">Exam</span>
 extends java.lang.Object</pre>
-<div class="block">A model/entity class that represents an Exam. The fields of this class maps to columns in the
- database.</div>
+<div class="block">A model/entity class that represents an Exam. The fields of this class maps
+ to columns in the database.</div>
 </li>
 </ul>
 </div>
@@ -136,7 +136,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>&nbsp;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#Exam-java.lang.String-java.time.LocalDate-java.time.LocalDate-boolean-int-">Exam</a></span>(java.lang.String&nbsp;filename,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#Exam-java.lang.String-java.time.LocalDate-java.time.LocalDate-boolean-int-">Exam</a></span>(java.lang.String&nbsp;fileName,
     java.time.LocalDate&nbsp;date,
     java.time.LocalDate&nbsp;unpublishDate,
     boolean&nbsp;unpublished,
@@ -173,8 +173,8 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getFilename--">getFilename</a></span>()</code>
-<div class="block">Get the name of this <code>Exam</code>.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#getFileName--">getFileName</a></span>()</code>
+<div class="block">Get the filename of this <code>Exam</code>.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -203,8 +203,8 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setFilename-java.lang.String-">setFilename</a></span>(java.lang.String&nbsp;name)</code>
-<div class="block">Set the name of this <code>Exam</code>.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../se/hig/exte/model/Exam.html#setFileName-java.lang.String-">setFileName</a></span>(java.lang.String&nbsp;fileName)</code>
+<div class="block">Set the filename of this <code>Exam</code>.</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
@@ -260,7 +260,7 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Exam</h4>
-<pre>public&nbsp;Exam(java.lang.String&nbsp;filename,
+<pre>public&nbsp;Exam(java.lang.String&nbsp;fileName,
             java.time.LocalDate&nbsp;date,
             java.time.LocalDate&nbsp;unpublishDate,
             boolean&nbsp;unpublished,
@@ -268,11 +268,15 @@ extends java.lang.Object</pre>
 <div class="block">Creates an <code>Exam</code> object.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>filename</code> - The name of the <code>Exam</code>. Must be at least two characters long and cannot be null.</dd>
+<dd><code>fileName</code> - The filename of the <code>Exam</code>. Must be at least two
+                      characters long and cannot be null.</dd>
 <dd><code>date</code> - The date of the <code>Exam</code>. Cannot be null.</dd>
-<dd><code>unpublishDate</code> - The date at which the <code>Exam</code> should be unpublished from the website. Cannot be null.</dd>
-<dd><code>unpublished</code> - Set to true if this <code>Exam</code> should NOT be published on the website, otherwise false.</dd>
-<dd><code>courseId</code> - The ID of the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> to which an <code>Exam</code> belongs. Cannot be null.</dd>
+<dd><code>unpublishDate</code> - The date at which the <code>Exam</code> should be unpublished
+                      from the website. Cannot be null.</dd>
+<dd><code>unpublished</code> - Set to true if this <code>Exam</code> should NOT be published
+                      on the website, otherwise false.</dd>
+<dd><code>courseId</code> - The ID of the <a href="../../../../se/hig/exte/model/Course.html" title="class in se.hig.exte.model"><code>Course</code></a> to which an <code>Exam</code>
+                      belongs. Cannot be null.</dd>
 </dl>
 </li>
 </ul>
@@ -298,17 +302,17 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="getFilename--">
+<a name="getFileName--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getFilename</h4>
-<pre>public&nbsp;java.lang.String&nbsp;getFilename()</pre>
-<div class="block">Get the name of this <code>Exam</code>.</div>
+<h4>getFileName</h4>
+<pre>public&nbsp;java.lang.String&nbsp;getFileName()</pre>
+<div class="block">Get the filename of this <code>Exam</code>.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The name of this <code>Exam</code>.</dd>
+<dd>The filename of this <code>Exam</code>.</dd>
 </dl>
 </li>
 </ul>
@@ -354,17 +358,18 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="setFilename-java.lang.String-">
+<a name="setFileName-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setFilename</h4>
-<pre>public&nbsp;void&nbsp;setFilename(java.lang.String&nbsp;name)</pre>
-<div class="block">Set the name of this <code>Exam</code>. Must be at least two characters long and not null.</div>
+<h4>setFileName</h4>
+<pre>public&nbsp;void&nbsp;setFileName(java.lang.String&nbsp;fileName)</pre>
+<div class="block">Set the filename of this <code>Exam</code>. Must be at least two characters long
+ and not null.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>name</code> - The new name of this <code>Exam</code>.</dd>
+<dd><code>fileName</code> - The new filename of this <code>Exam</code>.</dd>
 </dl>
 </li>
 </ul>

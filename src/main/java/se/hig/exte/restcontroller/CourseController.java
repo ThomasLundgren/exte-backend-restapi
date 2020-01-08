@@ -2,6 +2,8 @@ package se.hig.exte.restcontroller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CourseService;
 import se.hig.exte.service.CrudService;
+import se.hig.exte.service.UnpublishService;
 
 /**
  * This class is a RestController class responsible for mapping HTTP requests
@@ -29,7 +33,7 @@ import se.hig.exte.service.CrudService;
 public class CourseController {
 
 	private final CourseService courseService;
-
+	private final UnpublishService unpublishService;
 	/**
 	 * Creates a {@code CourseController} object.
 	 * 
@@ -37,8 +41,9 @@ public class CourseController {
 	 *                      services exposed in this RestController.
 	 */
 	@Autowired
-	public CourseController(CourseService courseService) {
+	public CourseController(CourseService courseService, UnpublishService unpublishService) {
 		this.courseService = courseService;
+		this.unpublishService = unpublishService;
 	}
 
 	/**
@@ -50,9 +55,13 @@ public class CourseController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
-		Course savedCourse = courseService.save(course);
-		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
+	public ResponseEntity<Course> saveCourse(@RequestBody Course course, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			Course savedCourse = courseService.save(course);
+			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -67,7 +76,7 @@ public class CourseController {
 	}
 
 	/**
-	 * Fetches all {@link Course} records from the database and returns them as a
+	 * Fetches all the published {@link Course} records from the database and returns them as a
 	 * {@code ResponseEntity} object. List of {@link Course} objects is
 	 * automatically converted to JSON using Spring Boot's
 	 * {@code HttpMessageConverter} and put in the {@code ResponseEntity}'s body.
@@ -77,8 +86,9 @@ public class CourseController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Course>> getAllCourses() {
-		return new ResponseEntity<List<Course>>(courseService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<List<Course>>(courseService.findAllPublished(), HttpStatus.OK);
 	}
+	
 
 	/**
 	 * Fetches all {@link Course} objects belonging to the specified {@link Subject}
@@ -105,9 +115,13 @@ public class CourseController {
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Course> updateCourse(@RequestBody Course course) {
-		Course savedCourse = courseService.save(course);
-		return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
+	public ResponseEntity<Course> updateCourse(@RequestBody Course course, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+			Course savedCourse = courseService.save(course);
+			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -116,25 +130,44 @@ public class CourseController {
 	 * @param id The ID of the {@link Course} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public void deleteCourseById(@PathVariable int id) {
-		courseService.deleteById(id);
+	public void deleteCourseById(@PathVariable int id, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			courseService.deleteById(id);
 	}
-
+	
 	/**
-	 * /** Fetches all {@link Course} objects from the database whose {@code name}
-	 * OR {@code courseCode} attribute contains the string passed in as the
-	 * parameter.
-	 * 
-	 * @param searchText The {@code String} which the name or course code should
-	 *                   contain.
-	 * @return All {@link Course} objects whose name or courseCode attributes
-	 *         contain the specified search text.
+	 * Searches the database after courses with the text variable
+	 * @param text The text searched
+	 * @return A list of all courses that are a match and the http status OK.
 	 */
-	@GetMapping("/search/{searchText}")
-	public ResponseEntity<List<Course>> search(@PathVariable String searchText) {
-		System.out.println(searchText);
-		List<Course> courses = courseService.findByNameOrCourseCodeContaining(searchText);
+	@GetMapping("/search/{text}")
+	public ResponseEntity<List<Course>> search(@PathVariable String text) {
+		List<Course> courses = courseService.findByNameOrCourseCodeContaining(text);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+	}
+	
+	/**
+	 * Fetches all unpublished courses.
+	 * @return A list of all unpublished courses and the http status OK.
+	 */
+	@GetMapping("/unpublished")
+	public ResponseEntity<List<Course>> getUnpublishedCourses() {
+		return new ResponseEntity<List<Course>>(courseService.findAllUnpublished(), HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * Changes the boolean unpublished value on the {@link Course} 
+	 * @param course The {@link Course} to update 
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublish/{unpublished}")
+	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, HttpServletRequest request, @PathVariable boolean unpublished) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			return unpublishService.isCourseUnpublished(course, unpublished);
+		else
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
 
 }
