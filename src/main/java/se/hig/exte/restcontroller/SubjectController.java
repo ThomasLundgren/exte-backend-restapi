@@ -175,5 +175,20 @@ public class SubjectController {
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
+	
+	/**
+	 * Changes the boolean unpublished value on the {@link subject} 
+	 * @param subject The {@link Subject} to update 
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublish/{unpublished}")
+	public ResponseEntity<String> unpublishAcademy(@RequestBody List<Subject> subjects, @PathVariable boolean unpublished, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			return unpublishService.isSubjectsUnpublished(subjects, unpublished);	
+		else
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+	}
+	
 
 }
