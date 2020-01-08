@@ -85,7 +85,7 @@ public class SubjectController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Subject>> getAllSubjects() {
-		return new ResponseEntity<List<Subject>>(subjectService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<List<Subject>>(subjectService.findAllPublished(), HttpStatus.OK);
 	}
 
 	/**
@@ -158,16 +158,6 @@ public class SubjectController {
 		} else {
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
 		}
-	}
-
-	/**
-	 * Fetches all published courses.
-	 * 
-	 * @return A list of all published subjects and the http status OK.
-	 */
-	@GetMapping("/published")
-	public ResponseEntity<List<Subject>> getPublishedSubjects() {
-		return new ResponseEntity<List<Subject>>(subjectService.findAllPublished(), HttpStatus.OK);
 	}
 
 	/**

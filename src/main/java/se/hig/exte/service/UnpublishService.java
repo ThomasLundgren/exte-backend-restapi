@@ -8,27 +8,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import se.hig.exte.model.Academy;
 import se.hig.exte.model.Course;
 import se.hig.exte.model.Exam;
 import se.hig.exte.model.Subject;
+import se.hig.exte.repository.AcademyRepository;
 import se.hig.exte.repository.CourseRepository;
 import se.hig.exte.repository.ExamRepository;
 import se.hig.exte.repository.SubjectRepository;
 
 @Service
 public class UnpublishService {
-	
+	private final AcademyRepository academyRepo;
 	private final ExamRepository examRepo;
 	private final CourseRepository courseRepo;
 	private final SubjectRepository subjectRepo;
-	
+
 	@Autowired
-	public UnpublishService(ExamRepository examRepo, CourseRepository courseRepo, SubjectRepository subjectRepo) {
+	public UnpublishService(ExamRepository examRepo, CourseRepository courseRepo, SubjectRepository subjectRepo, AcademyRepository academyRepo) {
 		this.examRepo = examRepo;
 		this.courseRepo = courseRepo;
 		this.subjectRepo = subjectRepo;
+		this.academyRepo = academyRepo;
 	}
-	
+
 	/**
 	 * Sets the boolean value of unpublished on {@link Exam}
 	 * @param exam The {@link Exam} object to be modified
@@ -38,10 +41,11 @@ public class UnpublishService {
 	public ResponseEntity<String> editExamUnpublished(Exam exam, boolean unpublished) {
 		exam.setUnpublished(unpublished);
 		examRepo.save(exam);
-		
+
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-	
+
+
 	/**
 	 * Sets the boolean value of unpublished on {@link Exam}
 	 * @param exam The {@link Exam} object to be modified
@@ -51,7 +55,7 @@ public class UnpublishService {
 	public ResponseEntity<String> toggleExamUnpublished(Exam exam) {
 		exam.setUnpublished(!exam.getUnpublished());
 		examRepo.save(exam);
-		
+
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	/**
@@ -67,10 +71,10 @@ public class UnpublishService {
 		}
 		course.setUnpublished(unpublished);
 		courseRepo.save(course);
-		
+
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-		
+
 	/**
 	 * Sets the boolean value of unpublished on {@link Subject}
 	 * @param subject The {@link Subject} object to be modified
@@ -84,10 +88,10 @@ public class UnpublishService {
 		}
 		subject.setUnpublished(unpublished);
 		subjectRepo.save(subject);
-		
+
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Sets the unpublished value of {@link Exam} to true on all exams in the list.
 	 */
@@ -99,6 +103,23 @@ public class UnpublishService {
 		}
 		examRepo.flush();
 		System.out.println(">>>> Unpublisher finished. <<<<");
+	}
+
+	public ResponseEntity<String> isAcademyUnpublished(Academy academy, boolean unpublished) {
+		List<Subject> subjects = subjectRepo.findByAcademyId(academy.getId());
+		for (Subject subject : subjects) {
+			isSubjectUnpublished(subject, unpublished);
+		}
+		academy.setUnpublished(unpublished);
+		academyRepo.save(academy);
+
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	public ResponseEntity<String> isAcademiesUnpublished(List<Academy> academies, boolean unpublished){
+		for (Academy academy : academies) {
+			isAcademyUnpublished(academy, unpublished);
+		}
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 }

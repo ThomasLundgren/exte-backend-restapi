@@ -23,6 +23,7 @@ public class Academy {
 	@NotBlank(message = "Abbreviation cannot be empty or null")
 	@Size(min = 2, max = 5, message = "Abbreviation must be between two and five characters long")
 	private String abbreviation;
+	private boolean unpublished;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Academy() {}
@@ -61,6 +62,10 @@ public class Academy {
 		return abbreviation;
 	}
 	
+	public boolean getUnpublished() {
+		return unpublished;
+	}
+	
 	/**
 	 * Set the name of this {@code Academy}. The name must be at least two characters long and cannot be null.
 	 * @param name The name of this {@code Academy}.
@@ -83,5 +88,10 @@ public class Academy {
 	@Override
 	public String toString() {
 		return "name: " + name + "\nid: " + id + "\nabbreviation: " + abbreviation;
+	}
+
+	public void setUnpublished(boolean unpublished) {
+		this.unpublished =unpublished;
+		
 	}
 }
