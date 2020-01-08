@@ -44,8 +44,9 @@ public class CookieHandler {
 	 */
 	public static boolean isValidAdminSession(Cookie[] cookiesFromUser) {
 		Cookie klientResponseCookie = getSessionResponseCookie(cookiesFromUser);
-		return true;
-		//return checkIfServerSessionIsValid(klientResponseCookie.getValue());
+		if (klientResponseCookie == null)
+			return false;
+		return checkIfServerSessionIsValid(klientResponseCookie.getValue());
 	}
 
 	/**
@@ -77,9 +78,11 @@ public class CookieHandler {
 	 * @return true if the session is valid
 	 */
 	public static boolean isValidSuperSession(Cookie[] cookiesFromUser) {
-		/*if (isValidAdminSession(cookiesFromUser))
-			return sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).isSuperUser; 
-		return false; */
+		/*
+		 * if (isValidAdminSession(cookiesFromUser)) return
+		 * sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).
+		 * isSuperUser; return false;
+		 */
 		return true;
 	}
 
