@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A model/entity class that represents a User. The fields of this class maps to columns in the
  * database.
@@ -20,6 +22,7 @@ public class User {
 	@NotBlank(message = "Name cannot be blank, empty or null")
 	@Size(min = 3, message = "Name must be at least three characters long")
 	private String name;
+
 	private boolean isSuperUser;
 	
 	// Only used for JPA/Spring, which is why it is declared with protected.
@@ -56,6 +59,7 @@ public class User {
 	 * Returns true if this {@code User} is a super user. Otherwise false.
 	 * @return True if this {@code User} is a super user. Otherwise false.
 	 */
+	@JsonProperty("isSuperUser")
 	public boolean isSuperUser() {
 		return isSuperUser;
 	}

@@ -1,7 +1,6 @@
 package se.hig.exte.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,4 +50,11 @@ public class AcademyService implements CrudService<Academy> {
 		academyRepo.deleteById(id);
 	}
 
+	/**
+	 * Fetches a list of {@link Academy} objects that are unpublished.
+	 * @return A {@link List} containing all {@link Academy}s found.
+	 */
+	public List<Academy> findAllUnpublished() {
+		return academyRepo.findByUnpublishedTrue();
+	}
 }
