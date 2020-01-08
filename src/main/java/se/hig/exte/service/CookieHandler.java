@@ -44,6 +44,8 @@ public class CookieHandler {
 	 */
 	public static boolean isValidAdminSession(Cookie[] cookiesFromUser) {
 		Cookie klientResponseCookie = getSessionResponseCookie(cookiesFromUser);
+		if (klientResponseCookie == null)
+			return false;
 		return checkIfServerSessionIsValid(klientResponseCookie.getValue());
 	}
 
