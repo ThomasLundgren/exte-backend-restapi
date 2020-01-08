@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
-import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CookieHandler;
@@ -75,7 +74,6 @@ public class AcademyController {
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
 	 *         and an HTTP status code.
 	 */
-	@RequestMapping("/")
 	@PostMapping("/")
 	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies())) {
