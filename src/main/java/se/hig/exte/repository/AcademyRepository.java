@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Course;
 
 /**
  * An interface used for database operations on {@link Academy} objects.
@@ -25,5 +26,11 @@ public interface AcademyRepository extends JpaRepository<Academy, Integer> {
 	Academy findById(int id);
 
 	List<Academy> findAll();
+	
+	/**
+	 * Fetches all {@link Academy} objects with the unpublished value set to false.
+	 * @return A {@link List} containing all {@link Course}s with the unpublished value set to true.
+	 */
+	List<Academy> findByUnpublishedFalse();
 
 }

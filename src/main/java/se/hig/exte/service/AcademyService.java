@@ -44,9 +44,7 @@ public class AcademyService implements CrudService<Academy> {
 	}
 	
 	public List<Academy> findAllPublished() {
-		return academyRepo.findAll().stream()
-				  .filter(a -> a.getUnpublished() == false)
-				  .collect(Collectors.toList());
+		return academyRepo.findByUnpublishedFalse();
 	}
 
 	public void deleteById(int id){
