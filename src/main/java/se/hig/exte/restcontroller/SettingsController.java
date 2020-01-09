@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Settings;
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.SettingsService;
 
 @RestController
@@ -33,13 +34,11 @@ public class SettingsController {
 	
 	@PatchMapping("/")
 	public ResponseEntity<Settings> update(@RequestBody Settings settings, HttpServletRequest request) {
-//		if (CookieHandler.isValidSuperSession(request.getCookies())) {
-//			Settings newSettings = settingsService.update(settings);
-//			return new ResponseEntity<Settings>(newSettings, HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
-//		}
-		Settings newSettings = settingsService.update(settings);
-		return new ResponseEntity<Settings>(newSettings, HttpStatus.OK);
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+			Settings newSettings = settingsService.update(settings);
+			return new ResponseEntity<Settings>(newSettings, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 }
