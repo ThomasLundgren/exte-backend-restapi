@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CookieHandler;
@@ -131,6 +132,19 @@ public class AcademyController {
 	
 	/**
 	 * Changes the boolean unpublished value on the {@link Academy} 
+	 * @param academy The {@link Academy} to update 
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublish")
+	public ResponseEntity<String> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			return unpublishService.isAcademyUnpublished(academy);
+		else
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+	}
+	
+	/**
+	 * Changes the boolean unpublished value on the {@link Academy} 
 	 * @param subject The {@link Subject} to update 
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
@@ -148,7 +162,7 @@ public class AcademyController {
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
-	public ResponseEntity<List<Academy>> getUnpublishedCourses() {
+	public ResponseEntity<List<Academy>> getUnpublishedAcademies() {
 		return new ResponseEntity<List<Academy>>(academyService.findAllUnpublished(), HttpStatus.OK);
 	}
 	

@@ -167,11 +167,10 @@ public class SubjectController {
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, @PathVariable boolean unpublished,
-			HttpServletRequest request) {
+	@PostMapping("/unpublish")
+	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isSubjectUnpublished(subject, unpublished);
+			return unpublishService.isSubjectUnpublished(subject);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}

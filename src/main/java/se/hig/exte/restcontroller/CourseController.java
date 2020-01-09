@@ -159,13 +159,12 @@ public class CourseController {
 	/**
 	 * Changes the boolean unpublished value on the {@link Course} 
 	 * @param course The {@link Course} to update 
-	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, HttpServletRequest request, @PathVariable boolean unpublished) {
+	@PostMapping("/unpublish")
+	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, HttpServletRequest request) {
 		if(CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isCourseUnpublished(course, unpublished);
+			return unpublishService.isCourseUnpublished(course);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}

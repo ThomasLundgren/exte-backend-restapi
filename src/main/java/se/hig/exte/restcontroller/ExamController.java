@@ -158,7 +158,7 @@ public class ExamController {
 	@PostMapping("/unpublish")
 	public ResponseEntity<String> toggleExamUnpublished(@RequestBody Exam exam, HttpServletRequest request) {
 		if(CookieHandler.isValidAdminSession(request.getCookies()))
-			return unpublishService.toggleExamUnpublished(exam);
+			return unpublishService.editExamUnpublished(exam);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
