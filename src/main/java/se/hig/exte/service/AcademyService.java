@@ -2,14 +2,10 @@ package se.hig.exte.service;
 
 import java.util.List;
 
-import javax.security.sasl.AuthenticationException;
-import javax.servlet.http.Cookie;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Academy;
-import se.hig.exte.model.Course;
 import se.hig.exte.repository.AcademyRepository;
 
 /**
