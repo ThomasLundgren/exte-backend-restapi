@@ -53,10 +53,10 @@ public class UserController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<User> saveUser(@RequestBody User user, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			User savedUser = userService.save(user);
 			return new ResponseEntity<User>(savedUser, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -69,7 +69,7 @@ public class UserController {
 	 */
 	@GetMapping("/{id}")
 	public User getUser(@PathVariable String id, HttpServletRequest request) {
-		if(CookieHandler.isValidAdminSession(request.getCookies())) {
+		if (CookieHandler.isValidAdminSession(request.getCookies())) {
 			int userId = Integer.parseInt(id);
 			return userService.findById(userId);
 		}
@@ -87,9 +87,9 @@ public class UserController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> getAllUsers(HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<List<User>>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -98,16 +98,16 @@ public class UserController {
 	 * Updates the {@link User} object with the given ID in the database.
 	 * 
 	 * @param user The {@link User} to update in the form of a JSON-object in the
-	 *               POST request.
+	 *             POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link User}
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<User> updateUser(@RequestBody User user, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			User savedUser = userService.save(user);
 			return new ResponseEntity<User>(savedUser, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -119,8 +119,35 @@ public class UserController {
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable int id, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
 			userService.deleteById(id);
 		}
 	}
+
+	/**
+	 * Returns true or false dependent on the contents of the
+	 * {@link HttpServletRequest} cookies.
+	 * 
+	 * @param request the {@link HttpServletRequest}
+	 * @return {@code true} if the request's contains a valid cookie with
+	 *         Administration-privileges, otherwise false.
+	 */
+	@GetMapping("/is/admin")
+	public boolean isLoggedInAsAdmin(HttpServletRequest request) {
+		return CookieHandler.isValidAdminSession(request.getCookies());
+	}
+
+	/**
+	 * Returns true or false dependent on the contents of the
+	 * {@link HttpServletRequest} cookies.
+	 * 
+	 * @param request the {@link HttpServletRequest}
+	 * @return {@code true} if the request's contains a valid cookie with
+	 *         SuperUser-privileges, otherwise false.
+	 */
+	@GetMapping("/is/superuser")
+	public boolean isLoggedInAsSuperUser(HttpServletRequest request) {
+		return CookieHandler.isValidSuperSession(request.getCookies());
+	}
+
 }

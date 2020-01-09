@@ -41,9 +41,20 @@ public class AcademyService implements CrudService<Academy> {
 	public List<Academy> findAll() {
 		return academyRepo.findAll();
 	}
+	
+	public List<Academy> findAllPublished() {
+		return academyRepo.findByUnpublishedFalse();
+	}
 
 	public void deleteById(int id){
 		academyRepo.deleteById(id);
 	}
 
+	/**
+	 * Fetches a list of {@link Academy} objects that are unpublished.
+	 * @return A {@link List} containing all {@link Academy}s found.
+	 */
+	public List<Academy> findAllUnpublished() {
+		return academyRepo.findByUnpublishedTrue();
+	}
 }

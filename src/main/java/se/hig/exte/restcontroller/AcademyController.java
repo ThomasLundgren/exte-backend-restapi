@@ -48,11 +48,13 @@ public class AcademyController {
 		this.unpublishService = unpublishService;
 	}
 
-	@RequestMapping("/all")
+	/**
+	 * Gets All published academies
+	 * @return
+	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Academy>> getAllAcademies(HttpServletRequest request) {
-		printAllCookies(request);
-		return new ResponseEntity<List<Academy>>(academyService.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<Academy>> getAllAcademies() {
+		return new ResponseEntity<List<Academy>>(academyService.findAllPublished(), HttpStatus.OK);
 	}
 
 	private void printAllCookies(HttpServletRequest request) {
@@ -72,7 +74,6 @@ public class AcademyController {
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
 	 *         and an HTTP status code.
 	 */
-	@RequestMapping("/")
 	@PostMapping("/")
 	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies())) {
@@ -141,4 +142,14 @@ public class AcademyController {
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
+	
+	/**
+	 * Fetches all unpublished courses.
+	 * @return A list of all unpublished courses and the http status OK.
+	 */
+	@GetMapping("/unpublished")
+	public ResponseEntity<List<Academy>> getUnpublishedCourses() {
+		return new ResponseEntity<List<Academy>>(academyService.findAllUnpublished(), HttpStatus.OK);
+	}
+	
 }

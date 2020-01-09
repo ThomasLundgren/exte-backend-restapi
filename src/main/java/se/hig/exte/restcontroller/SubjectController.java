@@ -85,7 +85,7 @@ public class SubjectController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Subject>> getAllSubjects() {
-		return new ResponseEntity<List<Subject>>(subjectService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<List<Subject>>(subjectService.findAllPublished(), HttpStatus.OK);
 	}
 
 	/**
@@ -102,6 +102,23 @@ public class SubjectController {
 	@GetMapping("/academy/{id}")
 	public ResponseEntity<List<Subject>> getSubjectByAcademyId(@PathVariable int id) {
 		List<Subject> subjects = subjectService.findByAcadmemyId(id);
+		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
+	}
+	
+	/**
+	 * Fetches all {@link Subject} objects belonging to the specified
+	 * {@link Academy} ID. List of {@link Subject} objects is automatically
+	 * converted to JSON using Spring Boot's {@code HttpMessageConverter} and put in
+	 * the {@code ResponseEntity}'s body.
+	 * 
+	 * @param id The ID of the {@link Academy} to which the {@link Subject}s
+	 *           belongs.
+	 * @return A {@code ResponseEntity} object containing a {@code List} of
+	 *         {@link Subject} objects.
+	 */
+	@GetMapping("/published/academy/{id}")
+	public ResponseEntity<List<Subject>> getPublishedSubjectsByAcademyId(@PathVariable int id) {
+		List<Subject> subjects = subjectService.findPublishedByAcadmemyId(id);
 		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
 
@@ -159,31 +176,19 @@ public class SubjectController {
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-
 	/**
-	 * Fetches all published courses.
-	 * 
-	 * @return A list of all published subjects and the http status OK.
-	 */
-	@GetMapping("/published")
-	public ResponseEntity<List<Subject>> getPublishedSubjects() {
-		return new ResponseEntity<List<Subject>>(subjectService.findAllPublished(), HttpStatus.OK);
-	}
-
-	/**
-	 * Changes the boolean unpublished value on the {@link Subject}
-	 * 
-	 * @param subject     The {@link Subject} to update
+	 * Changes the boolean unpublished value on the {@link subject} 
+	 * @param subject The {@link Subject} to update 
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, @PathVariable boolean unpublished,
-			HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isSubjectUnpublished(subject, unpublished);
+	public ResponseEntity<String> unpublishSubjects(@RequestBody List<Subject> subjects, @PathVariable boolean unpublished, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			return unpublishService.isSubjectsUnpublished(subjects, unpublished);	
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
+	
 
 }
