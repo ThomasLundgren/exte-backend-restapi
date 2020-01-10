@@ -103,7 +103,7 @@ public class ExamController {
 	 */
 	@GetMapping("/course/{id}")
 	public ResponseEntity<List<Exam>> getExamByCourseId(@PathVariable int id) {
-		List<Exam> exams = examService.findAllPublishedByCourseId(id);
+		List<Exam> exams = examService.findAllByCourseId(id);
 		return new ResponseEntity<List<Exam>>(exams, HttpStatus.OK);
 	}
 
@@ -156,9 +156,9 @@ public class ExamController {
 	 */
 	 
 	@PostMapping("/unpublish")
-	public ResponseEntity<String> setExamUnpublished(@RequestBody Exam exam, HttpServletRequest request) {
+	public ResponseEntity<String> toggleExamUnpublished(@RequestBody Exam exam, HttpServletRequest request) {
 		if(CookieHandler.isValidAdminSession(request.getCookies()))
-			return unpublishService.setExamUnpublished(exam);
+			return unpublishService.editExamUnpublished(exam);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}

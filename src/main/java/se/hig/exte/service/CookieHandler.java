@@ -43,12 +43,10 @@ public class CookieHandler {
 	 * @return true if the session is valid
 	 */
 	public static boolean isValidAdminSession(Cookie[] cookiesFromUser) {
-		return true;
-	/*	
 		Cookie klientResponseCookie = getSessionResponseCookie(cookiesFromUser);
 		if (klientResponseCookie == null)
 			return false;
-		return checkIfServerSessionIsValid(klientResponseCookie.getValue()); */
+		return checkIfServerSessionIsValid(klientResponseCookie.getValue());
 	}
 
 	/**
@@ -80,11 +78,9 @@ public class CookieHandler {
 	 * @return true if the session is valid
 	 */
 	public static boolean isValidSuperSession(Cookie[] cookiesFromUser) {
-		return true;
-		/*
 		if (isValidAdminSession(cookiesFromUser))
 			return sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).isSuperUser;
-		return false; */
+		return false;
 	}
 
 	private static String autoGenerateId() throws NoSuchAlgorithmException {

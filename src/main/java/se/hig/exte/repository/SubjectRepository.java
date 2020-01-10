@@ -34,16 +34,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 	 * @return A {@link List} containing all {@link Subject}s belonging to the
 	 *         {@link Academy} with the specified ID.
 	 */
-	List<Subject> findByAcademyIdAndUnpublishedFalse(int academyId);
-	
-	/**
-	 * Fetches all {@link Subject} objects which belong to the specified
-	 * {@link Academy} from the database.
-	 * 
-	 * @param academyId The ID of the {@link Academy}.
-	 * @return A {@link List} containing all {@link Subject}s belonging to the
-	 *         {@link Academy} with the specified ID.
-	 */
 	List<Subject> findByAcademyId(int academyId);
 	
 	/**

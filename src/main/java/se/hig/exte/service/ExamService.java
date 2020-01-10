@@ -62,8 +62,8 @@ public class ExamService implements CrudService<Exam> {
 	 * @param courseId The ID of the {@link Course} which {@link Exam}s to fetch.
 	 * @return A {@link List} containing all {@link Exam}s found.
 	 */
-	public List<Exam> findAllPublishedByCourseId(int courseId) {
-		return examRepo.findByCourseIdAndUnpublishedFalse(courseId);
+	public List<Exam> findAllByCourseId(int courseId) {
+		return examRepo.findByCourseId(courseId);
 	}
 
 	/**

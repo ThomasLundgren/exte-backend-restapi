@@ -65,8 +65,8 @@ public class SubjectService implements CrudService<Subject> {
 	 *                  fetch.
 	 * @return A {@link List} containing all {@link Subject}s found.
 	 */
-	public List<Subject> findAllUnpublishedByAcadmemyId(int academyId) {
-		return subjectRepo.findByAcademyIdAndUnpublishedFalse(academyId);
+	public List<Subject> findByAcadmemyId(int academyId) {
+		return subjectRepo.findByAcademyId(academyId);
 	}
 	public List<Subject> findPublishedByAcadmemyId(int academyId) {
 		return subjectRepo.findByAcademyId(academyId).stream()

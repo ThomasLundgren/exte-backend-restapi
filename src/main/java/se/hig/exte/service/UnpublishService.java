@@ -38,7 +38,7 @@ public class UnpublishService {
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	public ResponseEntity<String> setExamUnpublished(Exam exam) {
+	public ResponseEntity<String> editExamUnpublished(Exam exam) {
 		examRepo.save(exam);
 
 		return new ResponseEntity<String>(HttpStatus.OK);
@@ -68,7 +68,7 @@ public class UnpublishService {
 		List<Exam> exams = examRepo.findByCourseId(course.getId());
 		for (Exam exam : exams) {
 			exam.setUnpublished(unpublished);
-			setExamUnpublished(exam);
+			editExamUnpublished(exam);
 		}
 		course.setUnpublished(unpublished);
 		courseRepo.save(course);
@@ -82,7 +82,7 @@ public class UnpublishService {
 	 * @param unpublish The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	public ResponseEntity<String> setSubjectUnpublished(Subject subject) {
+	public ResponseEntity<String> isSubjectUnpublished(Subject subject) {
 		boolean unpublished = subject.isUnpublished();
 		List<Course> courses = courseRepo.findBySubjectId(subject.getId());
 		for (Course course : courses) {
@@ -94,9 +94,9 @@ public class UnpublishService {
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-	public ResponseEntity<String> SetSubjectsUnpublished(List<Subject> subjects, boolean unpublished) {
+	public ResponseEntity<String> isSubjectsUnpublished(List<Subject> subjects, boolean unpublished) {
 		for (Subject subject : subjects) {
-			setSubjectUnpublished(subject);
+			isSubjectUnpublished(subject);
 		}
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
@@ -108,7 +108,7 @@ public class UnpublishService {
 		List<Exam> exams = examRepo.findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate.now());
 		for (Exam exam : exams) {
 			exam.setUnpublished(true);
-			setExamUnpublished(exam);
+			editExamUnpublished(exam);
 			System.out.println("Unpublisher unpublished " + exam.toString());
 		}
 		examRepo.flush();
@@ -120,7 +120,7 @@ public class UnpublishService {
 		List<Subject> subjects = subjectRepo.findByAcademyId(academy.getId());
 		for (Subject subject : subjects) {
 			subject.setUnpublished(unpublished);
-			setSubjectUnpublished(subject);
+			isSubjectUnpublished(subject);
 		}
 		academy.setUnpublished(unpublished);
 		academyRepo.save(academy);

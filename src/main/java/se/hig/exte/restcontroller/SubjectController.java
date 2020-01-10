@@ -100,8 +100,8 @@ public class SubjectController {
 	 *         {@link Subject} objects.
 	 */
 	@GetMapping("/academy/{id}")
-	public ResponseEntity<List<Subject>> getUnpublishedSubjectsByAcademyId(@PathVariable int id) {
-		List<Subject> subjects = subjectService.findAllUnpublishedByAcadmemyId(id);
+	public ResponseEntity<List<Subject>> getSubjectByAcademyId(@PathVariable int id) {
+		List<Subject> subjects = subjectService.findByAcadmemyId(id);
 		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
 
@@ -185,7 +185,7 @@ public class SubjectController {
 	@PostMapping("/unpublish")
 	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.setSubjectUnpublished(subject);
+			return unpublishService.isSubjectUnpublished(subject);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
