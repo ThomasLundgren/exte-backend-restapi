@@ -101,8 +101,8 @@ public class CourseController {
 	 *         {@link Course} objects.
 	 */
 	@GetMapping("/subject/{id}")
-	public ResponseEntity<List<Course>> getCourseBySubjectId(@PathVariable int id) {
-		List<Course> courses = courseService.findAllBySubjectId(id);
+	public ResponseEntity<List<Course>> getUnpublishedCoursesBySubjectId(@PathVariable int id) {
+		List<Course> courses = courseService.findAllUnpublishedBySubjectId(id);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 
