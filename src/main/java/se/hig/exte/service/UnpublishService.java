@@ -96,7 +96,7 @@ public class UnpublishService {
 	}
 	public ResponseEntity<String> isSubjectsUnpublished(List<Subject> subjects, boolean unpublished) {
 		for (Subject subject : subjects) {
-			isSubjectUnpublished(subject, unpublished);
+			isSubjectUnpublished(subject);
 		}
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
