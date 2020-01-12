@@ -134,6 +134,14 @@ public class ExamController {
 	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {
 		if(CookieHandler.isValidSuperSession(request.getCookies()))
 			examService.deleteById(id);
+		
+	}
+	
+
+	@DeleteMapping("/")
+	public void deleteExams(@RequestBody List<Exam> exams, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			examService.deleteAll(exams);
 	}
 
 	/**

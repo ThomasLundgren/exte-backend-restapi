@@ -198,9 +198,9 @@ public class SubjectController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
-	public ResponseEntity<List<Subject>> unpublishSubjects(@RequestBody List<Subject> subject, HttpServletRequest request) {
+	public ResponseEntity<List<Subject>> unpublishSubjects(@RequestBody List<Subject> subjects, HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies()))
-			return new ResponseEntity<List<Subject>>(unpublishService.setSubjectsUnpublished(subject), HttpStatus.OK);
+			return new ResponseEntity<List<Subject>>(unpublishService.setSubjectsUnpublished(subjects), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
 	}
