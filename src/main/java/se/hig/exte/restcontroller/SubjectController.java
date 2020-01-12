@@ -176,6 +176,7 @@ public class SubjectController {
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
 		}
 	}
+	
 	/**
 	 * Changes the boolean unpublished value on the {@link subject}
 	 * @param subject The {@link Subject} to update
@@ -183,12 +184,25 @@ public class SubjectController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
-	public ResponseEntity<String> unpublishSubject(@RequestBody Subject subject, HttpServletRequest request) {
+	public ResponseEntity<Subject> unpublishSubject(@RequestBody Subject subject, HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.setSubjectUnpublished(subject);
+			return new ResponseEntity<Subject>(unpublishService.setSubjectUnpublished(subject), HttpStatus.OK);
 		else
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<Subject>(HttpStatus.UNAUTHORIZED);
 	}
 
+	/**
+	 * Changes the boolean unpublished value on the {@link subject}s
+	 * @param subject The {@link Subject}s to update
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublishList")
+	public ResponseEntity<List<Subject>> unpublishSubjects(@RequestBody List<Subject> subject, HttpServletRequest request) {
+		if (CookieHandler.isValidSuperSession(request.getCookies()))
+			return new ResponseEntity<List<Subject>>(unpublishService.setSubjectsUnpublished(subject), HttpStatus.OK);
+		else
+			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
+	}
 
 }

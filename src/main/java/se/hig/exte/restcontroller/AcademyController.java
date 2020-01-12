@@ -136,11 +136,11 @@ public class AcademyController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
-	public ResponseEntity<String> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+	public ResponseEntity<Academy> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
 		if(CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isAcademyUnpublished(academy);
+			return new ResponseEntity<Academy>(unpublishService.setAcademyUnpublished(academy), HttpStatus.OK);
 		else
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class AcademyController {
 	@PostMapping("/unpublish/{unpublished}")
 	public ResponseEntity<String> unpublishAcademy(@RequestBody List<Academy> academies, @PathVariable boolean unpublished, HttpServletRequest request) {
 		if(CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isAcademiesUnpublished(academies, unpublished);	
+			return unpublishService.setAcademiesUnpublished(academies, unpublished);	
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
