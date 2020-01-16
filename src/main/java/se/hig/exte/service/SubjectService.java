@@ -68,12 +68,12 @@ public class SubjectService implements CrudService<Subject> {
 	public List<Subject> findAllUnpublishedByAcadmemyId(int academyId) {
 		return subjectRepo.findByAcademyIdAndUnpublishedFalse(academyId);
 	}
+
 	public List<Subject> findPublishedByAcadmemyId(int academyId) {
-		return subjectRepo.findByAcademyId(academyId).stream()
-				  .filter(c -> !c.isUnpublished())
-				  .collect(Collectors.toList());
+		return subjectRepo.findByAcademyId(academyId).stream().filter(c -> !c.isUnpublished())
+				.collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * Deletes the {@link Subject} object with the corresponding ID from the
 	 * database.
@@ -84,9 +84,10 @@ public class SubjectService implements CrudService<Subject> {
 	public void deleteById(int id) {
 		subjectRepo.deleteById(id);
 	}
-	
+
 	/**
 	 * Fetches all {@link Subject} that are close-by to the text-
+	 * 
 	 * @param text The text searched
 	 * @return A {@link List} containing all {@link Subject}s found.
 	 */
@@ -96,14 +97,16 @@ public class SubjectService implements CrudService<Subject> {
 
 	/**
 	 * Fetches a list of {@link Subject} objects that are unpublished.
+	 * 
 	 * @return A {@link List} containing all {@link Subject}s found.
 	 */
 	public List<Subject> findAllUnpublished() {
 		return subjectRepo.findByUnpublishedTrue();
 	}
-	
+
 	/**
 	 * Fetches a list of {@link Subject} objects that are published.
+	 * 
 	 * @return A {@link List} containing all {@link Subject}s found.
 	 */
 	public List<Subject> findAllPublished() {

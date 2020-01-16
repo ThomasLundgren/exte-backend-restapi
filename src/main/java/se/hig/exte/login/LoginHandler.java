@@ -1,6 +1,6 @@
 package se.hig.exte.login;
 
-public class LoginHandler implements ILoginHandler{
+public class LoginHandler implements ILoginHandler {
 
 	@Override
 	public boolean login(String username, String password) {
@@ -10,7 +10,7 @@ public class LoginHandler implements ILoginHandler{
 	@Override
 	public void logout(String username) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

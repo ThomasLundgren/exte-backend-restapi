@@ -34,21 +34,25 @@ public class CourseController {
 
 	private final CourseService courseService;
 	private final UnpublishService unpublishService;
+	private final CookieHandler cookieHandler;
+
 	/**
 	 * Creates a {@code CourseController} object.
-	 * 
+	 *
 	 * @param courseService The {@link CrudService} class used to perform all
 	 *                      services exposed in this RestController.
 	 */
 	@Autowired
-	public CourseController(CourseService courseService, UnpublishService unpublishService) {
+	public CourseController(CourseService courseService, UnpublishService unpublishService,
+			CookieHandler cookieHandler) {
 		this.courseService = courseService;
 		this.unpublishService = unpublishService;
+		this.cookieHandler = cookieHandler;
 	}
 
 	/**
 	 * Creates a {@link Course} and stores it in the database.
-	 * 
+	 *
 	 * @param course The {@link Course} to add in the form of a JSON-object in the
 	 *               POST request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Course}
@@ -56,17 +60,17 @@ public class CourseController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Course> saveCourse(@RequestBody Course course, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Course savedCourse = courseService.save(course);
 			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
 		}
 	}
 
 	/**
 	 * Fetches the {@link Course} object with the given ID from the database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Course} to fetch.
 	 * @return The {@link Course} with the given ID.
 	 */
@@ -76,11 +80,11 @@ public class CourseController {
 	}
 
 	/**
-	 * Fetches all the published {@link Course} records from the database and returns them as a
-	 * {@code ResponseEntity} object. List of {@link Course} objects is
-	 * automatically converted to JSON using Spring Boot's
+	 * Fetches all the published {@link Course} records from the database and
+	 * returns them as a {@code ResponseEntity} object. List of {@link Course}
+	 * objects is automatically converted to JSON using Spring Boot's
 	 * {@code HttpMessageConverter} and put in the {@code ResponseEntity}'s body.
-	 * 
+	 *
 	 * @return A {@code ResponseEntity} object containing the fetched {@link Course}
 	 *         objects.
 	 */
@@ -88,14 +92,13 @@ public class CourseController {
 	public ResponseEntity<List<Course>> getAllCourses() {
 		return new ResponseEntity<List<Course>>(courseService.findAllPublished(), HttpStatus.OK);
 	}
-	
 
 	/**
 	 * Fetches all {@link Course} objects belonging to the specified {@link Subject}
 	 * ID. List of {@link Course} objects is automatically converted to JSON using
 	 * Spring Boot's {@code HttpMessageConverter} and put in the
 	 * {@code ResponseEntity}'s body.
-	 * 
+	 *
 	 * @param id The ID of the {@link Subject} to which the {@link Course}s belongs.
 	 * @return A @{@code ResponseEntity} object containing a {@code List} of
 	 *         {@link Course} objects.
@@ -107,8 +110,24 @@ public class CourseController {
 	}
 
 	/**
+	 * Fetches all {@link Course} objects belonging to the specified {@link Subject}
+	 * ID. List of {@link Course} objects is automatically converted to JSON using
+	 * Spring Boot's {@code HttpMessageConverter} and put in the
+	 * {@code ResponseEntity}'s body.
+	 *
+	 * @param id The ID of the {@link Subject} to which the {@link Course}s belongs.
+	 * @return A @{@code ResponseEntity} object containing a {@code List} of
+	 *         {@link Course} objects.
+	 */
+	@GetMapping("/published/subject/{id}")
+	public ResponseEntity<List<Course>> getPublishedCourseBySubjectId(@PathVariable int id) {
+		List<Course> courses = courseService.findAllPublishedBySubjectId(id);
+		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+	}
+
+	/**
 	 * Updates the {@link Course} object with the given ID in the database.
-	 * 
+	 *
 	 * @param course The {@link Course} to update in the form of a JSON-object in
 	 *               the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Course}
@@ -116,27 +135,28 @@ public class CourseController {
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<Course> updateCourse(@RequestBody Course course, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Course savedCourse = courseService.save(course);
 			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
 		}
 	}
 
 	/**
 	 * Deletes the {@link Course} object with the given ID from the database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Course} to delete.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteCourseById(@PathVariable int id, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			courseService.deleteById(id);
 	}
-	
+
 	/**
 	 * Searches the database after courses with the text variable
+	 * 
 	 * @param text The text searched
 	 * @return A list of all courses that are a match and the http status OK.
 	 */
@@ -145,38 +165,40 @@ public class CourseController {
 		List<Course> courses = courseService.findByNameOrCourseCodeContaining(text);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Fetches all unpublished courses.
+	 * 
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
 	public ResponseEntity<List<Course>> getUnpublishedCourses() {
 		return new ResponseEntity<List<Course>>(courseService.findAllUnpublished(), HttpStatus.OK);
 	}
-	
-	
+
 	/**
-	 * Changes the boolean unpublished value on the {@link Course} 
-	 * @param course The {@link Course} to update 
+	 * Changes the boolean unpublished value on the {@link Course}
+	 * 
+	 * @param course The {@link Course} to update
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
 	public ResponseEntity<Course> unpublishCourse(@RequestBody Course course, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Course>(unpublishService.setCourseUnpublished(course), HttpStatus.OK);
 		else
 			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
 	}
-	
+
 	/**
-	 * Changes the boolean unpublished value on the {@link Course} 
-	 * @param course The {@link Course} to update 
+	 * Changes the boolean unpublished value on the {@link Course}
+	 * 
+	 * @param course The {@link Course} to update
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
 	public ResponseEntity<List<Course>> unpublishCourses(@RequestBody List<Course> course, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<List<Course>>(unpublishService.setCoursesUnpublished(course), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Course>>(HttpStatus.UNAUTHORIZED);

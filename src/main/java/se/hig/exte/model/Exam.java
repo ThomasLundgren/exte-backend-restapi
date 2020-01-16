@@ -144,6 +144,7 @@ public class Exam {
 
 	/**
 	 * Check if this {@code Exam} is unpublished or not.
+	 * 
 	 * @return True if this {@code Exam} is unpublished, otherwise false.
 	 */
 	public boolean isUnpublished() {
@@ -152,7 +153,9 @@ public class Exam {
 
 	/**
 	 * Sets whether this {@code Exam} should be unpublished or not.
-	 * @param unpublished True if this {@code Exam} should be unpublished, otherwise false.
+	 * 
+	 * @param unpublished True if this {@code Exam} should be unpublished, otherwise
+	 *                    false.
 	 */
 	public void setUnpublished(boolean unpublished) {
 		this.unpublished = unpublished;

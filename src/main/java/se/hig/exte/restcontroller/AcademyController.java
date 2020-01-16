@@ -1,12 +1,10 @@
 package se.hig.exte.restcontroller;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
-import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CookieHandler;
@@ -36,7 +33,8 @@ import se.hig.exte.service.UnpublishService;
 public class AcademyController {
 
 	private final AcademyService academyService;
-	private UnpublishService unpublishService;
+	private final UnpublishService unpublishService;
+	private final CookieHandler cookieHandler;
 
 	/**
 	 * Creates an {@code AcademyController} object.
@@ -44,26 +42,22 @@ public class AcademyController {
 	 * @param academyService The {@link CrudService} class used to perform all
 	 *                       services exposed in this RestController.
 	 */
-	public AcademyController(AcademyService academyService, UnpublishService unpublishService) {
+	@Autowired
+	public AcademyController(AcademyService academyService, UnpublishService unpublishService,
+			CookieHandler cookieHandler) {
 		this.academyService = academyService;
 		this.unpublishService = unpublishService;
+		this.cookieHandler = cookieHandler;
 	}
 
 	/**
 	 * Gets All published academies
+	 * 
 	 * @return
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Academy>> getAllAcademies() {
 		return new ResponseEntity<List<Academy>>(academyService.findAllPublished(), HttpStatus.OK);
-	}
-
-	private void printAllCookies(HttpServletRequest request) {
-		Cookie[] cookiesFromUser = request.getCookies();
-		if (cookiesFromUser != null) {
-			System.out.println(Arrays.stream(cookiesFromUser).map(c -> c.getName() + "=" + c.getValue())
-					.collect(Collectors.joining(", ")));
-		}
 	}
 
 	/**
@@ -77,7 +71,7 @@ public class AcademyController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Academy savedAcademy = academyService.save(academy);
 			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
 		} else {
@@ -107,7 +101,7 @@ public class AcademyController {
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<Academy> updateAcademy(@RequestBody Academy academy, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Academy savedAcademy = academyService.save(academy);
 			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
 		} else {
@@ -123,47 +117,51 @@ public class AcademyController {
 	 */
 	@DeleteMapping("/{id}")
 	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			academyService.deleteById(id);
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Changes the boolean unpublished value on the {@link Academy} 
-	 * @param academy The {@link Academy} to update 
+	 * Changes the boolean unpublished value on the {@link Academy}
+	 * 
+	 * @param academy The {@link Academy} to update
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
 	public ResponseEntity<Academy> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Academy>(unpublishService.setAcademyUnpublished(academy), HttpStatus.OK);
 		else
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 	}
-	
+
 	/**
-	 * Changes the boolean unpublished value on the {@link Academy} 
-	 * @param subject The {@link Subject} to update 
+	 * Changes the boolean unpublished value on the {@link Academy}
+	 * 
+	 * @param subject     The {@link Subject} to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishAcademy(@RequestBody List<Academy> academies, @PathVariable boolean unpublished, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.setAcademiesUnpublished(academies, unpublished);	
+	public ResponseEntity<String> unpublishAcademy(@RequestBody List<Academy> academies,
+			@PathVariable boolean unpublished, HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
+			return unpublishService.setAcademiesUnpublished(academies, unpublished);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
-	
+
 	/**
 	 * Fetches all unpublished courses.
+	 * 
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
 	public ResponseEntity<List<Academy>> getUnpublishedAcademies() {
 		return new ResponseEntity<List<Academy>>(academyService.findAllUnpublished(), HttpStatus.OK);
 	}
-	
+
 }

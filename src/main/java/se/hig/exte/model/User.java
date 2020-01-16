@@ -10,8 +10,8 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * A model/entity class that represents a User. The fields of this class maps to columns in the
- * database.
+ * A model/entity class that represents a User. The fields of this class maps to
+ * columns in the database.
  */
 @Entity
 public class User {
@@ -24,15 +24,18 @@ public class User {
 	private String name;
 
 	private boolean isSuperUser;
-	
+
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected User() {
 	}
 
 	/**
 	 * Creates a {@code User} object.
-	 * @param name The name of the {@code User}. Must be at least two characters long and cannot be null or whitespace.
-	 * @param isSuperUser True if the {@code User} should be a super user. Otherwise false.
+	 * 
+	 * @param name        The name of the {@code User}. Must be at least two
+	 *                    characters long and cannot be null or whitespace.
+	 * @param isSuperUser True if the {@code User} should be a super user. Otherwise
+	 *                    false.
 	 */
 	public User(String name, boolean isSuperUser) {
 		this.name = name;
@@ -41,6 +44,7 @@ public class User {
 
 	/**
 	 * Get the ID of this {@code User}.
+	 * 
 	 * @return The ID of this {@code User}.
 	 */
 	public int getId() {
@@ -49,6 +53,7 @@ public class User {
 
 	/**
 	 * Get the name of this {@code User}.
+	 * 
 	 * @return The name of this {@code User}.
 	 */
 	public String getName() {
@@ -57,6 +62,7 @@ public class User {
 
 	/**
 	 * Returns true if this {@code User} is a super user. Otherwise false.
+	 * 
 	 * @return True if this {@code User} is a super user. Otherwise false.
 	 */
 	@JsonProperty("isSuperUser")
@@ -65,7 +71,9 @@ public class User {
 	}
 
 	/**
-	 * Set the name of this {@code User}. Must be at least two characters long and cannot be null or whitespace.
+	 * Set the name of this {@code User}. Must be at least two characters long and
+	 * cannot be null or whitespace.
+	 * 
 	 * @param name The new name of this {@code User}.
 	 */
 	public void setName(String name) {
@@ -73,7 +81,9 @@ public class User {
 	}
 
 	/**
-	 * Set the privilege of this {@code User}. Set it to true to grant privileges to make other {@code User}s super users.
+	 * Set the privilege of this {@code User}. Set it to true to grant privileges to
+	 * make other {@code User}s super users.
+	 * 
 	 * @param isSuperUser The new super user status of this {@code User}.
 	 */
 	public void setSuperUser(boolean isSuperUser) {

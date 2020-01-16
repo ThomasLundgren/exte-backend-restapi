@@ -31,6 +31,7 @@ import se.hig.exte.service.UserService;
 public class UserController {
 
 	private final UserService userService;
+	private final CookieHandler cookieHandler;
 
 	/**
 	 * Creates an {@code UserController} object.
@@ -39,8 +40,9 @@ public class UserController {
 	 *                    exposed in this RestController.
 	 */
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, CookieHandler cookieHandler) {
 		this.userService = userService;
+		this.cookieHandler = cookieHandler;
 	}
 
 	/**
@@ -53,7 +55,7 @@ public class UserController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<User> saveUser(@RequestBody User user, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			User savedUser = userService.save(user);
 			return new ResponseEntity<User>(savedUser, HttpStatus.OK);
 		} else {
@@ -69,7 +71,7 @@ public class UserController {
 	 */
 	@GetMapping("/{id}")
 	public User getUser(@PathVariable String id, HttpServletRequest request) {
-		if (CookieHandler.isValidAdminSession(request.getCookies())) {
+		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			int userId = Integer.parseInt(id);
 			return userService.findById(userId);
 		}
@@ -87,7 +89,7 @@ public class UserController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> getAllUsers(HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<List<User>>(HttpStatus.UNAUTHORIZED);
@@ -104,7 +106,7 @@ public class UserController {
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<User> updateUser(@RequestBody User user, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			User savedUser = userService.save(user);
 			return new ResponseEntity<User>(savedUser, HttpStatus.OK);
 		} else {
@@ -119,7 +121,7 @@ public class UserController {
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable int id, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			userService.deleteById(id);
 		}
 	}
@@ -134,7 +136,7 @@ public class UserController {
 	 */
 	@GetMapping("/is/admin")
 	public boolean isLoggedInAsAdmin(HttpServletRequest request) {
-		return CookieHandler.isValidAdminSession(request.getCookies());
+		return cookieHandler.isValidAdminSession(request.getCookies());
 	}
 
 	/**
@@ -147,7 +149,7 @@ public class UserController {
 	 */
 	@GetMapping("/is/superuser")
 	public boolean isLoggedInAsSuperUser(HttpServletRequest request) {
-		return CookieHandler.isValidSuperSession(request.getCookies());
+		return cookieHandler.isValidSuperSession(request.getCookies());
 	}
 
 }

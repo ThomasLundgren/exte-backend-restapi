@@ -8,8 +8,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * A model/entity class that represents an Academy. The fields of this class maps to columns in the
- * database.
+ * A model/entity class that represents an Academy. The fields of this class
+ * maps to columns in the database.
  */
 @Entity
 public class Academy {
@@ -24,14 +24,18 @@ public class Academy {
 	@Size(min = 2, max = 5, message = "Abbreviation must be between two and five characters long")
 	private String abbreviation;
 	private boolean unpublished;
-	
+
 	// Only used for JPA/Spring, which is why it is declared with protected.
-	protected Academy() {}
+	protected Academy() {
+	}
 
 	/**
 	 * Creates an {@code Academy} object.
-	 * @param name The name of the {@code Academy}. Must be at least two characters long and cannot be null.
-	 * @param abbreviation The abbreviation of the {@code Academy}. The abbreviation should be between two and five characters long.
+	 * 
+	 * @param name         The name of the {@code Academy}. Must be at least two
+	 *                     characters long and cannot be null.
+	 * @param abbreviation The abbreviation of the {@code Academy}. The abbreviation
+	 *                     should be between two and five characters long.
 	 */
 	public Academy(String name, String abbreviation) {
 		this.name = name;
@@ -40,6 +44,7 @@ public class Academy {
 
 	/**
 	 * Get the ID of this {@code Academy}.
+	 * 
 	 * @return The ID of this {@code Academy}.
 	 */
 	public int getId() {
@@ -48,6 +53,7 @@ public class Academy {
 
 	/**
 	 * Get the name of this {@code Academy}.
+	 * 
 	 * @return The name of this {@code Academy}.
 	 */
 	public String getName() {
@@ -56,18 +62,21 @@ public class Academy {
 
 	/**
 	 * Get the abbreviation of this {@code Academy}.
+	 * 
 	 * @return The abbreviation of this {@code Academy}.
 	 */
 	public String getAbbreviation() {
 		return abbreviation;
 	}
-	
+
 	public boolean getUnpublished() {
 		return unpublished;
 	}
-	
+
 	/**
-	 * Set the name of this {@code Academy}. The name must be at least two characters long and cannot be null.
+	 * Set the name of this {@code Academy}. The name must be at least two
+	 * characters long and cannot be null.
+	 * 
 	 * @param name The name of this {@code Academy}.
 	 */
 	public void setName(String name) {
@@ -75,7 +84,9 @@ public class Academy {
 	}
 
 	/**
-	 * Set the abbreviation of this {@code Academy}. The abbreviation must be at between two and five characters long and cannot be null.
+	 * Set the abbreviation of this {@code Academy}. The abbreviation must be at
+	 * between two and five characters long and cannot be null.
+	 * 
 	 * @param abbreviation The abbreviation of this {@code Academy}.
 	 */
 	public void setAbbreviation(String abbreviation) {
@@ -91,7 +102,7 @@ public class Academy {
 	}
 
 	public void setUnpublished(boolean unpublished) {
-		this.unpublished =unpublished;
-		
+		this.unpublished = unpublished;
+
 	}
 }

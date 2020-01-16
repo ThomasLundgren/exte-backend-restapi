@@ -32,6 +32,7 @@ import se.hig.exte.service.UnpublishService;
 public class SubjectController {
 	private final SubjectService subjectService;
 	private final UnpublishService unpublishService;
+	private final CookieHandler cookieHandler;
 
 	/**
 	 * Creates a {@code SubjectController} object.
@@ -40,9 +41,11 @@ public class SubjectController {
 	 *                       services exposed in this RestController.
 	 */
 	@Autowired
-	public SubjectController(SubjectService subjectService, UnpublishService unpublishService) {
+	public SubjectController(SubjectService subjectService, UnpublishService unpublishService,
+			CookieHandler cookieHandler) {
 		this.subjectService = subjectService;
 		this.unpublishService = unpublishService;
+		this.cookieHandler = cookieHandler;
 	}
 
 	/**
@@ -55,7 +58,7 @@ public class SubjectController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject savedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
 		} else {
@@ -132,7 +135,7 @@ public class SubjectController {
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject patchedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
 		} else {
@@ -147,7 +150,7 @@ public class SubjectController {
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteSubjectById(@PathVariable int id, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			subjectService.deleteById(id);
 	}
 
@@ -170,22 +173,23 @@ public class SubjectController {
 	 */
 	@GetMapping("/unpublished")
 	public ResponseEntity<List<Subject>> getUnpublishedSubjects(HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			return new ResponseEntity<List<Subject>>(subjectService.findAllUnpublished(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 	/**
 	 * Changes the boolean unpublished value on the {@link subject}
-	 * @param subject The {@link Subject} to update
+	 * 
+	 * @param subject     The {@link Subject} to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
 	public ResponseEntity<Subject> unpublishSubject(@RequestBody Subject subject, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Subject>(unpublishService.setSubjectUnpublished(subject), HttpStatus.OK);
 		else
 			return new ResponseEntity<Subject>(HttpStatus.UNAUTHORIZED);
@@ -193,13 +197,15 @@ public class SubjectController {
 
 	/**
 	 * Changes the boolean unpublished value on the {@link subject}s
-	 * @param subject The {@link Subject}s to update
+	 * 
+	 * @param subject     The {@link Subject}s to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
-	public ResponseEntity<List<Subject>> unpublishSubjects(@RequestBody List<Subject> subjects, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies()))
+	public ResponseEntity<List<Subject>> unpublishSubjects(@RequestBody List<Subject> subjects,
+			HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<List<Subject>>(unpublishService.setSubjectsUnpublished(subjects), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
