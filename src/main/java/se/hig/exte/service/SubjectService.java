@@ -1,6 +1,7 @@
 package se.hig.exte.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,8 +65,13 @@ public class SubjectService implements CrudService<Subject> {
 	 *                  fetch.
 	 * @return A {@link List} containing all {@link Subject}s found.
 	 */
-	public List<Subject> findByAcadmemyId(int academyId) {
-		return subjectRepo.findByAcademyId(academyId);
+	public List<Subject> findAllUnpublishedByAcadmemyId(int academyId) {
+		return subjectRepo.findByAcademyIdAndUnpublishedFalse(academyId);
+	}
+	public List<Subject> findPublishedByAcadmemyId(int academyId) {
+		return subjectRepo.findByAcademyId(academyId).stream()
+				  .filter(c -> !c.isUnpublished())
+				  .collect(Collectors.toList());
 	}
 	
 	/**

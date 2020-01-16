@@ -101,8 +101,8 @@ public class CourseController {
 	 *         {@link Course} objects.
 	 */
 	@GetMapping("/subject/{id}")
-	public ResponseEntity<List<Course>> getCourseBySubjectId(@PathVariable int id) {
-		List<Course> courses = courseService.findAllBySubjectId(id);
+	public ResponseEntity<List<Course>> getUnpublishedCoursesBySubjectId(@PathVariable int id) {
+		List<Course> courses = courseService.findAllUnpublishedBySubjectId(id);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 
@@ -159,15 +159,27 @@ public class CourseController {
 	/**
 	 * Changes the boolean unpublished value on the {@link Course} 
 	 * @param course The {@link Course} to update 
-	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, HttpServletRequest request, @PathVariable boolean unpublished) {
+	@PostMapping("/unpublish")
+	public ResponseEntity<Course> unpublishCourse(@RequestBody Course course, HttpServletRequest request) {
 		if(CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isCourseUnpublished(course, unpublished);
+			return new ResponseEntity<Course>(unpublishService.setCourseUnpublished(course), HttpStatus.OK);
 		else
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
+	}
+	
+	/**
+	 * Changes the boolean unpublished value on the {@link Course} 
+	 * @param course The {@link Course} to update 
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublishList")
+	public ResponseEntity<List<Course>> unpublishCourses(@RequestBody List<Course> course, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			return new ResponseEntity<List<Course>>(unpublishService.setCoursesUnpublished(course), HttpStatus.OK);
+		else
+			return new ResponseEntity<List<Course>>(HttpStatus.UNAUTHORIZED);
 	}
 
 }

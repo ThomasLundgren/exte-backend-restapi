@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CookieHandler;
@@ -74,7 +75,6 @@ public class AcademyController {
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
 	 *         and an HTTP status code.
 	 */
-	@RequestMapping("/")
 	@PostMapping("/")
 	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies())) {
@@ -132,6 +132,19 @@ public class AcademyController {
 	
 	/**
 	 * Changes the boolean unpublished value on the {@link Academy} 
+	 * @param academy The {@link Academy} to update 
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublish")
+	public ResponseEntity<Academy> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+		if(CookieHandler.isValidSuperSession(request.getCookies()))
+			return new ResponseEntity<Academy>(unpublishService.setAcademyUnpublished(academy), HttpStatus.OK);
+		else
+			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
+	}
+	
+	/**
+	 * Changes the boolean unpublished value on the {@link Academy} 
 	 * @param subject The {@link Subject} to update 
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
@@ -139,8 +152,18 @@ public class AcademyController {
 	@PostMapping("/unpublish/{unpublished}")
 	public ResponseEntity<String> unpublishAcademy(@RequestBody List<Academy> academies, @PathVariable boolean unpublished, HttpServletRequest request) {
 		if(CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isAcademiesUnpublished(academies, unpublished);	
+			return unpublishService.setAcademiesUnpublished(academies, unpublished);	
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}
+	
+	/**
+	 * Fetches all unpublished courses.
+	 * @return A list of all unpublished courses and the http status OK.
+	 */
+	@GetMapping("/unpublished")
+	public ResponseEntity<List<Academy>> getUnpublishedAcademies() {
+		return new ResponseEntity<List<Academy>>(academyService.findAllUnpublished(), HttpStatus.OK);
+	}
+	
 }

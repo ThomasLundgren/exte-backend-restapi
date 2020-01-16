@@ -15,11 +15,11 @@ import org.springframework.http.ResponseCookie;
 public class CookieHandler {
 	private static HashMap<String, Session> sessions = new HashMap<String, Session>();
 	private static final String COOKIE_NAME = "identifier";
-	private static final int COOKIE_EXPIRE_SECONDS = 60 * 2;
+	private static final int COOKIE_EXPIRE_SECONDS = 60 * 60 * 2;
 
 	/**
 	 * Generates a new cookie for the user
-	 * 
+	 *
 	 * @param isSuperUser is true if the user should have super-admin privileges
 	 * @return a ResponseCookie with the valid session settings
 	 * @throws NoSuchAlgorithmException if a cookie has failed to be initialized.
@@ -38,19 +38,20 @@ public class CookieHandler {
 
 	/**
 	 * Checks if the user has a valid cookie with admin-privileges
-	 * 
+	 *
 	 * @param cookiesFromUser all the cookies fetched from the user
 	 * @return true if the session is valid
 	 */
 	public static boolean isValidAdminSession(Cookie[] cookiesFromUser) {
 		Cookie klientResponseCookie = getSessionResponseCookie(cookiesFromUser);
-		return true;
-		//return checkIfServerSessionIsValid(klientResponseCookie.getValue());
+		if (klientResponseCookie == null)
+			return false;
+		return checkIfServerSessionIsValid(klientResponseCookie.getValue());
 	}
 
 	/**
 	 * Logs out the user
-	 * 
+	 *
 	 * @param cookiesFromUser all the cookies stored in the users browser.
 	 */
 	public static void logout(Cookie[] cookiesFromUser) {
@@ -72,15 +73,14 @@ public class CookieHandler {
 
 	/**
 	 * Checks if the user has a valid cookie with SuperAdmin-privileges
-	 * 
+	 *
 	 * @param cookiesFromUser all the cookies fetched from the user
 	 * @return true if the session is valid
 	 */
 	public static boolean isValidSuperSession(Cookie[] cookiesFromUser) {
-		/*if (isValidAdminSession(cookiesFromUser))
-			return sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).isSuperUser; 
-		return false; */
-		return true;
+		if (isValidAdminSession(cookiesFromUser))
+			return sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).isSuperUser;
+		return false;
 	}
 
 	private static String autoGenerateId() throws NoSuchAlgorithmException {
@@ -119,7 +119,7 @@ public class CookieHandler {
 
 	/**
 	 * Class representing a session.
-	 * 
+	 *
 	 * @author Sanna Lundqvist
 	 *
 	 */
