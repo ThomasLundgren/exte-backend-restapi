@@ -161,12 +161,6 @@ public class UnpublishService {
 		return academies;
 	}
 	
-	public ResponseEntity<String> setAcademiesUnpublished(List<Academy> academies, boolean unpublished){
-		for (Academy academy : academies) {
-			academy.setUnpublished(unpublished);
-			setAcademyUnpublished(academy);
-		}
-		return new ResponseEntity<String>(HttpStatus.OK);
-	}
+
 
 }
