@@ -41,7 +41,8 @@ public class SubjectController {
 	 *                       services exposed in this RestController.
 	 */
 	@Autowired
-	public SubjectController(SubjectService subjectService, UnpublishService unpublishService, CookieHandler cookieHandler) {
+	public SubjectController(SubjectService subjectService, UnpublishService unpublishService,
+			CookieHandler cookieHandler) {
 		this.subjectService = subjectService;
 		this.unpublishService = unpublishService;
 		this.cookieHandler = cookieHandler;
@@ -178,10 +179,11 @@ public class SubjectController {
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 	/**
 	 * Changes the boolean unpublished value on the {@link subject}
-	 * @param subject The {@link Subject} to update
+	 * 
+	 * @param subject     The {@link Subject} to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
@@ -195,12 +197,14 @@ public class SubjectController {
 
 	/**
 	 * Changes the boolean unpublished value on the {@link subject}s
-	 * @param subject The {@link Subject}s to update
+	 * 
+	 * @param subject     The {@link Subject}s to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
-	public ResponseEntity<List<Subject>> unpublishSubjects(@RequestBody List<Subject> subjects, HttpServletRequest request) {
+	public ResponseEntity<List<Subject>> unpublishSubjects(@RequestBody List<Subject> subjects,
+			HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<List<Subject>>(unpublishService.setSubjectsUnpublished(subjects), HttpStatus.OK);
 		else

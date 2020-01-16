@@ -11,15 +11,15 @@ import se.hig.exte.model.Settings;
 public interface SettingsRepository extends JpaRepository<Settings, Integer> {
 
 	Settings findById(int id);
-	
+
 //	@Query("SELECT s FROM Settings s WHERE s.Created = (SELECT MAX(Created) FROM Settings)")
 //	@Query(value = "SELECT s FROM Settings s WHERE s.Created = (SELECT MAX(Created) FROM Settings)")
 //	Settings findNewestSettings();
-	
+
 	Settings findFirstByOrderByCreatedDesc();
-	
+
 //	@Query("SELECT * FROM Settings WHERE Created = (SELECT MAX(Created) FROM Settings)")
 //	void deleteNewestSettings();
-	
+
 	List<Settings> findAllByOrderByCreatedDesc();
 }

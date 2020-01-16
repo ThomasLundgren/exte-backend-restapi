@@ -35,7 +35,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 	 *         {@link Academy} with the specified ID.
 	 */
 	List<Subject> findByAcademyIdAndUnpublishedFalse(int academyId);
-	
+
 	/**
 	 * Fetches all {@link Subject} objects which belong to the specified
 	 * {@link Academy} from the database.
@@ -45,22 +45,28 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 	 *         {@link Academy} with the specified ID.
 	 */
 	List<Subject> findByAcademyId(int academyId);
-	
+
 	/**
 	 * Fetches all {@link Subject} objects with the unpublished value set to true.
-	 * @return A {@link List} containing all {@link Subject}s with the unpublished value set to true.
+	 * 
+	 * @return A {@link List} containing all {@link Subject}s with the unpublished
+	 *         value set to true.
 	 */
 	List<Subject> findByUnpublishedTrue();
-	
+
 	/**
 	 * Fetches all {@link Subject} objects with the unpublished value set to false.
-	 * @return A {@link List} containing all {@link Subject}s with the unpublished value set to false.
+	 * 
+	 * @return A {@link List} containing all {@link Subject}s with the unpublished
+	 *         value set to false.
 	 */
 	List<Subject> findByUnpublishedFalse();
-	
+
 	/**
-	 * Fetches all {@link Subject} objects that contains the name or code from the database.
-	 * @param name The searched {@link Subject} name 
+	 * Fetches all {@link Subject} objects that contains the name or code from the
+	 * database.
+	 * 
+	 * @param name The searched {@link Subject} name
 	 * @param code The searched {@link Subject} code
 	 * @return A {@link List} containing all {@link Subject} that satisfy the query.
 	 */

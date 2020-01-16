@@ -15,7 +15,7 @@ public class UserService implements CrudService<User> {
 
 	private final UserRepository userRepo;
 	private final CookieHandler cookieHandler;
-	
+
 	@Autowired
 	public UserService(UserRepository userRepo, CookieHandler cookieHandler) {
 		this.userRepo = userRepo;

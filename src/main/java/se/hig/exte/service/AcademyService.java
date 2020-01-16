@@ -18,6 +18,7 @@ public class AcademyService implements CrudService<Academy> {
 
 	/**
 	 * Creates an {@code AcademyService} object.
+	 * 
 	 * @param academyRepo The {@link AcademyRepository} to use for CRUD operations.
 	 */
 	@Autowired
@@ -41,17 +42,18 @@ public class AcademyService implements CrudService<Academy> {
 	public List<Academy> findAll() {
 		return academyRepo.findAll();
 	}
-	
+
 	public List<Academy> findAllPublished() {
 		return academyRepo.findByUnpublishedFalse();
 	}
 
-	public void deleteById(int id){
+	public void deleteById(int id) {
 		academyRepo.deleteById(id);
 	}
 
 	/**
 	 * Fetches a list of {@link Academy} objects that are unpublished.
+	 * 
 	 * @return A {@link List} containing all {@link Academy}s found.
 	 */
 	public List<Academy> findAllUnpublished() {

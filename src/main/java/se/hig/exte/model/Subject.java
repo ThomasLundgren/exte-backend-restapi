@@ -8,12 +8,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * A model/entity class that represents a Subject. The fields of this class maps to columns in the
- * database.
+ * A model/entity class that represents a Subject. The fields of this class maps
+ * to columns in the database.
  */
 @Entity
 public class Subject {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -25,16 +25,20 @@ public class Subject {
 	private String name;
 	private boolean unpublished;
 	private int academyId;
-	
+
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Subject() {
 	}
 
 	/**
 	 * Creates a {@code Subject} object.
-	 * @param code The code of the {@code Subject}. Must be two characters long and cannot be null or whitespace.
-	 * @param name The name of the {@code Subject}. Must be at least three characters long and cannot be null or whitespace.
-	 * @param academyId The ID of the {@link Academy} to which this {@code Subject} belongs.
+	 * 
+	 * @param code      The code of the {@code Subject}. Must be two characters long
+	 *                  and cannot be null or whitespace.
+	 * @param name      The name of the {@code Subject}. Must be at least three
+	 *                  characters long and cannot be null or whitespace.
+	 * @param academyId The ID of the {@link Academy} to which this {@code Subject}
+	 *                  belongs.
 	 */
 	public Subject(String code, String name, boolean published, int academyId) {
 		this.code = code;
@@ -45,6 +49,7 @@ public class Subject {
 
 	/**
 	 * Get the ID of this {@code Subject}.
+	 * 
 	 * @return The ID of this {@code Subject}.
 	 */
 	public int getId() {
@@ -53,6 +58,7 @@ public class Subject {
 
 	/**
 	 * Get the code of this {@code Subject}.
+	 * 
 	 * @return The code of this {@code Subject}.
 	 */
 	public String getCode() {
@@ -61,18 +67,20 @@ public class Subject {
 
 	/**
 	 * Get the name of this {@code Subject}.
+	 * 
 	 * @return The name of this {@code Subject}.
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	public boolean isUnpublished() {
 		return unpublished;
 	}
 
 	/**
 	 * Get the ID of the {@link Academy} to which this {@code Subject} belongs.
+	 * 
 	 * @return The ID of the {@link Academy} to which this {@code Subject} belongs.
 	 */
 	public int getAcademyId() {
@@ -80,7 +88,9 @@ public class Subject {
 	}
 
 	/**
-	 * Set the code of this {@code Subject}. Must be two characters long and cannot be null or whitespace.
+	 * Set the code of this {@code Subject}. Must be two characters long and cannot
+	 * be null or whitespace.
+	 * 
 	 * @param code The code this {@code Subject}.
 	 */
 	public void setCode(String code) {
@@ -88,7 +98,9 @@ public class Subject {
 	}
 
 	/**
-	 * Set the code of this {@code Subject}. Must be at least three characters long and cannot be null or whitespace.
+	 * Set the code of this {@code Subject}. Must be at least three characters long
+	 * and cannot be null or whitespace.
+	 * 
 	 * @param name The name this {@code Subject}.
 	 */
 	public void setName(String name) {

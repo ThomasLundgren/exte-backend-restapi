@@ -176,15 +176,15 @@ public class CourseController {
 		return new ResponseEntity<List<Course>>(courseService.findAllUnpublished(), HttpStatus.OK);
 	}
 
-
 	/**
 	 * Changes the boolean unpublished value on the {@link Course}
+	 * 
 	 * @param course The {@link Course} to update
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
 	public ResponseEntity<Course> unpublishCourse(@RequestBody Course course, HttpServletRequest request) {
-		if(cookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Course>(unpublishService.setCourseUnpublished(course), HttpStatus.OK);
 		else
 			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
@@ -192,12 +192,13 @@ public class CourseController {
 
 	/**
 	 * Changes the boolean unpublished value on the {@link Course}
+	 * 
 	 * @param course The {@link Course} to update
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
 	public ResponseEntity<List<Course>> unpublishCourses(@RequestBody List<Course> course, HttpServletRequest request) {
-		if(cookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<List<Course>>(unpublishService.setCoursesUnpublished(course), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Course>>(HttpStatus.UNAUTHORIZED);

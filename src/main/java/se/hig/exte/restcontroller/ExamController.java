@@ -136,13 +136,12 @@ public class ExamController {
 	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			examService.deleteById(id);
-		
+
 	}
-	
 
 	@DeleteMapping("/")
 	public void deleteExams(@RequestBody List<Exam> exams, HttpServletRequest request) {
-		if(cookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			examService.deleteAll(exams);
 	}
 
@@ -169,26 +168,28 @@ public class ExamController {
 
 	@PostMapping("/unpublish")
 	public ResponseEntity<Exam> setExamUnpublished(@RequestBody Exam exam, HttpServletRequest request) {
-		if(cookieHandler.isValidAdminSession(request.getCookies()))
+		if (cookieHandler.isValidAdminSession(request.getCookies()))
 			return new ResponseEntity<Exam>(unpublishService.setExamUnpublished(exam), HttpStatus.OK);
 		else
 			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
 	}
-	
+
 	/**
 	 * Changes the boolean unpublished value on the {@link Exam}s
-	 * @param exam The {@link Exam}s to update
+	 * 
+	 * @param exam        The {@link Exam}s to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	 
+
 	@PostMapping("/unpublishList")
 	public ResponseEntity<List<Exam>> setExamsUnpublished(@RequestBody List<Exam> exams, HttpServletRequest request) {
-		if(cookieHandler.isValidAdminSession(request.getCookies()))
+		if (cookieHandler.isValidAdminSession(request.getCookies()))
 			return new ResponseEntity<List<Exam>>(unpublishService.setExamsUnpublished(exams), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Exam>>(HttpStatus.UNAUTHORIZED);
 	}
+
 	/**
 	 * This method is run automatically by Spring Boot at 03:00 every day.
 	 */

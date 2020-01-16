@@ -14,14 +14,14 @@ public class RepositoryConfig implements RepositoryRestConfigurer {
 
 	@Autowired
 	private EntityManager entityManager;
-	
+
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 		RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config);
-		config.exposeIdsFor(entityManager.getMetamodel().getEntities().stream()
-				.map(e -> e.getJavaType()).collect(Collectors.toList()).toArray(new Class[0]));
+		config.exposeIdsFor(entityManager.getMetamodel().getEntities().stream().map(e -> e.getJavaType())
+				.collect(Collectors.toList()).toArray(new Class[0]));
 		config.setReturnBodyOnCreate(true);
 		config.setReturnBodyOnUpdate(true);
 	}
-	
+
 }

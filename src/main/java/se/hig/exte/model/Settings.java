@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenerationTime;
 
 @Entity
 public class Settings {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -31,7 +31,8 @@ public class Settings {
 	@Column(name = "created", updatable = false)
 	private LocalDateTime created;
 
-	protected Settings() {}
+	protected Settings() {
+	}
 
 	public int getId() {
 		return id;
@@ -72,9 +73,9 @@ public class Settings {
 	public void setUnpublishTimeYears(int unpublishTimeYears) {
 		this.unpublishTimeYears = unpublishTimeYears;
 	}
-	
+
 	public LocalDateTime getCreated() {
 		return created;
 	}
-	
+
 }

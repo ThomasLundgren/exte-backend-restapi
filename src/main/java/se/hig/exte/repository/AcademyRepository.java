@@ -25,18 +25,21 @@ public interface AcademyRepository extends JpaRepository<Academy, Integer> {
 	Academy findById(int id);
 
 	List<Academy> findAll();
-	
+
 	/**
 	 * Fetches all {@link Academy} objects with the unpublished value set to false.
-	 * @return A {@link List} containing all {@link Academy}s with the unpublished value set to false.
+	 * 
+	 * @return A {@link List} containing all {@link Academy}s with the unpublished
+	 *         value set to false.
 	 */
 	List<Academy> findByUnpublishedFalse();
 
 	/**
 	 * Fetches all {@link Academy} objects with the unpublished value set to true.
-	 * @return A {@link List} containing all {@link Academy}s with the unpublished value set to true.
+	 * 
+	 * @return A {@link List} containing all {@link Academy}s with the unpublished
+	 *         value set to true.
 	 */
 	List<Academy> findByUnpublishedTrue();
-	
-	
+
 }
