@@ -2,7 +2,7 @@ package se.hig.exte.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Convert;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-import se.hig.exte.util.MyLocalDateTimeConverter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 @Entity
 public class Settings {
@@ -26,9 +27,8 @@ public class Settings {
 	private String AboutPageHtml;
 	@Min(1)
 	private int unpublishTimeYears;
-//	 Might need a converter
-//	@Convert(converter = MyLocalDateTimeConverter.class)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Generated(GenerationTime.INSERT)
+	@Column(name = "created", updatable = false)
 	private LocalDateTime created;
 
 	protected Settings() {}

@@ -14,10 +14,12 @@ import se.hig.exte.repository.UserRepository;
 public class UserService implements CrudService<User> {
 
 	private final UserRepository userRepo;
-
+	private final CookieHandler cookieHandler;
+	
 	@Autowired
-	public UserService(UserRepository userRepo) {
+	public UserService(UserRepository userRepo, CookieHandler cookieHandler) {
 		this.userRepo = userRepo;
+		this.cookieHandler = cookieHandler;
 	}
 
 	@Override
@@ -47,11 +49,11 @@ public class UserService implements CrudService<User> {
 	@Scheduled(cron = "0 * * * * *")
 	public void removeOldSessions() {
 		try {
-			CookieHandler.createCookie(false);
+			cookieHandler.createCookie(false);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		CookieHandler.removeOldSessions();
+		cookieHandler.removeOldSessions();
 	}
 
 }

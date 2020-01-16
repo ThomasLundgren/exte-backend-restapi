@@ -1,9 +1,5 @@
 package se.hig.exte.restcontroller;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -57,11 +53,4 @@ public class LoginController {
 		loginService.logout(request.getCookies());
 	}
 
-	private void printAllCookies(HttpServletRequest request) {
-		Cookie[] cookiesFromUser = request.getCookies();
-		if (cookiesFromUser != null) {
-			System.out.println(Arrays.stream(cookiesFromUser).map(c -> c.getName() + "=" + c.getValue())
-					.collect(Collectors.joining(", ")));
-		}
-	}
 }

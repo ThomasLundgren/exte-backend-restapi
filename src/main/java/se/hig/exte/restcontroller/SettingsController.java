@@ -22,15 +22,17 @@ import se.hig.exte.service.SettingsService;
 public class SettingsController {
 
 	private final SettingsService settingsService;
+	private final CookieHandler cookieHandler;
 
 	@Autowired
-	public SettingsController(SettingsService settingsService) {
+	public SettingsController(SettingsService settingsService, CookieHandler cookieHandler) {
 		this.settingsService = settingsService;
+		this.cookieHandler = cookieHandler;
 	}
 
 	@GetMapping("/")
 	public ResponseEntity<Settings> getNewestSettings(HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Settings settings = settingsService.getCurrentSettings();
 			System.out.println(settings.getCreated());
 			return new ResponseEntity<Settings>(settings, HttpStatus.OK);
@@ -38,10 +40,10 @@ public class SettingsController {
 			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 	@GetMapping("/all")
 	public ResponseEntity<List<Settings>> getAllSettings(HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			List<Settings> settings = settingsService.findAllSettingsSorted();
 			return new ResponseEntity<List<Settings>>(settings, HttpStatus.OK);
 		} else {
@@ -51,15 +53,13 @@ public class SettingsController {
 
 	@PostMapping("/")
 	public ResponseEntity<Settings> saveSettings(@RequestBody Settings settings, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
-			if (settingsService.exists(settings)) {
-				return new ResponseEntity<Settings>(HttpStatus.FORBIDDEN);
-			} else {
-				Settings newSettings = settingsService.save(settings);
-				return new ResponseEntity<Settings>(newSettings, HttpStatus.OK);
-			}
-		} else {
+		if (!cookieHandler.isValidSuperSession(request.getCookies())) {
 			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
 		}
+		if (settingsService.exists(settings)) {
+			return new ResponseEntity<Settings>(HttpStatus.FORBIDDEN);
+		}
+		Settings newSettings = settingsService.save(settings);
+		return new ResponseEntity<Settings>(newSettings, HttpStatus.OK);
 	}
 }

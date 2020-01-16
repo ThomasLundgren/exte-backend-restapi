@@ -32,6 +32,7 @@ import se.hig.exte.service.UnpublishService;
 public class SubjectController {
 	private final SubjectService subjectService;
 	private final UnpublishService unpublishService;
+	private final CookieHandler cookieHandler;
 
 	/**
 	 * Creates a {@code SubjectController} object.
@@ -40,9 +41,10 @@ public class SubjectController {
 	 *                       services exposed in this RestController.
 	 */
 	@Autowired
-	public SubjectController(SubjectService subjectService, UnpublishService unpublishService) {
+	public SubjectController(SubjectService subjectService, UnpublishService unpublishService, CookieHandler cookieHandler) {
 		this.subjectService = subjectService;
 		this.unpublishService = unpublishService;
+		this.cookieHandler = cookieHandler;
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class SubjectController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject savedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
 		} else {
@@ -132,7 +134,7 @@ public class SubjectController {
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject patchedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
 		} else {
@@ -147,7 +149,7 @@ public class SubjectController {
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteSubjectById(@PathVariable int id, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			subjectService.deleteById(id);
 	}
 
@@ -170,7 +172,7 @@ public class SubjectController {
 	 */
 	@GetMapping("/unpublished")
 	public ResponseEntity<List<Subject>> getUnpublishedSubjects(HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			return new ResponseEntity<List<Subject>>(subjectService.findAllUnpublished(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
@@ -184,7 +186,7 @@ public class SubjectController {
 	 */
 	@PostMapping("/unpublish/{unpublished}")
 	public ResponseEntity<String> unpublishSubjects(@RequestBody List<Subject> subjects, @PathVariable boolean unpublished, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if(cookieHandler.isValidSuperSession(request.getCookies()))
 			return unpublishService.isSubjectsUnpublished(subjects, unpublished);	
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
