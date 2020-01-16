@@ -29,6 +29,13 @@ public interface ExamRepository extends JpaRepository<Exam, Integer>{
 	 * @param courseId The ID of the {@link Course}.
 	 * @return A {@link List} containing all {@link Exam}s belonging to the {@link Course} with the specified ID.
 	 */
+	List<Exam> findByCourseIdAndUnpublishedFalse(int courseId);
+	
+	/**
+	 * Fetches all {@link Exam} objects which belong to the specified {@link Course} from the database.
+	 * @param courseId The ID of the {@link Course}.
+	 * @return A {@link List} containing all {@link Exam}s belonging to the {@link Course} with the specified ID.
+	 */
 	List<Exam> findByCourseId(int courseId);
 	
 	/**

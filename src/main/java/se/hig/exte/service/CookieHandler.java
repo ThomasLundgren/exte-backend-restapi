@@ -27,7 +27,7 @@ public class CookieHandler {
 
 	/**
 	 * Generates a new cookie for the user
-	 * 
+	 *
 	 * @param isSuperUser is true if the user should have super-admin privileges
 	 * @return a ResponseCookie with the valid session settings
 	 * @throws NoSuchAlgorithmException if a cookie has failed to be initialized.
@@ -45,7 +45,7 @@ public class CookieHandler {
 
 	/**
 	 * Checks if the user has a valid cookie with admin-privileges
-	 * 
+	 *
 	 * @param cookiesFromUser all the cookies fetched from the user
 	 * @return true if the session is valid
 	 */
@@ -58,7 +58,7 @@ public class CookieHandler {
 
 	/**
 	 * Logs out the user
-	 * 
+	 *
 	 * @param cookiesFromUser all the cookies stored in the users browser.
 	 */
 	public void logout(Cookie[] cookiesFromUser) {
@@ -80,7 +80,7 @@ public class CookieHandler {
 
 	/**
 	 * Checks if the user has a valid cookie with SuperAdmin-privileges
-	 * 
+	 *
 	 * @param cookiesFromUser all the cookies fetched from the user
 	 * @return true if the session is valid
 	 */
@@ -130,7 +130,7 @@ public class CookieHandler {
 
 	/**
 	 * Class representing a session.
-	 * 
+	 *
 	 * @author Sanna Lundqvist
 	 *
 	 */

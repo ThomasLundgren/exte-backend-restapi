@@ -33,8 +33,18 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 * @return A {@code List} containing all {@link Course}s belonging to the
 	 *         {@link Subject} with the specified ID.
 	 */
-	List<Course> findBySubjectId(int subjectId);
+	List<Course> findBySubjectIdAndUnpublishedFalse(int subjectId);
 
+	/**
+	 * Fetches all {@link Course} objects which belong to the specified
+	 * {@link Subject} from the database.
+	 * 
+	 * @param subjectId The ID of the {@link Subject}.
+	 * @return A {@code List} containing all {@link Course}s belonging to the
+	 *         {@link Subject} with the specified ID.
+	 */
+	List<Course> findBySubjectId(int subjectId);
+	
 	/**
 	 * Fetches all {@link Course} objects from the database where:
 	 * <ul>
@@ -66,5 +76,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 * @return A {@link List} containing all {@link Course}s with the unpublished value set to false.
 	 */
 	List<Course> findByUnpublishedFalse();
+	
+	List<Course> findByUnpublishedFalseAndSubjectIdEquals(int id);
 
 }
