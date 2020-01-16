@@ -66,5 +66,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 * @return A {@link List} containing all {@link Course}s with the unpublished value set to false.
 	 */
 	List<Course> findByUnpublishedFalse();
+	
+	List<Course> findByUnpublishedFalseAndSubjectIdEquals(int id);
 
 }

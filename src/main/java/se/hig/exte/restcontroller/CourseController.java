@@ -105,6 +105,22 @@ public class CourseController {
 		List<Course> courses = courseService.findAllBySubjectId(id);
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
+	
+	/**
+	 * Fetches all {@link Course} objects belonging to the specified {@link Subject}
+	 * ID. List of {@link Course} objects is automatically converted to JSON using
+	 * Spring Boot's {@code HttpMessageConverter} and put in the
+	 * {@code ResponseEntity}'s body.
+	 * 
+	 * @param id The ID of the {@link Subject} to which the {@link Course}s belongs.
+	 * @return A @{@code ResponseEntity} object containing a {@code List} of
+	 *         {@link Course} objects.
+	 */
+	@GetMapping("/published/subject/{id}")
+	public ResponseEntity<List<Course>> getPublishedCourseBySubjectId(@PathVariable int id) {
+		List<Course> courses = courseService.findAllPublishedBySubjectId(id);
+		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+	}
 
 	/**
 	 * Updates the {@link Course} object with the given ID in the database.
@@ -163,9 +179,9 @@ public class CourseController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishCourse(@RequestBody Course course, HttpServletRequest request, @PathVariable boolean unpublished) {
+	public ResponseEntity<String> unpublishCourse(@RequestBody List<Course> courses, HttpServletRequest request, @PathVariable boolean unpublished) {
 		if(CookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.isCourseUnpublished(course, unpublished);
+			return unpublishService.isCoursesUnpublished(courses, unpublished);
 		else
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 	}

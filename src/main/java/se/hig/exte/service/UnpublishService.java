@@ -74,6 +74,18 @@ public class UnpublishService {
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	/**
+	 * Sets the boolean value of unpublished on {@link Course}
+	 * @param course The {@link Course} object to be modified
+	 * @param unpublish The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	public ResponseEntity<String> isCoursesUnpublished(List<Course> courses, boolean unpublished) {
+		for (Course course : courses) {
+			isCourseUnpublished(course, unpublished);
+		}
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
 
 	/**
 	 * Sets the boolean value of unpublished on {@link Subject}

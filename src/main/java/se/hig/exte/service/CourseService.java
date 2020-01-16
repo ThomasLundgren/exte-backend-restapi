@@ -67,6 +67,18 @@ public class CourseService implements CrudService<Course> {
 	public List<Course> findAllBySubjectId(int subjectId) {
 		return courseRepo.findBySubjectId(subjectId);
 	}
+	
+	/**
+	 * Fetches all {@link Course} objects which belong to the {@link Subject} with
+	 * the specified ID.
+	 * 
+	 * @param subjectId The ID of the {@link Subject} which {@link Course}s to
+	 *                  fetch.
+	 * @return A {@link List} containing all {@link Course}s found.
+	 */
+	public List<Course> findAllPublishedBySubjectId(int subjectId) {
+		return courseRepo.findByUnpublishedFalseAndSubjectIdEquals(subjectId);
+	}
 
 	/**
 	 * Deletes the {@link Course} object with the corresponding ID from the
