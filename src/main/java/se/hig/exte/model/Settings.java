@@ -1,14 +1,22 @@
 package se.hig.exte.model;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+
+import se.hig.exte.util.MyLocalDateTimeConverter;
 
 @Entity
 public class Settings {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Min(1)
 	private int cookieSessionMinutes;
@@ -18,7 +26,11 @@ public class Settings {
 	private String AboutPageHtml;
 	@Min(1)
 	private int unpublishTimeYears;
-	
+//	 Might need a converter
+//	@Convert(converter = MyLocalDateTimeConverter.class)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private LocalDateTime created;
+
 	protected Settings() {}
 
 	public int getId() {
@@ -61,6 +73,8 @@ public class Settings {
 		this.unpublishTimeYears = unpublishTimeYears;
 	}
 	
-	
+	public LocalDateTime getCreated() {
+		return created;
+	}
 	
 }

@@ -1,12 +1,14 @@
 package se.hig.exte.restcontroller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,23 +22,42 @@ import se.hig.exte.service.SettingsService;
 public class SettingsController {
 
 	private final SettingsService settingsService;
-	
+
 	@Autowired
 	public SettingsController(SettingsService settingsService) {
 		this.settingsService = settingsService;
 	}
-	
+
 	@GetMapping("/")
-	public ResponseEntity<Settings> getSettings() {
-		Settings settings = settingsService.getSettings();
-		return new ResponseEntity<Settings>(settings, HttpStatus.OK);
+	public ResponseEntity<Settings> getNewestSettings(HttpServletRequest request) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+			Settings settings = settingsService.getCurrentSettings();
+			System.out.println(settings.getCreated());
+			return new ResponseEntity<Settings>(settings, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
-	@PatchMapping("/")
-	public ResponseEntity<Settings> update(@RequestBody Settings settings, HttpServletRequest request) {
+	@GetMapping("/all")
+	public ResponseEntity<List<Settings>> getAllSettings(HttpServletRequest request) {
 		if (CookieHandler.isValidSuperSession(request.getCookies())) {
-			Settings newSettings = settingsService.update(settings);
-			return new ResponseEntity<Settings>(newSettings, HttpStatus.OK);
+			List<Settings> settings = settingsService.findAllSettingsSorted();
+			return new ResponseEntity<List<Settings>>(settings, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<List<Settings>>(HttpStatus.UNAUTHORIZED);
+		}
+	}
+
+	@PostMapping("/")
+	public ResponseEntity<Settings> saveSettings(@RequestBody Settings settings, HttpServletRequest request) {
+		if (CookieHandler.isValidSuperSession(request.getCookies())) {
+			if (settingsService.exists(settings)) {
+				return new ResponseEntity<Settings>(HttpStatus.FORBIDDEN);
+			} else {
+				Settings newSettings = settingsService.save(settings);
+				return new ResponseEntity<Settings>(newSettings, HttpStatus.OK);
+			}
 		} else {
 			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
 		}
