@@ -137,7 +137,7 @@ public class AcademyController {
 		else
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 	}
-
+	/*
 	 * Fetches all unpublished courses.
 	 *
 	 * @return A list of all unpublished courses and the http status OK.
@@ -155,7 +155,7 @@ public class AcademyController {
 	 */
 	@PostMapping("/unpublishList")
 	public ResponseEntity<List<Academy>> unpublishSubjects(@RequestBody List<Academy> academies, HttpServletRequest request) {
-		if (CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<List<Academy>>(unpublishService.setAcademiesUnpublished(academies), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Academy>>(HttpStatus.UNAUTHORIZED);
