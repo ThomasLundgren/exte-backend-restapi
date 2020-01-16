@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
-import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CookieHandler;
@@ -132,7 +131,7 @@ public class AcademyController {
 	 */
 	@PostMapping("/unpublish")
 	public ResponseEntity<Academy> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if(cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Academy>(unpublishService.setAcademyUnpublished(academy), HttpStatus.OK);
 		else
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
