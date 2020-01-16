@@ -8,8 +8,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * A model/entity class that represents a Course. The fields of this class maps to columns in the
- * database.
+ * A model/entity class that represents a Course. The fields of this class maps
+ * to columns in the database.
  */
 @Entity
 public class Course {
@@ -25,15 +25,20 @@ public class Course {
 	private String courseCode;
 	private boolean unpublished;
 	private int subjectId;
-	
+
 	// Only used for JPA/Spring, which is why it is declared with protected.
-	protected Course() {}
-	
+	protected Course() {
+	}
+
 	/**
 	 * Creates a {@code Course} object.
-	 * @param name The name of this {@code Course}. Must be at least two characters long and cannot be null.
-	 * @param courseCode The course code of this {@code Course}. Must be between six and seven characters long.
-	 * @param subjectId The ID of the {@link Subject} to which this {@code Course} belongs.
+	 * 
+	 * @param name       The name of this {@code Course}. Must be at least two
+	 *                   characters long and cannot be null.
+	 * @param courseCode The course code of this {@code Course}. Must be between six
+	 *                   and seven characters long.
+	 * @param subjectId  The ID of the {@link Subject} to which this {@code Course}
+	 *                   belongs.
 	 */
 	public Course(String name, String courseCode, boolean unpublished, int subjectId) {
 		this.name = name;
@@ -44,6 +49,7 @@ public class Course {
 
 	/**
 	 * Get the ID of this {@code Course}.
+	 * 
 	 * @return The ID of this {@code Course}.
 	 */
 	public int getId() {
@@ -52,14 +58,16 @@ public class Course {
 
 	/**
 	 * Get the name of this {@code Course}.
+	 * 
 	 * @return The name of this {@code Course}.
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Get the {@link Subject} to which this {@code Course} belongs.
+	 * 
 	 * @return The ID of the {@link Subject} to which this {@code Course} belongs.
 	 */
 	public int getSubjectId() {
@@ -68,6 +76,7 @@ public class Course {
 
 	/**
 	 * Get the course code of this {@code Course}.
+	 * 
 	 * @return The course code of this {@code Course}.
 	 */
 	public String getCourseCode() {
@@ -80,14 +89,17 @@ public class Course {
 
 	/**
 	 * Set the name of this {@code Course}. Must be at least two characters long.
+	 * 
 	 * @param name The new name of this {@code Course}.
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
-	 * Set the course code of this {@code Course}. Must be between six and seven characters long.
+	 * Set the course code of this {@code Course}. Must be between six and seven
+	 * characters long.
+	 * 
 	 * @param courseCode The new course code of this {@code Course}.
 	 */
 	public void setCourseCode(String courseCode) {
@@ -97,6 +109,7 @@ public class Course {
 	public void setUnpublished(boolean unpublished) {
 		this.unpublished = unpublished;
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */

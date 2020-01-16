@@ -35,6 +35,7 @@ public class ExamController {
 
 	private final ExamService examService;
 	private final UnpublishService unpublishService;
+	private final CookieHandler cookieHandler;
 
 	/**
 	 * Creates an {@code ExamController} object.
@@ -43,9 +44,10 @@ public class ExamController {
 	 *                    exposed in this RestController.
 	 */
 	@Autowired
-	public ExamController(ExamService addExamService, UnpublishService unpublishService) {
+	public ExamController(ExamService addExamService, UnpublishService unpublishService, CookieHandler cookieHandler) {
 		this.examService = addExamService;
 		this.unpublishService = unpublishService;
+		this.cookieHandler = cookieHandler;
 	}
 
 	/**
@@ -58,10 +60,10 @@ public class ExamController {
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam, HttpServletRequest request) {
-		if(CookieHandler.isValidAdminSession(request.getCookies())) {
+		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			Exam savedExam = examService.save(exam);
 			return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -111,16 +113,16 @@ public class ExamController {
 	 * Updates the {@link Exam} object with the given ID in the database.
 	 *
 	 * @param exam The {@link Exam} to update in the form of a JSON-object in the
-	 *               POST request.
+	 *             POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Exam}
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
 	public ResponseEntity<Exam> patchExam(@RequestBody Exam exam, HttpServletRequest request) {
-		if(CookieHandler.isValidAdminSession(request.getCookies())) {
+		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			Exam patchedExam = examService.save(exam);
 			return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -132,25 +134,25 @@ public class ExamController {
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			examService.deleteById(id);
-		
+
 	}
-	
 
 	@DeleteMapping("/")
 	public void deleteExams(@RequestBody List<Exam> exams, HttpServletRequest request) {
-		if(CookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			examService.deleteAll(exams);
 	}
 
 	/**
 	 * Fetches all unpublished exams.
+	 * 
 	 * @return A list of all unpublished exams and the http status OK.
 	 */
 	@GetMapping("/unpublished")
 	public ResponseEntity<List<Exam>> getUnpublishedExams(HttpServletRequest request) {
-		if(CookieHandler.isValidAdminSession(request.getCookies()))
+		if (cookieHandler.isValidAdminSession(request.getCookies()))
 			return new ResponseEntity<List<Exam>>(examService.findAllUnpublished(), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Exam>>(HttpStatus.UNAUTHORIZED);
@@ -158,33 +160,36 @@ public class ExamController {
 
 	/**
 	 * Changes the boolean unpublished value on the {@link Exam}
-	 * @param exam The {@link Exam} to update
+	 * 
+	 * @param exam        The {@link Exam} to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	 
+
 	@PostMapping("/unpublish")
 	public ResponseEntity<Exam> setExamUnpublished(@RequestBody Exam exam, HttpServletRequest request) {
-		if(CookieHandler.isValidAdminSession(request.getCookies()))
+		if (cookieHandler.isValidAdminSession(request.getCookies()))
 			return new ResponseEntity<Exam>(unpublishService.setExamUnpublished(exam), HttpStatus.OK);
 		else
 			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
 	}
-	
+
 	/**
 	 * Changes the boolean unpublished value on the {@link Exam}s
-	 * @param exam The {@link Exam}s to update
+	 * 
+	 * @param exam        The {@link Exam}s to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
-	 
+
 	@PostMapping("/unpublishList")
 	public ResponseEntity<List<Exam>> setExamsUnpublished(@RequestBody List<Exam> exams, HttpServletRequest request) {
-		if(CookieHandler.isValidAdminSession(request.getCookies()))
+		if (cookieHandler.isValidAdminSession(request.getCookies()))
 			return new ResponseEntity<List<Exam>>(unpublishService.setExamsUnpublished(exams), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Exam>>(HttpStatus.UNAUTHORIZED);
 	}
+
 	/**
 	 * This method is run automatically by Spring Boot at 03:00 every day.
 	 */

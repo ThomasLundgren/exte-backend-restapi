@@ -44,7 +44,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 *         {@link Subject} with the specified ID.
 	 */
 	List<Course> findBySubjectId(int subjectId);
-	
+
 	/**
 	 * Fetches all {@link Course} objects from the database where:
 	 * <ul>
@@ -64,19 +64,23 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 *         passed in courseCode parameter.
 	 */
 	List<Course> findByNameContainingOrCourseCodeContaining(String name, String courseCode);
-	
+
 	/**
 	 * Fetches all {@link Course} objects with the unpublished value set to true.
-	 * @return A {@link List} containing all {@link Course}s with the unpublished value set to true.
+	 * 
+	 * @return A {@link List} containing all {@link Course}s with the unpublished
+	 *         value set to true.
 	 */
 	List<Course> findByUnpublishedTrue();
-	
+
 	/**
 	 * Fetches all {@link Course} objects with the unpublished value set to false.
-	 * @return A {@link List} containing all {@link Course}s with the unpublished value set to false.
+	 * 
+	 * @return A {@link List} containing all {@link Course}s with the unpublished
+	 *         value set to false.
 	 */
 	List<Course> findByUnpublishedFalse();
-	
+
 	List<Course> findByUnpublishedFalseAndSubjectIdEquals(int id);
 
 }

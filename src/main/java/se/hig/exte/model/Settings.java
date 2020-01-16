@@ -1,14 +1,23 @@
 package se.hig.exte.model;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 @Entity
 public class Settings {
-	
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Min(1)
 	private int cookieSessionMinutes;
@@ -18,8 +27,12 @@ public class Settings {
 	private String AboutPageHtml;
 	@Min(1)
 	private int unpublishTimeYears;
-	
-	protected Settings() {}
+	@Generated(GenerationTime.INSERT)
+	@Column(name = "created", updatable = false)
+	private LocalDateTime created;
+
+	protected Settings() {
+	}
 
 	public int getId() {
 		return id;
@@ -60,7 +73,9 @@ public class Settings {
 	public void setUnpublishTimeYears(int unpublishTimeYears) {
 		this.unpublishTimeYears = unpublishTimeYears;
 	}
-	
-	
-	
+
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
 }

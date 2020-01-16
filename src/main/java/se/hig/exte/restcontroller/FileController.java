@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.ExamService;
 import se.hig.exte.service.FileService;
 
@@ -37,6 +38,7 @@ public class FileController implements HandlerExceptionResolver {
 
 	private final FileService fileService;
 	private final ExamService examService;
+	private final CookieHandler cookieHandler;
 
 	/**
 	 * Creates a {@code FileController}.
@@ -45,9 +47,10 @@ public class FileController implements HandlerExceptionResolver {
 	 * @param examService The {@link ExamService} to use.
 	 */
 	@Autowired
-	public FileController(FileService fileService, ExamService examService) {
+	public FileController(FileService fileService, ExamService examService, CookieHandler cookieHandler) {
 		this.fileService = fileService;
 		this.examService = examService;
+		this.cookieHandler = cookieHandler;
 	}
 
 	/**
@@ -83,7 +86,11 @@ public class FileController implements HandlerExceptionResolver {
 	 *         successful, else 417.
 	 */
 	@PostMapping(value = "/upload")
-	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file,
+			HttpServletRequest request) {
+		if (!this.cookieHandler.isValidAdminSession(request.getCookies())) {
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		}
 
 		String message = "";
 

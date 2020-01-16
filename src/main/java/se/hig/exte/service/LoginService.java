@@ -14,15 +14,16 @@ import se.hig.exte.login.LoginHandler;
 @Service
 public class LoginService {
 	private final ILoginHandler loginHandler;
-	@Autowired
 	private final UserService userService;
+	private final CookieHandler cookieHandler;
 
 	/**
 	 * @param loginHandler
 	 */
-
-	public LoginService(UserService userService) {
+	@Autowired
+	public LoginService(UserService userService, CookieHandler cookieHandler) {
 		this.userService = userService;
+		this.cookieHandler = cookieHandler;
 		loginHandler = new LoginHandler();
 	}
 
@@ -38,7 +39,7 @@ public class LoginService {
 	}
 
 	public void logout(Cookie[] cookies) {
-		CookieHandler.logout(cookies);
+		cookieHandler.logout(cookies);
 	}
 
 	private boolean checkIfUserExists(String username) {
@@ -48,7 +49,7 @@ public class LoginService {
 	private ResponseCookie createCookie(boolean isSuperUser) {
 		ResponseCookie cookie = null;
 		try {
-			cookie = CookieHandler.createCookie(isSuperUser);
+			cookie = cookieHandler.createCookie(isSuperUser);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
