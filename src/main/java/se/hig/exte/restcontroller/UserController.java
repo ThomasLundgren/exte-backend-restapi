@@ -36,8 +36,9 @@ public class UserController {
 	/**
 	 * Creates an {@code UserController} object.
 	 * 
-	 * @param userService The {@link CrudService} class used to perform all services
-	 *                    exposed in this RestController.
+	 * @param userService   The {@link CrudService} class used to perform all
+	 *                      services exposed in this RestController.
+	 * @param cookieHandler object responsible for handling authentication.
 	 */
 	@Autowired
 	public UserController(UserService userService, CookieHandler cookieHandler) {

@@ -39,8 +39,11 @@ public class AcademyController {
 	/**
 	 * Creates an {@code AcademyController} object.
 	 *
-	 * @param academyService The {@link CrudService} class used to perform all
-	 *                       services exposed in this RestController.
+	 * @param academyService   The {@link CrudService} class used to perform all
+	 *                         services exposed in this RestController.
+	 * @param unpublishService A {@link CrudService} class used to perform services
+	 *                         exposed in this RestController.
+	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
 	public AcademyController(AcademyService academyService, UnpublishService unpublishService,

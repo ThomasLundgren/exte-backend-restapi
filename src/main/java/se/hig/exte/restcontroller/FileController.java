@@ -25,6 +25,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.hig.exte.service.CookieHandler;
+import se.hig.exte.service.CrudService;
 import se.hig.exte.service.ExamService;
 import se.hig.exte.service.FileService;
 
@@ -45,6 +46,7 @@ public class FileController implements HandlerExceptionResolver {
 	 * 
 	 * @param fileService The {@link FileService} to use.
 	 * @param examService The {@link ExamService} to use.
+	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
 	public FileController(FileService fileService, ExamService examService, CookieHandler cookieHandler) {

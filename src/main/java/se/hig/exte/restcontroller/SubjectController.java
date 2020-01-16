@@ -37,8 +37,11 @@ public class SubjectController {
 	/**
 	 * Creates a {@code SubjectController} object.
 	 *
-	 * @param subjectService The {@link CrudService} class used to perform all
-	 *                       services exposed in this RestController.
+	 * @param subjectService   The {@link CrudService} class used to perform all
+	 *                         services exposed in this RestController.
+	 * @param unpublishService A {@link CrudService} class used to perform services
+	 *                         exposed in this RestController.
+	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
 	public SubjectController(SubjectService subjectService, UnpublishService unpublishService,

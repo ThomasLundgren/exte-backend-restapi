@@ -39,8 +39,11 @@ public class CourseController {
 	/**
 	 * Creates a {@code CourseController} object.
 	 *
-	 * @param courseService The {@link CrudService} class used to perform all
-	 *                      services exposed in this RestController.
+	 * @param courseService    A {@link CrudService} class used to perform services
+	 *                         exposed in this RestController.
+	 * @param unpublishService A {@link CrudService} class used to perform services
+	 *                         exposed in this RestController.
+	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
 	public CourseController(CourseService courseService, UnpublishService unpublishService,
