@@ -132,7 +132,7 @@ public class AcademyController {
 	 */
 	@PostMapping("/unpublish")
 	public ResponseEntity<Academy> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies()))
+		if(cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Academy>(unpublishService.setAcademyUnpublished(academy), HttpStatus.OK);
 		else
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
