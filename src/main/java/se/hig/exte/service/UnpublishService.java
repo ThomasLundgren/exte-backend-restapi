@@ -35,7 +35,7 @@ public class UnpublishService {
 
 	/**
 	 * Sets the boolean value of unpublished on {@link Exam}
-	 * 
+	 *
 	 * @param exam        The {@link Exam} object to be modified
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
@@ -46,7 +46,7 @@ public class UnpublishService {
 
 	/**
 	 * Sets the boolean value of unpublished on {@link Exam}s
-	 * 
+	 *
 	 * @param exam        The {@link Exam}s object to be modified
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
@@ -57,7 +57,7 @@ public class UnpublishService {
 
 	/**
 	 * Sets the boolean value of unpublished on {@link Exam}
-	 * 
+	 *
 	 * @param exam        The {@link Exam} object to be modified
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
@@ -69,7 +69,7 @@ public class UnpublishService {
 
 	/**
 	 * Sets the boolean value of unpublished on {@link Course}
-	 * 
+	 *
 	 * @param course    The {@link Course} object to be modified
 	 * @param unpublish The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
@@ -88,7 +88,7 @@ public class UnpublishService {
 
 	/**
 	 * Sets the boolean value of unpublished on {@link Course}s
-	 * 
+	 *
 	 * @param courses   The {@link Course}s object to be modified
 	 * @param unpublish The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
@@ -103,7 +103,7 @@ public class UnpublishService {
 
 	/**
 	 * Sets the boolean value of unpublished on {@link Subject}
-	 * 
+	 *
 	 * @param subject   The {@link Subject} object to be modified
 	 * @param unpublish The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
@@ -164,14 +164,6 @@ public class UnpublishService {
 			setAcademyUnpublished(academy);
 		}
 		return academies;
-	}
-
-	public ResponseEntity<String> setAcademiesUnpublished(List<Academy> academies, boolean unpublished) {
-		for (Academy academy : academies) {
-			academy.setUnpublished(unpublished);
-			setAcademyUnpublished(academy);
-		}
-		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 }
