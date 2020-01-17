@@ -169,7 +169,7 @@ public class UnpublishService {
 	public void unpublishEmptyCourses() {
 		List<Course> courses = courseRepo.findByUnpublishedFalse();
 		for (Course course: courses) {
-			List<Exam> exams = examRepo.findByCourseId(course.getId());
+			List<Exam> exams = examRepo.findByCourseIdAndUnpublishedFalse(course.getId());
 			if (exams.isEmpty()) {
 				course.setUnpublished(true);
 				courseRepo.save(course);
@@ -180,7 +180,7 @@ public class UnpublishService {
 	public void unpublishEmptySubjects() {
 		List<Subject> subjects = subjectRepo.findByUnpublishedFalse();
 		for (Subject subject: subjects) {
-			List<Course> courses = courseRepo.findBySubjectId(subject.getId());
+			List<Course> courses = courseRepo.findBySubjectIdAndUnpublishedFalse(subject.getId());
 			if (courses.isEmpty()) {
 				subject.setUnpublished(true);
 				subjectRepo.save(subject);
@@ -191,7 +191,7 @@ public class UnpublishService {
 	public void unpublishEmptyAcademies() {
 		List<Academy> academies = academyRepo.findByUnpublishedFalse();
 		for (Academy academy: academies) {
-			List<Subject> subjects = subjectRepo.findByAcademyId(academy.getId());
+			List<Subject> subjects = subjectRepo.findByAcademyIdAndUnpublishedFalse(academy.getId());
 			if (subjects.isEmpty()) {
 				academy.setUnpublished(true);
 				academyRepo.save(academy);
