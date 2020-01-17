@@ -134,19 +134,6 @@ public class UnpublishService {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
-	/**
-	 * Sets the unpublished value of {@link Exam} to true on all exams in the list.
-	 */
-	public void unpublishExpiredExams() {
-		List<Exam> exams = examRepo.findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate.now());
-		for (Exam exam : exams) {
-			exam.setUnpublished(true);
-			setExamUnpublished(exam);
-			System.out.println("Unpublisher unpublished " + exam.toString());
-		}
-		System.out.println(">>>> Unpublisher finished. <<<<");
-	}
-
 	public Academy setAcademyUnpublished(Academy academy) {
 		boolean unpublished = academy.getUnpublished();
 		List<Subject> subjects = subjectRepo.findByAcademyId(academy.getId());
@@ -165,5 +152,51 @@ public class UnpublishService {
 		}
 		return academies;
 	}
+	
+	/**
+	 * Sets the unpublished value of {@link Exam} to true on all exams in the list.
+	 */
+	public void unpublishExpiredExams() {
+		List<Exam> exams = examRepo.findByUnpublishDateLessThanAndUnpublishedFalse(LocalDate.now());
+		for (Exam exam : exams) {
+			exam.setUnpublished(true);
+			setExamUnpublished(exam);
+			System.out.println("Unpublisher unpublished " + exam.toString());
+		}
+		System.out.println(">>>> Unpublisher finished. <<<<");
+	}
 
+	public void unpublishEmptyCourses() {
+		List<Course> courses = courseRepo.findByUnpublishedFalse();
+		for (Course course: courses) {
+			List<Exam> exams = examRepo.findByCourseId(course.getId());
+			if (exams.isEmpty()) {
+				course.setUnpublished(true);
+				courseRepo.save(course);
+			}
+		}
+	}
+	
+	public void unpublishEmptySubjects() {
+		List<Subject> subjects = subjectRepo.findByUnpublishedFalse();
+		for (Subject subject: subjects) {
+			List<Course> courses = courseRepo.findBySubjectId(subject.getId());
+			if (courses.isEmpty()) {
+				subject.setUnpublished(true);
+				subjectRepo.save(subject);
+			}			
+		}
+	}
+	
+	public void unpublishEmptyAcademies() {
+		List<Academy> academies = academyRepo.findByUnpublishedFalse();
+		for (Academy academy: academies) {
+			List<Subject> subjects = subjectRepo.findByAcademyId(academy.getId());
+			if (subjects.isEmpty()) {
+				academy.setUnpublished(true);
+				academyRepo.save(academy);
+			}
+		}
+	}
+	
 }
