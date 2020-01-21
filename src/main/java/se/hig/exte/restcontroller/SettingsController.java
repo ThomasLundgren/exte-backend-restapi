@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,6 +75,26 @@ public class SettingsController {
 		} else {
 			return new ResponseEntity<List<Settings>>(HttpStatus.UNAUTHORIZED);
 		}
+	}
+
+	/**
+	 * Fetches the current HTML code for the "about" web page.
+	 * @return the "about" web page HTML as a String.
+	 */
+	@GetMapping("/about")
+	public ResponseEntity<String> getAboutPageHtml(HttpServletRequest request) {
+		return new ResponseEntity<String>(settingsService.findCurrentAboutPageHtml(), HttpStatus.OK);
+	}
+	
+	/**
+	 * Fetches the current HTML code for the "about" web page.
+	 * @return the "about" web page HTML as a String.
+	 */
+	@GetMapping(value = "/home", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> getHomePageHtml(HttpServletRequest request) {
+		String homePageHtml = settingsService.findCurrentHomePageHtml();
+		System.out.println(homePageHtml);
+		return ResponseEntity.status(HttpStatus.OK).body(settingsService.findCurrentHomePageHtml());
 	}
 
 	/**
