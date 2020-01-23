@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -24,6 +25,7 @@ public class Subject {
 	@NotBlank(message = "Name cannot be blank, empty or null")
 	private String name;
 	private boolean unpublished;
+	@Min(1)
 	private int academyId;
 
 	// Only used for JPA/Spring, which is why it is declared with protected.
