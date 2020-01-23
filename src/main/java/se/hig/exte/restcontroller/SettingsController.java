@@ -48,7 +48,7 @@ public class SettingsController {
 	 */
 	@GetMapping("/")
 	public ResponseEntity<Settings> getNewestSettings(HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			Settings settings = settingsService.getCurrentSettings();
 			System.out.println(settings.getCreated());
 			return new ResponseEntity<Settings>(settings, HttpStatus.OK);
@@ -69,7 +69,7 @@ public class SettingsController {
 	 */
 	@GetMapping("/tenLatest")
 	public ResponseEntity<List<Settings>> getTenLatestSettings(HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies())) {
+		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			List<Settings> settings = settingsService.findTenLatestSettings();
 			return new ResponseEntity<List<Settings>>(settings, HttpStatus.OK);
 		} else {
@@ -79,30 +79,37 @@ public class SettingsController {
 
 	/**
 	 * Fetches the current HTML code for the "about" web page.
+	 * 
 	 * @return the "about" web page HTML as a String.
 	 */
 	@GetMapping("/about")
 	public ResponseEntity<String> getAboutPageHtml(HttpServletRequest request) {
 		return new ResponseEntity<String>(settingsService.findCurrentAboutPageHtml(), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Fetches the current HTML code for the "about" web page.
+	 * 
 	 * @return the "about" web page HTML as a String.
 	 */
-	@GetMapping(value = "/home", produces = MediaType.TEXT_PLAIN_VALUE)
+	@GetMapping("/home")
 	public ResponseEntity<String> getHomePageHtml(HttpServletRequest request) {
-		String homePageHtml = settingsService.findCurrentHomePageHtml();
-		System.out.println(homePageHtml);
-		return ResponseEntity.status(HttpStatus.OK).body(settingsService.findCurrentHomePageHtml());
+		return new ResponseEntity<String>(settingsService.findCurrentHomePageHtml(), HttpStatus.OK);
 	}
+	
+	
+	@GetMapping("/unpublishTime")
+	public ResponseEntity<String> getUnpublishTime(HttpServletRequest request) {
+		return new ResponseEntity<String>(settingsService.findCurrentUnpublishTime().toString(), HttpStatus.OK);
+	}
+	
 
 	/**
 	 * Fetches all {@link Settings} objects from the database and returns them
 	 * sorted by creation date with the most recently added {@link Settings} first.
 	 * 
 	 * @param request The incoming HTTP request.
-	 * @return A @{@code ResponseEntity} with a {@code List} containing all
+	 * @return A {@code ResponseEntity} with a {@code List} containing all
 	 *         {@link Settings} objects sorted by creation date with the most
 	 *         recently added {@link Settings} first, in JSON format.
 	 */
@@ -117,10 +124,23 @@ public class SettingsController {
 	}
 
 	/**
-	 * Saves a {@link Settings} object to the database.
+	 * Saves a {@link Settings} object to the database. Returns a "FORBIDDEN" HTTP
+	 * status code if the {@link Settings} object already exists. Updates are not
+	 * allowed.
 	 * 
 	 * @param settings The {@link Settings} object to save.
 	 * @param request  The incoming HTTP request.
+	 * @return A {@code ResponseEntity} containing the saved {@link Settings}
+	 *         object, in JSON format accompanied by an HTTP status code.
+	 *         <p>
+	 *         Returns:
+	 *         <ul>
+	 *         <li>200 if the request is successful.</li>
+	 *         <li>401 if the user is not logged in</li>
+	 *         <li>403 if the tries to save a {@link Settings} object that has an ID
+	 *         value. ID should be null.</li>
+	 *         </ul>
+	 *         </p>
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Settings> saveSettings(@RequestBody Settings settings, HttpServletRequest request) {

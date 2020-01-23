@@ -64,8 +64,8 @@ public class AcademyController {
 	}
 
 	/**
-	 * Creates an {@link Academy} and stores it in the database. Only accesable by
-	 * super-admin
+	 * Creates an {@link Academy} and stores it in the database. Only accessible by
+	 * super-admin.
 	 *
 	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
 	 *                POST request.

@@ -95,6 +95,14 @@ public class SettingsService {
 	}
 
 	/**
+	 * Fetches the current HTML code for the "home" web page.
+	 * @return the "home" web page HTML as a String.
+	 */
+	public Integer findCurrentUnpublishTime() {
+		return settingsRepo.findFirstByOrderByCreatedDesc().getUnpublishTimeYears();
+	}
+	
+	/**
 	 * Checks if the specified {@link Settings} object already exists.
 	 * 
 	 * @param settings The {@link Settings} object which to check.
