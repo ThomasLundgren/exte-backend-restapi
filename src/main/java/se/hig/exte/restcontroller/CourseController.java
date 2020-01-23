@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -207,4 +208,12 @@ public class CourseController {
 			return new ResponseEntity<List<Course>>(HttpStatus.UNAUTHORIZED);
 	}
 
+	/**
+	 * This method is run automatically by Spring Boot at 03:00 every day.
+	 */
+	@Scheduled(cron = "0 2 3 * * *")
+	@GetMapping("/testAuto")
+	public void autoUnpublish() {
+		unpublishService.unpublishEmptyCourses();
+	}
 }
