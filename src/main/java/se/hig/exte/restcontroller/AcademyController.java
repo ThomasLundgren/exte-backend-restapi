@@ -3,6 +3,7 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,7 +75,7 @@ public class AcademyController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+	public ResponseEntity<Academy> saveAcademy(@Valid @RequestBody Academy academy, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Academy savedAcademy = academyService.save(academy);
 			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
@@ -104,7 +105,7 @@ public class AcademyController {
 	 *         {@link Academy} and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Academy> updateAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+	public ResponseEntity<Academy> updateAcademy(@Valid @RequestBody Academy academy, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Academy savedAcademy = academyService.save(academy);
 			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
@@ -135,7 +136,7 @@ public class AcademyController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
-	public ResponseEntity<Academy> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+	public ResponseEntity<Academy> unpublishAcademy(@Valid @RequestBody Academy academy, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Academy>(unpublishService.setAcademyUnpublished(academy), HttpStatus.OK);
 		else
@@ -158,13 +159,12 @@ public class AcademyController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
-	public ResponseEntity<List<Academy>> unpublishSubjects(@RequestBody List<Academy> academies, HttpServletRequest request) {
+	public ResponseEntity<List<Academy>> unpublishSubjects(@Valid @RequestBody List<Academy> academies, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<List<Academy>>(unpublishService.setAcademiesUnpublished(academies), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Academy>>(HttpStatus.UNAUTHORIZED);
 	}
-
 	
 	/**
 	 * This method is run automatically by Spring Boot at 03:00 every day.

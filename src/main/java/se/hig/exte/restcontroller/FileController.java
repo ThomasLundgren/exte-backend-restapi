@@ -35,7 +35,7 @@ import se.hig.exte.service.FileService;
  */
 @RestController
 @RequestMapping("/files")
-public class FileController implements HandlerExceptionResolver {
+public class FileController /*implements HandlerExceptionResolver*/ {
 
 	private final FileService fileService;
 	private final ExamService examService;
@@ -117,26 +117,26 @@ public class FileController implements HandlerExceptionResolver {
 
 	}
 
-	@Override
-	@ResponseBody
-	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
-			Exception e) {
-
-		if (e instanceof MaxUploadSizeExceededException) {
-			ModelAndView modelAndView = new ModelAndView("inline error");
-			modelAndView.addObject("error", "Error: File size exceeded the maximum limit. Maximum limit set to 5MB");
-			return modelAndView;
-		}
-
-		if (e instanceof MultipartException) {
-			ModelAndView modelAndView = new ModelAndView("inline error");
-			modelAndView.addObject("error", "MultipartException");
-			return modelAndView;
-		}
-
-		e.printStackTrace();
-		return new ModelAndView("500");
-	}
+//	@Override
+//	@ResponseBody
+//	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
+//			Exception e) {
+//
+//		if (e instanceof MaxUploadSizeExceededException) {
+//			ModelAndView modelAndView = new ModelAndView("inline error");
+//			modelAndView.addObject("error", "Error: File size exceeded the maximum limit. Maximum limit set to 5MB");
+//			return modelAndView;
+//		}
+//
+//		if (e instanceof MultipartException) {
+//			ModelAndView modelAndView = new ModelAndView("inline error");
+//			modelAndView.addObject("error", "MultipartException");
+//			return modelAndView;
+//		}
+//
+//		e.printStackTrace();
+//		return new ModelAndView("500");
+//	}
 
 	private boolean isPDF(MultipartFile file) {
 		return file.getContentType().equals("application/pdf")

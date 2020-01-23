@@ -1,5 +1,6 @@
 package se.hig.exte.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +18,10 @@ public class Academy {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@NotBlank(message = "Name cannot be empty or null")
-	@Size(min = 2)
+	@NotBlank(message = "Name cannot be empty")
+	@Size(min = 2, message = "Name must be at least two characters long")
 	private String name;
-	@NotBlank(message = "Abbreviation cannot be empty or null")
+	@NotBlank(message = "Abbreviation cannot be empty")
 	@Size(min = 2, max = 5, message = "Abbreviation must be between two and five characters long")
 	private String abbreviation;
 	private boolean unpublished;

@@ -23,7 +23,7 @@ public class Settings {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Min(1)
+	@Min(5)
 	private int cookieSessionMinutes;
 	@NotBlank(message = "Home page HTML cannot be blank")
 	private String homePageHtml;
