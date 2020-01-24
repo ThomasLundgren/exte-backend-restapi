@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -18,14 +17,13 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Size(min = 2, max = 2)
-	@NotBlank(message = "Code cannot be blank, empty or null")
+	@Size(min = 2, max = 2, message = "Subject code must be two characters")
+	@NotBlank(message = "Subject code cannot be blank")
 	private String code;
-	@Size(min = 3)
-	@NotBlank(message = "Name cannot be blank, empty or null")
+	@Size(min = 3, message = "Name must be at least three characters long")
+	@NotBlank(message = "Name cannot be blank")
 	private String name;
 	private boolean unpublished;
-	@Min(1)
 	private int academyId;
 
 	// Only used for JPA/Spring, which is why it is declared with protected.

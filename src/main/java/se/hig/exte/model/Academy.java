@@ -20,7 +20,7 @@ public class Academy {
 	@NotBlank(message = "Name cannot be blank")
 	@Size(min = 2, message = "Name must be at least two characters long")
 	private String name;
-	@NotBlank(message = "Abbreviation cannot be empty")
+	@NotBlank(message = "Abbreviation cannot be blank")
 	@Size(min = 2, max = 5, message = "Abbreviation must be between two and five characters long")
 	private String abbreviation;
 	private boolean unpublished;

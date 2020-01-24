@@ -1,5 +1,7 @@
 package se.hig.exte.restcontroller;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,20 +19,26 @@ import se.hig.exte.model.ApiError;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	public static final String ENTITY_VALIDATION_ERROR = "Entity validation error";
-	public static final String MAX_UPLOAD_SIZE_ERROR = "Maximum file size exceeded";
-	public static final String MULTIPART_ERROR = "Multipart error";
-	public static final String DATA_INTEGRITY_VIOLATION_ERROR = "Data integrity violation";
+	public static final String ENTITY_VALIDATION = "Entity validation error";
+	public static final String MAX_UPLOAD_SIZE_EXCEEDED = "Max upload size exceeded";
+	public static final String MULTIPART = "Multipart error";
+	public static final String DATA_INTEGRITY_VIOLATION = "Data integrity violation";
+	public static final String CONSTRAINT_VIOLATION = "Constraint violation";
 
 	@ExceptionHandler({ MethodArgumentNotValidException.class, MaxUploadSizeExceededException.class,
-			MultipartException.class, DataIntegrityViolationException.class })
+			MultipartException.class, DataIntegrityViolationException.class, ConstraintViolationException.class })
 	public ResponseEntity<ApiError> handleException(Exception e, WebRequest request) {
 		HttpHeaders headers = new HttpHeaders();
 		if (e instanceof MethodArgumentNotValidException) {
+			// Thrown when a validation from a @Valid annotation in a RestController fails.
 			HttpStatus status = HttpStatus.BAD_REQUEST;
 			MethodArgumentNotValidException manve = (MethodArgumentNotValidException) e;
 			return handleMethodArgumentNotValidException(manve, request, headers, status);
 		} else if (e instanceof MaxUploadSizeExceededException) {
+			/*
+			 * Thrown when a trying to upload a file with size larger than the specified max
+			 * file size
+			 */
 			HttpStatus status = HttpStatus.PAYLOAD_TOO_LARGE;
 			MaxUploadSizeExceededException musee = (MaxUploadSizeExceededException) e;
 			return handleMaxUploadSizeExceededException(musee, request, headers, status);
@@ -39,9 +47,22 @@ public class GlobalExceptionHandler {
 			MultipartException mpe = (MultipartException) e;
 			return handleMultiPartException(mpe, request, headers, status);
 		} else if (e instanceof DataIntegrityViolationException) {
+			/*
+			 * Thrown when a database constraint fails (e.g. Unique and Foreign key
+			 * constraints)
+			 */
 			HttpStatus status = HttpStatus.BAD_REQUEST;
 			DataIntegrityViolationException dive = (DataIntegrityViolationException) e;
 			return handleDataIntegrityViolationException(dive, request, headers, status);
+		} else if (e instanceof ConstraintViolationException) {
+			/*
+			 * Should be thrown when a Spring validation NOT coming from a @Valid annotation
+			 * in a RestController fails. (This seems to happen even with @Valid
+			 * sometimes...)
+			 */
+			HttpStatus status = HttpStatus.BAD_REQUEST;
+			ConstraintViolationException cve = (ConstraintViolationException) e;
+			return handleConstraintViolationException(cve, request, headers, status);
 		} else {
 			HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 			return handleExceptionInternal(e, null, headers, status, request);
@@ -50,8 +71,9 @@ public class GlobalExceptionHandler {
 
 	private ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException manve,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
-		ApiError errors = new ApiError(ENTITY_VALIDATION_ERROR); 
+		ApiError errors = new ApiError(ENTITY_VALIDATION);
 		manve.getBindingResult().getAllErrors().forEach(error -> {
+			System.err.println(error.getDefaultMessage());
 			String errorMessage = error.getDefaultMessage();
 			errors.addError(errorMessage);
 		});
@@ -60,13 +82,17 @@ public class GlobalExceptionHandler {
 
 	private ResponseEntity<ApiError> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException musee,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
-		ApiError errors = createApiError(MAX_UPLOAD_SIZE_ERROR, musee.getMostSpecificCause());
+		ApiError errors = new ApiError(MAX_UPLOAD_SIZE_EXCEEDED);
+		errors.addError(musee.getMostSpecificCause().getMessage());
+		System.err.println(musee.getMostSpecificCause().getMessage());
 		return handleExceptionInternal(musee, errors, headers, status, request);
 	}
 
 	private ResponseEntity<ApiError> handleMultiPartException(MultipartException mpe, WebRequest request,
 			HttpHeaders headers, HttpStatus status) {
-		ApiError errors = createApiError(MULTIPART_ERROR, mpe.getMostSpecificCause());
+		ApiError errors = new ApiError(MULTIPART);
+		errors.addError(mpe.getMostSpecificCause().getMessage());
+		System.err.println(mpe.getMostSpecificCause().getMessage());
 		/*
 		 * Bypass handleExceptionInternal call since status is
 		 * HttpStatus.INTERNAL_SERVER_ERROR and we don't want generic exception handling
@@ -77,13 +103,24 @@ public class GlobalExceptionHandler {
 
 	private ResponseEntity<ApiError> handleDataIntegrityViolationException(DataIntegrityViolationException dive,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
-		ApiError errors = createApiError(DATA_INTEGRITY_VIOLATION_ERROR, dive.getMostSpecificCause());
+		ApiError errors = new ApiError(DATA_INTEGRITY_VIOLATION);
+		errors.addError(dive.getMostSpecificCause().getMessage());
 		return handleExceptionInternal(dive, errors, headers, status, request);
 	}
 
+	private ResponseEntity<ApiError> handleConstraintViolationException(ConstraintViolationException cve,
+			WebRequest request, HttpHeaders headers, HttpStatus status) {
+		ApiError errors = new ApiError(DATA_INTEGRITY_VIOLATION);
+		cve.getConstraintViolations().forEach(error -> {
+			errors.addError(error.getMessage());
+		});
+		return handleExceptionInternal(cve, errors, headers, status, request);
+	}
+
+	// Default handler used when no other handler has caught the exception.
 	private ResponseEntity<ApiError> handleExceptionInternal(Exception ex, ApiError body, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
-		if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
+		if (status.equals(HttpStatus.INTERNAL_SERVER_ERROR)) {
 			request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
 		}
 		return new ResponseEntity<ApiError>(body, headers, status);
@@ -96,10 +133,10 @@ public class GlobalExceptionHandler {
 	 * org.springframework.core.NestedRuntimeException.getMostSpecificCause() and
 	 * pass that in. It often generates the most specific error messages.
 	 */
-	private ApiError createApiError(String errorType, Throwable throwable) {
-		ApiError errors = new ApiError(errorType);
-		errors.addError(throwable.getMessage());
-		return errors;
-	}
+//	private ApiError createApiError(String errorType, Throwable throwable) {
+//		ApiError errors = new ApiError(errorType);
+//		errors.addError(throwable.getMessage());
+//		return errors;
+//	}
 
 }

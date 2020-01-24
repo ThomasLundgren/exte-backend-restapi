@@ -23,13 +23,13 @@ public class Settings {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Min(5)
+	@Min(value = 5, message = "Cookie session time must be greater than or equal to 5 minutes")
 	private int cookieSessionMinutes;
 	@NotBlank(message = "Home page HTML cannot be blank")
 	private String homePageHtml;
 	@NotBlank(message = "Home page HTML cannot be blank")
 	private String aboutPageHtml;
-	@Min(1)
+	@Min(value = 1, message = "Unpublish time must be greater than or equal to 1 year")
 	private int unpublishTimeYears;
 	@Generated(GenerationTime.INSERT)
 	@Column(name = "created", updatable = false)

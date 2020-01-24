@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,12 +23,11 @@ public class Exam {
 	@NotBlank(message = "Filename cannot be blank")
 	@Size(min = 2, message = "Filename must be at least two characters long")
 	private String filename;
-	@NotNull(message = "Date cannot be null")
+	@NotNull(message = "Date is required")
 	private LocalDate date;
-	@NotNull(message = "UnpublishDate cannot be null")
+	@NotNull(message = "UnpublishDate is required")
 	private LocalDate unpublishDate;
 	private boolean unpublished;
-	@Min(1)
 	private int courseId;
 
 	// Only used for JPA/Spring, which is why it is declared with protected.
