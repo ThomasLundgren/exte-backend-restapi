@@ -116,7 +116,7 @@ public class Subject {
 	 */
 	@Override
 	public String toString() {
-		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: ";
+		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: " + academyId;
 	}
 
 }
