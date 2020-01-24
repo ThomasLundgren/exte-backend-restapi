@@ -22,10 +22,10 @@ import se.hig.exte.model.ApiError;
 public class GlobalExceptionHandler {
 	
 	public static final String ENTITY_VALIDATION_ERROR = "Entity validation error";
-	public static final String MAX_UPLOAD_SIZE_ERROR = "File size exceeded the maximum limit. Maximum limit set to 5MB";
-	public static final String MULTIPART_ERROR = "Server failed to upload file due to a multipart exception. Please try again";
+	public static final String MAX_UPLOAD_SIZE_ERROR = "Maximum file size exceeded";
+	public static final String MULTIPART_ERROR = "Multipart error";
 //	public static final String SQL_CONSTRAINT_ERROR = "SQL Constraint error";
-	public static final String DATA_INTEGRITY_VIOLATION_ERROR = "Data Integrity Violation Error";
+	public static final String DATA_INTEGRITY_VIOLATION_ERROR = "Data integrity violation";
 
 	@ExceptionHandler({ MethodArgumentNotValidException.class, MaxUploadSizeExceededException.class,
 			MultipartException.class, SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class })
