@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
 
 	private ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException manve,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
-		ApiError errors = createApiError(ENTITY_VALIDATION_ERROR, manve);
+		ApiError errors = new ApiError(ENTITY_VALIDATION_ERROR); 
 		manve.getBindingResult().getAllErrors().forEach(error -> {
 			String errorMessage = error.getDefaultMessage();
 			errors.addError(errorMessage);
