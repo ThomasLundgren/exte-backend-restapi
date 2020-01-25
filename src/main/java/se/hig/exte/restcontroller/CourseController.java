@@ -3,6 +3,7 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,7 +64,7 @@ public class CourseController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Course> saveCourse(@RequestBody Course course, HttpServletRequest request) {
+	public ResponseEntity<Course> saveCourse(@Valid @RequestBody Course course, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Course savedCourse = courseService.save(course);
 			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
@@ -138,7 +139,7 @@ public class CourseController {
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Course> updateCourse(@RequestBody Course course, HttpServletRequest request) {
+	public ResponseEntity<Course> updateCourse(@Valid @RequestBody Course course, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Course savedCourse = courseService.save(course);
 			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
@@ -187,7 +188,7 @@ public class CourseController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
-	public ResponseEntity<Course> unpublishCourse(@RequestBody Course course, HttpServletRequest request) {
+	public ResponseEntity<Course> unpublishCourse(@Valid @RequestBody Course course, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Course>(unpublishService.setCourseUnpublished(course), HttpStatus.OK);
 		else

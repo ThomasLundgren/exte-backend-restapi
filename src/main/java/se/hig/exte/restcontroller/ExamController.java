@@ -3,6 +3,7 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,7 +63,7 @@ public class ExamController {
 	 *         an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Exam> saveExam(@RequestBody Exam exam, HttpServletRequest request) {
+	public ResponseEntity<Exam> saveExam(@Valid @RequestBody Exam exam, HttpServletRequest request) {
 		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			Exam savedExam = examService.save(exam);
 			return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
@@ -121,7 +122,7 @@ public class ExamController {
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Exam> patchExam(@RequestBody Exam exam, HttpServletRequest request) {
+	public ResponseEntity<Exam> patchExam(@Valid @RequestBody Exam exam, HttpServletRequest request) {
 		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			Exam patchedExam = examService.save(exam);
 			return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);
@@ -170,7 +171,7 @@ public class ExamController {
 	 */
 
 	@PostMapping("/unpublish")
-	public ResponseEntity<Exam> setExamUnpublished(@RequestBody Exam exam, HttpServletRequest request) {
+	public ResponseEntity<Exam> setExamUnpublished(@Valid @RequestBody Exam exam, HttpServletRequest request) {
 		if (cookieHandler.isValidAdminSession(request.getCookies()))
 			return new ResponseEntity<Exam>(unpublishService.setExamUnpublished(exam), HttpStatus.OK);
 		else

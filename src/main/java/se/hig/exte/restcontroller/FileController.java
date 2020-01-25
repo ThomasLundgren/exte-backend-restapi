@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
-import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.ModelAndView;
 
 import se.hig.exte.service.CookieHandler;
-import se.hig.exte.service.CrudService;
 import se.hig.exte.service.ExamService;
 import se.hig.exte.service.FileService;
 
@@ -35,7 +28,7 @@ import se.hig.exte.service.FileService;
  */
 @RestController
 @RequestMapping("/files")
-public class FileController implements HandlerExceptionResolver {
+public class FileController /*implements HandlerExceptionResolver*/ {
 
 	private final FileService fileService;
 	private final ExamService examService;
@@ -115,27 +108,6 @@ public class FileController implements HandlerExceptionResolver {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
 		}
 
-	}
-
-	@Override
-	@ResponseBody
-	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
-			Exception e) {
-
-		if (e instanceof MaxUploadSizeExceededException) {
-			ModelAndView modelAndView = new ModelAndView("inline error");
-			modelAndView.addObject("error", "Error: File size exceeded the maximum limit. Maximum limit set to 5MB");
-			return modelAndView;
-		}
-
-		if (e instanceof MultipartException) {
-			ModelAndView modelAndView = new ModelAndView("inline error");
-			modelAndView.addObject("error", "MultipartException");
-			return modelAndView;
-		}
-
-		e.printStackTrace();
-		return new ModelAndView("500");
 	}
 
 	private boolean isPDF(MultipartFile file) {

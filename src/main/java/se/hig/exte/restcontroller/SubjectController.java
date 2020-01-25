@@ -3,6 +3,8 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +63,7 @@ public class SubjectController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject, HttpServletRequest request) {
+	public ResponseEntity<Subject> saveSubject(@Valid @RequestBody Subject subject, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject savedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
@@ -138,7 +140,7 @@ public class SubjectController {
 	 *         {@link Subject} and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject, HttpServletRequest request) {
+	public ResponseEntity<Subject> patchSubject(@Valid @RequestBody Subject subject, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject patchedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
@@ -192,7 +194,7 @@ public class SubjectController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
-	public ResponseEntity<Subject> unpublishSubject(@RequestBody Subject subject, HttpServletRequest request) {
+	public ResponseEntity<Subject> unpublishSubject(@Valid @RequestBody Subject subject, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Subject>(unpublishService.setSubjectUnpublished(subject), HttpStatus.OK);
 		else

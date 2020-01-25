@@ -17,11 +17,11 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Size(min = 2, max = 2)
-	@NotBlank(message = "Code cannot be blank, empty or null")
+	@Size(min = 2, max = 2, message = "Subject code must be two characters")
+	@NotBlank(message = "Subject code cannot be blank")
 	private String code;
-	@Size(min = 3)
-	@NotBlank(message = "Name cannot be blank, empty or null")
+	@Size(min = 3, message = "Name must be at least three characters long")
+	@NotBlank(message = "Name cannot be blank")
 	private String name;
 	private boolean unpublished;
 	private int academyId;
