@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Start-Class: se.hig.exte.ExteBackendApplication
+Start-Class: se.hig.exte.ExteBackendRestapiApplication
 Spring-Boot-Classes: BOOT-INF/classes/
 Spring-Boot-Lib: BOOT-INF/lib/
 Spring-Boot-Version: 2.2.1.RELEASE
