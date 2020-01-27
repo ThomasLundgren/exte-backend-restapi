@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -37,8 +38,11 @@ public class SubjectController {
 	/**
 	 * Creates a {@code SubjectController} object.
 	 *
-	 * @param subjectService The {@link CrudService} class used to perform all
-	 *                       services exposed in this RestController.
+	 * @param subjectService   The {@link CrudService} class used to perform all
+	 *                         services exposed in this RestController.
+	 * @param unpublishService A {@link CrudService} class used to perform services
+	 *                         exposed in this RestController.
+	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
 	public SubjectController(SubjectService subjectService, UnpublishService unpublishService,
@@ -211,4 +215,12 @@ public class SubjectController {
 			return new ResponseEntity<List<Subject>>(HttpStatus.UNAUTHORIZED);
 	}
 
+	/**
+	 * This method is run automatically by Spring Boot at 03:00 every day.
+	 */
+	@Scheduled(cron = "0 4 3 * * *")
+	@GetMapping("/testAuto")
+	public void autoUnpublish() {
+		unpublishService.unpublishEmptySubjects();
+	}
 }

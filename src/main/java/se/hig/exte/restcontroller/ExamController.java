@@ -40,8 +40,11 @@ public class ExamController {
 	/**
 	 * Creates an {@code ExamController} object.
 	 *
-	 * @param examService The {@link CrudService} class used to perform all services
-	 *                    exposed in this RestController.
+	 * @param examService      The {@link CrudService} class used to perform all
+	 *                         services exposed in this RestController.
+	 * @param unpublishService A {@link CrudService} class used to perform services
+	 *                         exposed in this RestController.
+	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
 	public ExamController(ExamService addExamService, UnpublishService unpublishService, CookieHandler cookieHandler) {

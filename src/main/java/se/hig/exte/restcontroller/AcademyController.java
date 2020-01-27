@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -39,8 +40,11 @@ public class AcademyController {
 	/**
 	 * Creates an {@code AcademyController} object.
 	 *
-	 * @param academyService The {@link CrudService} class used to perform all
-	 *                       services exposed in this RestController.
+	 * @param academyService   The {@link CrudService} class used to perform all
+	 *                         services exposed in this RestController.
+	 * @param unpublishService A {@link CrudService} class used to perform services
+	 *                         exposed in this RestController.
+	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
 	public AcademyController(AcademyService academyService, UnpublishService unpublishService,
@@ -52,7 +56,7 @@ public class AcademyController {
 
 	/**
 	 * Gets All published academies
-	 * 
+	 *
 	 * @return
 	 */
 	@GetMapping("/all")
@@ -61,9 +65,9 @@ public class AcademyController {
 	}
 
 	/**
-	 * Creates an {@link Academy} and stores it in the database. Only accesable by
-	 * super-admin
-	 * 
+	 * Creates an {@link Academy} and stores it in the database. Only accessible by
+	 * super-admin.
+	 *
 	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
 	 *                POST request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
@@ -93,7 +97,7 @@ public class AcademyController {
 	/**
 	 * Updates the {@link Academy} object with the given ID in the database. Only
 	 * accessible by Super-admin
-	 * 
+	 *
 	 * @param academy The {@link Academy} to update in the form of a JSON-object in
 	 *                the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated
@@ -112,7 +116,7 @@ public class AcademyController {
 	/**
 	 * Deletes the {@link Academy} object with the given ID from the database. Only
 	 * accesable by super-admin
-	 * 
+	 *
 	 * @param id The ID of the {@link Academy} to delete.
 	 */
 	@DeleteMapping("/{id}")
@@ -126,7 +130,7 @@ public class AcademyController {
 
 	/**
 	 * Changes the boolean unpublished value on the {@link Academy}
-	 * 
+	 *
 	 * @param academy The {@link Academy} to update
 	 * @return The ResponseEntity string of the http status.
 	 */
@@ -137,26 +141,9 @@ public class AcademyController {
 		else
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 	}
-
-	/**
-	 * Changes the boolean unpublished value on the {@link Academy}
-	 * 
-	 * @param subject     The {@link Subject} to update
-	 * @param unpublished The boolean is unpublished
-	 * @return The ResponseEntity string of the http status.
-	 */
-	@PostMapping("/unpublish/{unpublished}")
-	public ResponseEntity<String> unpublishAcademy(@RequestBody List<Academy> academies,
-			@PathVariable boolean unpublished, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies()))
-			return unpublishService.setAcademiesUnpublished(academies, unpublished);
-		else
-			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
-	}
-
-	/**
+	/*
 	 * Fetches all unpublished courses.
-	 * 
+	 *
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
@@ -164,4 +151,27 @@ public class AcademyController {
 		return new ResponseEntity<List<Academy>>(academyService.findAllUnpublished(), HttpStatus.OK);
 	}
 
+	/**
+	 * Changes the boolean unpublished value on the {@link subject}s
+	 * @param subject The {@link Subject}s to update
+	 * @param unpublished The boolean is unpublished
+	 * @return The ResponseEntity string of the http status.
+	 */
+	@PostMapping("/unpublishList")
+	public ResponseEntity<List<Academy>> unpublishSubjects(@RequestBody List<Academy> academies, HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
+			return new ResponseEntity<List<Academy>>(unpublishService.setAcademiesUnpublished(academies), HttpStatus.OK);
+		else
+			return new ResponseEntity<List<Academy>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	
+	/**
+	 * This method is run automatically by Spring Boot at 03:00 every day.
+	 */
+	@Scheduled(cron = "0 6 3 * * *")
+	@GetMapping("/testAuto")
+	public void autoUnpublish() {
+		unpublishService.unpublishEmptyAcademies();
+	}
 }

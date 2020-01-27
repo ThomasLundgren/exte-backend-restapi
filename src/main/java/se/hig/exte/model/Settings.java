@@ -13,6 +13,10 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
+/**
+ * A model/entity class that represents App Settings. The fields of this class
+ * maps to columns in the database.
+ */
 @Entity
 public class Settings {
 
@@ -22,9 +26,9 @@ public class Settings {
 	@Min(1)
 	private int cookieSessionMinutes;
 	@NotBlank(message = "Home page HTML cannot be blank")
-	private String HomePageHtml;
+	private String homePageHtml;
 	@NotBlank(message = "Home page HTML cannot be blank")
-	private String AboutPageHtml;
+	private String aboutPageHtml;
 	@Min(1)
 	private int unpublishTimeYears;
 	@Generated(GenerationTime.INSERT)
@@ -32,6 +36,23 @@ public class Settings {
 	private LocalDateTime created;
 
 	protected Settings() {
+	}
+
+	/**
+	 * Creates a {@code Settings} object. ID and a creation timestamp are generated
+	 * and should not be provided.
+	 * 
+	 * @param cookieSessionMinutes Specifies how long a login session should last.
+	 * @param homePageHtml         Sets the HTML code of the "home" page.
+	 * @param aboutPageHTML        Sets the HTML code of the "about" page.
+	 * @param unpublishTimeYears   The number of years an {@link Exam} should be
+	 *                             stored before becoming unpublished.
+	 */
+	public Settings(int cookieSessionMinutes, String homePageHtml, String aboutPageHTML, int unpublishTimeYears) {
+		this.cookieSessionMinutes = cookieSessionMinutes;
+		this.homePageHtml = homePageHtml;
+		this.aboutPageHtml = aboutPageHTML;
+		this.unpublishTimeYears = unpublishTimeYears;
 	}
 
 	public int getId() {
@@ -51,19 +72,19 @@ public class Settings {
 	}
 
 	public String getHomePageHtml() {
-		return HomePageHtml;
+		return homePageHtml;
 	}
 
 	public void setHomePageHtml(String homePageHtml) {
-		HomePageHtml = homePageHtml;
+		this.homePageHtml = homePageHtml;
 	}
 
 	public String getAboutPageHtml() {
-		return AboutPageHtml;
+		return aboutPageHtml;
 	}
 
 	public void setAboutPageHtml(String aboutPageHtml) {
-		AboutPageHtml = aboutPageHtml;
+		this.aboutPageHtml = aboutPageHtml;
 	}
 
 	public int getUnpublishTimeYears() {
