@@ -105,8 +105,26 @@ public class CourseService implements CrudService<Course> {
 	 * @return All {@link Course} objects whose name or courseCode attributes
 	 *         contain the specified search text.
 	 */
-	public List<Course> findByNameOrCourseCodeContaining(String searchText) {
+	public List<Course> findAllByNameOrCourseCodeContaining(String searchText) {
 		return courseRepo.findByNameContainingOrCourseCodeContaining(searchText, searchText);
+	}
+	
+	/**
+	 * /** Fetches all published {@link Course} objects from the database where:
+	 * <ul>
+	 * <li>its name attribute contains the string passed in as the name parameter,
+	 * or</li>
+	 * <li>its courseCode attribute contains the string passed in as the courseCode
+	 * parameter</li>
+	 * </ul>
+	 * 
+	 * @param searchText The {@code String} which the name or course code should
+	 *                   contain.
+	 * @return All {@link Course} objects whose name or courseCode attributes
+	 *         contain the specified search text.
+	 */
+	public List<Course> findPublishedByNameOrCourseCodeContaining(String searchText) {
+		return courseRepo.findByUnpublishedFalseAndNameContainingOrUnpublishedFalseAndCourseCodeContaining(searchText, searchText);
 	}
 
 	/**

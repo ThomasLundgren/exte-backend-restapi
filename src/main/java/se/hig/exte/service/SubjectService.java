@@ -91,8 +91,18 @@ public class SubjectService implements CrudService<Subject> {
 	 * @param text The text searched
 	 * @return A {@link List} containing all {@link Subject}s found.
 	 */
-	public List<Subject> search(String text) {
+	public List<Subject> searchAll(String text) {
 		return subjectRepo.findByNameContainingOrCodeContaining(text, text);
+	}
+	
+	/**
+	 * Fetches all {@link Subject} that are close-by to the text-
+	 * 
+	 * @param text The text searched
+	 * @return A {@link List} containing all published {@link Subject}s found.
+	 */
+	public List<Subject> searchPublished(String text) {
+		return subjectRepo.findByUnpublishedFalseAndNameContainingOrUnpublishedFalseAndCodeContaining(text, text);
 	}
 
 	/**

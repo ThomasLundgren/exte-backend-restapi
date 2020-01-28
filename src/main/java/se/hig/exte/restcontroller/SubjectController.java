@@ -164,12 +164,18 @@ public class SubjectController {
 	 * Searches the database after subjects with the text variable
 	 *
 	 * @param text The text searched
-	 * @return A list of all subjects that are a match and the http status OK.
+	 * @return If super-user: list of all subjects that are a match and the http status OK.
+	 * 			If not logged in: a list of all published subjects that are a match and the http status OK.
 	 */
 	@GetMapping("/search/{text}")
 	public ResponseEntity<List<Subject>> search(@PathVariable String text, HttpServletRequest request) {
-		List<Subject> subjects = subjectService.search(text);
-		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
+			List<Subject> subjects = subjectService.searchAll(text);
+			return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
+		} else {
+			List<Subject> subjects = subjectService.searchPublished(text);
+			return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
+		}
 	}
 
 	/**
