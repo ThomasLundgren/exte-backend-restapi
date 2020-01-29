@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -60,6 +61,7 @@ public class AcademyController {
 	 *
 	 * @return
 	 */
+	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Academy>> getAllAcademies() {
 		return new ResponseEntity<List<Academy>>(academyService.findAllPublished(), HttpStatus.OK);
@@ -142,6 +144,7 @@ public class AcademyController {
 		else
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 	}
+
 	/*
 	 * Fetches all unpublished courses.
 	 *
@@ -154,18 +157,21 @@ public class AcademyController {
 
 	/**
 	 * Changes the boolean unpublished value on the {@link subject}s
-	 * @param subject The {@link Subject}s to update
+	 * 
+	 * @param subject     The {@link Subject}s to update
 	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
-	public ResponseEntity<List<Academy>> unpublishSubjects(@RequestBody List<Academy> academies, HttpServletRequest request) {
+	public ResponseEntity<List<Academy>> unpublishSubjects(@RequestBody List<Academy> academies,
+			HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
-			return new ResponseEntity<List<Academy>>(unpublishService.setAcademiesUnpublished(academies), HttpStatus.OK);
+			return new ResponseEntity<List<Academy>>(unpublishService.setAcademiesUnpublished(academies),
+					HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Academy>>(HttpStatus.UNAUTHORIZED);
 	}
-	
+
 	/**
 	 * This method is run automatically by Spring Boot at 03:00 every day.
 	 */
