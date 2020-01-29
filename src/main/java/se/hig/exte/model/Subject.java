@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -19,9 +20,11 @@ public class Subject {
 	private int id;
 	@Size(min = 2, max = 2, message = "Subject code must be two characters")
 	@NotBlank(message = "Subject code cannot be blank")
+	@Pattern(regexp = "[A-ZÅÄÖ]", message = "Subject code must contain only uppercase alphabetic characters")
 	private String code;
 	@Size(min = 3, message = "Name must be at least three characters long")
 	@NotBlank(message = "Name cannot be blank")
+	@Pattern(regexp = "[a-zåäöA-ZÅÄÖ]", message = "Name must contain only alphabetic characters (a-ö)")
 	private String name;
 	private boolean unpublished;
 	private int academyId;

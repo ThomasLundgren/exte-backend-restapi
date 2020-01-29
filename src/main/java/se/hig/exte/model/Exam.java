@@ -21,7 +21,7 @@ public class Exam {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotBlank(message = "Filename cannot be blank")
-	@Size(min = 2, message = "Filename must be at least two characters long")
+	@Size(min = 3, message = "Filename must be at least three characters long")
 	private String filename;
 	@NotNull(message = "Date is required")
 	private LocalDate date;
