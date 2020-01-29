@@ -31,6 +31,7 @@ import se.hig.exte.service.UnpublishService;
  * for the /academies path. It contains mappings of end-points to
  * {@link CrudService}s that operate on {@link Academy} records in the database.
  */
+@CrossOrigin(origins = "frontend", maxAge = 3600)
 @RestController
 @RequestMapping("/academies")
 public class AcademyController {
@@ -61,7 +62,6 @@ public class AcademyController {
 	 *
 	 * @return
 	 */
-	@CrossOrigin
 	@GetMapping("/all")
 	public ResponseEntity<List<Academy>> getAllAcademies() {
 		return new ResponseEntity<List<Academy>>(academyService.findAllPublished(), HttpStatus.OK);
