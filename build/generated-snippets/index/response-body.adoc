@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-{"id":1,"name":"Test","courseCode":"DVG536","subjectId":1}
-----
