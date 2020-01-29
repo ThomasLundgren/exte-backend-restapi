@@ -61,16 +61,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 	 *         value set to false.
 	 */
 	List<Subject> findByUnpublishedFalse();
-
-	/**
-	 * Fetches all {@link Subject} objects that contains the name or code from the
-	 * database.
-	 * 
-	 * @param name The searched {@link Subject} name
-	 * @param code The searched {@link Subject} code
-	 * @return A {@link List} containing all {@link Subject} that satisfy the query.
-	 */
-	List<Subject> findByNameContainingOrCodeContaining(String name, String code);
 	
 	/**
 	 * Fetches all published {@link Subject} objects that contains the name or code from the

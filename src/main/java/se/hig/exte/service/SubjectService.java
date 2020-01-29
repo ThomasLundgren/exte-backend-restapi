@@ -84,16 +84,6 @@ public class SubjectService implements CrudService<Subject> {
 	public void deleteById(int id) {
 		subjectRepo.deleteById(id);
 	}
-
-	/**
-	 * Fetches all {@link Subject} that are close-by to the text-
-	 * 
-	 * @param text The text searched
-	 * @return A {@link List} containing all {@link Subject}s found.
-	 */
-	public List<Subject> searchAll(String text) {
-		return subjectRepo.findByNameContainingOrCodeContaining(text, text);
-	}
 	
 	/**
 	 * Fetches all {@link Subject} that are close-by to the text-
