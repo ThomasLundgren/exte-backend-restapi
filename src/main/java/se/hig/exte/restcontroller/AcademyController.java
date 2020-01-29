@@ -98,7 +98,7 @@ public class AcademyController {
 	
 
 	@DeleteMapping("/")
-	public void deleteAcademys(@RequestBody List<Academy> academies, HttpServletRequest request) {
+	public void deleteAcademies(@RequestBody List<Academy> academies, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			academyService.deleteAll(academies);
 	}
