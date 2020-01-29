@@ -3,10 +3,10 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -143,7 +143,7 @@ public class SettingsController {
 	 *         </p>
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Settings> saveSettings(@RequestBody Settings settings, HttpServletRequest request) {
+	public ResponseEntity<Settings> saveSettings(@Valid @RequestBody Settings settings, HttpServletRequest request) {
 		if (!cookieHandler.isValidSuperSession(request.getCookies())) {
 			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
 		}

@@ -19,10 +19,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@NotBlank(message = "Name cannot be blank, empty or null")
+	@NotBlank(message = "Name cannot be blank")
 	@Size(min = 3, message = "Name must be at least three characters long")
 	private String name;
-
 	private boolean isSuperUser;
 
 	// Only used for JPA/Spring, which is why it is declared with protected.

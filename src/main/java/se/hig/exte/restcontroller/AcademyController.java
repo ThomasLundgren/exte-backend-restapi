@@ -3,6 +3,7 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import se.hig.exte.model.Academy;
 import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
@@ -74,7 +76,7 @@ public class AcademyController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Academy> saveAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+	public ResponseEntity<Academy> saveAcademy(@Valid @RequestBody Academy academy, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Academy savedAcademy = academyService.save(academy);
 			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
@@ -93,6 +95,13 @@ public class AcademyController {
 	public ResponseEntity<Academy> getAcademy(@PathVariable int id) {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);
 	}
+	
+
+	@DeleteMapping("/")
+	public void deleteAcademies(@RequestBody List<Academy> academies, HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
+			academyService.deleteAll(academies);
+	}
 
 	/**
 	 * Updates the {@link Academy} object with the given ID in the database. Only
@@ -104,7 +113,7 @@ public class AcademyController {
 	 *         {@link Academy} and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Academy> updateAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+	public ResponseEntity<Academy> updateAcademy(@Valid @RequestBody Academy academy, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Academy savedAcademy = academyService.save(academy);
 			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
@@ -135,7 +144,7 @@ public class AcademyController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
-	public ResponseEntity<Academy> unpublishAcademy(@RequestBody Academy academy, HttpServletRequest request) {
+	public ResponseEntity<Academy> unpublishAcademy(@Valid @RequestBody Academy academy, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Academy>(unpublishService.setAcademyUnpublished(academy), HttpStatus.OK);
 		else
@@ -164,7 +173,6 @@ public class AcademyController {
 		else
 			return new ResponseEntity<List<Academy>>(HttpStatus.UNAUTHORIZED);
 	}
-
 	
 	/**
 	 * This method is run automatically by Spring Boot at 03:00 every day.

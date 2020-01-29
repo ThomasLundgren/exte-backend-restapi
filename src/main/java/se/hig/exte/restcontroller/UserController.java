@@ -3,6 +3,7 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,7 +56,7 @@ public class UserController {
 	 *         an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<User> saveUser(@RequestBody User user, HttpServletRequest request) {
+	public ResponseEntity<User> saveUser(@Valid @RequestBody User user, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			User savedUser = userService.save(user);
 			return new ResponseEntity<User>(savedUser, HttpStatus.OK);
@@ -106,7 +107,7 @@ public class UserController {
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<User> updateUser(@RequestBody User user, HttpServletRequest request) {
+	public ResponseEntity<User> updateUser(@Valid @RequestBody User user, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			User savedUser = userService.save(user);
 			return new ResponseEntity<User>(savedUser, HttpStatus.OK);

@@ -20,15 +20,14 @@ public class Exam {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@NotBlank(message = "Filename cannot be blank, empty or null")
+	@NotBlank(message = "Filename cannot be blank")
 	@Size(min = 2, message = "Filename must be at least two characters long")
 	private String filename;
-	@NotNull(message = "Date cannot be null")
+	@NotNull(message = "Date is required")
 	private LocalDate date;
-	@NotNull(message = "UnpublishDate cannot be null")
+	@NotNull(message = "UnpublishDate is required")
 	private LocalDate unpublishDate;
 	private boolean unpublished;
-	@NotNull(message = "Course ID cannot be null")
 	private int courseId;
 
 	// Only used for JPA/Spring, which is why it is declared with protected.

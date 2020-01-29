@@ -3,6 +3,7 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
+import se.hig.exte.model.Exam;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CourseService;
@@ -63,7 +65,7 @@ public class CourseController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Course> saveCourse(@RequestBody Course course, HttpServletRequest request) {
+	public ResponseEntity<Course> saveCourse(@Valid @RequestBody Course course, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Course savedCourse = courseService.save(course);
 			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
@@ -138,7 +140,7 @@ public class CourseController {
 	 *         and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Course> updateCourse(@RequestBody Course course, HttpServletRequest request) {
+	public ResponseEntity<Course> updateCourse(@Valid @RequestBody Course course, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Course savedCourse = courseService.save(course);
 			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
@@ -158,15 +160,27 @@ public class CourseController {
 			courseService.deleteById(id);
 	}
 
+	@DeleteMapping("/")
+	public void deleteExams(@RequestBody List<Course> courses, HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
+			courseService.deleteAll(courses);
+	}
 	/**
 	 * Searches the database after courses with the text variable
 	 * 
 	 * @param text The text searched
-	 * @return A list of all courses that are a match and the http status OK.
+	 * @return If super-user: A list of all courses that are a match and the http status OK.
+	 * 			If not super-user in: A list of all published courses that are a match and the http status OK.
 	 */
 	@GetMapping("/search/{text}")
-	public ResponseEntity<List<Course>> search(@PathVariable String text) {
-		List<Course> courses = courseService.findByNameOrCourseCodeContaining(text);
+	public ResponseEntity<List<Course>> search(@PathVariable String text, HttpServletRequest request) {
+		List<Course> courses;
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
+			courses = courseService.findAllByNameOrCourseCodeContaining(text);
+		}
+		else {
+			courses = courseService.findPublishedByNameOrCourseCodeContaining(text);
+		}
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 
@@ -187,7 +201,7 @@ public class CourseController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
-	public ResponseEntity<Course> unpublishCourse(@RequestBody Course course, HttpServletRequest request) {
+	public ResponseEntity<Course> unpublishCourse(@Valid @RequestBody Course course, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Course>(unpublishService.setCourseUnpublished(course), HttpStatus.OK);
 		else

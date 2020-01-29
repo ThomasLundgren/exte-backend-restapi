@@ -3,6 +3,8 @@ package se.hig.exte.restcontroller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Subject;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
@@ -61,7 +64,7 @@ public class SubjectController {
 	 *         and an HTTP status code.
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject, HttpServletRequest request) {
+	public ResponseEntity<Subject> saveSubject(@Valid @RequestBody Subject subject, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject savedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(savedSubject, HttpStatus.OK);
@@ -138,7 +141,7 @@ public class SubjectController {
 	 *         {@link Subject} and an HTTP status code.
 	 */
 	@PatchMapping("/")
-	public ResponseEntity<Subject> patchSubject(@RequestBody Subject subject, HttpServletRequest request) {
+	public ResponseEntity<Subject> patchSubject(@Valid @RequestBody Subject subject, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			Subject patchedSubject = subjectService.save(subject);
 			return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
@@ -158,15 +161,24 @@ public class SubjectController {
 			subjectService.deleteById(id);
 	}
 
+
+	@DeleteMapping("/")
+	public void deleteSubjects(@RequestBody List<Subject> subjects, HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
+			subjectService.deleteAll(subjects);
+	}
+	
 	/**
 	 * Searches the database after subjects with the text variable
 	 *
 	 * @param text The text searched
-	 * @return A list of all subjects that are a match and the http status OK.
+	 * @return If super-user: list of all subjects that are a match and the http
+	 *         status OK. If not logged in: a list of all published subjects that
+	 *         are a match and the http status OK.
 	 */
 	@GetMapping("/search/{text}")
-	public ResponseEntity<List<Subject>> search(@PathVariable String text, HttpServletRequest request) {
-		List<Subject> subjects = subjectService.search(text);
+	public ResponseEntity<List<Subject>> search(@PathVariable String text) {
+		List<Subject> subjects = subjectService.searchPublished(text);
 		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
 
@@ -192,7 +204,7 @@ public class SubjectController {
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
-	public ResponseEntity<Subject> unpublishSubject(@RequestBody Subject subject, HttpServletRequest request) {
+	public ResponseEntity<Subject> unpublishSubject(@Valid @RequestBody Subject subject, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			return new ResponseEntity<Subject>(unpublishService.setSubjectUnpublished(subject), HttpStatus.OK);
 		else

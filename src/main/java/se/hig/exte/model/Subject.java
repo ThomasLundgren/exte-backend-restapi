@@ -17,11 +17,11 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Size(min = 2, max = 2)
-	@NotBlank(message = "Code cannot be blank, empty or null")
+	@Size(min = 2, max = 2, message = "Subject code must be two characters")
+	@NotBlank(message = "Subject code cannot be blank")
 	private String code;
-	@Size(min = 3)
-	@NotBlank(message = "Name cannot be blank, empty or null")
+	@Size(min = 3, message = "Name must be at least three characters long")
+	@NotBlank(message = "Name cannot be blank")
 	private String name;
 	private boolean unpublished;
 	private int academyId;
@@ -40,10 +40,10 @@ public class Subject {
 	 * @param academyId The ID of the {@link Academy} to which this {@code Subject}
 	 *                  belongs.
 	 */
-	public Subject(String code, String name, boolean published, int academyId) {
+	public Subject(String code, String name, boolean unpublished, int academyId) {
 		this.code = code;
 		this.name = name;
-		this.unpublished = published;
+		this.unpublished = unpublished;
 		this.academyId = academyId;
 	}
 
@@ -116,7 +116,7 @@ public class Subject {
 	 */
 	@Override
 	public String toString() {
-		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: ";
+		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: " + academyId;
 	}
 
 }
