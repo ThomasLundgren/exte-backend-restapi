@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +21,8 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotBlank(message = "Name cannot be blank")
-	@Size(min = 3, message = "Name must be at least three characters long")
+	@Size(min = 2, message = "Name must be at least two characters long")
+	@Pattern(regexp = "[a-zåäöA-ZÅÄÖ0-9]", message = "Name must contain only alphanumeric characters (a-ö, A-Ö, 0-9")
 	private String name;
 	private boolean isSuperUser;
 
