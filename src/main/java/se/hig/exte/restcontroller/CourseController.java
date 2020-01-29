@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
+import se.hig.exte.model.Exam;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CourseService;
@@ -159,6 +160,11 @@ public class CourseController {
 			courseService.deleteById(id);
 	}
 
+	@DeleteMapping("/")
+	public void deleteExams(@RequestBody List<Course> courses, HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
+			courseService.deleteAll(courses);
+	}
 	/**
 	 * Searches the database after courses with the text variable
 	 * 
