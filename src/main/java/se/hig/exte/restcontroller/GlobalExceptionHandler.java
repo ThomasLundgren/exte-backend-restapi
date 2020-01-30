@@ -24,9 +24,11 @@ public class GlobalExceptionHandler {
 	public static final String MULTIPART = "Multipart error";
 	public static final String DATA_INTEGRITY_VIOLATION = "Data integrity violation";
 	public static final String CONSTRAINT_VIOLATION = "Constraint violation";
+	public static final String LOGIN_ERROR = "Login error";
 
 	@ExceptionHandler({ MethodArgumentNotValidException.class, MaxUploadSizeExceededException.class,
-			MultipartException.class, DataIntegrityViolationException.class, ConstraintViolationException.class })
+			MultipartException.class, DataIntegrityViolationException.class, ConstraintViolationException.class,
+			IllegalAccessException.class })
 	public ResponseEntity<ApiError> handleException(Exception e, WebRequest request) {
 		HttpHeaders headers = new HttpHeaders();
 		if (e instanceof MethodArgumentNotValidException) {
@@ -63,6 +65,10 @@ public class GlobalExceptionHandler {
 			HttpStatus status = HttpStatus.BAD_REQUEST;
 			ConstraintViolationException cve = (ConstraintViolationException) e;
 			return handleConstraintViolationException(cve, request, headers, status);
+		} else if (e instanceof IllegalAccessException) {
+			HttpStatus status = HttpStatus.UNAUTHORIZED;
+			IllegalAccessException iae = (IllegalAccessException) e;
+			return handleIllegalAccessException(iae, request, headers, status);
 		} else {
 			HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 			return handleExceptionInternal(e, null, headers, status, request);
@@ -101,13 +107,6 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ApiError>(errors, headers, status);
 	}
 
-	private ResponseEntity<ApiError> handleDataIntegrityViolationException(DataIntegrityViolationException dive,
-			WebRequest request, HttpHeaders headers, HttpStatus status) {
-		ApiError errors = new ApiError(DATA_INTEGRITY_VIOLATION);
-		errors.addError(dive.getMostSpecificCause().getMessage());
-		return handleExceptionInternal(dive, errors, headers, status, request);
-	}
-
 	private ResponseEntity<ApiError> handleConstraintViolationException(ConstraintViolationException cve,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(DATA_INTEGRITY_VIOLATION);
@@ -117,6 +116,20 @@ public class GlobalExceptionHandler {
 		return handleExceptionInternal(cve, errors, headers, status, request);
 	}
 
+	private ResponseEntity<ApiError> handleDataIntegrityViolationException(DataIntegrityViolationException dive,
+			WebRequest request, HttpHeaders headers, HttpStatus status) {
+		ApiError errors = new ApiError(DATA_INTEGRITY_VIOLATION);
+		errors.addError(dive.getMostSpecificCause().getMessage());
+		return handleExceptionInternal(dive, errors, headers, status, request);
+	}
+
+	private ResponseEntity<ApiError> handleIllegalAccessException(IllegalAccessException iae, WebRequest request,
+			HttpHeaders headers, HttpStatus status) {
+		ApiError errors = new ApiError(LOGIN_ERROR);
+		errors.addError("You have entered the wrong credentials too many times. Try again in 5 minutes");
+		return handleExceptionInternal(iae, errors, headers, status, request);
+	}
+	
 	// Default handler used when no other handler has caught the exception.
 	private ResponseEntity<ApiError> handleExceptionInternal(Exception ex, ApiError body, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
