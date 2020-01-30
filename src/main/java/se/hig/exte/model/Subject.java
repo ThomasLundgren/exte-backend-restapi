@@ -43,10 +43,10 @@ public class Subject {
 	 * @param academyId The ID of the {@link Academy} to which this {@code Subject}
 	 *                  belongs.
 	 */
-	public Subject(String code, String name, boolean published, int academyId) {
+	public Subject(String code, String name, boolean unpublished, int academyId) {
 		this.code = code;
 		this.name = name;
-		this.unpublished = published;
+		this.unpublished = unpublished;
 		this.academyId = academyId;
 	}
 
@@ -119,7 +119,7 @@ public class Subject {
 	 */
 	@Override
 	public String toString() {
-		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: ";
+		return "code: " + code + "\nname: " + name + "\nid: " + id + "\nadademyId: " + academyId;
 	}
 
 }

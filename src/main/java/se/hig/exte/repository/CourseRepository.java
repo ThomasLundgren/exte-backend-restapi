@@ -64,6 +64,26 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 *         passed in courseCode parameter.
 	 */
 	List<Course> findByNameContainingOrCourseCodeContaining(String name, String courseCode);
+	
+	/**
+	 * Fetches all published {@link Course} objects from the database where:
+	 * <ul>
+	 * <li>its name attribute contains the string passed in as the name parameter,
+	 * or</li>
+	 * <li>its courseCode attribute contains the string passed in as the courseCode
+	 * parameter</li>
+	 * </ul>
+	 * 
+	 * @param name       The name {@code String} that the fetched {@link Course}
+	 *                   objects should contain.
+	 * @param courseCode The course code {@code String} that the fetched
+	 *                   {@link Course} objects should contain.
+	 * @return A {@code List} containing all {@link Course} objects whose name
+	 *         attribute contains the passed in name parameter and all
+	 *         {@link Course} objects whose course code attribute contains the
+	 *         passed in courseCode parameter.
+	 */
+	List<Course> findByUnpublishedFalseAndNameContainingOrUnpublishedFalseAndCourseCodeContaining(String name, String courseCode);
 
 	/**
 	 * Fetches all {@link Course} objects with the unpublished value set to true.

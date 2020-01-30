@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Exam;
 import se.hig.exte.repository.AcademyRepository;
 
 /**
@@ -50,6 +51,11 @@ public class AcademyService implements CrudService<Academy> {
 	public void deleteById(int id) {
 		academyRepo.deleteById(id);
 	}
+	
+	public void deleteAll(List<Academy> academies) {
+		academyRepo.deleteAll(academies);
+	}
+	
 
 	/**
 	 * Fetches a list of {@link Academy} objects that are unpublished.
