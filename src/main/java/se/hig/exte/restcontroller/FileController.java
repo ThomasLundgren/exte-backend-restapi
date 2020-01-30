@@ -75,6 +75,8 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		InputStreamResource resource = null;
 
 		try {
+			System.out.println(
+					"handleFileDownload " + file.getAbsolutePath() + " " + file.getPath() + " " + file.getName());
 			resource = new InputStreamResource(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found: " + file.getName());
