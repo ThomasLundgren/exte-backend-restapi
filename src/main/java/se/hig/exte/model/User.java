@@ -22,7 +22,7 @@ public class User {
 	private int id;
 	@NotBlank(message = "Name cannot be blank")
 	@Size(min = 2, message = "Name must be at least two characters long")
-	@Pattern(regexp = "[a-zåäöA-ZÅÄÖ0-9]", message = "Name must contain only alphanumeric characters (a-ö, A-Ö, 0-9")
+	@Pattern(regexp = "^[\\wåäöÅÄÖ-]+$", message = "Name must contain only alphanumeric characters (a-ö, A-Ö, 0-9")
 	private String name;
 	private boolean isSuperUser;
 

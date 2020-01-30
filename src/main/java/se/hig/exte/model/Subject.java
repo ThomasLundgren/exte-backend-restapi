@@ -20,11 +20,11 @@ public class Subject {
 	private int id;
 	@Size(min = 2, max = 2, message = "Subject code must be two characters")
 	@NotBlank(message = "Subject code cannot be blank")
-	@Pattern(regexp = "[A-ZÅÄÖ]", message = "Subject code must contain only uppercase alphabetic characters")
+	@Pattern(regexp = "^[A-ZÅÄÖ]+$", message = "Subject code must contain only uppercase alphabetic characters")
 	private String code;
 	@Size(min = 3, message = "Name must be at least three characters long")
 	@NotBlank(message = "Name cannot be blank")
-	@Pattern(regexp = "[a-zåäöA-ZÅÄÖ]", message = "Name must contain only alphabetic characters (a-ö)")
+	@Pattern(regexp = "^[\\s\\wåöäÅÖÄ,-]+$", message = "Name must contain only alphabetic characters (a-ö), whitespace, commas and hyphens")
 	private String name;
 	private boolean unpublished;
 	private int academyId;

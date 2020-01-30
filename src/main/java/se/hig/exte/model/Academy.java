@@ -20,11 +20,11 @@ public class Academy {
 	private int id;
 	@NotBlank(message = "Name cannot be blank")
 	@Size(min = 3, message = "Name must be at least three characters long")
-	@Pattern(regexp = "[a-zåäöA-ZÅÄÖ]", message = "Name must contain only alphabetic characters (a-ö)")
+	@Pattern(regexp = "^[\\s\\wåöäÅÖÄ,-]+$", message = "Name must contain only alphabetic characters (a-ö), whitespace, commas and hyphens")
 	private String name;
 	@NotBlank(message = "Abbreviation cannot be blank")
 	@Size(min = 2, max = 5, message = "Abbreviation must be between two and five characters long")
-	@Pattern(regexp = "[A-ZÅÄÖ]", message = "Abbreviation must contain only uppercase alphabetic characters")
+	@Pattern(regexp = "^[A-ZÅÄÖ]+$", message = "Abbreviation must contain only uppercase alphabetic characters")
 	private String abbreviation;
 	private boolean unpublished;
 
