@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
+import se.hig.exte.model.Subject;
 import se.hig.exte.repository.SubjectRepository;
 
 /**
@@ -84,15 +85,19 @@ public class SubjectService implements CrudService<Subject> {
 	public void deleteById(int id) {
 		subjectRepo.deleteById(id);
 	}
+	
+	public void deleteAll(List<Subject> subjects) {
+		subjectRepo.deleteAll(subjects);
+	}
 
 	/**
 	 * Fetches all {@link Subject} that are close-by to the text-
 	 * 
 	 * @param text The text searched
-	 * @return A {@link List} containing all {@link Subject}s found.
+	 * @return A {@link List} containing all published {@link Subject}s found.
 	 */
-	public List<Subject> search(String text) {
-		return subjectRepo.findByNameContainingOrCodeContaining(text, text);
+	public List<Subject> searchPublished(String text) {
+		return subjectRepo.findByUnpublishedFalseAndNameContainingOrUnpublishedFalseAndCodeContaining(text, text);
 	}
 
 	/**

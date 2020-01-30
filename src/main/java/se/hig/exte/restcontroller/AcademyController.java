@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CookieHandler;
@@ -95,6 +96,13 @@ public class AcademyController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Academy> getAcademy(@PathVariable int id) {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);
+	}
+	
+
+	@DeleteMapping("/")
+	public void deleteAcademies(@RequestBody List<Academy> academies, HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
+			academyService.deleteAll(academies);
 	}
 
 	/**

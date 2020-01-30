@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
+import se.hig.exte.model.Subject;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.SubjectService;
@@ -160,15 +161,24 @@ public class SubjectController {
 			subjectService.deleteById(id);
 	}
 
+
+	@DeleteMapping("/")
+	public void deleteSubjects(@RequestBody List<Subject> subjects, HttpServletRequest request) {
+		if (cookieHandler.isValidSuperSession(request.getCookies()))
+			subjectService.deleteAll(subjects);
+	}
+	
 	/**
 	 * Searches the database after subjects with the text variable
 	 *
 	 * @param text The text searched
-	 * @return A list of all subjects that are a match and the http status OK.
+	 * @return If super-user: list of all subjects that are a match and the http
+	 *         status OK. If not logged in: a list of all published subjects that
+	 *         are a match and the http status OK.
 	 */
 	@GetMapping("/search/{text}")
-	public ResponseEntity<List<Subject>> search(@PathVariable String text, HttpServletRequest request) {
-		List<Subject> subjects = subjectService.search(text);
+	public ResponseEntity<List<Subject>> search(@PathVariable String text) {
+		List<Subject> subjects = subjectService.searchPublished(text);
 		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
 

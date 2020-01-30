@@ -38,7 +38,7 @@ public class CookieHandler {
 		int cookieExpireSeconds = calculateCookieSessionTime();
 
 		ResponseCookie cookie = ResponseCookie.from(COOKIE_NAME, generatedId).maxAge(cookieExpireSeconds)
-				.sameSite("Lax").secure(false).path("/").build();
+				.sameSite("Strict").secure(false).path("/").build();
 		sessions.put(generatedId, new Session(isSuperUser, cookieExpireSeconds));
 		return cookie;
 	}
@@ -85,10 +85,9 @@ public class CookieHandler {
 	 * @return true if the session is valid
 	 */
 	public boolean isValidSuperSession(Cookie[] cookiesFromUser) {
-//		if (isValidAdminSession(cookiesFromUser))
-//			return sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).isSuperUser;
-//		return false;
-		return true;
+		if (isValidAdminSession(cookiesFromUser))
+			return sessions.get(getSessionResponseCookie(cookiesFromUser).getValue()).isSuperUser;
+		return false;
 	}
 
 	private String autoGenerateId() throws NoSuchAlgorithmException {
