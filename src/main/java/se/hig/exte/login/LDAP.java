@@ -12,6 +12,9 @@ import javax.naming.directory.InitialDirContext;
 public class LDAP {
 
 	static boolean authenticateHigLdap(String studentId, String password) {
+
+		System.out.println("LDAP");
+
 		try {
 			Hashtable<String, String> env = new Hashtable<>();
 			env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");

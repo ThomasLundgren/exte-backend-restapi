@@ -35,12 +35,13 @@ public class LoginService {
 
 	public ResponseCookie login(String username, String password) throws IllegalAccessException {
 		ResponseCookie cookie = null;
-
+		System.out.println("Service");
 		if (isAllowedToTryToLogin(username)) {
 			boolean isLoggedIn = false;
 			if (checkIfUserExists(username)) {
 				isLoggedIn = loginHandler.login(username.toString(), password.toString());
 				if (isLoggedIn) {
+					System.out.println("isLoggedIn");
 					cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
 				}
 			}
