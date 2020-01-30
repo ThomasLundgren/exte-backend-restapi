@@ -34,15 +34,10 @@ public class CookieHandler {
 	 */
 	public ResponseCookie createCookie(boolean isSuperUser) throws NoSuchAlgorithmException {
 		String generatedId = autoGenerateId();
-
 		int cookieExpireSeconds = calculateCookieSessionTime();
-
-		System.out.println("cookieExpireSeconds " + cookieExpireSeconds);
-
 		ResponseCookie cookie = ResponseCookie.from(COOKIE_NAME, generatedId).maxAge(cookieExpireSeconds)
 				.sameSite("Strict").secure(false).path("/").build();
 		sessions.put(generatedId, new Session(isSuperUser, cookieExpireSeconds));
-		System.out.println("CookieHandler: " + cookie);
 		return cookie;
 	}
 
@@ -94,13 +89,9 @@ public class CookieHandler {
 	}
 
 	private String autoGenerateId() throws NoSuchAlgorithmException {
-		System.out.println("autoGenerateId 1");
 		byte[] bytes = new byte[20 + (int) (Math.random() * (10))];
-		System.out.println("autoGenerateId 2");
 		SecureRandom random = new SecureRandom();
 		random.nextBytes(bytes);
-		// SecureRandom.getInstanceStrong().nextBytes(bytes);
-		System.out.println("autoGenerateId 3");
 		return bytes.toString();
 	}
 

@@ -38,12 +38,9 @@ public class LoginController {
 	public boolean loginAdmin(HttpServletResponse response, HttpServletRequest request, @RequestBody JSONObject json)
 			throws IllegalAccessException {
 
-		System.out.println("Before LoginController");
 		String username = json.getAsString("username").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		String password = json.getAsString("password").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		ResponseCookie cookie = loginService.login(username, password);
-
-		System.out.println("LoginController");
 
 		if (cookie != null) {
 			response.addHeader("Set-Cookie", cookie.toString());

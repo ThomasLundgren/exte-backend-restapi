@@ -28,7 +28,7 @@ import se.hig.exte.service.FileService;
  */
 @RestController
 @RequestMapping("/files")
-public class FileController /*implements HandlerExceptionResolver*/ {
+public class FileController /* implements HandlerExceptionResolver */ {
 
 	private final FileService fileService;
 	private final ExamService examService;
@@ -37,9 +37,9 @@ public class FileController /*implements HandlerExceptionResolver*/ {
 	/**
 	 * Creates a {@code FileController}.
 	 * 
-	 * @param fileService The {@link FileService} to use.
-	 * @param examService The {@link ExamService} to use.
-	 * @param cookieHandler    object responsible for handling authentication.
+	 * @param fileService   The {@link FileService} to use.
+	 * @param examService   The {@link ExamService} to use.
+	 * @param cookieHandler object responsible for handling authentication.
 	 */
 	@Autowired
 	public FileController(FileService fileService, ExamService examService, CookieHandler cookieHandler) {
@@ -87,11 +87,15 @@ public class FileController /*implements HandlerExceptionResolver*/ {
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		}
 
+		System.out.println("handleFileUpload 1");
+
 		String message = "";
 
 		if (isPDF(file)) {
+			System.out.println("handleFileUpload 2");
 			try {
 				if (!examExists(file.getOriginalFilename().split("\\.")[0])) {
+					System.out.println("handleFileUpload 3");
 					fileService.storeFile(file);
 					message = "Successfully uploaded: " + file.getOriginalFilename();
 					return ResponseEntity.status(HttpStatus.OK).body(message);
