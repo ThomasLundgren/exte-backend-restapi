@@ -28,15 +28,15 @@ public class LoginService {
 	}
 
 	public ResponseCookie login(String username, String password) {
-//		ResponseCookie cookie = null;
-//		if (checkIfUserExists(username)) {
-//			boolean isLoggedIn = loginHandler.login(username.toString(), password.toString());
-//			if (isLoggedIn) {
-//				cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
-//			}
-//		}
-//		return cookie;
-		return createCookie(userService.findByName(username).get(0).isSuperUser());
+		ResponseCookie cookie = null;
+		if (checkIfUserExists(username)) {
+			boolean isLoggedIn = loginHandler.login(username.toString(), password.toString());
+			if (isLoggedIn) {
+				cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
+			}
+		}
+		return cookie;
+		// return createCookie(userService.findByName(username).get(0).isSuperUser());
 	}
 
 	public void logout(Cookie[] cookies) {
