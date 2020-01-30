@@ -65,7 +65,7 @@ public class LoginService {
 			nbrOfFaildLogins = this.failedLogins.get(username) + 1;
 		}
 		this.failedLogins.put(username, nbrOfFaildLogins);
-		System.out.println("nbr of faild i hadle: " + nbrOfFaildLogins);
+		System.out.println("nbr of faild i handle : " + nbrOfFaildLogins);
 	}
 
 	public void logout(Cookie[] cookies) {
