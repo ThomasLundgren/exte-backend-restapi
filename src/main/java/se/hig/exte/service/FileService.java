@@ -23,7 +23,6 @@ public class FileService {
 	 */
 	public void storeFile(MultipartFile file) throws IOException {
 		Path filePath = Paths.get(FILE_DIRECTORY + "/" + file.getOriginalFilename());
-		System.out.println("File saved: " + file.getOriginalFilename());
 		Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 	}
 

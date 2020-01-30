@@ -50,7 +50,6 @@ public class SettingsController {
 	public ResponseEntity<Settings> getNewestSettings(HttpServletRequest request) {
 		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			Settings settings = settingsService.getCurrentSettings();
-			System.out.println(settings.getCreated());
 			return new ResponseEntity<Settings>(settings, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
