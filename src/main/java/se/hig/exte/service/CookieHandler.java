@@ -97,7 +97,9 @@ public class CookieHandler {
 		System.out.println("autoGenerateId 1");
 		byte[] bytes = new byte[20 + (int) (Math.random() * (10))];
 		System.out.println("autoGenerateId 2");
-		SecureRandom.getInstanceStrong().nextBytes(bytes);
+		SecureRandom random = new SecureRandom();
+		random.nextBytes(bytes);
+		// SecureRandom.getInstanceStrong().nextBytes(bytes);
 		System.out.println("autoGenerateId 3");
 		return bytes.toString();
 	}
