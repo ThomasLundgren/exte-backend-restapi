@@ -1,15 +1,13 @@
 package se.hig.exte.restcontroller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -77,37 +75,18 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		 * return response;
 		 */
 
-		MediaType mediaType = getMediaTypeForFileName(this.servletContext, filename);
-		System.out.println("fileName: " + filename);
-		System.out.println("mediaType: " + mediaType);
+		ClassPathResource pdfFile = new ClassPathResource("uploads/" + filename);
 
-		File file = new File("uploads/" + filename);
-		InputStreamResource resource = null;
+		System.out.println(pdfFile.getFilename());
 
 		try {
-			resource = new InputStreamResource(new FileInputStream(file));
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found: " + filename);
-			return new ResponseEntity<InputStreamResource>(resource, HttpStatus.NOT_FOUND);
+			return ResponseEntity.ok().contentLength(pdfFile.contentLength())
+					.contentType(MediaType.parseMediaType("application/octet-stream"))
+					.body(new InputStreamResource(pdfFile.getInputStream()));
+		} catch (IOException e) {
+			System.out.println("IOException: " + filename);
 		}
-
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
-				.contentType(mediaType).contentLength(file.length()) //
-				.body(resource);
-
-	}
-
-	private MediaType getMediaTypeForFileName(ServletContext servletContext, String fileName) {
-		// application/pdf
-		// application/xml
-		// image/gif, ...
-		String mineType = servletContext.getMimeType(fileName);
-		try {
-			MediaType mediaType = MediaType.parseMediaType(mineType);
-			return mediaType;
-		} catch (Exception e) {
-			return MediaType.APPLICATION_OCTET_STREAM;
-		}
+		return null;
 	}
 
 	/**
