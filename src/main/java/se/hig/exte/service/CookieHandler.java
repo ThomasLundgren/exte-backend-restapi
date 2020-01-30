@@ -38,7 +38,7 @@ public class CookieHandler {
 		int cookieExpireSeconds = calculateCookieSessionTime();
 
 		ResponseCookie cookie = ResponseCookie.from(COOKIE_NAME, generatedId).maxAge(cookieExpireSeconds)
-				.sameSite("Strict").secure(false).path("/").build();
+				.sameSite("Lax").secure(false).path("/").build();
 		sessions.put(generatedId, new Session(isSuperUser, cookieExpireSeconds));
 		return cookie;
 	}
