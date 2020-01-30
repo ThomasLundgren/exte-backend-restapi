@@ -33,7 +33,7 @@ public class LoginService {
 		this.failedLogins = new HashMap<String, Integer>();
 	}
 
-	public ResponseCookie login(String username, String password) {
+	public ResponseCookie login(String username, String password) throws IllegalAccessException {
 		ResponseCookie cookie = null;
 
 		if (isAllowedToTryToLogin(username)) {
@@ -48,7 +48,7 @@ public class LoginService {
 				handleFailedLoginTry(username);
 			}
 		} else {
-			throw new IllegalAccessError();
+			throw new IllegalAccessException();
 		}
 		return cookie;
 
