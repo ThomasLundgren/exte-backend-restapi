@@ -1,13 +1,16 @@
 package se.hig.exte.restcontroller;
 
-import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +65,8 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
 	 */
 	@GetMapping(value = "/download/{filename}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<InputStreamResource> handleFileDownload(@PathVariable String filename) {
+	public ResponseEntity<InputStreamResource> handleFileDownload(@PathVariable String filename,
+			HttpServletResponse response) {
 
 		/*
 		 * ResponseEntity<byte[]> response = null; try { File pdf =
@@ -75,18 +79,23 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		 * return response;
 		 */
 
-		ClassPathResource pdfFile = new ClassPathResource("uploads/" + filename);
+		File pdf = fileService.fetchFile(filename);
 
-		System.out.println(pdfFile.getFilename());
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+		headers.add("Pragma", "no-cache");
+		headers.add("Expires", "0");
+
+		InputStreamResource resource = null;
 
 		try {
-			return ResponseEntity.ok().contentLength(pdfFile.contentLength())
-					.contentType(MediaType.parseMediaType("application/octet-stream"))
-					.body(new InputStreamResource(pdfFile.getInputStream()));
-		} catch (IOException e) {
-			System.out.println("IOException: " + filename);
+			resource = new InputStreamResource(new FileInputStream(pdf));
+		} catch (FileNotFoundException e) {
+			System.out.println("FileNotFoundException: " + filename);
 		}
-		return null;
+
+		return ResponseEntity.ok().headers(headers).contentLength(pdf.length())
+				.contentType(MediaType.parseMediaType("application/octet-stream")).body(resource);
 	}
 
 	/**
