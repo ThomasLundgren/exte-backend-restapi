@@ -62,7 +62,9 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		ResponseEntity<byte[]> response;
 		try {
 			File pdf = fileService.fetchFile(filename);
+			System.out.println("handleFileDownload" + pdf.getName());
 			byte[] contents = Files.readAllBytes(pdf.toPath());
+			System.out.println("herro");
 			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
 		} catch (IOException ioe) {
 			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
@@ -87,15 +89,11 @@ public class FileController /* implements HandlerExceptionResolver */ {
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		}
 
-		System.out.println("handleFileUpload 1");
-
 		String message = "";
 
 		if (isPDF(file)) {
-			System.out.println("handleFileUpload 2");
 			try {
 				if (!examExists(file.getOriginalFilename().split("\\.")[0])) {
-					System.out.println("handleFileUpload 3");
 					fileService.storeFile(file);
 					message = "Successfully uploaded: " + file.getOriginalFilename();
 					return ResponseEntity.status(HttpStatus.OK).body(message);
