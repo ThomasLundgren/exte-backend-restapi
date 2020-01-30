@@ -1,16 +1,15 @@
 package se.hig.exte.restcontroller;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +37,9 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	private final ExamService examService;
 	private final CookieHandler cookieHandler;
 
+	@Autowired
+	private ServletContext servletContext;
+
 	/**
 	 * Creates a {@code FileController}.
 	 * 
@@ -62,34 +64,50 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
 	 */
 	@GetMapping(value = "/download/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<Resource> handleFileDownload(@PathVariable String filename) {
+	public ResponseEntity<InputStreamResource> handleFileDownload(@PathVariable String filename) {
+
 		/*
-		 * ResponseEntity<byte[]> response; try { File pdf =
+		 * ResponseEntity<byte[]> response = null; try { File pdf =
 		 * fileService.fetchFile(filename); System.out.println("handleFileDownload" +
 		 * pdf.getName()); byte[] contents = Files.readAllBytes(pdf.toPath());
 		 * System.out.println("herro"); response = new ResponseEntity<byte[]>(contents,
 		 * HttpStatus.OK); } catch (IOException ioe) { response = new
-		 * ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND); } return
-		 * response;
+		 * ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND); }
+		 * 
+		 * return response;
 		 */
 
-		File file = fileService.fetchFile(filename);
+		MediaType mediaType = getMediaTypeForFileName(this.servletContext, filename);
+		System.out.println("fileName: " + filename);
+		System.out.println("mediaType: " + mediaType);
 
-		System.out.println(file.getAbsolutePath() + " " + file.getName());
-
-		Path path = Paths.get(file.getAbsolutePath());
-		ByteArrayResource resource = null;
+		File file = new File("uploads/" + filename);
+		InputStreamResource resource = null;
 
 		try {
-			resource = new ByteArrayResource(Files.readAllBytes(path));
-		} catch (IOException e) {
-			System.out.println("Error reading file: " + file.getName());
-			return new ResponseEntity<Resource>(resource, HttpStatus.NOT_FOUND);
+			resource = new InputStreamResource(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found: " + filename);
+			return new ResponseEntity<InputStreamResource>(resource, HttpStatus.NOT_FOUND);
 		}
 
-		return ResponseEntity.ok().contentLength(file.length())
-				.contentType(MediaType.parseMediaType("application/octet-stream")).body(resource);
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
+				.contentType(mediaType).contentLength(file.length()) //
+				.body(resource);
 
+	}
+
+	private MediaType getMediaTypeForFileName(ServletContext servletContext, String fileName) {
+		// application/pdf
+		// application/xml
+		// image/gif, ...
+		String mineType = servletContext.getMimeType(fileName);
+		try {
+			MediaType mediaType = MediaType.parseMediaType(mineType);
+			return mediaType;
+		} catch (Exception e) {
+			return MediaType.APPLICATION_OCTET_STREAM;
+		}
 	}
 
 	/**

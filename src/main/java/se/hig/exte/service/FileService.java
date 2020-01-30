@@ -36,9 +36,6 @@ public class FileService {
 	 * @return A {@code File} with the specified name.
 	 */
 	public File fetchFile(String filename) {
-		Path filePath = Paths.get(FILE_DIRECTORY + "/" + filename);
-		System.out.println("filePath: " + filePath);
-		System.out.println("fetchFile: " + FILE_DIRECTORY + "/" + filename);
 		return new File(FILE_DIRECTORY + "/" + filename);
 	}
 }
