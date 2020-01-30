@@ -95,13 +95,11 @@ public class SettingsController {
 	public ResponseEntity<String> getHomePageHtml(HttpServletRequest request) {
 		return new ResponseEntity<String>(settingsService.findCurrentHomePageHtml(), HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/unpublishTime")
 	public ResponseEntity<String> getUnpublishTime(HttpServletRequest request) {
 		return new ResponseEntity<String>(settingsService.findCurrentUnpublishTime().toString(), HttpStatus.OK);
 	}
-	
 
 	/**
 	 * Fetches all {@link Settings} objects from the database and returns them

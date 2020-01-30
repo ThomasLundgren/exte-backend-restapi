@@ -5,10 +5,9 @@ import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 
-import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.http.ResponseCookie;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.login.ILoginHandler;
@@ -44,15 +43,15 @@ public class LoginService {
 					cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
 				}
 			}
-			if(!isLoggedIn) {
+			if (!isLoggedIn) {
 				handleFailedLoginTry(username);
 			}
 		} else {
 			throw new IllegalAccessException();
 		}
 		return cookie;
-		
-		//return createCookie(userService.findByName(username).get(0).isSuperUser());
+
+		// return createCookie(userService.findByName(username).get(0).isSuperUser());
 	}
 
 	private boolean isAllowedToTryToLogin(String username) {
@@ -61,7 +60,7 @@ public class LoginService {
 
 	private void handleFailedLoginTry(String username) {
 		int nbrOfFaildLogins = 1;
-		if(this.failedLogins.get(username) != null) {
+		if (this.failedLogins.get(username) != null) {
 			nbrOfFaildLogins = this.failedLogins.get(username) + 1;
 		}
 		this.failedLogins.put(username, nbrOfFaildLogins);
@@ -84,12 +83,12 @@ public class LoginService {
 		}
 		return cookie;
 	}
-	
+
 	/**
 	 * Removes all the failed login tries every 5 minutes.
 	 * 
-	 * */
-	 
+	 */
+
 	@Scheduled(cron = "0 */5 * * * *")
 	public void removeOldLoginTries() {
 		failedLogins = new HashMap<String, Integer>();

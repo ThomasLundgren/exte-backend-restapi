@@ -77,17 +77,19 @@ public class SettingsService {
 	public List<Settings> findAllSettingsSorted() {
 		return settingsRepo.findAllByOrderByCreatedDesc();
 	}
-	
+
 	/**
 	 * Fetches the current HTML code for the "about" web page.
+	 * 
 	 * @return the "about" web page HTML as a String.
 	 */
 	public String findCurrentAboutPageHtml() {
 		return settingsRepo.findFirstByOrderByCreatedDesc().getAboutPageHtml();
 	}
-	
+
 	/**
 	 * Fetches the current HTML code for the "home" web page.
+	 * 
 	 * @return the "home" web page HTML as a String.
 	 */
 	public String findCurrentHomePageHtml() {
@@ -96,12 +98,13 @@ public class SettingsService {
 
 	/**
 	 * Fetches the current HTML code for the "home" web page.
+	 * 
 	 * @return the "home" web page HTML as a String.
 	 */
 	public Integer findCurrentUnpublishTime() {
 		return settingsRepo.findFirstByOrderByCreatedDesc().getUnpublishTimeYears();
 	}
-	
+
 	/**
 	 * Checks if the specified {@link Settings} object already exists.
 	 * 
