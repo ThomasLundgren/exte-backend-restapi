@@ -1,12 +1,14 @@
 package se.hig.exte.restcontroller;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -58,18 +60,30 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
 	 */
 	@GetMapping(value = "/download/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String filename) {
-		ResponseEntity<byte[]> response;
+	public ResponseEntity<Resource> handleFileDownload(@PathVariable String filename) {
+		/*
+		 * ResponseEntity<byte[]> response; try { File pdf =
+		 * fileService.fetchFile(filename); System.out.println("handleFileDownload" +
+		 * pdf.getName()); byte[] contents = Files.readAllBytes(pdf.toPath());
+		 * System.out.println("herro"); response = new ResponseEntity<byte[]>(contents,
+		 * HttpStatus.OK); } catch (IOException ioe) { response = new
+		 * ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND); } return
+		 * response;
+		 */
+
+		File file = fileService.fetchFile(filename);
+		InputStreamResource resource = null;
+
 		try {
-			File pdf = fileService.fetchFile(filename);
-			System.out.println("handleFileDownload" + pdf.getName());
-			byte[] contents = Files.readAllBytes(pdf.toPath());
-			System.out.println("herro");
-			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
-		} catch (IOException ioe) {
-			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
+			resource = new InputStreamResource(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found: " + file.getName());
+			return new ResponseEntity<Resource>(resource, HttpStatus.NOT_FOUND);
 		}
-		return response;
+
+		return ResponseEntity.ok().contentLength(file.length()).contentType(MediaType.parseMediaType("application/pdf"))
+				.body(resource);
+
 	}
 
 	/**
