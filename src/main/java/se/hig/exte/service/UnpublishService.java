@@ -161,9 +161,7 @@ public class UnpublishService {
 		for (Exam exam : exams) {
 			exam.setUnpublished(true);
 			setExamUnpublished(exam);
-			System.out.println("Unpublisher unpublished " + exam.toString());
 		}
-		System.out.println(">>>> Unpublisher finished. <<<<");
 	}
 
 	public void unpublishEmptyCourses() {
