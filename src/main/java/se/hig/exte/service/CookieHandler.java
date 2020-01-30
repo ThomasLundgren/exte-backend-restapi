@@ -94,8 +94,11 @@ public class CookieHandler {
 	}
 
 	private String autoGenerateId() throws NoSuchAlgorithmException {
+		System.out.println("autoGenerateId 1");
 		byte[] bytes = new byte[20 + (int) (Math.random() * (10))];
+		System.out.println("autoGenerateId 2");
 		SecureRandom.getInstanceStrong().nextBytes(bytes);
+		System.out.println("autoGenerateId 3");
 		return bytes.toString();
 	}
 
