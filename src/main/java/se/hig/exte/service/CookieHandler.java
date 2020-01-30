@@ -128,6 +128,7 @@ public class CookieHandler {
 	}
 
 	private int calculateCookieSessionTime() {
+		System.out.println("Calc session time");
 		return settingsService.getCurrentSettings().getCookieSessionMinutes() * 60;
 	}
 
