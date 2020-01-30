@@ -1,13 +1,15 @@
 package se.hig.exte.restcontroller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -72,19 +74,21 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		 */
 
 		File file = fileService.fetchFile(filename);
-		InputStreamResource resource = null;
+
+		System.out.println(file.getAbsolutePath() + " " + file.getName());
+
+		Path path = Paths.get(file.getAbsolutePath());
+		ByteArrayResource resource = null;
 
 		try {
-			System.out.println(
-					"handleFileDownload " + file.getAbsolutePath() + " " + file.getPath() + " " + file.getName());
-			resource = new InputStreamResource(new FileInputStream(file));
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found: " + file.getName());
+			resource = new ByteArrayResource(Files.readAllBytes(path));
+		} catch (IOException e) {
+			System.out.println("Error reading file: " + file.getName());
 			return new ResponseEntity<Resource>(resource, HttpStatus.NOT_FOUND);
 		}
 
-		return ResponseEntity.ok().contentLength(file.length()).contentType(MediaType.parseMediaType("application/pdf"))
-				.body(resource);
+		return ResponseEntity.ok().contentLength(file.length())
+				.contentType(MediaType.parseMediaType("application/octet-stream")).body(resource);
 
 	}
 
