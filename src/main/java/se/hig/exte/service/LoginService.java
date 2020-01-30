@@ -42,7 +42,12 @@ public class LoginService {
 				isLoggedIn = loginHandler.login(username.toString(), password.toString());
 				if (isLoggedIn) {
 					System.out.println("isLoggedIn");
-					cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
+
+					boolean isSuperUser = userService.findByName(username).get(0).isSuperUser();
+
+					System.out.println("isSuperUser: " + isSuperUser);
+
+					cookie = createCookie(isSuperUser);
 					System.out.println("Cookie: " + cookie);
 				}
 			}
