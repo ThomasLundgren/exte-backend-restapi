@@ -11,7 +11,6 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,8 +61,9 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * @param filename The name of the file on the server to fetch.
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
 	 */
-	@GetMapping(value = "/download/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
-	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/pdf")
+	// @GetMapping(value = "/download/{filename}", produces =
+	// MediaType.APPLICATION_PDF_VALUE)
+	@RequestMapping(value = "/download/{filename}", method = RequestMethod.GET, produces = "application/pdf")
 	public ResponseEntity<InputStreamResource> handleFileDownload(@PathVariable String filename) {
 
 		/*
