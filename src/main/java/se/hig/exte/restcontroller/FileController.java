@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,6 +63,7 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
 	 */
 	@GetMapping(value = "/download/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
+	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/pdf")
 	public ResponseEntity<InputStreamResource> handleFileDownload(@PathVariable String filename) {
 
 		/*
