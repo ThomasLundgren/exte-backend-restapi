@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
-import se.hig.exte.model.Subject;
 import se.hig.exte.repository.SubjectRepository;
 
 /**
@@ -85,7 +84,7 @@ public class SubjectService implements CrudService<Subject> {
 	public void deleteById(int id) {
 		subjectRepo.deleteById(id);
 	}
-	
+
 	public void deleteAll(List<Subject> subjects) {
 		subjectRepo.deleteAll(subjects);
 	}

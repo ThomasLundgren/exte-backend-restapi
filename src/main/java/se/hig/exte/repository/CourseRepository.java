@@ -64,7 +64,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 *         passed in courseCode parameter.
 	 */
 	List<Course> findByNameContainingOrCourseCodeContaining(String name, String courseCode);
-	
+
 	/**
 	 * Fetches all published {@link Course} objects from the database where:
 	 * <ul>
@@ -83,7 +83,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	 *         {@link Course} objects whose course code attribute contains the
 	 *         passed in courseCode parameter.
 	 */
-	List<Course> findByUnpublishedFalseAndNameContainingOrUnpublishedFalseAndCourseCodeContaining(String name, String courseCode);
+	List<Course> findByUnpublishedFalseAndNameContainingOrUnpublishedFalseAndCourseCodeContaining(String name,
+			String courseCode);
 
 	/**
 	 * Fetches all {@link Course} objects with the unpublished value set to true.

@@ -146,7 +146,7 @@ public class UnpublishService {
 		}
 		return academies;
 	}
-	
+
 	/**
 	 * Sets the unpublished value of {@link Exam} to true on all exams in the list.
 	 */
@@ -155,14 +155,12 @@ public class UnpublishService {
 		for (Exam exam : exams) {
 			exam.setUnpublished(true);
 			setExamUnpublished(exam);
-			System.out.println("Unpublisher unpublished " + exam.toString());
 		}
-		System.out.println(">>>> Unpublisher finished. <<<<");
 	}
 
 	public void unpublishEmptyCourses() {
 		List<Course> courses = courseRepo.findByUnpublishedFalse();
-		for (Course course: courses) {
+		for (Course course : courses) {
 			List<Exam> exams = examRepo.findByCourseIdAndUnpublishedFalse(course.getId());
 			if (exams.isEmpty()) {
 				course.setUnpublished(true);
@@ -170,21 +168,21 @@ public class UnpublishService {
 			}
 		}
 	}
-	
+
 	public void unpublishEmptySubjects() {
 		List<Subject> subjects = subjectRepo.findByUnpublishedFalse();
-		for (Subject subject: subjects) {
+		for (Subject subject : subjects) {
 			List<Course> courses = courseRepo.findBySubjectIdAndUnpublishedFalse(subject.getId());
 			if (courses.isEmpty()) {
 				subject.setUnpublished(true);
 				subjectRepo.save(subject);
-			}			
+			}
 		}
 	}
-	
+
 	public void unpublishEmptyAcademies() {
 		List<Academy> academies = academyRepo.findByUnpublishedFalse();
-		for (Academy academy: academies) {
+		for (Academy academy : academies) {
 			List<Subject> subjects = subjectRepo.findByAcademyIdAndUnpublishedFalse(academy.getId());
 			if (subjects.isEmpty()) {
 				academy.setUnpublished(true);
@@ -192,5 +190,5 @@ public class UnpublishService {
 			}
 		}
 	}
-	
+
 }

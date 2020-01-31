@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,10 +19,12 @@ public class Academy {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotBlank(message = "Name cannot be blank")
-	@Size(min = 2, message = "Name must be at least two characters long")
+	@Size(min = 3, message = "Name must be at least three characters long")
+	@Pattern(regexp = "^[\\s\\wåöäÅÖÄ,-]+$", message = "Name must contain only alphabetic characters (a-ö), whitespace, commas and hyphens")
 	private String name;
 	@NotBlank(message = "Abbreviation cannot be blank")
 	@Size(min = 2, max = 5, message = "Abbreviation must be between two and five characters long")
+	@Pattern(regexp = "^[A-ZÅÄÖ]+$", message = "Abbreviation must contain only uppercase alphabetic characters")
 	private String abbreviation;
 	private boolean unpublished;
 

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
-import se.hig.exte.model.Exam;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CourseService;
@@ -168,6 +167,7 @@ public class CourseController {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			courseService.deleteAll(courses);
 	}
+
 	/**
 	 * Searches the database after courses with the text variable
 	 * 
@@ -181,8 +181,7 @@ public class CourseController {
 		List<Course> courses;
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			courses = courseService.findAllByNameOrCourseCodeContaining(text);
-		}
-		else {
+		} else {
 			courses = courseService.findPublishedByNameOrCourseCodeContaining(text);
 		}
 		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);

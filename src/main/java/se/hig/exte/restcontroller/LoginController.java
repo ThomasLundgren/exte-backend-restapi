@@ -30,11 +30,13 @@ public class LoginController {
 	 * @param request To see if the user and cookie are valid.
 	 * @param json     A JSON-Object containing the users email as 'email' (String)
 	 *                 and password as 'password' (String)
-	 * @return boolean If the user was successfull in logging in.
+	 * @return boolean If the user was successfully logged in.
+	 * @throws IllegalAccessException
 	 */
 	@RequestMapping("/")
 	@PostMapping("/")
-	public boolean loginAdmin(HttpServletResponse response, HttpServletRequest request, @RequestBody JSONObject json) {
+	public boolean loginAdmin(HttpServletResponse response, HttpServletRequest request, @RequestBody JSONObject json)
+			throws IllegalAccessException {
 		String username = json.getAsString("username").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		String password = json.getAsString("password").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		ResponseCookie cookie = loginService.login(username, password);
