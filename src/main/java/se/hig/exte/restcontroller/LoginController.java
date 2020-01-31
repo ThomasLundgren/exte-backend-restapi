@@ -27,11 +27,12 @@ public class LoginController {
 	 * Tries to login a user
 	 *
 	 * @param response used to get all the stored cookies at the client
-	 * @param request To see if the user and cookie are valid.
+	 * @param request  The incoming HTTP request.
 	 * @param json     A JSON-Object containing the users email as 'email' (String)
 	 *                 and password as 'password' (String)
-	 * @return boolean If the user was successfully logged in.
-	 * @throws IllegalAccessException
+	 * @return True if the login attempt was successful, otherwise false.
+	 * @throws IllegalAccessException if a user fails to provide the correct
+	 *                                password four times in a row.
 	 */
 	@RequestMapping("/")
 	@PostMapping("/")

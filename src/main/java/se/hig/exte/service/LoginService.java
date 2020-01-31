@@ -22,10 +22,10 @@ public class LoginService {
 	private final int MAX_LOGIN_FAILS = 3;
 
 	/**
-	 * Used when users want to login
-	 *
-	 * @param cookieHandler Used to handle cookies
-	 * @param userService Used to handle the users of the system
+	 * Creates a {@code LoginService}.
+	 * 
+	 * @param userService   The {@link UserService} used by this service.
+	 * @param cookieHandler The {@link CookieHandler} used by this service.
 	 */
 	@Autowired
 	public LoginService(UserService userService, CookieHandler cookieHandler) {
@@ -52,8 +52,6 @@ public class LoginService {
 			throw new IllegalAccessException();
 		}
 		return cookie;
-
-		// return createCookie(userService.findByName(username).get(0).isSuperUser());
 	}
 
 	private boolean isAllowedToTryToLogin(String username) {

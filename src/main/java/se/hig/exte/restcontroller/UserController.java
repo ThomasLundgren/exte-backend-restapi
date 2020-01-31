@@ -53,9 +53,9 @@ public class UserController {
 	/**
 	 * Creates a {@link User} and stores it in the database.
 	 * 
-	 * @param request To see if the user and cookie are valid.
-	 * @param user The {@link User} to add in the form of a JSON-object in the POST
-	 *             request.
+	 * @param user    The {@link User} to add in the form of a JSON-object in the
+	 *                POST request.
+	 * @param request the incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link User} and
 	 *         an HTTP status code.
 	 */
@@ -72,8 +72,8 @@ public class UserController {
 	/**
 	 * Fetches the {@link User} object with the given ID from the database.
 	 * 
-	 * @param id The ID of the {@link User} to fetch.
-	 * @param request To see if the user and cookie are valid.
+	 * @param id      The ID of the {@link User} to fetch.
+	 * @param request the incoming HTTP request.
 	 * @return The {@link User} with the given ID.
 	 */
 	@GetMapping("/{id}")
@@ -91,7 +91,7 @@ public class UserController {
 	 * converted to JSON using Spring Boot's {@code HttpMessageConverter} and put in
 	 * the {@code ResponseEntity}'s body.
 	 * 
-	 * @param request To see if the user and cookie are valid.
+	 * @param request the incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the fetched {@link User}
 	 *         objects.
 	 */
@@ -107,9 +107,9 @@ public class UserController {
 	/**
 	 * Updates the {@link User} object with the given ID in the database.
 	 * 
-	 * @param request To see if the user and cookie are valid.
-	 * @param user The {@link User} to update in the form of a JSON-object in the
-	 *             POST request.
+	 * @param user    The {@link User} to update in the form of a JSON-object in the
+	 *                POST request.
+	 * @param request the incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link User}
 	 *         and an HTTP status code.
 	 */
@@ -126,8 +126,8 @@ public class UserController {
 	/**
 	 * Deletes the {@link User} object with the given ID from the database.
 	 * 
-	 * @param id The ID of the {@link User} to delete.
-	 * @param request To see if the user and cookie are valid.
+	 * @param id      The ID of the {@link User} to delete.
+	 * @param request the incoming HTTP request.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable int id, HttpServletRequest request) {

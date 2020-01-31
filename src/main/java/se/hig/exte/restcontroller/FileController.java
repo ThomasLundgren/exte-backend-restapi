@@ -77,8 +77,8 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * Returns a status code of "417 - expectation failed" if a file with the
 	 * specified name already exists or if the file is not a PDF file.
 	 * 
-	 * @param file The {@code MultiPartFile} to upload to the server.
-	 * @param request To see if the user and cookie are valid.
+	 * @param file    The {@code MultiPartFile} to upload to the server.
+	 * @param request The incoming HTTP request.
 	 * @return A {@code ResponseEntity} containing a message and status code 200 if
 	 *         successful, else 417.
 	 */
