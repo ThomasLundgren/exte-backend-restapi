@@ -1,5 +1,6 @@
 package se.hig.exte.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import se.hig.exte.repository.SettingsRepository;
 public class SettingsService {
 
 	private final SettingsRepository settingsRepo;
+	private final Settings defaultSettings = new Settings(120, "<h1>Welcome!</h1>", "<h1>Contact at HiG:s webpage</h1>", 3);
 
 	/**
 	 * Creates a {@code SettingsService} object.
@@ -51,10 +53,16 @@ public class SettingsService {
 
 	/**
 	 * Fetches the currently active {@link Settings} from the database.
+	 * If no settings is available default settings will be applied.
+	 * 
 	 * @return the currently active Setting in the database
 	 */
 	public Settings getCurrentSettings() {
-		return settingsRepo.findFirstByOrderByCreatedDesc();
+		Settings settings = settingsRepo.findFirstByOrderByCreatedDesc();
+		if(settings == null) {
+			settings = this.defaultSettings;
+		}
+		return settings;
 	}
 
 	/**
@@ -67,7 +75,12 @@ public class SettingsService {
 	 *         {@link Settings} first.
 	 */
 	public List<Settings> findTenLatestSettings() {
-		return settingsRepo.findTop10ByOrderByCreatedDesc();
+		List<Settings> settings = settingsRepo.findTop10ByOrderByCreatedDesc();
+		if((settings == null) || (settings.size() < 1)) {
+			settings = new ArrayList<Settings>();
+			settings.add(defaultSettings);
+		}
+		return settings;
 	}
 
 	/**
@@ -78,7 +91,12 @@ public class SettingsService {
 	 *         creation date with the most recently added {@link Settings} first.
 	 */
 	public List<Settings> findAllSettingsSorted() {
-		return settingsRepo.findAllByOrderByCreatedDesc();
+		List<Settings> settings = settingsRepo.findAllByOrderByCreatedDesc();
+		if((settings == null) || (settings.size() < 1)) {
+			settings = new ArrayList<Settings>();
+			settings.add(defaultSettings);
+		}
+		return settings;
 	}
 
 	/**
@@ -87,7 +105,8 @@ public class SettingsService {
 	 * @return the "about" web page HTML as a String.
 	 */
 	public String findCurrentAboutPageHtml() {
-		return settingsRepo.findFirstByOrderByCreatedDesc().getAboutPageHtml();
+		Settings currentSetting = this.getCurrentSettings();
+		return currentSetting.getAboutPageHtml();
 	}
 
 	/**
@@ -96,7 +115,8 @@ public class SettingsService {
 	 * @return the "home" web page HTML as a String.
 	 */
 	public String findCurrentHomePageHtml() {
-		return settingsRepo.findFirstByOrderByCreatedDesc().getHomePageHtml();
+		Settings currentSetting = this.getCurrentSettings();
+		return currentSetting.getHomePageHtml();
 	}
 
 	/**
@@ -105,7 +125,8 @@ public class SettingsService {
 	 * @return the "home" web page HTML as a String.
 	 */
 	public Integer findCurrentUnpublishTime() {
-		return settingsRepo.findFirstByOrderByCreatedDesc().getUnpublishTimeYears();
+		Settings currentSetting = this.getCurrentSettings();
+		return currentSetting.getUnpublishTimeYears();
 	}
 
 	/**
