@@ -136,7 +136,8 @@ public class ExamController {
 	/**
 	 * Deletes the {@link Exam} object with the given ID from the database.
 	 *
-	 * @param id The ID of the {@link Exam} to delete.
+	 * @param request The incoming HTTP request.
+	 * @param id      The ID of the {@link Exam} to delete.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {

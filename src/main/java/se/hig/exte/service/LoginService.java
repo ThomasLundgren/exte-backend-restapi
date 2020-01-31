@@ -22,8 +22,10 @@ public class LoginService {
 	private final int MAX_LOGIN_FAILS = 3;
 
 	/**
+	 * Creates a {@code LoginService}.
 	 * 
-	 * @param loginHandler
+	 * @param userService   The {@link UserService} used by this service.
+	 * @param cookieHandler The {@link CookieHandler} used by this service.
 	 */
 	@Autowired
 	public LoginService(UserService userService, CookieHandler cookieHandler) {

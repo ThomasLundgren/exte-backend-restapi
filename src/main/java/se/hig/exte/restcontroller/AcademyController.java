@@ -169,8 +169,8 @@ public class AcademyController {
 	/**
 	 * Changes the boolean unpublished value on the {@link Subject}s
 	 * 
-	 * @param subject The {@link Subject}s to update
-	 * @param request The incoming HTTP request.
+	 * @param academies The {@link Academy} objects to update
+	 * @param request   The incoming HTTP request.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
