@@ -156,9 +156,10 @@ public class AcademyController {
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 	}
 
-	/*
+	/**
 	 * Fetches all unpublished courses.
 	 *
+	 * 
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")

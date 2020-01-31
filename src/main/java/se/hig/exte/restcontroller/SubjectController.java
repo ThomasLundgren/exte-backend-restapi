@@ -57,6 +57,7 @@ public class SubjectController {
 	/**
 	 * Creates a {@link Subject} and stores it in the database.
 	 *
+	 * @param request To see if the user and cookie are valid.
 	 * @param subject The {@link Subject} to add in the form of a JSON-object in the
 	 *                POST request.
 	 * @param request The incoming HTTP request.
@@ -135,6 +136,7 @@ public class SubjectController {
 	/**
 	 * Updates the {@link Subject} object with the given ID in the database.
 	 *
+	 * @param request To see if the user and cookie are valid.
 	 * @param subject The {@link Subject} to update in the form of a JSON-object in
 	 *                the POST request.
 	 * @param request the incoming HTTP request.

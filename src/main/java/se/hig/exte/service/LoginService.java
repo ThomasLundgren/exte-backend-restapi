@@ -52,8 +52,6 @@ public class LoginService {
 			throw new IllegalAccessException();
 		}
 		return cookie;
-
-		// return createCookie(userService.findByName(username).get(0).isSuperUser());
 	}
 
 	private boolean isAllowedToTryToLogin(String username) {
