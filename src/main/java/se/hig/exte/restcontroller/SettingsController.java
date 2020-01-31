@@ -33,7 +33,7 @@ public class SettingsController {
 	/**
 	 * Creates a {@code SettingsController} object.
 	 *
-	 * @param courseService The service class used to perform all services exposed
+	 * @param settingsService The service class used to perform all services exposed
 	 *                      in this RestController.
 	 * @param cookieHandler object responsible for handling authentication.
 	 */
@@ -45,6 +45,9 @@ public class SettingsController {
 
 	/**
 	 * Fetches the currently active {@link Settings} from the database.
+	 * 
+	 * @param request To see if the user and cookie are valid.
+	 * @return ResponseEntity An ok or an unauthorized message.
 	 */
 	@GetMapping("/")
 	public ResponseEntity<Settings> getNewestSettings(HttpServletRequest request) {
@@ -80,6 +83,7 @@ public class SettingsController {
 	/**
 	 * Fetches the current HTML code for the "about" web page.
 	 * 
+	 * @param request To see if the user and cookie are valid.
 	 * @return the "about" web page HTML as a String.
 	 */
 	@GetMapping("/about")
@@ -90,6 +94,7 @@ public class SettingsController {
 	/**
 	 * Fetches the current HTML code for the "about" web page.
 	 * 
+	 * @param request To see if the user and cookie are valid.
 	 * @return the "about" web page HTML as a String.
 	 */
 	@GetMapping("/home")
@@ -132,15 +137,16 @@ public class SettingsController {
 	 * @param request  The incoming HTTP request.
 	 * @return A {@code ResponseEntity} containing the saved {@link Settings}
 	 *         object, in JSON format accompanied by an HTTP status code.
-	 *         <p>
+	 *         
 	 *         Returns:
+	 *      
 	 *         <ul>
 	 *         <li>200 if the request is successful.</li>
 	 *         <li>401 if the user is not logged in</li>
 	 *         <li>403 if the tries to save a {@link Settings} object that has an ID
 	 *         value. ID should be null.</li>
 	 *         </ul>
-	 *         </p>
+	 *         
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Settings> saveSettings(@Valid @RequestBody Settings settings, HttpServletRequest request) {

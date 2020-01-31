@@ -18,7 +18,10 @@ public class LoginService {
 	private final CookieHandler cookieHandler;
 
 	/**
-	 * @param loginHandler
+	 * Used when users want to login
+	 *
+	 * @param cookieHandler Used to handle cookies
+	 * @param userService Used to handle the users of the system
 	 */
 	@Autowired
 	public LoginService(UserService userService, CookieHandler cookieHandler) {

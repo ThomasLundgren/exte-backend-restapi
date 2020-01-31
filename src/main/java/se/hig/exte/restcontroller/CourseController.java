@@ -61,6 +61,7 @@ public class CourseController {
 	 *
 	 * @param course The {@link Course} to add in the form of a JSON-object in the
 	 *               POST request.
+	 * @param request To see if the user and cookie are valid.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Course}
 	 *         and an HTTP status code.
 	 */
@@ -136,6 +137,7 @@ public class CourseController {
 	 *
 	 * @param course The {@link Course} to update in the form of a JSON-object in
 	 *               the POST request.
+	 * @param request To see if the user and cookie are valid.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Course}
 	 *         and an HTTP status code.
 	 */
@@ -153,6 +155,7 @@ public class CourseController {
 	 * Deletes the {@link Course} object with the given ID from the database.
 	 *
 	 * @param id The ID of the {@link Course} to delete.
+	 * @param request To see if the user and cookie are valid.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteCourseById(@PathVariable int id, HttpServletRequest request) {
@@ -169,6 +172,7 @@ public class CourseController {
 	 * Searches the database after courses with the text variable
 	 * 
 	 * @param text The text searched
+	 * @param request To see if the user and cookie are valid.
 	 * @return If super-user: A list of all courses that are a match and the http status OK.
 	 * 			If not super-user in: A list of all published courses that are a match and the http status OK.
 	 */
@@ -198,6 +202,7 @@ public class CourseController {
 	 * Changes the boolean unpublished value on the {@link Course}
 	 * 
 	 * @param course The {@link Course} to update
+	 * @param request To see if the user and cookie are valid.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
@@ -212,6 +217,7 @@ public class CourseController {
 	 * Changes the boolean unpublished value on the {@link Course}
 	 * 
 	 * @param course The {@link Course} to update
+	 * @param request To see if the user and cookie are valid.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")

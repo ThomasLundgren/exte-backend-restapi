@@ -59,7 +59,7 @@ public class AcademyController {
 	/**
 	 * Gets All published academies
 	 *
-	 * @return
+	 * @return List of all the published academies
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Academy>> getAllAcademies() {
@@ -72,6 +72,7 @@ public class AcademyController {
 	 *
 	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
 	 *                POST request.
+	 * @param request To see if the use(cookie) is valid.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
 	 *         and an HTTP status code.
 	 */
@@ -109,6 +110,7 @@ public class AcademyController {
 	 *
 	 * @param academy The {@link Academy} to update in the form of a JSON-object in
 	 *                the POST request.
+	 * @param request To check if cookie and user are valid
 	 * @return A {@code ResponseEntity} object containing the updated
 	 *         {@link Academy} and an HTTP status code.
 	 */
@@ -127,6 +129,8 @@ public class AcademyController {
 	 * accesable by super-admin
 	 *
 	 * @param id The ID of the {@link Academy} to delete.
+	 * @param request To see if cookie and user are valid.
+	 * @return boolean If the academy was successfully deleted.
 	 */
 	@DeleteMapping("/{id}")
 	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
@@ -141,6 +145,7 @@ public class AcademyController {
 	 * Changes the boolean unpublished value on the {@link Academy}
 	 *
 	 * @param academy The {@link Academy} to update
+	 * @param request Check to see if cookie and user are valid.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
@@ -150,9 +155,10 @@ public class AcademyController {
 		else
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 	}
-	/*
+	/**
 	 * Fetches all unpublished courses.
 	 *
+	 * 
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
@@ -161,9 +167,10 @@ public class AcademyController {
 	}
 
 	/**
-	 * Changes the boolean unpublished value on the {@link subject}s
-	 * @param subject The {@link Subject}s to update
-	 * @param unpublished The boolean is unpublished
+	 * Changes the boolean unpublished value on the Subjects
+	 * 
+	 * @param request Check if user and cookie are valid.
+	 * @param academies List of att the academies.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")

@@ -39,6 +39,8 @@ public class Subject {
 	 *                  characters long and cannot be null or whitespace.
 	 * @param academyId The ID of the {@link Academy} to which this {@code Subject}
 	 *                  belongs.
+	 *                  
+	 * @param unpublished Boolean to check if the subject is unpublished.
 	 */
 	public Subject(String code, String name, boolean unpublished, int academyId) {
 		this.code = code;
