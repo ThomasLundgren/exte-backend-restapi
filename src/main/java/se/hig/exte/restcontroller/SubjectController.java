@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
-import se.hig.exte.model.Subject;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.SubjectService;
@@ -161,13 +160,12 @@ public class SubjectController {
 			subjectService.deleteById(id);
 	}
 
-
 	@DeleteMapping("/")
 	public void deleteSubjects(@RequestBody List<Subject> subjects, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			subjectService.deleteAll(subjects);
 	}
-	
+
 	/**
 	 * Searches the database after subjects with the text variable
 	 *

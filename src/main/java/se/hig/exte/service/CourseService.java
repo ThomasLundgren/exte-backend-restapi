@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.hig.exte.model.Course;
-import se.hig.exte.model.Exam;
 import se.hig.exte.model.Subject;
 import se.hig.exte.repository.CourseRepository;
 
@@ -92,11 +91,10 @@ public class CourseService implements CrudService<Course> {
 		courseRepo.deleteById(id);
 	}
 
-
 	public void deleteAll(List<Course> courses) {
 		courseRepo.deleteAll(courses);
 	}
-	
+
 	/**
 	 * /** Fetches all {@link Course} objects from the database where:
 	 * <ul>
@@ -114,7 +112,7 @@ public class CourseService implements CrudService<Course> {
 	public List<Course> findAllByNameOrCourseCodeContaining(String searchText) {
 		return courseRepo.findByNameContainingOrCourseCodeContaining(searchText, searchText);
 	}
-	
+
 	/**
 	 * /** Fetches all published {@link Course} objects from the database where:
 	 * <ul>
@@ -130,7 +128,8 @@ public class CourseService implements CrudService<Course> {
 	 *         contain the specified search text.
 	 */
 	public List<Course> findPublishedByNameOrCourseCodeContaining(String searchText) {
-		return courseRepo.findByUnpublishedFalseAndNameContainingOrUnpublishedFalseAndCourseCodeContaining(searchText, searchText);
+		return courseRepo.findByUnpublishedFalseAndNameContainingOrUnpublishedFalseAndCourseCodeContaining(searchText,
+				searchText);
 	}
 
 	/**

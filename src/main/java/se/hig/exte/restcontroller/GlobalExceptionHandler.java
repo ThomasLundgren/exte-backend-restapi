@@ -79,7 +79,6 @@ public class GlobalExceptionHandler {
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(ENTITY_VALIDATION);
 		manve.getBindingResult().getAllErrors().forEach(error -> {
-			System.err.println(error.getDefaultMessage());
 			String errorMessage = error.getDefaultMessage();
 			errors.addError(errorMessage);
 		});
@@ -90,7 +89,6 @@ public class GlobalExceptionHandler {
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(MAX_UPLOAD_SIZE_EXCEEDED);
 		errors.addError(musee.getMostSpecificCause().getMessage());
-		System.err.println(musee.getMostSpecificCause().getMessage());
 		return handleExceptionInternal(musee, errors, headers, status, request);
 	}
 
@@ -98,7 +96,6 @@ public class GlobalExceptionHandler {
 			HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(MULTIPART);
 		errors.addError(mpe.getMostSpecificCause().getMessage());
-		System.err.println(mpe.getMostSpecificCause().getMessage());
 		/*
 		 * Bypass handleExceptionInternal call since status is
 		 * HttpStatus.INTERNAL_SERVER_ERROR and we don't want generic exception handling
@@ -129,7 +126,7 @@ public class GlobalExceptionHandler {
 		errors.addError("You have entered the wrong credentials too many times. Try again in 5 minutes");
 		return handleExceptionInternal(iae, errors, headers, status, request);
 	}
-	
+
 	// Default handler used when no other handler has caught the exception.
 	private ResponseEntity<ApiError> handleExceptionInternal(Exception ex, ApiError body, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {

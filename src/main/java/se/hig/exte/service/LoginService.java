@@ -35,26 +35,18 @@ public class LoginService {
 
 	public ResponseCookie login(String username, String password) throws IllegalAccessException {
 		/*
-		ResponseCookie cookie = null;
-		if (isAllowedToTryToLogin(username)) {
-			boolean isLoggedIn = false;
-			if (checkIfUserExists(username)) {
-				isLoggedIn = loginHandler.login(username.toString(), password.toString());
-				if (isLoggedIn) {
-					boolean isSuperUser = userService.findByName(username).get(0).isSuperUser();
-					cookie = createCookie(isSuperUser);
-				}
-			}
-			if (!isLoggedIn) {
-				handleFailedLoginTry(username);
-			}
-		} else {
-			throw new IllegalAccessException();
-		}
-		return cookie;
-		*/
+		 * ResponseCookie cookie = null; if (isAllowedToTryToLogin(username)) { boolean
+		 * isLoggedIn = false; if (checkIfUserExists(username)) { isLoggedIn =
+		 * loginHandler.login(username.toString(), password.toString()); if (isLoggedIn)
+		 * { boolean isSuperUser =
+		 * userService.findByName(username).get(0).isSuperUser(); cookie =
+		 * createCookie(isSuperUser); } } if (!isLoggedIn) {
+		 * handleFailedLoginTry(username); } } else { throw new
+		 * IllegalAccessException(); } return cookie;
+		 */
 
 		return createCookie(true);
+		// return createCookie(userService.findByName(username).get(0).isSuperUser());
 	}
 
 	private boolean isAllowedToTryToLogin(String username) {
@@ -67,8 +59,8 @@ public class LoginService {
 			nbrOfFaildLogins = this.failedLogins.get(username) + 1;
 		}
 		this.failedLogins.put(username, nbrOfFaildLogins);
-		System.out.println("nbr of faild i handle : " + nbrOfFaildLogins);
 
+		System.out.println("nbr of faild i handle : " + nbrOfFaildLogins);
 	}
 
 	public void logout(Cookie[] cookies) {

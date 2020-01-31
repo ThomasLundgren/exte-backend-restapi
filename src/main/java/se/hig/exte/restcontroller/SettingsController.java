@@ -50,7 +50,6 @@ public class SettingsController {
 	public ResponseEntity<Settings> getNewestSettings(HttpServletRequest request) {
 		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 			Settings settings = settingsService.getCurrentSettings();
-			System.out.println(settings.getCreated());
 			return new ResponseEntity<Settings>(settings, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Settings>(HttpStatus.UNAUTHORIZED);
@@ -96,13 +95,11 @@ public class SettingsController {
 	public ResponseEntity<String> getHomePageHtml(HttpServletRequest request) {
 		return new ResponseEntity<String>(settingsService.findCurrentHomePageHtml(), HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/unpublishTime")
 	public ResponseEntity<String> getUnpublishTime(HttpServletRequest request) {
 		return new ResponseEntity<String>(settingsService.findCurrentUnpublishTime().toString(), HttpStatus.OK);
 	}
-	
 
 	/**
 	 * Fetches all {@link Settings} objects from the database and returns them
