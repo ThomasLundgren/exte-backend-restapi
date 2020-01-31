@@ -41,8 +41,8 @@ public class ExamController {
 	/**
 	 * Creates an {@code ExamController} object.
 	 *
-	 * @param addExamService      The class used to perform add
-	 *                         services exposed in this RestController.
+	 * @param examService      The class used to perform add services exposed in
+	 *                         this RestController.
 	 * @param unpublishService A {@link CrudService} class used to perform services
 	 *                         exposed in this RestController.
 	 * @param cookieHandler    object responsible for handling authentication.
