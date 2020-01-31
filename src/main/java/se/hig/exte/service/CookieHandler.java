@@ -124,7 +124,12 @@ public class CookieHandler {
 	}
 
 	private int calculateCookieSessionTime() {
-		return settingsService.getCurrentSettings().getCookieSessionMinutes() * 60;
+		try {
+			return settingsService.getCurrentSettings().getCookieSessionMinutes() * 60;
+		} catch (NullPointerException e) {
+			return 30 * 60;
+		}
+
 	}
 
 	/**
