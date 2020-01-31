@@ -62,7 +62,7 @@ public class FileController /* implements HandlerExceptionResolver */ {
 
 		ResponseEntity<byte[]> response = null;
 		try {
-			File pdf = fileService.fetchFile(filename);
+			File pdf = fileService.fetchFile(filename + ".pdf");
 			System.out.println("handleFileDownload" + pdf.getName());
 			byte[] contents = Files.readAllBytes(pdf.toPath());
 			System.out.println("After contents");
