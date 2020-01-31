@@ -21,7 +21,7 @@ public class SettingsService {
 
 	/**
 	 * Creates a {@code SettingsService} object.
-	 * 
+	 *
 	 * @param settingsRepo The {@link SettingsRepository} to use for CRUD
 	 *                     operations.
 	 */
@@ -33,9 +33,9 @@ public class SettingsService {
 	/**
 	 * Fetches the {@link Settings} object with the corresponding ID from the
 	 * database.
-	 * 
+	 *
 	 * @param id The ID of the {@link Settings} object to fetch.
-	 * @return the settings with the id
+	 * @return The {@link Settings} with the specified ID or null if not found.
 	 */
 	public Settings findById(int id) {
 		return settingsRepo.findById(id);
@@ -43,9 +43,9 @@ public class SettingsService {
 
 	/**
 	 * Saves a {@link Settings} object to the database.
-	 * 
+	 *
 	 * @param settings The {@link Settings} object to save.
-	 * @return the setting just saved
+	 * @return The saved {@link Settings}.
 	 */
 	public Settings save(Settings settings) {
 		return settingsRepo.saveAndFlush(settings);
@@ -54,8 +54,9 @@ public class SettingsService {
 	/**
 	 * Fetches the currently active {@link Settings} from the database.
 	 * If no settings is available default settings will be applied.
-	 * 
-	 * @return the currently active Setting in the database
+	 *
+	 *
+	 * @return The currently active {@link Settings}.
 	 */
 	public Settings getCurrentSettings() {
 		Settings settings = settingsRepo.findFirstByOrderByCreatedDesc();
@@ -69,7 +70,7 @@ public class SettingsService {
 	 * Fetches the ten most newly created {@link Settings} objects from the database
 	 * and returns them sorted by creation date with the most recently added
 	 * {@link Settings} first.
-	 * 
+	 *
 	 * @return A {@code List} containing the ten most newly created {@link Settings}
 	 *         objects sorted by creation date with the most recently added
 	 *         {@link Settings} first.
@@ -86,7 +87,7 @@ public class SettingsService {
 	/**
 	 * Fetches all {@link Settings} objects from the database and returns them
 	 * sorted by creation date with the most recently added {@link Settings} first.
-	 * 
+	 *
 	 * @return A {@code List} containing all {@link Settings} objects sorted by
 	 *         creation date with the most recently added {@link Settings} first.
 	 */
@@ -101,7 +102,7 @@ public class SettingsService {
 
 	/**
 	 * Fetches the current HTML code for the "about" web page.
-	 * 
+	 *
 	 * @return the "about" web page HTML as a String.
 	 */
 	public String findCurrentAboutPageHtml() {
@@ -111,7 +112,7 @@ public class SettingsService {
 
 	/**
 	 * Fetches the current HTML code for the "home" web page.
-	 * 
+	 *
 	 * @return the "home" web page HTML as a String.
 	 */
 	public String findCurrentHomePageHtml() {
@@ -121,7 +122,7 @@ public class SettingsService {
 
 	/**
 	 * Fetches the current HTML code for the "home" web page.
-	 * 
+	 *
 	 * @return the "home" web page HTML as a String.
 	 */
 	public Integer findCurrentUnpublishTime() {
@@ -131,7 +132,7 @@ public class SettingsService {
 
 	/**
 	 * Checks if the specified {@link Settings} object already exists.
-	 * 
+	 *
 	 * @param settings The {@link Settings} object which to check.
 	 * @return True if the {@link Settings} already exists, otherwise false.
 	 */

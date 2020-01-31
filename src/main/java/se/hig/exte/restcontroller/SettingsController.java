@@ -34,8 +34,8 @@ public class SettingsController {
 	 * Creates a {@code SettingsController} object.
 	 *
 	 * @param settingsService The service class used to perform all services exposed
-	 *                      in this RestController.
-	 * @param cookieHandler object responsible for handling authentication.
+	 *                        in this RestController.
+	 * @param cookieHandler   object responsible for handling authentication.
 	 */
 	@Autowired
 	public SettingsController(SettingsService settingsService, CookieHandler cookieHandler) {
@@ -46,8 +46,8 @@ public class SettingsController {
 	/**
 	 * Fetches the currently active {@link Settings} from the database.
 	 * 
-	 * @param request To see if the user and cookie are valid.
-	 * @return ResponseEntity An ok or an unauthorized message.
+	 * @param request the incoming HTTP request.
+	 * @return the currently used settings.
 	 */
 	@GetMapping("/")
 	public ResponseEntity<Settings> getNewestSettings(HttpServletRequest request) {
@@ -82,7 +82,7 @@ public class SettingsController {
 	/**
 	 * Fetches the current HTML code for the "about" web page.
 	 * 
-	 * @param request To see if the user and cookie are valid.
+	 * @param request the incoming HTTP request.
 	 * @return the "about" web page HTML as a String.
 	 */
 	@GetMapping("/about")
@@ -93,7 +93,7 @@ public class SettingsController {
 	/**
 	 * Fetches the current HTML code for the "about" web page.
 	 * 
-	 * @param request To see if the user and cookie are valid.
+	 * @param request the incoming HTTP request.
 	 * @return the "about" web page HTML as a String.
 	 */
 	@GetMapping("/home")
@@ -101,6 +101,12 @@ public class SettingsController {
 		return new ResponseEntity<String>(settingsService.findCurrentHomePageHtml(), HttpStatus.OK);
 	}
 
+	/**
+	 * Fetches the unpublish time setting.
+	 * 
+	 * @param request the incoming HTTP request.
+	 * @return the current unpublish time as a String.
+	 */
 	@GetMapping("/unpublishTime")
 	public ResponseEntity<String> getUnpublishTime(HttpServletRequest request) {
 		return new ResponseEntity<String>(settingsService.findCurrentUnpublishTime().toString(), HttpStatus.OK);
@@ -133,17 +139,13 @@ public class SettingsController {
 	 * @param settings The {@link Settings} object to save.
 	 * @param request  The incoming HTTP request.
 	 * @return A {@code ResponseEntity} containing the saved {@link Settings}
-	 *         object, in JSON format accompanied by an HTTP status code.
-	 *         
-	 *         Returns:
-	 *      
+	 *         object, in JSON format accompanied by an HTTP status code. Returns:
 	 *         <ul>
 	 *         <li>200 if the request is successful.</li>
 	 *         <li>401 if the user is not logged in</li>
 	 *         <li>403 if the tries to save a {@link Settings} object that has an ID
 	 *         value. ID should be null.</li>
 	 *         </ul>
-	 *         
 	 */
 	@PostMapping("/")
 	public ResponseEntity<Settings> saveSettings(@Valid @RequestBody Settings settings, HttpServletRequest request) {
