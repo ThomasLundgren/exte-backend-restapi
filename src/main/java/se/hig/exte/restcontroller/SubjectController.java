@@ -57,6 +57,7 @@ public class SubjectController {
 	/**
 	 * Creates a {@link Subject} and stores it in the database.
 	 *
+	 * @param request To see if the user and cookie are valid.
 	 * @param subject The {@link Subject} to add in the form of a JSON-object in the
 	 *                POST request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Subject}
@@ -134,6 +135,7 @@ public class SubjectController {
 	/**
 	 * Updates the {@link Subject} object with the given ID in the database.
 	 *
+	 * @param request To see if the user and cookie are valid.
 	 * @param subject The {@link Subject} to update in the form of a JSON-object in
 	 *                the POST request.
 	 * @return A {@code ResponseEntity} object containing the updated
@@ -153,6 +155,7 @@ public class SubjectController {
 	 * Deletes the {@link Subject} object with the given ID from the database.
 	 *
 	 * @param id The ID of the {@link Subject} to delete.
+	 * @param request To see if the user and cookie are valid.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteSubjectById(@PathVariable int id, HttpServletRequest request) {
@@ -183,6 +186,7 @@ public class SubjectController {
 	/**
 	 * Fetches all unpublished subjects.
 	 *
+	 * @param request To see if the user and cookie are valid.
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
@@ -195,10 +199,10 @@ public class SubjectController {
 	}
 
 	/**
-	 * Changes the boolean unpublished value on the {@link subject}
+	 * Changes the boolean unpublished value on the subject
 	 * 
-	 * @param subject     The {@link Subject} to update
-	 * @param unpublished The boolean is unpublished
+	 * @param subject     The subject to update
+	 * @param request To see if the user and cookie are valid.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
@@ -210,10 +214,10 @@ public class SubjectController {
 	}
 
 	/**
-	 * Changes the boolean unpublished value on the {@link subject}s
+	 * Changes the boolean unpublished value on the Subjects
 	 * 
-	 * @param subject     The {@link Subject}s to update
-	 * @param unpublished The boolean is unpublished
+	 * @param subjects     The subjects to update
+	 * @param request To see if the user and cookie are valid.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")

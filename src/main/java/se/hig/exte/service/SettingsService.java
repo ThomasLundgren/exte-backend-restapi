@@ -33,6 +33,7 @@ public class SettingsService {
 	 * database.
 	 * 
 	 * @param id The ID of the {@link Settings} object to fetch.
+	 * @return the settings with the id
 	 */
 	public Settings findById(int id) {
 		return settingsRepo.findById(id);
@@ -42,6 +43,7 @@ public class SettingsService {
 	 * Saves a {@link Settings} object to the database.
 	 * 
 	 * @param settings The {@link Settings} object to save.
+	 * @return the setting just saved
 	 */
 	public Settings save(Settings settings) {
 		return settingsRepo.saveAndFlush(settings);
@@ -49,6 +51,7 @@ public class SettingsService {
 
 	/**
 	 * Fetches the currently active {@link Settings} from the database.
+	 * @return the currently active Setting in the database
 	 */
 	public Settings getCurrentSettings() {
 		return settingsRepo.findFirstByOrderByCreatedDesc();

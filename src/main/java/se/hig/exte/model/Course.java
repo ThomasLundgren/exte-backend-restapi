@@ -42,6 +42,7 @@ public class Course {
 	 *                   and seven characters long.
 	 * @param subjectId  The ID of the {@link Subject} to which this {@code Course}
 	 *                   belongs.
+	 * @param unpublished Boolean to see if the course is unpublished
 	 */
 	public Course(String name, String courseCode, boolean unpublished, int subjectId) {
 		this.name = name;

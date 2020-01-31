@@ -82,6 +82,7 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * specified name already exists or if the file is not a PDF file.
 	 * 
 	 * @param file The {@code MultiPartFile} to upload to the server.
+	 * @param request To see if the user and cookie are valid.
 	 * @return A {@code ResponseEntity} containing a message and status code 200 if
 	 *         successful, else 417.
 	 */

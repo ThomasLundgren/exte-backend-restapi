@@ -41,7 +41,7 @@ public class ExamController {
 	/**
 	 * Creates an {@code ExamController} object.
 	 *
-	 * @param examService      The {@link CrudService} class used to perform all
+	 * @param addExamService      The class used to perform add
 	 *                         services exposed in this RestController.
 	 * @param unpublishService A {@link CrudService} class used to perform services
 	 *                         exposed in this RestController.
@@ -59,6 +59,7 @@ public class ExamController {
 	 *
 	 * @param exam The {@link Exam} to add in the form of a JSON-object in the POST
 	 *             request.
+	 * @param request To see if the user and cookie are valid.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Exam} and
 	 *         an HTTP status code.
 	 */
@@ -118,6 +119,7 @@ public class ExamController {
 	 *
 	 * @param exam The {@link Exam} to update in the form of a JSON-object in the
 	 *             POST request.
+	 * @param request To see if the user and cookie are valid.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Exam}
 	 *         and an HTTP status code.
 	 */
@@ -135,6 +137,7 @@ public class ExamController {
 	 * Deletes the {@link Exam} object with the given ID from the database.
 	 *
 	 * @param id The ID of the {@link Exam} to delete.
+	 * @param request To see if the user and cookie are valid.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {
@@ -152,6 +155,7 @@ public class ExamController {
 	/**
 	 * Fetches all unpublished exams.
 	 * 
+	 * @param request To see if the user and cookie are valid.
 	 * @return A list of all unpublished exams and the http status OK.
 	 */
 	@GetMapping("/unpublished")
@@ -166,7 +170,7 @@ public class ExamController {
 	 * Changes the boolean unpublished value on the {@link Exam}
 	 * 
 	 * @param exam        The {@link Exam} to update
-	 * @param unpublished The boolean is unpublished
+	 * @param request To see if the user and cookie are valid.
 	 * @return The ResponseEntity string of the http status.
 	 */
 
@@ -181,8 +185,8 @@ public class ExamController {
 	/**
 	 * Changes the boolean unpublished value on the {@link Exam}s
 	 * 
-	 * @param exam        The {@link Exam}s to update
-	 * @param unpublished The boolean is unpublished
+	 * @param exams A list of all the exams.
+	 * @param request To see if the user and cookie are valid.
 	 * @return The ResponseEntity string of the http status.
 	 */
 
