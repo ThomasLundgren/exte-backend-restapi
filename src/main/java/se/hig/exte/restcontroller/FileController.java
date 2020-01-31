@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,6 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	private final FileService fileService;
 	private final ExamService examService;
 	private final CookieHandler cookieHandler;
-
-	@Autowired
-	private ServletContext servletContext;
 
 	/**
 	 * Creates a {@code FileController}.
@@ -69,6 +65,7 @@ public class FileController /* implements HandlerExceptionResolver */ {
 			File pdf = fileService.fetchFile(filename);
 			System.out.println("handleFileDownload" + pdf.getName());
 			byte[] contents = Files.readAllBytes(pdf.toPath());
+			System.out.println("After contents");
 			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
 		} catch (IOException ioe) {
 			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
@@ -96,6 +93,8 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		}
 
 		String message = "";
+
+		System.out.println("filesize:" + file.getSize());
 
 		if (isPDF(file)) {
 			try {
