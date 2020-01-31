@@ -1,12 +1,13 @@
 package se.hig.exte.restcontroller;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.ExamService;
@@ -63,36 +61,20 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * @param filename The name of the file on the server to fetch.
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
 	 */
-	@GetMapping(value = "/download/{filename}")
+	@GetMapping(value = "/download/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String filename) {
 
-		/*
-		 * ResponseEntity<byte[]> response = null; try { File pdf =
-		 * fileService.fetchFile(filename); System.out.println("handleFileDownload" +
-		 * pdf.getName()); byte[] contents = Files.readAllBytes(pdf.toPath());
-		 * System.out.println("herro"); response = new ResponseEntity<byte[]>(contents,
-		 * HttpStatus.OK); } catch (IOException ioe) { response = new
-		 * ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND); }
-		 * 
-		 * return response;
-		 */
-
-		File file = fileService.fetchFile(filename);
-		ObjectMapper objectMapper = new ObjectMapper();
-		String json = null;
+		ResponseEntity<byte[]> response = null;
 		try {
-			json = objectMapper.writeValueAsString(file);
-		} catch (JsonProcessingException e) {
-			System.out.println("JsonProcessingException: " + filename);
-			e.printStackTrace();
+			File pdf = fileService.fetchFile(filename);
+			System.out.println("handleFileDownload" + pdf.getName());
+			byte[] contents = Files.readAllBytes(pdf.toPath());
+			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
+		} catch (IOException ioe) {
+			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
 		}
-		byte[] isr = json.getBytes();
-		HttpHeaders respHeaders = new HttpHeaders();
-		respHeaders.setContentLength(isr.length);
-		respHeaders.setContentType(new MediaType("text", "json"));
-		respHeaders.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-		respHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
-		return new ResponseEntity<byte[]>(isr, respHeaders, HttpStatus.OK);
+
+		return response;
 
 	}
 
