@@ -48,8 +48,8 @@ public class ExamController {
 	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
-	public ExamController(ExamService addExamService, UnpublishService unpublishService, CookieHandler cookieHandler) {
-		this.examService = addExamService;
+	public ExamController(ExamService examService, UnpublishService unpublishService, CookieHandler cookieHandler) {
+		this.examService = examService;
 		this.unpublishService = unpublishService;
 		this.cookieHandler = cookieHandler;
 	}
@@ -57,8 +57,9 @@ public class ExamController {
 	/**
 	 * Creates an {@link Exam} and stores it in the database.
 	 *
-	 * @param exam The {@link Exam} to add in the form of a JSON-object in the POST
-	 *             request.
+	 * @param exam    The {@link Exam} to add in the form of a JSON-object in the
+	 *                POST request.
+	 * @param request The incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Exam} and
 	 *         an HTTP status code.
 	 */
@@ -116,8 +117,9 @@ public class ExamController {
 	/**
 	 * Updates the {@link Exam} object with the given ID in the database.
 	 *
-	 * @param exam The {@link Exam} to update in the form of a JSON-object in the
-	 *             POST request.
+	 * @param exam    The {@link Exam} to update in the form of a JSON-object in the
+	 *                POST request.
+	 * @param request The incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link Exam}
 	 *         and an HTTP status code.
 	 */
@@ -152,6 +154,7 @@ public class ExamController {
 	/**
 	 * Fetches all unpublished exams.
 	 * 
+	 * @param request The incoming HTTP request.
 	 * @return A list of all unpublished exams and the http status OK.
 	 */
 	@GetMapping("/unpublished")
@@ -165,8 +168,8 @@ public class ExamController {
 	/**
 	 * Changes the boolean unpublished value on the {@link Exam}
 	 * 
-	 * @param exam        The {@link Exam} to update
-	 * @param unpublished The boolean is unpublished
+	 * @param exam    The {@link Exam} to update.
+	 * @param request The incoming HTTP request.
 	 * @return The ResponseEntity string of the http status.
 	 */
 
@@ -181,8 +184,8 @@ public class ExamController {
 	/**
 	 * Changes the boolean unpublished value on the {@link Exam}s
 	 * 
-	 * @param exam        The {@link Exam}s to update
-	 * @param unpublished The boolean is unpublished
+	 * @param exams   The {@link Exam}s to update
+	 * @param request The incoming HTTP request.
 	 * @return The ResponseEntity string of the http status.
 	 */
 

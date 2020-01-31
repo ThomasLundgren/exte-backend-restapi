@@ -56,9 +56,9 @@ public class AcademyController {
 	}
 
 	/**
-	 * Gets All published academies
+	 * Gets All published academies.
 	 *
-	 * @return
+	 * @return All published {@link Academy} objects.
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Academy>> getAllAcademies() {
@@ -71,6 +71,7 @@ public class AcademyController {
 	 *
 	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
 	 *                POST request.
+	 * @param request The incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
 	 *         and an HTTP status code.
 	 */
@@ -107,6 +108,7 @@ public class AcademyController {
 	 *
 	 * @param academy The {@link Academy} to update in the form of a JSON-object in
 	 *                the POST request.
+	 * @param request The incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the updated
 	 *         {@link Academy} and an HTTP status code.
 	 */
@@ -124,21 +126,26 @@ public class AcademyController {
 	 * Deletes the {@link Academy} object with the given ID from the database. Only
 	 * accesable by super-admin
 	 *
-	 * @param id The ID of the {@link Academy} to delete.
+	 * @param id      The ID of the {@link Academy} to delete.
+	 * @param request The incoming HTTP request.
+	 * @return True if the deletion was successful, otherwise false.
 	 */
 	@DeleteMapping("/{id}")
-	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
+	public ResponseEntity<Boolean> deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			academyService.deleteById(id);
-			return true;
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.UNAUTHORIZED);
 		}
-		return false;
+
 	}
 
 	/**
 	 * Changes the boolean unpublished value on the {@link Academy}
 	 *
-	 * @param academy The {@link Academy} to update
+	 * @param academy The {@link Academy} to update.
+	 * @param request The incoming HTTP request.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
@@ -160,10 +167,10 @@ public class AcademyController {
 	}
 
 	/**
-	 * Changes the boolean unpublished value on the {@link subject}s
+	 * Changes the boolean unpublished value on the {@link Subject}s
 	 * 
-	 * @param subject     The {@link Subject}s to update
-	 * @param unpublished The boolean is unpublished
+	 * @param subject The {@link Subject}s to update
+	 * @param request The incoming HTTP request.
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")

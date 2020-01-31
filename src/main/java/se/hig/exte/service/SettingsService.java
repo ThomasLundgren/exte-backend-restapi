@@ -49,6 +49,8 @@ public class SettingsService {
 
 	/**
 	 * Fetches the currently active {@link Settings} from the database.
+	 * 
+	 * @return The currently active {@link Settings}.
 	 */
 	public Settings getCurrentSettings() {
 		return settingsRepo.findFirstByOrderByCreatedDesc();
