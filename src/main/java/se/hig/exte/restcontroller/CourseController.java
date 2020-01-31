@@ -161,7 +161,7 @@ public class CourseController {
 	}
 
 	@DeleteMapping("/")
-	public void deleteExams(@RequestBody List<Course> courses, HttpServletRequest request) {
+	public void deleteCourses(@RequestBody List<Course> courses, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			courseService.deleteAll(courses);
 	}
