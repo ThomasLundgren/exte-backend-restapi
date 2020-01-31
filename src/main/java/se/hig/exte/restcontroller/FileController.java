@@ -61,11 +61,12 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String filename) {
 		ResponseEntity<byte[]> response;
 		try {
-			File pdf = fileService.fetchFile(filename);
+			File pdf = fileService.fetchFile(filename + ".pdf" );
 			byte[] contents = Files.readAllBytes(pdf.toPath());
 			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
 		} catch (IOException ioe) {
 			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
+		
 		}
 		return response;
 	}
