@@ -1,15 +1,11 @@
 package se.hig.exte.restcontroller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.ExamService;
@@ -64,9 +63,8 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * @param filename The name of the file on the server to fetch.
 	 * @return A {@code ResponseEntity} containing a byte array containing the file.
 	 */
-	@GetMapping(value = "/download/{filename}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<InputStreamResource> handleFileDownload(@PathVariable String filename,
-			HttpServletResponse response) {
+	@GetMapping(value = "/download/{filename}")
+	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String filename) {
 
 		/*
 		 * ResponseEntity<byte[]> response = null; try { File pdf =
@@ -79,23 +77,23 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		 * return response;
 		 */
 
-		File pdf = fileService.fetchFile(filename);
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-		headers.add("Pragma", "no-cache");
-		headers.add("Expires", "0");
-
-		InputStreamResource resource = null;
-
+		File file = fileService.fetchFile(filename);
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = null;
 		try {
-			resource = new InputStreamResource(new FileInputStream(pdf));
-		} catch (FileNotFoundException e) {
-			System.out.println("FileNotFoundException: " + filename);
+			json = objectMapper.writeValueAsString(file);
+		} catch (JsonProcessingException e) {
+			System.out.println("JsonProcessingException: " + filename);
+			e.printStackTrace();
 		}
+		byte[] isr = json.getBytes();
+		HttpHeaders respHeaders = new HttpHeaders();
+		respHeaders.setContentLength(isr.length);
+		respHeaders.setContentType(new MediaType("text", "json"));
+		respHeaders.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		respHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
+		return new ResponseEntity<byte[]>(isr, respHeaders, HttpStatus.OK);
 
-		return ResponseEntity.ok().headers(headers).contentLength(pdf.length())
-				.contentType(MediaType.parseMediaType("application/octet-stream")).body(resource);
 	}
 
 	/**
