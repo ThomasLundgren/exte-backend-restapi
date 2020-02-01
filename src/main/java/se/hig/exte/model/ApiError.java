@@ -19,7 +19,7 @@ public class ApiError {
 	public void setErrors(List<String> errors) {
 		this.errors = errors;
 	}
-	
+
 	public void addError(String error) {
 		errors.add(error);
 	}

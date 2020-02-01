@@ -18,19 +18,19 @@ class AcademyTest {
 	private Academy academy;
 	private Validator validator;
 	private Set<ConstraintViolation<Academy>> violations;
-	
+
 	@BeforeEach
 	private void setup() {
 		academy = new Academy();
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
-	
+
 	@AfterEach
 	private void tearDown() {
 		academy = null;
 		validator = null;
 	}
-	
+
 	@Test
 	void whenNameLessThanThreeLetters_validatorValidationFails() {
 		this.academy = new Academy("", "AHA");
@@ -43,14 +43,14 @@ class AcademyTest {
 		violations = validator.validate(academy);
 		assertFalse(violations.isEmpty());
 	}
-	
+
 	@Test
 	void whenNameMoreThanThreeLetters_validatorValidationSucceeds() {
 		this.academy = new Academy("aha", "AHA");
 		violations = validator.validate(academy);
 		assertTrue(violations.isEmpty());
 	}
-	
+
 	@Test
 	void whenNameContainsSpecialCharacters_validatorValidationFails() {
 		this.academy = new Academy("aha%", "AHA");
