@@ -6,9 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,9 +50,8 @@ public class UserController {
 	/**
 	 * Creates a {@link User} and stores it in the database.
 	 * 
-	 * @param user    The {@link User} to add in the form of a JSON-object in the
-	 *                POST request.
-	 * @param request the incoming HTTP request.
+	 * @param user The {@link User} to add in the form of a JSON-object in the POST
+	 *             request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link User} and
 	 *         an HTTP status code.
 	 */
@@ -72,8 +68,7 @@ public class UserController {
 	/**
 	 * Fetches the {@link User} object with the given ID from the database.
 	 * 
-	 * @param id      The ID of the {@link User} to fetch.
-	 * @param request the incoming HTTP request.
+	 * @param id The ID of the {@link User} to fetch.
 	 * @return The {@link User} with the given ID.
 	 */
 	@GetMapping("/{id}")
@@ -91,7 +86,6 @@ public class UserController {
 	 * converted to JSON using Spring Boot's {@code HttpMessageConverter} and put in
 	 * the {@code ResponseEntity}'s body.
 	 * 
-	 * @param request the incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the fetched {@link User}
 	 *         objects.
 	 */
@@ -107,9 +101,8 @@ public class UserController {
 	/**
 	 * Updates the {@link User} object with the given ID in the database.
 	 * 
-	 * @param user    The {@link User} to update in the form of a JSON-object in the
-	 *                POST request.
-	 * @param request the incoming HTTP request.
+	 * @param user The {@link User} to update in the form of a JSON-object in the
+	 *             POST request.
 	 * @return A {@code ResponseEntity} object containing the updated {@link User}
 	 *         and an HTTP status code.
 	 */
@@ -126,8 +119,7 @@ public class UserController {
 	/**
 	 * Deletes the {@link User} object with the given ID from the database.
 	 * 
-	 * @param id      The ID of the {@link User} to delete.
-	 * @param request the incoming HTTP request.
+	 * @param id The ID of the {@link User} to delete.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable int id, HttpServletRequest request) {

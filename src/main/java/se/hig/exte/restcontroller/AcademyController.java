@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
+import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
 import se.hig.exte.service.AcademyService;
 import se.hig.exte.service.CookieHandler;
@@ -56,9 +57,9 @@ public class AcademyController {
 	}
 
 	/**
-	 * Gets All published academies.
+	 * Gets All published academies
 	 *
-	 * @return All published {@link Academy} objects.
+	 * @return
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Academy>> getAllAcademies() {
@@ -71,7 +72,6 @@ public class AcademyController {
 	 *
 	 * @param academy The {@link Academy} to add in the form of a JSON-object in the
 	 *                POST request.
-	 * @param request The incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Academy}
 	 *         and an HTTP status code.
 	 */
@@ -95,6 +95,7 @@ public class AcademyController {
 	public ResponseEntity<Academy> getAcademy(@PathVariable int id) {
 		return new ResponseEntity<Academy>(academyService.findById(id), HttpStatus.OK);
 	}
+	
 
 	@DeleteMapping("/")
 	public void deleteAcademies(@RequestBody List<Academy> academies, HttpServletRequest request) {
@@ -108,7 +109,6 @@ public class AcademyController {
 	 *
 	 * @param academy The {@link Academy} to update in the form of a JSON-object in
 	 *                the POST request.
-	 * @param request The incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the updated
 	 *         {@link Academy} and an HTTP status code.
 	 */
@@ -126,26 +126,21 @@ public class AcademyController {
 	 * Deletes the {@link Academy} object with the given ID from the database. Only
 	 * accesable by super-admin
 	 *
-	 * @param id      The ID of the {@link Academy} to delete.
-	 * @param request The incoming HTTP request.
-	 * @return True if the deletion was successful, otherwise false.
+	 * @param id The ID of the {@link Academy} to delete.
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
+	public boolean deleteAcademyById(@PathVariable int id, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
 			academyService.deleteById(id);
-			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Boolean>(false, HttpStatus.UNAUTHORIZED);
+			return true;
 		}
-
+		return false;
 	}
 
 	/**
 	 * Changes the boolean unpublished value on the {@link Academy}
 	 *
-	 * @param academy The {@link Academy} to update.
-	 * @param request The incoming HTTP request.
+	 * @param academy The {@link Academy} to update
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
@@ -155,11 +150,9 @@ public class AcademyController {
 		else
 			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
 	}
-
-	/**
+	/*
 	 * Fetches all unpublished courses.
 	 *
-	 * 
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
@@ -168,22 +161,19 @@ public class AcademyController {
 	}
 
 	/**
-	 * Changes the boolean unpublished value on the {@link Subject}s
-	 * 
-	 * @param academies The {@link Academy} objects to update
-	 * @param request   The incoming HTTP request.
+	 * Changes the boolean unpublished value on the {@link subject}s
+	 * @param subject The {@link Subject}s to update
+	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")
-	public ResponseEntity<List<Academy>> unpublishSubjects(@RequestBody List<Academy> academies,
-			HttpServletRequest request) {
+	public ResponseEntity<List<Academy>> unpublishSubjects(@RequestBody List<Academy> academies, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
-			return new ResponseEntity<List<Academy>>(unpublishService.setAcademiesUnpublished(academies),
-					HttpStatus.OK);
+			return new ResponseEntity<List<Academy>>(unpublishService.setAcademiesUnpublished(academies), HttpStatus.OK);
 		else
 			return new ResponseEntity<List<Academy>>(HttpStatus.UNAUTHORIZED);
 	}
-
+	
 	/**
 	 * This method is run automatically by Spring Boot at 03:00 every day.
 	 */

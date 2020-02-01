@@ -28,7 +28,7 @@ import se.hig.exte.service.FileService;
  */
 @RestController
 @RequestMapping("/files")
-public class FileController /* implements HandlerExceptionResolver */ {
+public class FileController /*implements HandlerExceptionResolver*/ {
 
 	private final FileService fileService;
 	private final ExamService examService;
@@ -37,9 +37,9 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	/**
 	 * Creates a {@code FileController}.
 	 * 
-	 * @param fileService   The {@link FileService} to use.
-	 * @param examService   The {@link ExamService} to use.
-	 * @param cookieHandler object responsible for handling authentication.
+	 * @param fileService The {@link FileService} to use.
+	 * @param examService The {@link ExamService} to use.
+	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
 	public FileController(FileService fileService, ExamService examService, CookieHandler cookieHandler) {
@@ -61,12 +61,11 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String filename) {
 		ResponseEntity<byte[]> response;
 		try {
-			File pdf = fileService.fetchFile(filename + ".pdf" );
+			File pdf = fileService.fetchFile(filename);
 			byte[] contents = Files.readAllBytes(pdf.toPath());
 			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
 		} catch (IOException ioe) {
 			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
-		
 		}
 		return response;
 	}
@@ -77,8 +76,7 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * Returns a status code of "417 - expectation failed" if a file with the
 	 * specified name already exists or if the file is not a PDF file.
 	 * 
-	 * @param file    The {@code MultiPartFile} to upload to the server.
-	 * @param request The incoming HTTP request.
+	 * @param file The {@code MultiPartFile} to upload to the server.
 	 * @return A {@code ResponseEntity} containing a message and status code 200 if
 	 *         successful, else 417.
 	 */

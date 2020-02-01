@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Academy;
 import se.hig.exte.model.Subject;
+import se.hig.exte.model.Subject;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.SubjectService;
@@ -57,10 +58,8 @@ public class SubjectController {
 	/**
 	 * Creates a {@link Subject} and stores it in the database.
 	 *
-	 * @param request To see if the user and cookie are valid.
 	 * @param subject The {@link Subject} to add in the form of a JSON-object in the
 	 *                POST request.
-	 * @param request The incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the saved {@link Subject}
 	 *         and an HTTP status code.
 	 */
@@ -136,10 +135,8 @@ public class SubjectController {
 	/**
 	 * Updates the {@link Subject} object with the given ID in the database.
 	 *
-	 * @param request To see if the user and cookie are valid.
 	 * @param subject The {@link Subject} to update in the form of a JSON-object in
 	 *                the POST request.
-	 * @param request the incoming HTTP request.
 	 * @return A {@code ResponseEntity} object containing the updated
 	 *         {@link Subject} and an HTTP status code.
 	 */
@@ -156,8 +153,7 @@ public class SubjectController {
 	/**
 	 * Deletes the {@link Subject} object with the given ID from the database.
 	 *
-	 * @param id      The ID of the {@link Subject} to delete.
-	 * @param request the incoming HTTP request.
+	 * @param id The ID of the {@link Subject} to delete.
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteSubjectById(@PathVariable int id, HttpServletRequest request) {
@@ -165,12 +161,13 @@ public class SubjectController {
 			subjectService.deleteById(id);
 	}
 
+
 	@DeleteMapping("/")
 	public void deleteSubjects(@RequestBody List<Subject> subjects, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies()))
 			subjectService.deleteAll(subjects);
 	}
-
+	
 	/**
 	 * Searches the database after subjects with the text variable
 	 *
@@ -187,8 +184,7 @@ public class SubjectController {
 
 	/**
 	 * Fetches all unpublished subjects.
-	 * 
-	 * @param request the incoming HTTP request.
+	 *
 	 * @return A list of all unpublished courses and the http status OK.
 	 */
 	@GetMapping("/unpublished")
@@ -201,10 +197,10 @@ public class SubjectController {
 	}
 
 	/**
-	 * Changes the boolean unpublished value on the {@link Subject}
+	 * Changes the boolean unpublished value on the {@link subject}
 	 * 
-	 * @param subject The {@link Subject} to update
-	 * @param request the incoming HTTP request.
+	 * @param subject     The {@link Subject} to update
+	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublish")
@@ -216,10 +212,10 @@ public class SubjectController {
 	}
 
 	/**
-	 * Changes the boolean unpublished value on the {@link Subject}s
+	 * Changes the boolean unpublished value on the {@link subject}s
 	 * 
-	 * @param subjects The {@link Subject}s to update.
-	 * @param request  the incoming HTTP request.
+	 * @param subject     The {@link Subject}s to update
+	 * @param unpublished The boolean is unpublished
 	 * @return The ResponseEntity string of the http status.
 	 */
 	@PostMapping("/unpublishList")

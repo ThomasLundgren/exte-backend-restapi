@@ -126,7 +126,7 @@ public class GlobalExceptionHandler {
 		errors.addError("You have entered the wrong credentials too many times. Try again in 5 minutes");
 		return handleExceptionInternal(iae, errors, headers, status, request);
 	}
-
+	
 	// Default handler used when no other handler has caught the exception.
 	private ResponseEntity<ApiError> handleExceptionInternal(Exception ex, ApiError body, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {

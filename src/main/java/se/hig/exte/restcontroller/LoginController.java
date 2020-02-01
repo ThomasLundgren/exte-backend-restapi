@@ -27,17 +27,15 @@ public class LoginController {
 	 * Tries to login a user
 	 *
 	 * @param response used to get all the stored cookies at the client
-	 * @param request  The incoming HTTP request.
+	 * @param request
 	 * @param json     A JSON-Object containing the users email as 'email' (String)
 	 *                 and password as 'password' (String)
-	 * @return True if the login attempt was successful, otherwise false.
-	 * @throws IllegalAccessException if a user fails to provide the correct
-	 *                                password four times in a row.
+	 * @return
+	 * @throws IllegalAccessException 
 	 */
 	@RequestMapping("/")
 	@PostMapping("/")
-	public boolean loginAdmin(HttpServletResponse response, HttpServletRequest request, @RequestBody JSONObject json)
-			throws IllegalAccessException {
+	public boolean loginAdmin(HttpServletResponse response, HttpServletRequest request, @RequestBody JSONObject json) throws IllegalAccessException {
 		String username = json.getAsString("username").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		String password = json.getAsString("password").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		ResponseCookie cookie = loginService.login(username, password);
