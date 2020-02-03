@@ -70,6 +70,7 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		} catch (IOException ioe) {
 			System.out.println("Could not fetch file: " + pdf.getName());
 			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
+
 		}
 
 		return response;
@@ -82,8 +83,10 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	 * Returns a status code of "417 - expectation failed" if a file with the
 	 * specified name already exists or if the file is not a PDF file.
 	 * 
-	 * @param file    The {@code MultiPartFile} to upload to the server.
-	 * @param request To see if the user and cookie are valid.
+	 * @param file    The {@code MultiPartFile} to upload to the server. <<<<<<<
+	 *                HEAD
+	 * @param request To see if the user and cookie are valid. =======
+	 * @param request The incoming HTTP request. >>>>>>> dev
 	 * @return A {@code ResponseEntity} containing a message and status code 200 if
 	 *         successful, else 417.
 	 */

@@ -22,10 +22,10 @@ public class LoginService {
 	private final int MAX_LOGIN_FAILS = 3;
 
 	/**
-	 * Used when users want to login
-	 *
-	 * @param cookieHandler Used to handle cookies
-	 * @param userService Used to handle the users of the system
+	 * Creates a {@code LoginService}.
+	 * 
+	 * @param userService   The {@link UserService} used by this service.
+	 * @param cookieHandler The {@link CookieHandler} used by this service.
 	 */
 	@Autowired
 	public LoginService(UserService userService, CookieHandler cookieHandler) {
@@ -36,19 +36,28 @@ public class LoginService {
 	}
 
 	public ResponseCookie login(String username, String password) throws IllegalAccessException {
-		/*
-		 * ResponseCookie cookie = null; if (isAllowedToTryToLogin(username)) { boolean
-		 * isLoggedIn = false; if (checkIfUserExists(username)) { isLoggedIn =
-		 * loginHandler.login(username.toString(), password.toString()); if (isLoggedIn)
-		 * { boolean isSuperUser =
-		 * userService.findByName(username).get(0).isSuperUser(); cookie =
-		 * createCookie(isSuperUser); } } if (!isLoggedIn) {
-		 * handleFailedLoginTry(username); } } else { throw new
-		 * IllegalAccessException(); } return cookie;
-		 */
 
-		return createCookie(true);
-		// return createCookie(userService.findByName(username).get(0).isSuperUser());
+		ResponseCookie cookie = null;
+		if (isAllowedToTryToLogin(username)) {
+			boolean isLoggedIn = false;
+			if (checkIfUserExists(username)) {
+				isLoggedIn = loginHandler.login(username.toString(), password.toString());
+				if (isLoggedIn) {
+					boolean isSuperUser = userService.findByName(username).get(0).isSuperUser();
+					cookie = createCookie(isSuperUser);
+				}
+			}
+			if (!isLoggedIn) {
+				handleFailedLoginTry(username);
+			}
+		} else {
+			throw new IllegalAccessException();
+		}
+		return cookie;
+
+		// bypass LDAP
+		// return createCookie(true);
+
 	}
 
 	private boolean isAllowedToTryToLogin(String username) {

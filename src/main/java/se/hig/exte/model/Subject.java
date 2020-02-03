@@ -36,14 +36,14 @@ public class Subject {
 	/**
 	 * Creates a {@code Subject} object.
 	 * 
-	 * @param code      The code of the {@code Subject}. Must be two characters long
-	 *                  and cannot be null or whitespace.
-	 * @param name      The name of the {@code Subject}. Must be at least three
-	 *                  characters long and cannot be null or whitespace.
-	 * @param academyId The ID of the {@link Academy} to which this {@code Subject}
-	 *                  belongs.
-	 *                  
-	 * @param unpublished Boolean to check if the subject is unpublished.
+	 * @param code        The code of the {@code Subject}. Must be two characters
+	 *                    long and cannot be null or whitespace.
+	 * @param name        The name of the {@code Subject}. Must be at least three
+	 *                    characters long and cannot be null or whitespace.
+	 * @param unpublished Sets whether the {@code Subject} should be published for
+	 *                    users to see.
+	 * @param academyId   The ID of the {@link Academy} to which this
+	 *                    {@code Subject} belongs.
 	 */
 	public Subject(String code, String name, boolean unpublished, int academyId) {
 		this.code = code;
