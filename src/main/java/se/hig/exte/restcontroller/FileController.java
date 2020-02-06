@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -63,10 +64,13 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		ResponseEntity<byte[]> response = null;
 		File pdf = fileService.fetchFile(filename + ".pdf");
 
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("filename", filename);
+
 		try {
 			byte[] contents = Files.readAllBytes(pdf.toPath());
 			System.out.println("Fetched file: " + pdf.getName());
-			response = new ResponseEntity<byte[]>(contents, HttpStatus.OK);
+			response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
 		} catch (IOException ioe) {
 			System.out.println("Could not fetch file: " + pdf.getName());
 			response = new ResponseEntity<byte[]>(new byte[] {}, HttpStatus.NOT_FOUND);
