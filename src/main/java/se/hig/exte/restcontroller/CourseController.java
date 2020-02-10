@@ -132,25 +132,6 @@ public class CourseController {
 	}
 
 	/**
-	 * Updates the {@link Course} object with the given ID in the database.
-	 *
-	 * @param course  The {@link Course} to update in the form of a JSON-object in
-	 *                the POST request.
-	 * @param request The incoming HTTP request.
-	 * @return A {@code ResponseEntity} object containing the updated {@link Course}
-	 *         and an HTTP status code.
-	 */
-	@PatchMapping("/")
-	public ResponseEntity<Course> updateCourse(@Valid @RequestBody Course course, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies())) {
-			Course savedCourse = courseService.save(course);
-			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Course>(HttpStatus.UNAUTHORIZED);
-		}
-	}
-
-	/**
 	 * Deletes the {@link Course} object with the given ID from the database.
 	 *
 	 * @param id      The ID of the {@link Course} to delete.
