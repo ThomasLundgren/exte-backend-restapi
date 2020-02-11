@@ -39,7 +39,16 @@ public class FileService {
 		return new File(FILE_DIRECTORY + "/" + filename);
 	}
 
+	/**
+	 * Fetches a file stored on the server by using its current name, and renaming
+	 * it with a new name. Also appending the .pdf extension if necessary.
+	 * 
+	 * @param oldFilename The name current name of the file on the server.
+	 * @param newFilename The new name of the file on the server.
+	 */
 	public void editFile(String oldFilename, String newFilename) {
+		if (!newFilename.endsWith(".pdf"))
+			newFilename.concat(".pdf");
 		File file = this.fetchFile(oldFilename);
 		file.renameTo(new File(FILE_DIRECTORY + "/" + newFilename));
 	}
