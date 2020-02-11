@@ -50,7 +50,7 @@ public class ExamController {
 	 */
 	@Autowired
 	public ExamController(ExamService examService, UnpublishService unpublishService, FileService fileService,
-			 CookieHandler cookieHandler) {
+			CookieHandler cookieHandler) {
 		this.examService = examService;
 		this.unpublishService = unpublishService;
 		this.cookieHandler = cookieHandler;
