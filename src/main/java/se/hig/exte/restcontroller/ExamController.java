@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +22,7 @@ import se.hig.exte.model.Exam;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CrudService;
 import se.hig.exte.service.ExamService;
+import se.hig.exte.service.FileService;
 import se.hig.exte.service.UnpublishService;
 
 /**
@@ -37,6 +37,7 @@ public class ExamController {
 	private final ExamService examService;
 	private final UnpublishService unpublishService;
 	private final CookieHandler cookieHandler;
+	private final FileService fileService;
 
 	/**
 	 * Creates an {@code ExamController} object.
@@ -48,10 +49,11 @@ public class ExamController {
 	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
-	public ExamController(ExamService examService, UnpublishService unpublishService, CookieHandler cookieHandler) {
+	public ExamController(ExamService examService, UnpublishService unpublishService, CookieHandler cookieHandler, FileService fileService) {
 		this.examService = examService;
 		this.unpublishService = unpublishService;
 		this.cookieHandler = cookieHandler;
+		this.fileService = fileService;
 	}
 
 	/**
@@ -122,15 +124,21 @@ public class ExamController {
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {			
+			Exam exam = examService.findById(id);
+			fileService.removeFile(exam.getFilename());
 			examService.deleteById(id);
-
+		}
 	}
 
 	@DeleteMapping("/")
 	public void deleteExams(@RequestBody List<Exam> exams, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
+			exams.forEach(exam -> {
+				fileService.removeFile(exam.getFilename());
+			});
 			examService.deleteAll(exams);
+		}
 	}
 
 	/**

@@ -36,4 +36,27 @@ public class FileService {
 	public File fetchFile(String filename) {
 		return new File(FILE_DIRECTORY + "/" + filename);
 	}
+
+	/**
+	 * Fetches a file stored on the server by using its current name, and renaming
+	 * it with a new name. Also appending the .pdf extension if necessary.
+	 * 
+	 * @param oldFilename The name current name of the file on the server.
+	 * @param newFilename The new name of the file on the server.
+	 */
+	public void editFile(String oldFilename, String newFilename) {
+		File file = this.fetchFile(oldFilename);
+		file.renameTo(new File(FILE_DIRECTORY + "/" + newFilename));
+	}
+	
+	/**
+	 * Deletes a file stored on the server. The specified file name must contain the
+	 * file extension (e.g. ".pdf").
+	 * 
+	 * @param filename The name of the file on the server to delete.
+	 */
+	public void removeFile(String filename) {
+		File file = this.fetchFile(filename);
+		file.delete();
+	}
 }
