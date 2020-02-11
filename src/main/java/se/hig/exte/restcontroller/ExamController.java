@@ -115,25 +115,6 @@ public class ExamController {
 	}
 
 	/**
-	 * Updates the {@link Exam} object with the given ID in the database.
-	 *
-	 * @param exam    The {@link Exam} to update in the form of a JSON-object in the
-	 *                POST request.
-	 * @param request The incoming HTTP request.
-	 * @return A {@code ResponseEntity} object containing the updated {@link Exam}
-	 *         and an HTTP status code.
-	 */
-	@PatchMapping("/")
-	public ResponseEntity<Exam> patchExam(@Valid @RequestBody Exam exam, HttpServletRequest request) {
-		if (cookieHandler.isValidAdminSession(request.getCookies())) {
-			Exam patchedExam = examService.save(exam);
-			return new ResponseEntity<Exam>(patchedExam, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Exam>(HttpStatus.UNAUTHORIZED);
-		}
-	}
-
-	/**
 	 * Deletes the {@link Exam} object with the given ID from the database.
 	 *
 	 * @param request The incoming HTTP request.

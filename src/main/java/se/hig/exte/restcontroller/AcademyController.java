@@ -104,26 +104,6 @@ public class AcademyController {
 	}
 
 	/**
-	 * Updates the {@link Academy} object with the given ID in the database. Only
-	 * accessible by Super-admin
-	 *
-	 * @param academy The {@link Academy} to update in the form of a JSON-object in
-	 *                the POST request.
-	 * @param request The incoming HTTP request.
-	 * @return A {@code ResponseEntity} object containing the updated
-	 *         {@link Academy} and an HTTP status code.
-	 */
-	@PatchMapping("/")
-	public ResponseEntity<Academy> updateAcademy(@Valid @RequestBody Academy academy, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies())) {
-			Academy savedAcademy = academyService.save(academy);
-			return new ResponseEntity<Academy>(savedAcademy, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Academy>(HttpStatus.UNAUTHORIZED);
-		}
-	}
-
-	/**
 	 * Deletes the {@link Academy} object with the given ID from the database. Only
 	 * accesable by super-admin
 	 *

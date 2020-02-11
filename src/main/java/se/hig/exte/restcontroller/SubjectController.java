@@ -134,26 +134,6 @@ public class SubjectController {
 	}
 
 	/**
-	 * Updates the {@link Subject} object with the given ID in the database.
-	 *
-	 * @param request To see if the user and cookie are valid.
-	 * @param subject The {@link Subject} to update in the form of a JSON-object in
-	 *                the POST request.
-	 * @param request the incoming HTTP request.
-	 * @return A {@code ResponseEntity} object containing the updated
-	 *         {@link Subject} and an HTTP status code.
-	 */
-	@PatchMapping("/")
-	public ResponseEntity<Subject> patchSubject(@Valid @RequestBody Subject subject, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies())) {
-			Subject patchedSubject = subjectService.save(subject);
-			return new ResponseEntity<Subject>(patchedSubject, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Subject>(HttpStatus.UNAUTHORIZED);
-		}
-	}
-
-	/**
 	 * Deletes the {@link Subject} object with the given ID from the database.
 	 *
 	 * @param id      The ID of the {@link Subject} to delete.

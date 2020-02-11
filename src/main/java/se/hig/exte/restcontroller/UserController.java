@@ -105,25 +105,6 @@ public class UserController {
 	}
 
 	/**
-	 * Updates the {@link User} object with the given ID in the database.
-	 * 
-	 * @param user    The {@link User} to update in the form of a JSON-object in the
-	 *                POST request.
-	 * @param request the incoming HTTP request.
-	 * @return A {@code ResponseEntity} object containing the updated {@link User}
-	 *         and an HTTP status code.
-	 */
-	@PatchMapping("/")
-	public ResponseEntity<User> updateUser(@Valid @RequestBody User user, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies())) {
-			User savedUser = userService.save(user);
-			return new ResponseEntity<User>(savedUser, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
-		}
-	}
-
-	/**
 	 * Deletes the {@link User} object with the given ID from the database.
 	 * 
 	 * @param id      The ID of the {@link User} to delete.
