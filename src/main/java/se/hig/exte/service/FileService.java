@@ -47,8 +47,6 @@ public class FileService {
 	 * @param newFilename The new name of the file on the server.
 	 */
 	public void editFile(String oldFilename, String newFilename) {
-		if (!newFilename.endsWith(".pdf"))
-			newFilename.concat(".pdf");
 		File file = this.fetchFile(oldFilename);
 		file.renameTo(new File(FILE_DIRECTORY + "/" + newFilename));
 	}
