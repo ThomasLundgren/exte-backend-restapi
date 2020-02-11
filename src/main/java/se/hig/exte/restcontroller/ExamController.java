@@ -49,7 +49,8 @@ public class ExamController {
 	 * @param cookieHandler    object responsible for handling authentication.
 	 */
 	@Autowired
-	public ExamController(ExamService examService, UnpublishService unpublishService, CookieHandler cookieHandler, FileService fileService) {
+	public ExamController(ExamService examService, UnpublishService unpublishService, FileService fileService,
+			 CookieHandler cookieHandler) {
 		this.examService = examService;
 		this.unpublishService = unpublishService;
 		this.cookieHandler = cookieHandler;
