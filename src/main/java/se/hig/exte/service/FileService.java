@@ -38,4 +38,9 @@ public class FileService {
 	public File fetchFile(String filename) {
 		return new File(FILE_DIRECTORY + "/" + filename);
 	}
+
+	public void editFile(String oldFilename, String newFilename) {
+		File file = this.fetchFile(oldFilename);
+		file.renameTo(new File(FILE_DIRECTORY + "/" + newFilename));
+	}
 }
