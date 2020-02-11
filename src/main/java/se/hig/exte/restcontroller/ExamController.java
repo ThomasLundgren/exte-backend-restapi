@@ -71,7 +71,8 @@ public class ExamController {
 		if (cookieHandler.isValidAdminSession(request.getCookies())) {
 
 			Exam oldExam = examService.findById(exam.getId());
-			fileService.editFile(oldExam.getFilename(), exam.getFilename());
+			if (oldExam != null)
+				fileService.editFile(oldExam.getFilename(), exam.getFilename());
 
 			Exam savedExam = examService.save(exam);
 			return new ResponseEntity<Exam>(savedExam, HttpStatus.OK);
