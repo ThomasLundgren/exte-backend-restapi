@@ -50,4 +50,16 @@ public class FileService {
 		File file = this.fetchFile(oldFilename);
 		file.renameTo(new File(FILE_DIRECTORY + "/" + newFilename));
 	}
+
+	/**
+	 * Deletes a file stored on the server. The specified file name must contain the
+	 * file extension (e.g. ".pdf").
+	 * 
+	 * @param filename The name of the file on the server to delete.
+	 */
+	public void removeFile(String filename) {
+		File file = this.fetchFile(filename);
+		file.delete();
+	}
+
 }

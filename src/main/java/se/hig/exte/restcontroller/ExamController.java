@@ -133,15 +133,21 @@ public class ExamController {
 	 */
 	@DeleteMapping("/{id}")
 	public void deleteExamById(@PathVariable int id, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {			
+			Exam exam = examService.findById(id);
+			fileService.removeFile(exam.getFilename());
 			examService.deleteById(id);
-
+		}
 	}
 
 	@DeleteMapping("/")
 	public void deleteExams(@RequestBody List<Exam> exams, HttpServletRequest request) {
-		if (cookieHandler.isValidSuperSession(request.getCookies()))
+		if (cookieHandler.isValidSuperSession(request.getCookies())) {
+			exams.forEach(exam -> {
+				fileService.removeFile(exam.getFilename());
+			});
 			examService.deleteAll(exams);
+		}
 	}
 
 	/**

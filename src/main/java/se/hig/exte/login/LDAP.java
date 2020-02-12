@@ -7,13 +7,20 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 
 /**
- * Autentiserar Anv�ndare, Hig LDAP Tagen fr�n VFU_Socionom_tipsfiler 2019-12-02
+ * Authenticates users via the HiG LDAP server.
  */
 public class LDAP {
 
-	static boolean authenticateHigLdap(String studentId, String password) {
-
-		System.out.println("LDAP");
+	/**
+	 * Authenticates a user via the HiG LDAP server. All code is taken from the VFU
+	 * Socionom project.
+	 * 
+	 * @param userId   The ID of the user.
+	 * @param password The passed in password.
+	 * @return True if the authentication succeeded, false if the authentication
+	 *         failed.
+	 */
+	static boolean authenticateHigLdap(String userId, String password) {
 
 		try {
 			Hashtable<String, String> env = new Hashtable<>();
@@ -26,7 +33,7 @@ public class LDAP {
 			env.put(Context.SECURITY_PROTOCOL, "tls");
 
 			env.put(Context.SECURITY_AUTHENTICATION, "simple");
-			env.put(Context.SECURITY_PRINCIPAL, "uid=" + studentId + ",ou=people,ou=student,dc=hig,dc=se");
+			env.put(Context.SECURITY_PRINCIPAL, "uid=" + userId + ",ou=people,ou=student,dc=hig,dc=se");
 			env.put(Context.SECURITY_CREDENTIALS, password);
 
 			DirContext ctx = new InitialDirContext(env);
