@@ -115,21 +115,21 @@ public class Exam {
 	}
 
 	/**
-	 * Set the date of this {@code Exam}. Cannot be null.
+	 * Set the date of this {@code Exam}. Adds one day to the date. Cannot be null.
 	 *
 	 * @param date The new date of this {@code Exam}.
 	 */
 	public void setDate(LocalDate date) {
-		this.date = date;
+		this.date = date.plusDays(1);
 	}
 
 	/**
-	 * Set the unpublish date of this {@code Exam}. Cannot be null.
+	 * Set the unpublish date of this {@code Exam}. Adds one day to the date. Cannot be null.
 	 *
 	 * @param unpublishDate The new unpublish date of this {@code Exam}.
 	 */
 	public void setUnpublishDate(LocalDate unpublishDate) {
-		this.unpublishDate = unpublishDate;
+		this.unpublishDate = unpublishDate.plusDays(1);;
 	}
 
 	/**
