@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import se.hig.exte.login.ILoginHandler;
 import se.hig.exte.login.LoginHandler;
 
+/**
+ * A {@link Service} for authenticating users.
+ */
 @Service
 public class LoginService {
 	private final ILoginHandler loginHandler;
@@ -35,24 +38,30 @@ public class LoginService {
 		this.failedLogins = new HashMap<String, Integer>();
 	}
 
+	/**
+	 * Authenticates a user.
+	 * @param username The username of the user.
+	 * @param password The supplied password.
+	 * @return An authentication cookie.
+	 * @throws IllegalAccessException If the user has tried to log in and failed 4 times in a row.
+	 */
 	public ResponseCookie login(String username, String password) throws IllegalAccessException {
-//		ResponseCookie cookie = null;
-//		if (isAllowedToTryToLogin(username)) {
-//			boolean isLoggedIn = false;
-//			if (checkIfUserExists(username)) {
-//				isLoggedIn = loginHandler.login(username.toString(), password.toString());
-//				if (isLoggedIn) {
-//					cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
-//				}
-//			}
-//			if (!isLoggedIn) {
-//				handleFailedLoginTry(username);
-//			}
-//		} else {
-//			throw new IllegalAccessException();
-//		}
-//		return cookie;
-		return createCookie(userService.findByName(username).get(0).isSuperUser());
+		ResponseCookie cookie = null;
+		if (isAllowedToTryToLogin(username)) {
+			boolean isLoggedIn = false;
+			if (checkIfUserExists(username)) {
+				isLoggedIn = loginHandler.login(username.toString(), password.toString());
+				if (isLoggedIn) {
+					cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
+				}
+			}
+			if (!isLoggedIn) {
+				handleFailedLoginTry(username);
+			}
+		} else {
+			throw new IllegalAccessException();
+		}
+		return cookie;
 	}
 
 	private boolean isAllowedToTryToLogin(String username) {
@@ -67,6 +76,10 @@ public class LoginService {
 		this.failedLogins.put(username, nbrOfFaildLogins);
 	}
 
+	/**
+	 * Logs out the users with the passed in cookies.
+	 * @param cookies The cookies which to remove.
+	 */
 	public void logout(Cookie[] cookies) {
 		cookieHandler.logout(cookies);
 	}
@@ -89,7 +102,6 @@ public class LoginService {
 	 * Removes all the failed login tries every 5 minutes.
 	 * 
 	 */
-
 	@Scheduled(cron = "0 */5 * * * *")
 	public void removeOldLoginTries() {
 		failedLogins = new HashMap<String, Integer>();
