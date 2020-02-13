@@ -62,17 +62,14 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	public ResponseEntity<byte[]> handleFileDownload(@PathVariable String filename) {
 
 		ResponseEntity<byte[]> response = null;
-		File pdf = fileService.fetchFile(filename + ".pdf");
+		File pdf = null;
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("filename", filename);
 
 		try {
-
-			File pdf = fileService.fetchFile(filename + ".pdf");
-
+			pdf = fileService.fetchFile(filename + ".pdf");
 			byte[] contents = Files.readAllBytes(pdf.toPath());
-			System.out.println("Fetched file: " + pdf.getName());
 			response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
 		} catch (IOException ioe) {
 			System.out.println("Could not fetch file: " + pdf.getName());
