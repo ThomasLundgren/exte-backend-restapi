@@ -68,6 +68,9 @@ public class FileController /* implements HandlerExceptionResolver */ {
 		headers.add("filename", filename);
 
 		try {
+
+			File pdf = fileService.fetchFile(filename + ".pdf");
+
 			byte[] contents = Files.readAllBytes(pdf.toPath());
 			System.out.println("Fetched file: " + pdf.getName());
 			response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
@@ -107,7 +110,7 @@ public class FileController /* implements HandlerExceptionResolver */ {
 
 		if (isPDF(file)) {
 			try {
-				if (!examExists(file.getOriginalFilename().split("\\.")[0])) {
+				if (!examExists(file.getOriginalFilename())) {
 					fileService.storeFile(file);
 					message = "Successfully uploaded: " + file.getOriginalFilename();
 					return ResponseEntity.status(HttpStatus.OK).body(message);
@@ -127,8 +130,7 @@ public class FileController /* implements HandlerExceptionResolver */ {
 	}
 
 	private boolean isPDF(MultipartFile file) {
-		return file.getContentType().equals("application/pdf")
-				&& file.getOriginalFilename().split("\\.")[1].equals("pdf");
+		return file.getContentType().equals("application/pdf");
 	}
 
 	private boolean examExists(String filename) {
