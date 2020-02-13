@@ -16,16 +16,56 @@ import org.springframework.web.util.WebUtils;
 
 import se.hig.exte.model.ApiError;
 
+/**
+ * Global Exception handler for the application. All Exceptions generated in
+ * response to an HTTP call will be returned as an error. If the error is not
+ * explicitly handled, an error with status 500 - Internal Server Error will be
+ * returned.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+	/**
+	 * The error message used when the error handler catches an
+	 * {@link MethodArgumentNotValidException}.
+	 */
 	public static final String ENTITY_VALIDATION = "Entity validation error";
+	/**
+	 * The error message used when the error handler catches an
+	 * {@link MaxUploadSizeExceededException}.
+	 */
 	public static final String MAX_UPLOAD_SIZE_EXCEEDED = "Max upload size exceeded";
+	/**
+	 * The error message used when the error handler catches an
+	 * {@link MultipartException}.
+	 */
 	public static final String MULTIPART = "Multipart error";
+	/**
+	 * The error message used when the error handler catches an
+	 * {@link DataIntegrityViolationException}.
+	 */
 	public static final String DATA_INTEGRITY_VIOLATION = "Data integrity violation";
+	/**
+	 * The error message used when the error handler catches an
+	 * {@link ConstraintViolationException}.
+	 */
 	public static final String CONSTRAINT_VIOLATION = "Constraint violation";
-	public static final String LOGIN_ERROR = "Login error";
+	/**
+	 * The error message used when the error handler catches an
+	 * {@link IllegalAccessException}.
+	 */
+	public static final String ILLEGAL_ACCESS = "Login error";
 
+	/**
+	 * This method handles all Exceptions thrown in response to an HTTP call.
+	 * Exceptions that are not explicitly handled will return a
+	 * {@link ResponseEntity} with status code 500 and the default Exception
+	 * message.
+	 * 
+	 * @param e       The caught Exception.
+	 * @param request The incoming web request.
+	 * @return A {@link ResponseEntity} containing an {@link ApiError} object.
+	 */
 	@ExceptionHandler({ MethodArgumentNotValidException.class, MaxUploadSizeExceededException.class,
 			MultipartException.class, DataIntegrityViolationException.class, ConstraintViolationException.class,
 			IllegalAccessException.class })
@@ -78,24 +118,28 @@ public class GlobalExceptionHandler {
 	private ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException manve,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(ENTITY_VALIDATION);
-		manve.getBindingResult().getAllErrors().forEach(error -> {
-			String errorMessage = error.getDefaultMessage();
-			errors.addError(errorMessage);
-		});
+		manve.getBindingResult()
+				.getAllErrors()
+				.forEach(error -> {
+					String errorMessage = error.getDefaultMessage();
+					errors.addError(errorMessage);
+				});
 		return handleExceptionInternal(manve, errors, headers, status, request);
 	}
 
 	private ResponseEntity<ApiError> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException musee,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(MAX_UPLOAD_SIZE_EXCEEDED);
-		errors.addError(musee.getMostSpecificCause().getMessage());
+		errors.addError(musee.getMostSpecificCause()
+				.getMessage());
 		return handleExceptionInternal(musee, errors, headers, status, request);
 	}
 
 	private ResponseEntity<ApiError> handleMultiPartException(MultipartException mpe, WebRequest request,
 			HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(MULTIPART);
-		errors.addError(mpe.getMostSpecificCause().getMessage());
+		errors.addError(mpe.getMostSpecificCause()
+				.getMessage());
 		/*
 		 * Bypass handleExceptionInternal call since status is
 		 * HttpStatus.INTERNAL_SERVER_ERROR and we don't want generic exception handling
@@ -107,22 +151,24 @@ public class GlobalExceptionHandler {
 	private ResponseEntity<ApiError> handleConstraintViolationException(ConstraintViolationException cve,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(DATA_INTEGRITY_VIOLATION);
-		cve.getConstraintViolations().forEach(error -> {
-			errors.addError(error.getMessage());
-		});
+		cve.getConstraintViolations()
+				.forEach(error -> {
+					errors.addError(error.getMessage());
+				});
 		return handleExceptionInternal(cve, errors, headers, status, request);
 	}
 
 	private ResponseEntity<ApiError> handleDataIntegrityViolationException(DataIntegrityViolationException dive,
 			WebRequest request, HttpHeaders headers, HttpStatus status) {
 		ApiError errors = new ApiError(DATA_INTEGRITY_VIOLATION);
-		errors.addError(dive.getMostSpecificCause().getMessage());
+		errors.addError(dive.getMostSpecificCause()
+				.getMessage());
 		return handleExceptionInternal(dive, errors, headers, status, request);
 	}
 
 	private ResponseEntity<ApiError> handleIllegalAccessException(IllegalAccessException iae, WebRequest request,
 			HttpHeaders headers, HttpStatus status) {
-		ApiError errors = new ApiError(LOGIN_ERROR);
+		ApiError errors = new ApiError(ILLEGAL_ACCESS);
 		errors.addError("You have entered the wrong credentials too many times. Try again in 5 minutes");
 		return handleExceptionInternal(iae, errors, headers, status, request);
 	}
@@ -135,18 +181,5 @@ public class GlobalExceptionHandler {
 		}
 		return new ResponseEntity<ApiError>(body, headers, status);
 	}
-
-	/*
-	 * It's important to supply the right Throwable from the Exception's stack trace
-	 * to this method because the error message can differ a lot depending on which
-	 * Throwable is passed in. Often, it is best to call
-	 * org.springframework.core.NestedRuntimeException.getMostSpecificCause() and
-	 * pass that in. It often generates the most specific error messages.
-	 */
-//	private ApiError createApiError(String errorType, Throwable throwable) {
-//		ApiError errors = new ApiError(errorType);
-//		errors.addError(throwable.getMessage());
-//		return errors;
-//	}
 
 }

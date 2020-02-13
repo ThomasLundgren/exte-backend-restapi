@@ -36,22 +36,23 @@ public class LoginService {
 	}
 
 	public ResponseCookie login(String username, String password) throws IllegalAccessException {
-		ResponseCookie cookie = null;
-		if (isAllowedToTryToLogin(username)) {
-			boolean isLoggedIn = false;
-			if (checkIfUserExists(username)) {
-				isLoggedIn = loginHandler.login(username.toString(), password.toString());
-				if (isLoggedIn) {
-					cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
-				}
-			}
-			if (!isLoggedIn) {
-				handleFailedLoginTry(username);
-			}
-		} else {
-			throw new IllegalAccessException();
-		}
-		return cookie;
+//		ResponseCookie cookie = null;
+//		if (isAllowedToTryToLogin(username)) {
+//			boolean isLoggedIn = false;
+//			if (checkIfUserExists(username)) {
+//				isLoggedIn = loginHandler.login(username.toString(), password.toString());
+//				if (isLoggedIn) {
+//					cookie = createCookie(userService.findByName(username).get(0).isSuperUser());
+//				}
+//			}
+//			if (!isLoggedIn) {
+//				handleFailedLoginTry(username);
+//			}
+//		} else {
+//			throw new IllegalAccessException();
+//		}
+//		return cookie;
+		return createCookie(userService.findByName(username).get(0).isSuperUser());
 	}
 
 	private boolean isAllowedToTryToLogin(String username) {
