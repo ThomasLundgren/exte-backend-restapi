@@ -23,6 +23,7 @@ import se.hig.exte.model.Tag;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CourseService;
 import se.hig.exte.service.CrudService;
+import se.hig.exte.service.TagService;
 import se.hig.exte.service.UnpublishService;
 
 /**
@@ -36,6 +37,7 @@ public class CourseController {
 
 	private final CourseService courseService;
 	private final UnpublishService unpublishService;
+	private final TagService tagService;
 	private final CookieHandler cookieHandler;
 
 	/**
@@ -49,9 +51,10 @@ public class CourseController {
 	 */
 	@Autowired
 	public CourseController(CourseService courseService, UnpublishService unpublishService,
-			CookieHandler cookieHandler) {
+			TagService tagService, CookieHandler cookieHandler) {
 		this.courseService = courseService;
 		this.unpublishService = unpublishService;
+		this.tagService = tagService;
 		this.cookieHandler = cookieHandler;
 	}
 
@@ -72,6 +75,7 @@ public class CourseController {
 					tag.getCourses().add(course);
 				});
 			}
+			System.out.println(course.getTags());
 			Course savedCourse = courseService.save(course);
 			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
 		} else {

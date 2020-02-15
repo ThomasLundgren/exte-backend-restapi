@@ -1,7 +1,5 @@
 package se.hig.exte.model;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +25,7 @@ public class Tag {
 	@Id
 	@Column(name = "tagId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int tagId;
 	
 	@NotBlank(message = "Name cannot be blank")
 	@Pattern(regexp = "^[\\s\\wåöäÅÖÄ,-]+$", message = "Name must contain only alphabetic characters (a-ö), whitespace, commas and hyphens")
@@ -49,8 +47,8 @@ public class Tag {
 	 * 
 	 * @return The ID of this {@code Subject}.
 	 */
-	public int getId() {
-		return id;
+	public int getTagId() {
+		return tagId;
 	}
 
 	/**
@@ -86,7 +84,7 @@ public class Tag {
 	 */
 	@Override
 	public String toString() {
-		return "tagName: " + tagName + "\nid: " + id;
+		return "tagName: " + tagName + "\ntagId: " + tagId;
 	}
 
 }

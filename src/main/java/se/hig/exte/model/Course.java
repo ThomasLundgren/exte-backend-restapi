@@ -42,7 +42,7 @@ public class Course {
 	private boolean unpublished;
 	private int subjectId;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(
 			name = "Courses_To_Tags",
 			joinColumns = @JoinColumn(name = "courseId"),
