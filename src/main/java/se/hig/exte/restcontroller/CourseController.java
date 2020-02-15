@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.hig.exte.model.Course;
 import se.hig.exte.model.Subject;
+import se.hig.exte.model.Tag;
 import se.hig.exte.service.CookieHandler;
 import se.hig.exte.service.CourseService;
 import se.hig.exte.service.CrudService;
@@ -66,6 +67,11 @@ public class CourseController {
 	@PostMapping("/")
 	public ResponseEntity<Course> saveCourse(@Valid @RequestBody Course course, HttpServletRequest request) {
 		if (cookieHandler.isValidSuperSession(request.getCookies())) {
+			if (!course.getTags().isEmpty()) {
+				course.getTags().forEach(tag -> {
+					tag.getCourses().add(course);
+				});
+			}
 			Course savedCourse = courseService.save(course);
 			return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
 		} else {
@@ -73,6 +79,17 @@ public class CourseController {
 		}
 	}
 
+	@PostMapping("/test") 
+	public ResponseEntity<Course> testTag(@RequestBody Course course) {		
+		Tag tag = new Tag("test");
+		
+		course.getTags().add(tag);
+		
+		tag.getCourses().add(course);
+		
+		return new ResponseEntity<Course>(courseService.save(course), HttpStatus.OK);
+	}
+	
 	/**
 	 * Fetches the {@link Course} object with the given ID from the database.
 	 *

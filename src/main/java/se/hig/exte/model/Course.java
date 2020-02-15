@@ -1,12 +1,24 @@
 package se.hig.exte.model;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A model/entity class that represents a Course. The fields of this class maps
@@ -16,6 +28,7 @@ import javax.validation.constraints.Size;
 public class Course {
 
 	@Id
+	@Column(name = "courseId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotBlank(message = "Name cannot be blank")
@@ -29,6 +42,13 @@ public class Course {
 	private boolean unpublished;
 	private int subjectId;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "Courses_To_Tags",
+			joinColumns = @JoinColumn(name = "courseId"),
+			inverseJoinColumns = @JoinColumn(name = "tagId"))
+	Set<Tag> tags = new HashSet<Tag>();
+	
 	// Only used for JPA/Spring, which is why it is declared with protected.
 	protected Course() {
 	}
@@ -50,7 +70,25 @@ public class Course {
 		this.unpublished = unpublished;
 		this.subjectId = subjectId;
 	}
-
+	
+	/**
+	 * Creates a {@code Course} object.
+	 * 
+	 * @param name        The name of this {@code Course}. Must be at least two
+	 *                    characters long and cannot be null.
+	 * @param courseCode  The course code of this {@code Course}. Must be between
+	 *                    six and seven characters long.
+	 * @param subjectId   The ID of the {@link Subject} to which this {@code Course}
+	 *                    belongs.
+	 * @param unpublished Boolean to see if the course is unpublished
+	 */
+	public Course(String name, String courseCode, boolean unpublished, int subjectId, Set<Tag> tags) {
+		this.name = name;
+		this.courseCode = courseCode;
+		this.unpublished = unpublished;
+		this.subjectId = subjectId;
+		this.tags = tags;
+	}
 	/**
 	 * Get the ID of this {@code Course}.
 	 * 
@@ -91,6 +129,10 @@ public class Course {
 		return unpublished;
 	}
 
+	public Set<Tag> getTags() {
+		return tags;
+	}
+	
 	/**
 	 * Set the name of this {@code Course}. Must be at least two characters long.
 	 * 
@@ -112,6 +154,10 @@ public class Course {
 
 	public void setUnpublished(boolean unpublished) {
 		this.unpublished = unpublished;
+	}
+	
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
 	}
 
 	/**
