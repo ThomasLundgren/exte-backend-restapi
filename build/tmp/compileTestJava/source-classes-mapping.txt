@@ -1,8 +1,0 @@
-se/hig/exte/model/AcademyTest.java
- se.hig.exte.model.AcademyTest
-se/hig/exte/service/FileServiceTest.java
- se.hig.exte.service.FileServiceTest
-se/hig/exte/controller/CourseControllerTest.java
- se.hig.exte.controller.CourseControllerTest
-se/hig/exte/ExteBackendApplicationTests.java
- se.hig.exte.ExteBackendApplicationTests
