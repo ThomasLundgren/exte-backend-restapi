@@ -26,7 +26,7 @@ public class LoginService {
 
 	/**
 	 * Creates a {@code LoginService}.
-	 * 
+	 *
 	 * @param userService   The {@link UserService} used by this service.
 	 * @param cookieHandler The {@link CookieHandler} used by this service.
 	 */
@@ -108,7 +108,7 @@ public class LoginService {
 
 	/**
 	 * Removes all the failed login tries every 5 minutes.
-	 * 
+	 *
 	 */
 	@Scheduled(cron = "0 */5 * * * *")
 	public void removeOldLoginTries() {
