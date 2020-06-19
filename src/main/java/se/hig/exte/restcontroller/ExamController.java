@@ -106,7 +106,6 @@ public class ExamController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Exam>> getAllExams() {
-		System.out.println("examssss");
 		return new ResponseEntity<List<Exam>>(examService.findAllPublished(), HttpStatus.OK);
 	}
 
