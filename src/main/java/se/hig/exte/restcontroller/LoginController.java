@@ -43,6 +43,13 @@ public class LoginController {
 		String password = json.getAsString("password").replaceAll(";", "").replaceAll("}", "").replaceAll("\"", "");
 		ResponseCookie cookie = loginService.login(username, password);
 
+		System.out.println("cookie is: ");
+		if (cookie != null) {
+			System.out.println(" not null");
+		} else {
+			System.out.println(" is null");
+		}
+		
 		if (cookie != null) {
 			response.addHeader("Set-Cookie", cookie.toString());
 			return true;

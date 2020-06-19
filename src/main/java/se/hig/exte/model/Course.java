@@ -24,7 +24,9 @@ public class Course {
 	private String name;
 	@NotBlank(message = "Course code cannot be blank")
 	@Size(min = 6, max = 7, message = "Course code must be between six and seven characters long")
-	@Pattern(regexp = "^([A-ZÅÄÖ]{3}[0-9]{3})([A-ZÅÄÖ])?", message = "Course code must start with three uppercase letters followed by three digits and ending with an optional uppercase letter")
+	@Pattern(regexp = "(^([A-ZÅÄÖ]{3}[0-9]{3})([A-ZÅÄÖ])?)|(^([A-ZÅÄÖ]{2}[A-ZÅÄÖ0-9]{4}))", 
+			message = "Course code must start with three uppercase letters followed by three digits and ending with an optional uppercase letter "
+			+ "or start with 2 letters followed by 4 characters or digits.")
 	private String courseCode;
 	private boolean unpublished;
 	private int subjectId;
