@@ -57,12 +57,14 @@ se/hig/exte/model/Exam.java
  se.hig.exte.model.Exam
 se/hig/exte/service/AcademyService.java
  se.hig.exte.service.AcademyService
+se/hig/exte/restcontroller/LoginController.java
+ se.hig.exte.restcontroller.LoginController
+se/hig/exte/service/LoginService.java
+ se.hig.exte.service.LoginService
 se/hig/exte/model/Course.java
  se.hig.exte.model.Course
 se/hig/exte/repository/CourseRepository.java
  se.hig.exte.repository.CourseRepository
-se/hig/exte/restcontroller/LoginController.java
- se.hig.exte.restcontroller.LoginController
 se/hig/exte/restcontroller/ExamController.java
  se.hig.exte.restcontroller.ExamController
 se/hig/exte/restcontroller/SubjectController.java
@@ -73,7 +75,5 @@ se/hig/exte/service/UnpublishService.java
  se.hig.exte.service.UnpublishService
 se/hig/exte/restcontroller/AcademyController.java
  se.hig.exte.restcontroller.AcademyController
-se/hig/exte/service/LoginService.java
- se.hig.exte.service.LoginService
 se/hig/exte/restcontroller/CourseController.java
  se.hig.exte.restcontroller.CourseController
