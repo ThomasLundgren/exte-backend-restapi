@@ -24,7 +24,8 @@ public class Course {
 	private String name;
 	@NotBlank(message = "Course code cannot be blank")
 	@Size(min = 6, max = 7, message = "Course code must be between six and seven characters long")
-	@Pattern(regexp = "^([A-ZÅÄÖ]{3}[0-9]{3})([A-ZÅÄÖ])?", message = "Course code must start with three uppercase letters followed by three digits and ending with an optional uppercase letter")
+	@Pattern(regexp = "(^([A-ZÅÄÖ]{3}[0-9]{3})([A-ZÅÄÖ])?)|(^([A-ZÅÄÖ]{2}[A-ZÅÄÖ0-9]{4}))",
+			message = "Course code must start with two uppercase letters followed by a mix of four letters and digits")
 	private String courseCode;
 	private boolean unpublished;
 	private int subjectId;
@@ -35,7 +36,7 @@ public class Course {
 
 	/**
 	 * Creates a {@code Course} object.
-	 * 
+	 *
 	 * @param name        The name of this {@code Course}. Must be at least two
 	 *                    characters long and cannot be null.
 	 * @param courseCode  The course code of this {@code Course}. Must be between
@@ -53,7 +54,7 @@ public class Course {
 
 	/**
 	 * Get the ID of this {@code Course}.
-	 * 
+	 *
 	 * @return The ID of this {@code Course}.
 	 */
 	public int getId() {
@@ -62,7 +63,7 @@ public class Course {
 
 	/**
 	 * Get the name of this {@code Course}.
-	 * 
+	 *
 	 * @return The name of this {@code Course}.
 	 */
 	public String getName() {
@@ -71,7 +72,7 @@ public class Course {
 
 	/**
 	 * Get the {@link Subject} to which this {@code Course} belongs.
-	 * 
+	 *
 	 * @return The ID of the {@link Subject} to which this {@code Course} belongs.
 	 */
 	public int getSubjectId() {
@@ -80,7 +81,7 @@ public class Course {
 
 	/**
 	 * Get the course code of this {@code Course}.
-	 * 
+	 *
 	 * @return The course code of this {@code Course}.
 	 */
 	public String getCourseCode() {
@@ -93,7 +94,7 @@ public class Course {
 
 	/**
 	 * Set the name of this {@code Course}. Must be at least two characters long.
-	 * 
+	 *
 	 * @param name The new name of this {@code Course}.
 	 */
 	public void setName(String name) {
@@ -103,7 +104,7 @@ public class Course {
 	/**
 	 * Set the course code of this {@code Course}. Must be between six and seven
 	 * characters long.
-	 * 
+	 *
 	 * @param courseCode The new course code of this {@code Course}.
 	 */
 	public void setCourseCode(String courseCode) {
