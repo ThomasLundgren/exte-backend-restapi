@@ -4,24 +4,24 @@ se/hig/exte/restcontroller/SettingsController.java
  se.hig.exte.restcontroller.SettingsController
 se/hig/exte/service/ExamService.java
  se.hig.exte.service.ExamService
-se/hig/exte/service/CourseService.java
- se.hig.exte.service.CourseService
+se/hig/exte/service/CrudService.java
+ se.hig.exte.service.CrudService
 se/hig/exte/login/ILoginHandler.java
  se.hig.exte.login.ILoginHandler
-se/hig/exte/restcontroller/CourseController.java
- se.hig.exte.restcontroller.CourseController
+se/hig/exte/repository/UserRepository.java
+ se.hig.exte.repository.UserRepository
 se/hig/exte/model/Subject.java
  se.hig.exte.model.Subject
-se/hig/exte/restcontroller/ExamController.java
- se.hig.exte.restcontroller.ExamController
+se/hig/exte/restcontroller/UserController.java
+ se.hig.exte.restcontroller.UserController
 se/hig/exte/model/ApiError.java
  se.hig.exte.model.ApiError
 se/hig/exte/ExteBackendRestapiApplication.java
  se.hig.exte.ExteBackendRestapiApplication
 se/hig/exte/service/SubjectService.java
  se.hig.exte.service.SubjectService
-se/hig/exte/service/UnpublishService.java
- se.hig.exte.service.UnpublishService
+se/hig/exte/model/User.java
+ se.hig.exte.model.User
 se/hig/exte/login/LDAP.java
  se.hig.exte.login.LDAP
 se/hig/exte/service/CookieHandler.java
@@ -29,51 +29,51 @@ se/hig/exte/service/CookieHandler.java
  se.hig.exte.service.CookieHandler$Session
 se/hig/exte/repository/ExamRepository.java
  se.hig.exte.repository.ExamRepository
-se/hig/exte/service/LoginService.java
- se.hig.exte.service.LoginService
+se/hig/exte/service/FileService.java
+ se.hig.exte.service.FileService
 se/hig/exte/repository/SubjectRepository.java
  se.hig.exte.repository.SubjectRepository
 se/hig/exte/model/Settings.java
  se.hig.exte.model.Settings
 se/hig/exte/model/Academy.java
  se.hig.exte.model.Academy
-se/hig/exte/model/Course.java
- se.hig.exte.model.Course
+se/hig/exte/service/UserService.java
+ se.hig.exte.service.UserService
 se/hig/exte/repository/SettingsRepository.java
  se.hig.exte.repository.SettingsRepository
-se/hig/exte/restcontroller/LoginController.java
- se.hig.exte.restcontroller.LoginController
+se/hig/exte/restcontroller/FileController.java
+ se.hig.exte.restcontroller.FileController
 se/hig/exte/login/LoginHandler.java
  se.hig.exte.login.LoginHandler
 se/hig/exte/config/WebConfig.java
  se.hig.exte.config.WebConfig
-se/hig/exte/restcontroller/AcademyController.java
- se.hig.exte.restcontroller.AcademyController
+se/hig/exte/restcontroller/GlobalExceptionHandler.java
+ se.hig.exte.restcontroller.GlobalExceptionHandler
 se/hig/exte/repository/AcademyRepository.java
  se.hig.exte.repository.AcademyRepository
 se/hig/exte/config/RepositoryConfig.java
  se.hig.exte.config.RepositoryConfig
 se/hig/exte/model/Exam.java
  se.hig.exte.model.Exam
-se/hig/exte/repository/CourseRepository.java
- se.hig.exte.repository.CourseRepository
-se/hig/exte/repository/UserRepository.java
- se.hig.exte.repository.UserRepository
-se/hig/exte/service/FileService.java
- se.hig.exte.service.FileService
-se/hig/exte/restcontroller/SubjectController.java
- se.hig.exte.restcontroller.SubjectController
-se/hig/exte/model/User.java
- se.hig.exte.model.User
-se/hig/exte/service/CrudService.java
- se.hig.exte.service.CrudService
-se/hig/exte/restcontroller/GlobalExceptionHandler.java
- se.hig.exte.restcontroller.GlobalExceptionHandler
-se/hig/exte/restcontroller/UserController.java
- se.hig.exte.restcontroller.UserController
-se/hig/exte/restcontroller/FileController.java
- se.hig.exte.restcontroller.FileController
 se/hig/exte/service/AcademyService.java
  se.hig.exte.service.AcademyService
-se/hig/exte/service/UserService.java
- se.hig.exte.service.UserService
+se/hig/exte/model/Course.java
+ se.hig.exte.model.Course
+se/hig/exte/repository/CourseRepository.java
+ se.hig.exte.repository.CourseRepository
+se/hig/exte/restcontroller/LoginController.java
+ se.hig.exte.restcontroller.LoginController
+se/hig/exte/restcontroller/ExamController.java
+ se.hig.exte.restcontroller.ExamController
+se/hig/exte/restcontroller/SubjectController.java
+ se.hig.exte.restcontroller.SubjectController
+se/hig/exte/service/CourseService.java
+ se.hig.exte.service.CourseService
+se/hig/exte/service/UnpublishService.java
+ se.hig.exte.service.UnpublishService
+se/hig/exte/restcontroller/AcademyController.java
+ se.hig.exte.restcontroller.AcademyController
+se/hig/exte/service/LoginService.java
+ se.hig.exte.service.LoginService
+se/hig/exte/restcontroller/CourseController.java
+ se.hig.exte.restcontroller.CourseController
